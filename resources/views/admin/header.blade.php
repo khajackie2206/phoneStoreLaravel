@@ -56,9 +56,6 @@
                             </div>
                         </a>
                     </div>
-                    <div class="dropdown-menu-footer">
-                        <a href="#" class="text-muted">Show all notifications</a>
-                    </div>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -66,9 +63,10 @@
     <i class="align-middle" data-feather="settings"></i>
   </a>
 
+             @if (session('user'))
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-    <img src="{{asset('img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Kha Jackie</span>
-  </a>
+                     <img src="{{ session('user')->avatar; }}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">{{ session('user')->name}}</span>
+                </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Thông tin cá nhân</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Phân tích</a>
@@ -76,8 +74,9 @@
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Cài đặt</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Trợ giúp</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Đăng nhập</a>
+                    <a class="dropdown-item" href="/admin/logout">Đăng xuất</a>
                 </div>
+                @endif
             </li>
         </ul>
     </div>

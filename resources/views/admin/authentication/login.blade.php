@@ -22,6 +22,8 @@
 
 <body>
 	<main class="d-flex w-100">
+		
+
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
@@ -34,13 +36,26 @@
 							</p>
 						</div>
 
-						<div class="card">
+					<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
 									<div class="text-center">
 										<img src="{{asset('img/avatars/avatar.jpg') }}" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form>
+									@if (count($errors) >0)
+                <ul>
+             @foreach($errors->all() as $error)
+                 <li class="text-danger"> {{ $error }}</li>
+             @endforeach
+         </ul>
+     @endif
+									@if (session('status'))
+									<ul style="margin-top:10px; ">
+										<li class="text-danger"> {{ session('status') }}</li>
+									</ul>
+								@endif
+									<form action="/admin/login" method="post">
+										{{ csrf_field() }}
 										<div class="mb-3">
 											<label class="form-label">Email</label>
 											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
@@ -61,8 +76,8 @@
           </label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="index.html" class="btn btn-lg btn-primary">Đăng nhập</a>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+										
+											<button type="submit" class="btn btn-lg btn-primary">Đăng nhập</button>
 										</div>
 									</form>
 								</div>

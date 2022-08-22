@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tax', function (Blueprint $table) {
+        Schema::create('vendor', function (Blueprint $table) {
             $table->id();
-            $table->float('percent');
+            $table->string('name');
+            $table->string('email');
+            $table->string('address');
+            $table->string('phone');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tax');
+        Schema::dropIfExists('vendor');
     }
 };
