@@ -12,7 +12,7 @@
              @include('header')
             <!-- Header Area End Here -->
 
-            @include('home')
+              @yield('content')
             
            @include('footer')
         </div>

@@ -16,8 +16,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-      <i class="align-middle" data-feather="smartphone"></i> <span class="align-middle">Điện thoại</span>
+                <a class="sidebar-link" href="/admin/product/add">
+          <i class="align-middle" data-feather="smartphone"></i> <span class="align-middle">Điện thoại</span>
     </a>
             </li>
 

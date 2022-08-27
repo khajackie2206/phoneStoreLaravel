@@ -37,3 +37,6 @@
         <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
         <!-- Modernizr js -->
         <script src="../public/js/vendor/modernizr-2.8.3.min.js"></script>
+
+       <script src="{{ asset('js/app.js') }}"></script>
+ 

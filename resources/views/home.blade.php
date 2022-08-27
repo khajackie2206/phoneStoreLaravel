@@ -1,4 +1,5 @@
-
+@extends('index')
+@section('content')
     <!-- Header Area End Here -->
             <!-- Begin Slider With Banner Area -->
             <div class="slider-with-banner">
@@ -478,4 +479,5 @@
                     </div>
                 </div>
             </section>
-            <!-- Li's Trendding Products Area End Here -->    
+            <!-- Li's Trendding Products Area End Here -->       
+@endsection
