@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   @include('admin.head')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
 		</div>
 	</div>
 
-	<script src="{{ asset('js/app.js') }}"></script>
+
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
@@ -237,5 +238,25 @@
 			});
 		});
 	</script>
+	<script>
+		//Get current path
+		var path = window.location.href;
+		//Remove previous active class name
+		let previousSideBarActiveItem = document.getElementsByClassName('sidebar-item active')[0].classList.remove("active")
+		//Get list of sidebar link
+		let sidebarItem = document.getElementsByClassName("sidebar-link");
+		for (const element of sidebarItem) {
+			//Check href of current element with current path
+			if (element.href == path) {
+				//Add active class into match path
+				element.parentElement.classList.add("active");
+			}
+		}
+	</script>
+	<script src="/js/main.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/product.js"></script>
+	
+
 </body>
 </html>

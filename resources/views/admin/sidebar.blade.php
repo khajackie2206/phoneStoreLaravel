@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
+        <a class="sidebar-brand" href="/admin/home">
   <span class="align-middle">Admin Dashboard</span>
 </a>
 
@@ -10,7 +10,7 @@
             </li>
 
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="index.html">
+                <a class="sidebar-link" href="/admin/home">
       <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
     </a>
             </li>
@@ -22,7 +22,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
+                <a class="sidebar-link" href="/admin/product/add">
       <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
     </a>
             </li>
@@ -71,9 +71,6 @@
       <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Doanh số bán</span>
     </a>
             </li>
-
-
-
             <li class="sidebar-header">
                 Quản lý khách hàng
             </li>

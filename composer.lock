@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "168fd3f4efc0b9275c4d3687b6a241d4",
+    "content-hash": "263f12dd4abb15d7ea51d05e190ada03",
     "packages": [
         {
             "name": "brick/math",
@@ -5081,6 +5081,60 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
             "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "timwassenburg/laravel-service-generator",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timwassenburg/laravel-service-generator.git",
+                "reference": "b141d22aba59fd06974b60a8f6f5b34fc9dcd01c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timwassenburg/laravel-service-generator/zipball/b141d22aba59fd06974b60a8f6f5b34fc9dcd01c",
+                "reference": "b141d22aba59fd06974b60a8f6f5b34fc9dcd01c",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TimWassenburg\\ServiceGenerator\\Http\\Providers\\CommandServiceProvider",
+                        "TimWassenburg\\ServiceGenerator\\ServiceGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TimWassenburg\\ServiceGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wassenburg"
+                }
+            ],
+            "description": "Generate Laravel services",
+            "homepage": "https://github.com/timwassenburg/laravel-service-generator",
+            "keywords": [
+                "artisan",
+                "cli",
+                "generator",
+                "laravel",
+                "pattern",
+                "php",
+                "services"
+            ],
+            "support": {
+                "issues": "https://github.com/timwassenburg/laravel-service-generator/issues",
+                "source": "https://github.com/timwassenburg/laravel-service-generator/tree/v1.0.2"
+            },
+            "time": "2022-03-21T18:29:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
