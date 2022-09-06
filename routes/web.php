@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +35,18 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 Route::get('/admin/login',[AdminLoginController::class,'index'])->name('login');
 Route::get('/admin/logout',[AdminLoginController::class,'getLogout']);
 Route::post('/admin/login',[AdminLoginController::class,'postLogin']);
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('index');
 Route::post('/login', [LoginController::class, 'postLogin']);
+Route::get('/register', [LoginController::class, 'index']);
+Route::post('/register', [RegisterController::class,'create']);
+Route::get('/logout', [LoginController::class, 'getLogout']);
 Route::get('/login', [LoginController::class, 'index']);
+
+#product of user portal
+Route::prefix('products')->group(function(){
+    Route::get('/detail/{id}', [ProductController::class, 'getProductDetail']);
+});
+
 
 
 

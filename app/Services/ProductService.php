@@ -8,12 +8,14 @@ use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductFeature;
 use App\Models\ProductMemory;
+use App\Repositories\ProductRepository;
 
 /**
  * Class ProductService.
  */
 class ProductService
 {
+
     public function create($params)
     {
         
@@ -85,7 +87,42 @@ class ProductService
 
              ProductColor::create($colorData);
         } 
-        
-        dd($product);
+    }
+
+    public function getProductsNewly()
+    {
+         $products = Product::where('active' ,1)
+         ->orderBy('created_at', 'DESC')
+         ->limit(5)
+         ->get();
+
+         return $products;
+    }
+
+    public function getProductsDiscount()
+    {
+        $products = Product::where('active', 1)
+        ->orderBy('discount', 'DESC')
+        ->limit(10)
+        ->get();
+     
+        return $products;
+    }
+
+    public function getAllProducts()
+    {
+        $products = Product::where('active',1)
+        ->orderBy('id', 'DESC')
+        ->get();
+
+        return $products;
+    }
+
+    public function getProductDetail(int $id)
+    {
+         return Product::where('active',1)
+         ->where('id', $id)
+         ->first();
+  
     }
 }

@@ -42,6 +42,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 /*----------------------------------------*/
 /* 	01. Li's Meanmenu
 /*----------------------------------------*/
+
     jQuery('.hb-menu nav').meanmenu({
         meanMenuContainer: '.mobile-menu',
         meanScreenWidth: "991"
@@ -411,22 +412,25 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
  /*----------------------------------------*/
  /* 21. Modal Menu Active
  /*----------------------------------------*/ 
- $('.product-details-images').each(function(){
+
+ $(".product-details-images").each(function () {
      var $this = $(this);
-     var $thumb = $this.siblings('.product-details-thumbs, .tab-style-left');
+     var $thumb = $this.siblings(".product-details-thumbs, .tab-style-left");
      $this.slick({
-        arrows: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 5000,
-        dots: false,
-        infinite: true,
-        centerMode: false,
-        centerPadding: 0,
-        asNavFor: $thumb,
-    });
+         arrows: false,
+         slidesToShow: 1,
+         slidesToScroll: 1,
+         autoplay: false,
+         autoplaySpeed: 5000,
+         dots: false,
+         infinite: true,
+         centerMode: false,
+         centerPadding: 0,
+         asNavFor: $thumb,
+     });
+
  });
+
  $('.product-details-thumbs').each(function(){
      var $this = $(this);
      var $details = $this.siblings('.product-details-images');

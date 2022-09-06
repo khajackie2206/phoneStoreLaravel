@@ -14,5 +14,10 @@ class Image extends Model
         'url',
         'type',
     ];
+    
+    public function product()
+{
+    return $this->hasOne(Product::class, 'id', 'product_id');
+}
 
 }

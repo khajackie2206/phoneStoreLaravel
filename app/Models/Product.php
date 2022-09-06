@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class Product extends Model
 {
@@ -32,13 +33,23 @@ class Product extends Model
         'ram',
         'screen_rate'
     ];
-    
-    public function images(){
-        return $this->hasMany('App\Image');
+     public function productCategory()
+    {
+        return $this->hasOne(ProductCategory::class,'id','category_id');
     }
 
+    public function brand()
+    {
+        return $this->hasOne(Brand::class,'id','brand_id');
+    }
+    
+    public function images(){
+         return $this->hasMany(Image::class, foreignKey:'product_id',localKey:'id');
+    }
+
+
     public function colors() {
-        return $this->belongsToMany(Color::class, 'products_color', 'product_id', 'color_id')->withTimestamps();
+        return $this->belongsToMany(Color::class, 'product_colors', 'product_id', 'color_id')->withTimestamps();
     }
 
     public function memories() {

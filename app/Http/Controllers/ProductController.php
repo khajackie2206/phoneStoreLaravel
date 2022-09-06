@@ -17,7 +17,6 @@ class ProductController extends Controller
 
      public function __construct(ProductService $productService)
     {
-        $this->middleware('auth');
         $this->productService = $productService;
     }
 
@@ -44,5 +43,20 @@ class ProductController extends Controller
         $params = $request->all();
         $this->productService->create($params);
         return redirect()->back();
+    }
+
+    public function getProductDetail(int $id)
+    {
+        $product = $this->productService->getProductDetail($id);
+        
+        return [
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'description' => $product->description,
+            'thumbs' => $product->images,
+            'colors' => $product->colors,
+            'brand'=> $product->brand->name,
+        ];
     }
 }

@@ -89,146 +89,53 @@
                         <div id="li-new-product" class="tab-pane active show" role="tabpanel">
                             <div class="row">
                                 <div class="product-active owl-carousel">
-                                        <div class="col-lg-12">
+                                    @foreach ($productsNewly as $productNewly)
+                                     <div class="col-lg-12">
                                             <!-- single-product-wrap start -->
-
+                                   
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
                                                     <a href="single-product.html">
-                                                        <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
+                                                        <img src="{{ $productNewly->images->where('type', 'cover')[0]['url'] }}" alt="Li's Product Image" style="width: 120px;height:120px;">
                                                     </a>
-                                                    <span class="sticker">New</span>
+                                                    <span class="sticker" style="background-color: yellow; color: black; font-weight:bold;">New</span>
                                                 </div>
-
+                                          
                                                 <div class="product_desc">
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Apple</a>
+                                                                <a href="shop-left-sidebar.html">{{ $productNewly->brand->name }}</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
                                                                     <li><i class="fa fa-star-o"></i></li>
                                                                     <li><i class="fa fa-star-o"></i></li>
                                                                     <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
+                                                        <h4><a class="product_name" href="single-product.html">{{ $productNewly->name}}</a></h4>
                                                         <div class="price-box">
-                                                            <span class="new-price">30.990.000 Đ</span>
+                                                            <span class="new-price"><p style="color: red; font-weight:bold;">{{ number_format($productNewly->price) }} đ</p></span>
                                                         </div>
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
                                                             <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            <li><p productId = "{{ $productNewly->id}}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></p></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
+                                         
+                                        </div>
+                                           @endforeach 
                                             <!-- single-product-wrap end -->
                                         </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="li-bestseller-product" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <div class="product-active owl-carousel">
-                                        <div class="col-lg-12">
-                                            <!-- single-product-wrap start -->
-
-                                            <div class="single-product-wrap">
-                                                <div class="product-image">
-                                                    <a href="single-product.html">
-                                                        <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
-                                                    </a>
-                                                    <span class="sticker">New</span>
-                                                </div>
-
-                                                <div class="product_desc">
-                                                    <div class="product_desc_info">
-                                                        <div class="product-review">
-                                                            <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Apple</a>
-                                                            </h5>
-                                                            <div class="rating-box">
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
-                                                        <div class="price-box">
-                                                            <span class="new-price">30.990.000 Đ</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="add-actions">
-                                                        <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- single-product-wrap end -->
-                                        </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="li-featured-product" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <div class="product-active owl-carousel">
-                                        <div class="col-lg-12">
-                                            <!-- single-product-wrap start -->
-
-                                            <div class="single-product-wrap">
-                                                <div class="product-image">
-                                                    <a href="single-product.html">
-                                                        <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
-                                                    </a>
-                                                    <span class="sticker">New</span>
-                                                </div>
-
-                                                <div class="product_desc">
-                                                    <div class="product_desc_info">
-                                                        <div class="product-review">
-                                                            <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Apple</a>
-                                                            </h5>
-                                                            <div class="rating-box">
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
-                                                        <div class="price-box">
-                                                            <span class="new-price">30.990.000 Đ</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="add-actions">
-                                                        <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- single-product-wrap end -->
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -284,13 +191,14 @@
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                                     @foreach ($productsDiscount as $productDiscount)
                                         <div class="col-lg-12">
                                             <!-- single-product-wrap start -->
 
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
                                                     <a href="single-product.html">
-                                                        <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
+                                                        <img src="{{ $productDiscount->images->where('type', 'cover')[0]['url'] }}" alt="Li's Product Image" style="width: 120px;height:120px;">
                                                     </a>
                                                     <span class="sticker">New</span>
                                                 </div>
@@ -299,33 +207,34 @@
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Apple</a>
+                                                                <a href="shop-left-sidebar.html">{{$productDiscount->brand->name }}</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
                                                                     <li><i class="fa fa-star-o"></i></li>
                                                                     <li><i class="fa fa-star-o"></i></li>
                                                                     <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
+                                                        <h4><a class="product_name" href="single-product.html">{{ $productDiscount->name }}</a></h4>
                                                         <div class="price-box">
-                                                            <span class="new-price">30.990.000 Đ</span>
+                                                             <span class="new-price"><p style="color: red; font-weight:bold;">{{ number_format($productDiscount->price) }} đ</p></span>
                                                         </div>
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
                                                             <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            <li><p productId = "{{ $productNewly->id}}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></p></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- single-product-wrap end -->
                                         </div>
+                                        @endforeach
                                 </div>
 
                             </div>
@@ -335,60 +244,7 @@
                 </div>
             </section>
             <!-- Li's Laptop Product Area End Here -->
-            <!-- Begin Li's TV & Audio Product Area -->
-            <section class="product-area li-laptop-product li-tv-audio-product pb-45">
-                <div class="container">
-                    <div class="row">
-                        <div class="product-active owl-carousel">
-            
-                                <div class="col-lg-12">
-                                    <!-- single-product-wrap start -->
-
-                                    <div class="single-product-wrap">
-                                        <div class="product-image">
-                                            <a href="single-product.html">
-                                                <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
-                                            </a>
-                                            <span class="sticker">New</span>
-                                        </div>
-
-                                        <div class="product_desc">
-                                            <div class="product_desc_info">
-                                                <div class="product-review">
-                                                    <h5 class="manufacturer">
-                                                        <a href="shop-left-sidebar.html">Apple</a>
-                                                    </h5>
-                                                    <div class="rating-box">
-                                                        <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
-                                                <div class="price-box">
-                                                    <span class="new-price">30.990.000 Đ</span>
-                                                </div>
-                                            </div>
-                                            <div class="add-actions">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- single-product-wrap end -->
-                                </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            <!-- Li's TV & Audio Product Area End Here -->
+ 
             <!-- Begin Li's Static Home Area -->
             <div class="li-static-home">
                 <div class="container">
@@ -430,13 +286,13 @@
                             </div>
                             <div class="row">
                                 <div class="product-active owl-carousel">
+                                     @foreach ($goodProducts as $goodProduct)
                                         <div class="col-lg-12">
                                             <!-- single-product-wrap start -->
-
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
                                                     <a href="single-product.html">
-                                                        <img src="https://cf.shopee.vn/file/ef6012587d185c880be572e3dc3ed149" alt="Li's Product Image">
+                                                     <img src="{{ $goodProduct->images->where('type', 'cover')[0]['url'] }}" alt="Li's Product Image" style="width: 120px;height:120px;">
                                                     </a>
                                                     <span class="sticker">New</span>
                                                 </div>
@@ -445,7 +301,7 @@
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="shop-left-sidebar.html">Apple</a>
+                                                                <a href="shop-left-sidebar.html">{{$goodProduct->brand->name }}</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -457,21 +313,22 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="single-product.html">Iphone 13 Pro Max</a></h4>
+                                                        <h4><a class="product_name" href="single-product.html">{{ $goodProduct->name }}</a></h4>
                                                         <div class="price-box">
-                                                            <span class="new-price">30.990.000 Đ</span>
+                                                          <span class="new-price"><p style="color: red; font-weight:bold;">{{ number_format($goodProduct->price) }} đ</p></span>
                                                         </div>
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
                                                             <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                            <li><p productId = "{{ $productNewly->id}}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></p></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- single-product-wrap end -->
                                         </div>
+                                        @endforeach
                                 </div>
                             </div>
                         </div>

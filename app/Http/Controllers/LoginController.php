@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\ValidateUserLogin;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,7 @@ class LoginController extends Controller
         ]);
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(ValidateUserLogin $request)
     {
         $login = [
             'email' => $request->email,
@@ -35,6 +36,6 @@ class LoginController extends Controller
     {
         Auth::logout();
         Session::flush();
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }
