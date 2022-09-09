@@ -12,6 +12,7 @@ class LoginController extends Controller
      public function index()
     {
         return view('auth.login-register', [
+            'title' => 'Đăng nhập - Đăng ký'
         ]);
     }
 

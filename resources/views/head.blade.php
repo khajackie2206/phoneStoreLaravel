@@ -1,10 +1,10 @@
-<meta charset="utf-8">
+        <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home Version One || limupa - Digital Products Store eCommerce Bootstrap 4 Template</title>
+        <title>{{ $title }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/allo.png')}}">
         <!-- Material Design Iconic Font-V2.2.0 -->
         <link rel="stylesheet" href="{{asset('css/material-design-iconic-font.min.css')}}">
         <!-- Font Awesome -->
@@ -35,8 +35,9 @@
         <link rel="stylesheet" href="{{asset('style.css')}}">
         <!-- Responsive CSS -->
         <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+
         <!-- Modernizr js -->
-        <script src="../public/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
 
        <script src="{{ asset('js/app.js') }}"></script>
       

@@ -27,6 +27,7 @@ class MainController extends Controller
         $goodProducts = $this->productService->getAllProducts();
          
         return view('home', [
+            'title' => 'Trang chủ',
             'productsNewly' => $productsNewly,
             'productsDiscount' => $productsDiscount,
             'goodProducts' => $goodProducts

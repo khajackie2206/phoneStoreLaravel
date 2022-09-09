@@ -11,7 +11,7 @@
                               <h3>About Me</h3>
                               <p class="info">
                                   I am a 4th year student at Can Tho University and this is my graduation project. If
-                                  you have any feedback about this website, just feel free to contact me <3 </p>
+                                  you have any feedback about this website, just feel free to contact me  </p>
                           </div>
                           <ul class="des">
                               <li>
@@ -34,10 +34,10 @@
                           <div class="footer-block">
                               <h3 class="footer-block-title">Product</h3>
                               <ul>
-                                  <li><a href="#">Prices drop</a></li>
+                                  <li><a href="#">Hot </a></li>
                                   <li><a href="#">New products</a></li>
                                   <li><a href="#">Best sales</a></li>
-                                  <li><a href="#">Contact us</a></li>
+                                  <li><a href="#">Contact me</a></li>
                               </ul>
                           </div>
                       </div>
@@ -48,9 +48,9 @@
                               <h3 class="footer-block-title">This website</h3>
                               <ul>
                                   <li><a href="#">Delivery</a></li>
-                                  <li><a href="#">Legal Notice</a></li>
-                                  <li><a href="#">About us</a></li>
-                                  <li><a href="#">Contact us</a></li>
+                                  <li><a href="#">Security</a></li>
+                                  <li><a href="#">About me</a></li>
+                                  <li><a href="#">Contact me</a></li>
                               </ul>
                           </div>
                       </div>
@@ -58,14 +58,8 @@
                       <!-- Begin Footer Block Area -->
                       <div class="col-lg-4">
                           <div class="footer-block">
-                              <h3 class="footer-block-title">Follow Us</h3>
+                              <h3 class="footer-block-title">Follow Me</h3>
                               <ul class="social-link">
-                                  <li class="twitter">
-                                      <a href="https://twitter.com/" data-toggle="tooltip" target="_blank"
-                                          title="Twitter">
-                                          <i class="fa fa-twitter"></i>
-                                      </a>
-                                  </li>
                                   <li class="google-plus">
                                       <a href="https://www.plus.google.com/discover" data-toggle="tooltip"
                                           target="_blank" title="Google Plus">
@@ -73,7 +67,7 @@
                                       </a>
                                   </li>
                                   <li class="facebook">
-                                      <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank"
+                                      <a href="https://www.facebook.com/kha.nguyenminh.547/" data-toggle="tooltip" target="_blank"
                                           title="Facebook">
                                           <i class="fa fa-facebook"></i>
                                       </a>
@@ -114,30 +108,7 @@
               </div>
           </div>
       </div>
-      <!-- Footer Static Middle Area End Here -->
-      <!-- Begin Footer Static Bottom Area -->
-      <div class="footer-static-bottom pt-55 pb-55">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12">
-                      <!-- Begin Footer Payment Area -->
-                      <div class="copyright text-center">
-                          <a href="#">
-                              <img src="../public/images/payment/1.png" alt="">
-                          </a>
-                      </div>
-                      <!-- Footer Payment Area End Here -->
-                      <!-- Begin Copyright Area -->
-                      <div class="copyright text-center pt-25">
-                          <span><a target="_blank" href="https://www.templateshub.net">Khajackie2206</a></span>
-                      </div>
-                      <!-- Copyright Area End Here -->
-                  </div>
-              </div>
-          </div>
-      </div>
 
-      <!-- Footer Static Bottom Area End Here -->
   </div>
   <!-- Footer Area End Here -->
 
@@ -359,47 +330,4 @@
           </div>
       </div>
   </div>
-  <!-- Quick View | Modal Area End Here -->
-  <!-- jQuery-V1.12.4 -->
-  <script src="{{ asset('js/vendor/jquery-1.12.4.min.js') }}"></script>
-  <!-- Popper js -->
-  <script src="{{ asset('js/vendor/popper.min.js') }}"></script>
-  <!-- Bootstrap V4.1.3 Fremwork js -->
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <!-- Ajax Mail js -->
-  <script src="{{ asset('js/ajax-mail.min.js') }}"></script>
-  <!-- Meanmenu js -->
-  <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
-  <!-- Wow.min js -->
-  <script src="{{ asset('js/wow.min.js') }}"></script>
-  <!-- Slick Carousel js -->
-  <script src="/js/slick.min.js"></script>
-  <!-- Owl Carousel-2 js -->
-  <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-  <!-- Magnific popup js -->
-  <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
-  <!-- Isotope js -->
-  <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
-  <!-- Imagesloaded js -->
-  <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
-  <!-- Mixitup js -->
-  <script src="{{ asset('js/jquery.mixitup.min.js') }}"></script>
-  <!-- Countdown -->
-  <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
-  <!-- Counterup -->
-  <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
-  <!-- Waypoints -->
-  <script src="{{ asset('js/waypoints.min.js') }}"></script>
-  <!-- Barrating -->
-  <script src="{{ asset('js/jquery.barrating.min.js') }}"></script>
-  <!-- Jquery-ui -->
-  <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-  <!-- Venobox -->
-  <script src="{{ asset('js/venobox.min.js') }}"></script>
-  <!-- Nice Select js -->
-  <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
-  <!-- ScrollUp js -->
-  <script src="{{ asset('js/scrollUp.min.js') }}"></script>
-  <!-- Main/Activator js -->
-  <script src="/js/main.js"></script>
-  <script src="/js/product.js"></script>
+ 

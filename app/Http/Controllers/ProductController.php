@@ -53,10 +53,22 @@ class ProductController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'description' => $product->description,
+            'description' => $product->short_description,
             'thumbs' => $product->images,
             'colors' => $product->colors,
             'brand'=> $product->brand->name,
         ];
+    }
+
+       public function detail(int $id)
+    {
+        $product = $this->productService->getProductDetail($id);
+        $productsSameBrand = $this->productService->getAllProducts();
+        
+        return view( 'product.product-detail',[
+            'title' => 'Chi tiết sản phẩm',
+            'product' => $product,
+            'productBrands' => $productsSameBrand
+        ]);
     }
 }

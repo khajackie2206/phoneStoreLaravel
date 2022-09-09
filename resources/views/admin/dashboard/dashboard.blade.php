@@ -2,7 +2,7 @@
 @section('content')
 <main class="content">
     <div class="container-fluid p-0">
-        <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+        <h1 class="h3 mb-3"><strong>Dữ liệu</strong> Phân tích</h1>
         <div class="row">
             <div class="col-xl-6 col-xxl-5 d-flex">
                 <div class="w-100">
@@ -12,7 +12,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Sales</h5>
+                                            <h5 class="card-title">Giao hàng</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -24,7 +24,7 @@
                                     <h1 class="mt-1 mb-3">2.382</h1>
                                     <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                        <span class="text-muted">Since last week</span>
+                                        <span class="text-muted">So với tuần trước</span>
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Visitors</h5>
+                                            <h5 class="card-title">Khách</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -43,8 +43,8 @@
                                     </div>
                                     <h1 class="mt-1 mb-3">14.212</h1>
                                     <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                        <span class="text-muted">Since last week</span>
+                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +5.25% </span>
+                                        <span class="text-muted">So với tuần trước</span>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Earnings</h5>
+                                            <h5 class="card-title">Doanh thu</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -63,10 +63,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">$21.300</h1>
+                                    <h1 class="mt-1 mb-3">13.500.000 đ</h1>
                                     <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                        <span class="text-muted">Since last week</span>
+                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +6.65% </span>
+                                        <span class="text-muted">So với tuần trước</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Orders</h5>
+                                            <h5 class="card-title">Đơn hàng</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -86,7 +86,7 @@
                                     <h1 class="mt-1 mb-3">64</h1>
                                     <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                        <span class="text-muted">Since last week</span>
+                                        <span class="text-muted">So với tuần trước</span>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                 <div class="card flex-fill w-100">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Recent Movement</h5>
+                        <h5 class="card-title mb-0">Biểu đồ doanh thu</h5>
                     </div>
                     <div class="card-body py-3">
                         <div class="chart chart-sm">
@@ -115,7 +115,7 @@
                 <div class="card flex-fill w-100">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Browser Usage</h5>
+                        <h5 class="card-title mb-0">Lượt truy cập trang web</h5>
                     </div>
                     <div class="card-body d-flex">
                         <div class="align-self-center w-100">
@@ -149,7 +149,7 @@
                 <div class="card flex-fill w-100">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Real-Time</h5>
+                        <h5 class="card-title mb-0">Map</h5>
                     </div>
                     <div class="card-body px-4">
                         <div id="world_map" style="height:350px;"></div>
@@ -160,7 +160,7 @@
                 <div class="card flex-fill">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Calendar</h5>
+                        <h5 class="card-title mb-0">Lịch biểu</h5>
                     </div>
                     <div class="card-body d-flex">
                         <div class="align-self-center w-100">
@@ -178,75 +178,76 @@
                 <div class="card flex-fill">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Latest Projects</h5>
+                        <h5 class="card-title mb-0">Đơn hàng mới nhất</h5>
                     </div>
                     <table class="table table-hover my-0">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="d-none d-xl-table-cell">Start Date</th>
-                                <th class="d-none d-xl-table-cell">End Date</th>
-                                <th>Status</th>
-                                <th class="d-none d-md-table-cell">Assignee</th>
+                                <th>Tên khách hàng</th>
+                                <th class="d-none d-xl-table-cell">Ngày đặt hàng</th>
+                                <th class="d-none d-xl-table-cell">Ngày giao hàng</th>
+                                <th>Trạng thái đơn hàng</th>
+                                <th class="d-none d-md-table-cell">Số điện thoại</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Project Apollo</td>
+                                <td>Nguyễn Văn A</td>
                                 <td class="d-none d-xl-table-cell">01/01/2021</td>
                                 <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                                <td><span class="badge bg-success">Pending</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
                             </tr>
-                            <tr>
-                                <td>Project Fireball</td>
+                              <tr>
+                                <td>Nguyễn Văn B</td>
                                 <td class="d-none d-xl-table-cell">01/01/2021</td>
                                 <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-danger">Cancelled</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
+                                 <td><span class="badge bg-danger">Cancelled</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
                             </tr>
-                            <tr>
-                                <td>Project Hades</td>
+                              <tr>
+                                <td>Nguyễn Văn C</td>
                                 <td class="d-none d-xl-table-cell">01/01/2021</td>
                                 <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                                 <td><span class="badge bg-success">Done</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
                             </tr>
-                            <tr>
-                                <td>Project Nitro</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-warning">In progress</span></td>
-                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                            </tr>
-                            <tr>
-                                <td>Project Phoenix</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
-                            </tr>
-                            <tr>
-                                <td>Project X</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                            </tr>
-                            <tr>
-                                <td>Project Romeo</td>
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                <td><span class="badge bg-success">Done</span></td>
-                                <td class="d-none d-md-table-cell">Christina Mason</td>
-                            </tr>
-                            <tr>
-                                <td>Project Wombat</td>
+                              <tr>
+                                <td>Nguyễn Văn D</td>
                                 <td class="d-none d-xl-table-cell">01/01/2021</td>
                                 <td class="d-none d-xl-table-cell">31/06/2021</td>
                                 <td><span class="badge bg-warning">In progress</span></td>
-                                <td class="d-none d-md-table-cell">William Harris</td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
                             </tr>
+                                <tr>
+                                <td>Nguyễn Văn E</td>
+                                <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                 <td><span class="badge bg-success">Done</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
+                            </tr>
+                               <tr>
+                                <td>Nguyễn Văn F</td>
+                                <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                 <td><span class="badge bg-success">Done</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
+                            </tr>
+                               <tr>
+                                <td>Nguyễn Văn F</td>
+                                <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                 <td><span class="badge bg-success">Done</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
+                            </tr>
+                             <tr>
+                                <td>Nguyễn Văn R</td>
+                                <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                 <td><span class="badge bg-danger">Cancelled</span></td>
+                                <td class="d-none d-md-table-cell">0123456789</td>
+                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
@@ -255,7 +256,7 @@
                 <div class="card flex-fill w-100">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Monthly Sales</h5>
+                        <h5 class="card-title mb-0">Đơn hàng mỗi tháng</h5>
                     </div>
                     <div class="card-body d-flex w-100">
                         <div class="align-self-center chart chart-lg">

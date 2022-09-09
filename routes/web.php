@@ -45,6 +45,7 @@ Route::get('/login', [LoginController::class, 'index']);
 #product of user portal
 Route::prefix('products')->group(function(){
     Route::get('/detail/{id}', [ProductController::class, 'getProductDetail']);
+    Route::get('/details/{id}', [ProductController::class, 'detail']);
 });
 
 

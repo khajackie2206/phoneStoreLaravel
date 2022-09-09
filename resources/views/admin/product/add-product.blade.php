@@ -45,6 +45,14 @@
                          <div class="card">
 
                          </div>
+                          <div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Mô tả ngắn</h5>
+								</div>
+								<div class="card-body">
+									<textarea class="form-control" name="short_description" rows="2" placeholder="Nhập mô tả ngắn"></textarea>
+								</div>
+							</div>
 
                          <div class="card">
                              <div class="card-header">

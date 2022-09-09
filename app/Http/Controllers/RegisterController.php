@@ -19,6 +19,7 @@ class RegisterController extends Controller
         [
          'name' => $input['full_name'],
          'email' => $input['gmail'],
+         'phone' => $input['phone'],
          'password' => $password,
          'role' => 0,
          'active' => 1

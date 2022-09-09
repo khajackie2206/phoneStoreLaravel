@@ -16,6 +16,7 @@ class Product extends Model
         'brand_id',
         'price',
         'discount',
+        'short_description',
         'description',
         'active',
         'year',
@@ -53,10 +54,10 @@ class Product extends Model
     }
 
     public function memories() {
-         return $this->belongsToMany(Memory::class, 'products_memory', 'product_id', 'memory_id')->withTimestamps();
+         return $this->belongsToMany(Memory::class, 'product_memories', 'product_id', 'memory_id')->withTimestamps();
     }
 
      public function features() {
-         return $this->belongsToMany(Feature::class, 'products_features', 'product_id', 'feature_id')->withTimestamps();
+         return $this->belongsToMany(Feature::class, 'product_features', 'product_id', 'feature_id')->withTimestamps();
     }
 }

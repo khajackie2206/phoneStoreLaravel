@@ -6,11 +6,11 @@
 <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+<link rel="shortcut icon" href="{{asset('images/allo.png')}}" />
 
 <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+<title>Admin</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">

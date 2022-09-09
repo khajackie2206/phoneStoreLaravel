@@ -80,7 +80,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="{{ asset('images/allo.png')}}" style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
+                            <img src="{{asset('images/allo.png')}}" style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
                         </a>
                     </div>
                 </div>
@@ -122,13 +122,13 @@
                                         <li>
                                         </li>
                                     </ul>
-                                    <p class="minicart-total">SUBTOTAL: <span>0Đ</span></p>
+                                    <p class="minicart-total">TỔNG CỘNG: <span>0Đ</span></p>
                                     <div class="minicart-button">
                                         <a href="shopping-cart.html" class="li-button li-button-fullwidth li-button-dark">
-                                            <span>View Full Cart</span>
+                                            <span>Xem giỏ hàng</span>
                                         </a>
                                         <a href="checkout.html" class="li-button li-button-fullwidth">
-                                            <span>Checkout</span>
+                                            <span>Thanh toán</span>
                                         </a>
                                     </div>
                                 </div>

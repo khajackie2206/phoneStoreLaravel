@@ -29,6 +29,7 @@ class ProductService
            'active' => $params['active'],
            'quantity' => $params['quantity'],
            'battery' => $params['battery'],
+           'short_description' => $params['short_description'],
            'description' => $params['description'],
            'os' => $params['os'] ,
            'year' => $params['year'],
