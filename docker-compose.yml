@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "81:81"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - .:/var/www/html
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: khanfq
+      MYSQL_PASSWORD: KhaMinh@0123
+      MYSQL_DATABASE: phonestorelaravel
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 3307:3306
+
+volumes:
+  database : {}
