@@ -16,7 +16,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/admin/product/add">
+                <a class="sidebar-link" href="/admin/product/list">
                     <i class="align-middle" data-feather="smartphone"></i> <span class="align-middle">Điện
                         thoại</span>
                 </a>

@@ -25,12 +25,20 @@ Auth::routes();
 
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('/home', [AdminController::class,'index']);
-    Route::get('/product/add', [ProductController::class,'index']);
-    Route::post('/product/add', [ProductController::class, 'storeProduct']);
 
+     #Product
+      Route::get('/product/add', [ProductController::class,'index']);
+      Route::post('/product/add', [ProductController::class, 'storeProduct']);
+      Route::get('/product/list',[ProductController::class, 'getAllProducts']);
+      Route::get('/product/edit/{product}',[ProductController::class, 'showEdit']);
+      Route::get('/product/edit/{product}',[ProductController::class, 'showEdit']);
+      Route::post('/product/edit/{product}',[ProductController::class, 'update']);
+      
       #Upload
       Route::post('/upload/services',[UploadController::class,'store']);
       Route::post('/multi-upload/services',[UploadController::class,'multiStore']);
+
+      
 });
 Route::get('/admin/login',[AdminLoginController::class,'index'])->name('login');
 Route::get('/admin/logout',[AdminLoginController::class,'getLogout']);

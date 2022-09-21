@@ -11,7 +11,7 @@
                               <h3>About Me</h3>
                               <p class="info">
                                   I am a 4th year student at Can Tho University and this is my graduation project. If
-                                  you have any feedback about this website, just feel free to contact me  </p>
+                                  you have any feedback about this website, just feel free to contact me </p>
                           </div>
                           <ul class="des">
                               <li>
@@ -67,8 +67,8 @@
                                       </a>
                                   </li>
                                   <li class="facebook">
-                                      <a href="https://www.facebook.com/kha.nguyenminh.547/" data-toggle="tooltip" target="_blank"
-                                          title="Facebook">
+                                      <a href="https://www.facebook.com/kha.nguyenminh.547/" data-toggle="tooltip"
+                                          target="_blank" title="Facebook">
                                           <i class="fa fa-facebook"></i>
                                       </a>
                                   </li>
@@ -122,134 +122,12 @@
                   </button>
                   <div class="modal-inner-area row">
                       <div class="col-lg-5 col-md-6 col-sm-6">
-                          <!-- Product Details Left -->
-                          <div class="product-details-left">
-                              <div class="product-details-images slider-navigation-1 slick-initialized slick-slider">
-                                  <div aria-live="polite" class="slick-list draggable">
-                                      <div class="slick-track" role="listbox"
-                                          style="opacity: 1; width: 2680px; transform: translate3d(-335px, 0px, 0px);">
-                                          <div class="lg-image slick-slide slick-cloned" data-slick-index="-1"
-                                              aria-hidden="true" tabindex="-1" style="width: 335px;">
-                                              <img src="images/product/large-size/6.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide slick-current slick-active"
-                                              data-slick-index="0" aria-hidden="false" tabindex="-1" role="option"
-                                              aria-describedby="slick-slide00" style="width: 335px;">
-                                              <img src="images/product/large-size/1.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide" data-slick-index="1" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide01"
-                                              style="width: 335px;">
-                                              <img src="images/product/large-size/2.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide" data-slick-index="2" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide02"
-                                              style="width: 335px;">
-                                              <img src="images/product/large-size/3.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide" data-slick-index="3" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide03"
-                                              style="width: 335px;">
-                                              <img src="images/product/large-size/4.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide" data-slick-index="4" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide04"
-                                              style="width: 335px;">
-                                              <img src="images/product/large-size/5.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide" data-slick-index="5" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide05"
-                                              style="width: 335px;">
-                                              <img src="images/product/large-size/6.jpg" alt="product image">
-                                          </div>
-                                          <div class="lg-image slick-slide slick-cloned" data-slick-index="6"
-                                              aria-hidden="true" tabindex="-1" style="width: 335px;">
-                                              <img src="images/product/large-size/1.jpg" alt="product image">
-                                          </div>
-                                      </div>
-                                  </div>
-
-
-
-
-
-                              </div>
-                              <div class="product-details-thumbs slider-thumbs-1 slick-initialized slick-slider">
-                                  <div aria-live="polite" class="slick-list draggable" style="padding: 0px;">
-                                      <div class="slick-track" role="listbox"
-                                          style="opacity: 1; width: 1392px; transform: translate3d(-261px, 0px, 0px);">
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="-5"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/2.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="-4"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/3.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="-3"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/4.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned slick-active"
-                                              data-slick-index="-2" aria-hidden="false" tabindex="-1"
-                                              style="width: 77px;"><img src="images/product/small-size/5.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide slick-cloned slick-active"
-                                              data-slick-index="-1" aria-hidden="false" tabindex="-1"
-                                              style="width: 77px;"><img src="images/product/small-size/6.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide slick-current slick-active slick-center"
-                                              data-slick-index="0" aria-hidden="false" tabindex="-1" role="option"
-                                              aria-describedby="slick-slide10" style="width: 77px;"><img
-                                                  src="images/product/small-size/1.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-active" data-slick-index="1"
-                                              aria-hidden="false" tabindex="-1" role="option"
-                                              aria-describedby="slick-slide11" style="width: 77px;"><img
-                                                  src="images/product/small-size/2.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-active" data-slick-index="2"
-                                              aria-hidden="false" tabindex="-1" role="option"
-                                              aria-describedby="slick-slide12" style="width: 77px;"><img
-                                                  src="images/product/small-size/3.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide" data-slick-index="3" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide13"
-                                              style="width: 77px;"><img src="images/product/small-size/4.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide" data-slick-index="4" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide14"
-                                              style="width: 77px;"><img src="images/product/small-size/5.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide" data-slick-index="5" aria-hidden="true"
-                                              tabindex="-1" role="option" aria-describedby="slick-slide15"
-                                              style="width: 77px;"><img src="images/product/small-size/6.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide slick-cloned slick-center"
-                                              data-slick-index="6" aria-hidden="true" tabindex="-1"
-                                              style="width: 77px;"><img src="images/product/small-size/1.jpg"
-                                                  alt="product image thumb"></div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="7"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/2.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="8"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/3.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="9"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/4.jpg" alt="product image thumb">
-                                          </div>
-                                          <div class="sm-image slick-slide slick-cloned" data-slick-index="10"
-                                              aria-hidden="true" tabindex="-1" style="width: 77px;"><img
-                                                  src="images/product/small-size/5.jpg" alt="product image thumb">
-                                          </div>
-                                      </div>
+                          <div class="product-details-left" style="margin-top: 25px;">
+                              <div class="product-details-images slider-navigation-1" >
+                                  <div class="lg-image" id="modelProductImage">
                                   </div>
                               </div>
                           </div>
-                          <!--// Product Details Left -->
                       </div>
 
                       <div class="col-lg-7 col-md-6 col-sm-6">
@@ -287,7 +165,7 @@
                                           <div id="modalProductColors" class="w-50">
                                               <select id="color-select" class="bg-transparent">
                                               </select>
-                                            </div>
+                                          </div>
                                       </div>
                                   </div>
                                   <div class="single-add-to-cart">
@@ -330,4 +208,3 @@
           </div>
       </div>
   </div>
- 

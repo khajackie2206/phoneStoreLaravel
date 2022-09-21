@@ -57,7 +57,7 @@ $("#uploads").change(function () {
 });
 
 $(".qtybutton").click(function(){
-    let quantity =  Number($("#product-quantity").attr("value"));
+    let quantity = Number($("#product-quantity").attr("value"));
 
     if ($(this).attr("action") == "quantity-dec" && quantity > 0) {
         $("#product-quantity").attr("value", quantity - 1);
@@ -78,7 +78,7 @@ $(".quick-view-btn").click(function () {
         datatype: "JSON",
         url: "/products/detail/" + productId,
         success: function (results) {
-            console.log(results);
+          //  console.log(results);
             // $("#modelProductImage").html('');
             // $("#modelProductImageThumb").html('');
             $("#modelProductBrand").html(results.brand);
@@ -89,23 +89,21 @@ $(".quick-view-btn").click(function () {
                     currency: "VND",
                 })
             );
+          
             $("#modalProductDesc").html(results.description);
             results.thumbs.map((productImage) => {
+                $("#modelProductImage").children("img").eq(0).remove();
                 let image =
-                    `<div class="lg-image"><img src="` +
+                    `<img src="` +
                     productImage.url +
-                    `" alt="product image"></div>`;
-                let imageThumb =
-                    ` <div class="sm-image"><img src="` +
-                    productImage.url +
-                    `" alt="product image thumb"></div>`;
-                //  $("#modelProductImage").append(image);
+                    `" alt="product image">`;
+                  $("#modelProductImage").append(image);
                 //  $("#modelProductImageThumb").append(image);
             });
                   $("#color-select option").remove();
             results.colors.map((color, index) => {
           
-                console.log(index);
+             //   console.log(index);
                 if (index == 0) {
                     let colorIten =
                         `<option value="` +

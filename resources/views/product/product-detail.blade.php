@@ -12,50 +12,38 @@
         </div>
     </div>
     <!-- content-wraper start -->
-    <div class="content-wraper">
+    <div class="content-wraper" style="margin-bottom: -300px; margin-top:30px;">
         <div class="container">
             <div class="row single-product-area">
                 <div class="col-lg-5 col-md-6">
                     <!-- Product Details Left -->
                     <div class="product-details-left" style="margin-top: 25px;">
                         <div class="product-details-images slider-navigation-1">
-                            <div class="lg-image">
-                                <div><img class="w-100 d-block"
-                                        src="{{ $product->images->where('type', 'cover')[0]['url'] }}"></div>
-
-                                <div style="margin-top: 30px; text-align:center;"><a
-                                        style="color: rgb(16, 172, 219); font-weight:bold;">Xem tất cả các điểm nổi
-                                        bật</a> <span style="font-weight: bold;">
-                                        &nbsp;(1/{{ count($product->features) }})</span></div>
-                                <div class="p-carousel" style="margin-top: 30px;">
-                                    <div class="carousel slide" data-ride="carousel" id="carousel-1">
-                                        <div class="carousel-inner" role="listbox">
-
-
-                                            @foreach ($product->images as $key => $image)
-                                                @if ($key != 0)
-                                                    <div class="carousel-item {{ $key == 1 ? 'active' : '' }}"><img
-                                                            class="w-80 d-block" src="{{ $image->url }}"
-                                                            style="height: 300px; width: 450px;" alt="Slide Image"></div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                        <div><a class="carousel-control-prev" href="#carousel-1" role="button"
-                                                data-slide="prev"><span class="carousel-control-prev-icon"></span><span
-                                                    class="sr-only">Previous</span></a><a class="carousel-control-next"
-                                                href="#carousel-1" role="button" data-slide="next"><span
-                                                    class="carousel-control-next-icon"></span><span
-                                                    class="sr-only">Next</span></a></div>
-                                        <ol class="carousel-indicators">
-                                            <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                                            <li data-target="#carousel-1" data-slide-to="1"></li>
-                                            <li data-target="#carousel-1" data-slide-to="2"></li>
-                                        </ol>
-                                    </div>
+                            @foreach ($product->images as $image)
+                                <div class="lg-image">
+                                    <a class="popup-img venobox vbox-item" href="{{ $image->url }}" data-gall="myGallery">
+                                        <img src="{{ $image->url }}" alt="product image">
+                                    </a>
                                 </div>
-                            </div>
+                            @endforeach
+                            @foreach ($product->images as $image)
+                                <div class="lg-image">
+                                    <a class="popup-img venobox vbox-item" href="{{ $image->url }}" data-gall="myGallery">
+                                        <img src="{{ $image->url }}" alt="product image">
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
+                        <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 50px;">
 
+                            @foreach ($product->images as $image)
+                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"></div>
+                            @endforeach
+
+                            @foreach ($product->images as $image)
+                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"></div>
+                            @endforeach
+                        </div>
                     </div>
                     <!--// Product Details Left -->
                 </div>
@@ -107,14 +95,15 @@
                                                 id="product-quantity">
                                             <div class="dec qtybutton" action="quantity-dec"><i
                                                     class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton" action="quantity-inc"><i class="fa fa-angle-up"></i>
+                                            <div class="inc qtybutton" action="quantity-inc"><i
+                                                    class="fa fa-angle-up"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <button class="add-to-cart" type="submit">Đặt mua ngay</button>
                                 </form>
                             </div>
-                            <div class="product-additional-info pt-25">
+                            <div class="product-additional-info pt-25" style="margin-top: 25px;">
                                 <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu thích</a>
                                 <div class="product-social-sharing pt-25">
                                     <ul>
@@ -129,36 +118,26 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="product-details-thumbs slider-thumbs-1">
-                                <div class="block-reassurance">
-                                    <ul>
-                                        <li>
-                                            <div class="reassurance-item">
-                                                <div class="reassurance-icon">
-                                                    <i class="fa fa-truck"></i>
+                             <div class="block-reassurance" style="margin-top: 40px;">
+                                        <ul>
+                                            <li>
+                                                <div class="reassurance-item">
+                                                    <div class="reassurance-icon">
+                                                        <i class="fa fa-truck"></i>
+                                                    </div>
+                                                    <p>Nhận hàng trong vòng 3 - 7 ngày</p>
                                                 </div>
-                                                <p>Giao hàng nhanh trong vòng 3 - 7 ngày</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="reassurance-item">
-                                                <div class="reassurance-icon">
-                                                    <i class="fa fa-exchange"></i>
+                                            </li>
+                                            <li>
+                                                <div class="reassurance-item">
+                                                    <div class="reassurance-icon">
+                                                        <i class="fa fa-exchange"></i>
+                                                    </div>
+                                                    <p> Bảo hành chính hãng trong vòng 24 tháng</p>
                                                 </div>
-                                                <p> Chính sách đổi trả hàng</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="reassurance-item">
-                                                <div class="reassurance-icon">
-                                                    <i class="fa fa-check-square-o"></i>
-                                                </div>
-                                                <p>Bảo hành chính hãng 1 năm</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +146,7 @@
     </div>
     <!-- content-wraper end -->
     <!-- Begin Product Area -->
-    <div class="product-area pt-35">
+    <div class="product-area pt-35" style="margin-top: 330px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -190,11 +169,7 @@
                 </div>
                 <div id="product-details" class="tab-pane" role="tabpanel">
                     <div class="product-details-manufacturer">
-                        <table class="table table-striped" style="width: 800px;margin: auto; margin-top: 50px;">
-                            <h4 style="text-align: left;">Thông số kỹ thuật {{ $product->name }}</h4>
-                            <div style="text-align: center; margin-top: 50px;"><img
-                                    src="{{ $product->images->where('type', 'gallery')[2]['url'] }}"
-                                    style="width: 500px;height:400px;"></div>
+                        <table class="table table-striped" style="width: 800px;margin: auto; margin-top: 20px; margin-bottom: -100px;">
                             <tr style="background-color: #f1f1f1;">
                                 <th colspan="2">
                                     <h5>Màn hình</h5>
@@ -277,7 +252,7 @@
                                 <td>
                                     <ul>
                                         @foreach ($product->features as $feature)
-                                            <li style="list-style-type: circle;">{{ $feature->name}}</li>
+                                            <li style="list-style-type: circle;">{{ $feature->name }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -302,7 +277,8 @@
                                 </ul>
                             </div>
                             <div class="review-btn">
-                                <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết đánh giá</a>
+                                <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
+                                    đánh giá</a>
                             </div>
                             <!-- Begin Quick View | Modal Area -->
                             <div class="modal fade modal-wrapper" id="mymodal">
@@ -312,6 +288,33 @@
                                             <h3 class="review-page-title">Write Your Review</h3>
                                             <div class="modal-inner-area row">
                                                 <div class="col-lg-6">
+                                                    <!-- Product Details Left -->
+                                                    <div class="product-details-left">
+                                                        <div class="product-details-images slider-navigation-1">
+                                                            @foreach ($product->images as $image)
+                                                                <div class="lg-image">
+                                                                    <img src="{{ $image->url }}" alt="product image">
+                                                                </div>
+                                                            @endforeach
+                                                            @foreach ($product->images as $image)
+                                                                <div class="lg-image">
+                                                                    <img src="{{ $image->url }}" alt="product image">
+                                                                </div>
+                                                            @endforeach
+
+                                                        </div>
+                                                        <div class="product-details-thumbs slider-thumbs-1">
+                                                            @foreach ($product->images as $image)
+                                                                <div class="sm-image"><img src="{{ $image->url }}"
+                                                                        alt="product image thumb"></div>
+                                                            @endforeach
+                                                            @foreach ($product->images as $image)
+                                                                <div class="sm-image"><img src="{{ $image->url }}"
+                                                                        alt="product image thumb"></div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <!--// Product Details Left -->
                                                     <div class="li-review-product">
                                                         <img src="images/product/large-size/3.jpg" alt="Li's Product">
                                                         <div class="li-review-product-desc">
@@ -397,12 +400,12 @@
     </div>
     <!-- Product Area End Here -->
     <!-- Begin Li's Laptop Product Area -->
-    <section class="product-area li-laptop-product pt-30 pb-50">
+    <section class="product-area li-laptop-product pt-30 pb-50" style="margin-bottom: 105px;">
         <div class="container">
             <div class="row">
                 <!-- Begin Li's Section Area -->
-                <div class="col-lg-12">
-                    <div class="li-section-title">
+                <div class="col-lg-12" style="margin-top: 150px;">
+                    <div class="li-section-title" style="margin-bottom: 50px;">
                         <h2>
                             <span>{{ count($productBrands) }} sản phẩm khác liên quan: </span>
                         </h2>

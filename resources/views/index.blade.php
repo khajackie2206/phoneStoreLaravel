@@ -60,9 +60,6 @@
   <!-- Main/Activator js -->
   <script src="{{ asset('js/main.js')}}"></script>
   <script src="{{ asset('js/product.js')}}"></script>
-
-
-  
     </body>
 
 <!-- index30:23-->

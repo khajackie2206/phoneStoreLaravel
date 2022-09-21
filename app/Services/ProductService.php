@@ -9,6 +9,7 @@ use App\Models\ProductColor;
 use App\Models\ProductFeature;
 use App\Models\ProductMemory;
 use App\Repositories\ProductRepository;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * Class ProductService.
@@ -125,5 +126,10 @@ class ProductService
          ->where('id', $id)
          ->first();
   
+    }
+
+    public function updateProduct(array $params, Product $product)
+    {
+
     }
 }

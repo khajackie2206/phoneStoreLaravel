@@ -9,7 +9,9 @@ use App\Models\Feature;
 use App\Models\Memory;
 use App\Models\Vendor;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
@@ -38,6 +40,15 @@ class ProductController extends Controller
         ]);
     }
 
+    public function getAllProducts()
+    {
+        $products = Product::Paginate(8);
+
+        return view('admin.product.list-product', [
+            'products' => $products
+        ]);
+    }
+
     public function storeProduct(Request $request)
     {
         $params = $request->all();
@@ -54,7 +65,7 @@ class ProductController extends Controller
             'name' => $product->name,
             'price' => $product->price,
             'description' => $product->short_description,
-            'thumbs' => $product->images,
+            'thumbs' => $product->images->where('type', 'cover'),
             'colors' => $product->colors,
             'brand'=> $product->brand->name,
         ];
@@ -70,5 +81,35 @@ class ProductController extends Controller
             'product' => $product,
             'productBrands' => $productsSameBrand
         ]);
+    }
+
+    public function showEdit(Product $product)
+    {
+        $colors = Color::get();
+        $features = Feature::get();
+        $memories = Memory::get();
+        $vendors = Vendor::get();
+        $brands = Brand::get();
+        $categories = ProductCategory::get();
+        return view('admin.product.edit-product',[
+            'title'=>'Chỉnh sửa sản phẩm',
+            'product'=>$product,
+            'colors' => $colors,
+            'features' => $features,
+            'memories' => $memories,
+            'vendors' => $vendors,
+            'brands' => $brands,
+            'categories' => $categories
+        ]);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $result = $this->productService->updateProduct($request->all(), $product);
+        if ($result) {
+            return redirect('/admin/product/list');
+        }
+
+        return redirect()->back();
     }
 }
