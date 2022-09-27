@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
@@ -33,7 +34,9 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
       Route::get('/product/edit/{product}',[ProductController::class, 'showEdit']);
       Route::get('/product/edit/{product}',[ProductController::class, 'showEdit']);
       Route::post('/product/edit/{product}',[ProductController::class, 'update']);
-      
+      Route::post('/product/edit/{product}',[ProductController::class, 'update']);
+      Route::get('/product/delete/{product}',[ProductController::class, 'delete']);
+
       #Upload
       Route::post('/upload/services',[UploadController::class,'store']);
       Route::post('/multi-upload/services',[UploadController::class,'multiStore']);
@@ -54,6 +57,13 @@ Route::get('/login', [LoginController::class, 'index']);
 Route::prefix('products')->group(function(){
     Route::get('/detail/{id}', [ProductController::class, 'getProductDetail']);
     Route::get('/details/{id}', [ProductController::class, 'detail']);
+    Route::get('/live-search', [ProductController::class,'search']);
+    Route::post('/cart', [CardController::class,'addCart']);
+    Route::get('/carts', [CardController::class,'showCard'])->name('carts');
+    Route::get('/delete-cart/{id}', [CardController::class, 'delete']);
+   // Route::get('/update-cart', [CardController::class, 'update']);
+    Route::get('/rise-up/{id}', [CardController::class, 'update']);
+
 });
 
 

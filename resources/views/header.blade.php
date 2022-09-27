@@ -17,30 +17,62 @@
                     <div class="header-top-right">
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
-                              @if (session('user'))
-                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                     <img src="{{ session('user')->avatar; }}" style="height: 23px; width: 23px; border-radius: 50%;" class="avatar img-fluid me-1" alt="Charles Hall" /> <span class="text-dark">{{ session('user')->name}}</span>
-                         </a>
-                @else 
-                              <li>
-                                <a href="/register" style="color: #0b0b0b;"><span>Đăng ký</span></a>
-                            </li>
-                            <li>
-                                <a href="/login" style="color: #0b0b0b;"><span>Đăng nhập</span></a>
-                            </li>
-                @endif
-            
-                <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px;">
-                    <a class="dropdown-item" href="pages-profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user align-middle me-1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Thông tin cá nhân</a>
-                    <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart align-middle me-1"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> Phân tích</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings align-middle me-1"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Cài đặt</a>
-                    <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle align-middle me-1"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Trợ giúp</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
-                </div>
-                         
-                      <!--      <li>
+                            @if (session('user'))
+                                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                    data-bs-toggle="dropdown">
+                                    <img src="{{ session('user')->avatar }}"
+                                        style="height: 23px; width: 23px; border-radius: 50%;"
+                                        class="avatar img-fluid me-1" alt="Charles Hall" /> <span
+                                        class="text-dark">{{ session('user')->name }}</span>
+                                </a>
+                            @else
+                                <li>
+                                    <a href="/register" style="color: #0b0b0b;"><span>Đăng ký</span></a>
+                                </li>
+                                <li>
+                                    <a href="/login" style="color: #0b0b0b;"><span>Đăng nhập</span></a>
+                                </li>
+                            @endif
+
+                            <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px;">
+                                <a class="dropdown-item" href="pages-profile.html"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-user align-middle me-1">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg> Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-pie-chart align-middle me-1">
+                                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                        <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                                    </svg> Phân tích</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="index.html"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-settings align-middle me-1">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path
+                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                        </path>
+                                    </svg> Cài đặt</a>
+                                <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-help-circle align-middle me-1">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg> Trợ giúp</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
+
+                            <!--      <li>
                                 <div class="ht-setting-trigger"><span>Setting</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
@@ -57,8 +89,11 @@
                                 <div class="ht-language-trigger"><span>Tiếng Việt</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li ><a href="#"><img src="../public/images/menu/flag-icon/1.jpg" alt="">English</a></li>
-                                        <li class="active"><a href="#"><img src="../public/images/menu/flag-icon/2.jpg" alt="">Tiếng Việt</a></li>
+                                        <li><a href="#"><img src="../public/images/menu/flag-icon/1.jpg"
+                                                    alt="">English</a></li>
+                                        <li class="active"><a href="#"><img
+                                                    src="../public/images/menu/flag-icon/2.jpg" alt="">Tiếng
+                                                Việt</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -80,7 +115,9 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="{{asset('images/allo.png')}}" style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
+                            <img src="{{ asset('images/allo.png') }}"
+                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;"
+                                alt="">
                         </a>
                     </div>
                 </div>
@@ -89,42 +126,65 @@
                 <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                     <!-- Begin Header Middle Searchbox Area -->
                     <form action="#" class="hm-searchbox">
-                        <select class="nice-select select-search-category">
-                            <option value="0">All</option>                         
-                            <option value="10">Mỏng nhẹ</option>
-                            <option value="47">Chơi game</option>
-                            <option value="48">- - - -  Xiaomi</option>
-                            <option value="49">- - - -  Samsung</option>
-                            <option value="50">- - - -  Iphone</option>
-                            <option value="51">- - - -  LG</option>
-                            <option value="78">- - - -  Màn hình gập</option>
-                        </select>
-                        <input type="text" placeholder="Nhập để tìm sản phẩm ...">
+
+                        <input type="text" name="inputSearch" id="inputSearch"
+                            placeholder="Nhập để tìm sản phẩm ...">
                         <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
+                    @php $countProduct = 0; @endphp
+
+                       @if (\Illuminate\Support\Facades\Session::get('carts'))
+                                                 @foreach ($sessionProducts as $sessionProduct)
+                                                     @foreach ($carts[$sessionProduct->id] as $item)
+                                                       @php  $countProduct +=1; @endphp
+                                                     @endforeach
+                                                @endforeach
+                     @endif
                     <!-- Header Middle Searchbox Area End Here -->
                     <!-- Begin Header Middle Right Area -->
-                    <div class="header-middle-right">
+                    <div class="header-middle-right" style="margin-left: 20px;">
                         <ul class="hm-menu">
                             <!-- Begin Header Mini Cart Area -->
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">0Đ
-                                        <span class="cart-item-count">0</span>
+                                    <span class="item-text">Đ
+                                        <span class="cart-item-count">
+                                           {{ $countProduct}}
+                                        </span>
                                     </span>
                                 </div>
                                 <span></span>
+                                   @php $summary = 0; @endphp
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
+                                        @if (\Illuminate\Support\Facades\Session::get('carts'))
+                                         @foreach ($sessionProducts as $sessionProduct)
+                                                     @foreach ($carts[$sessionProduct->id] as $item)
+                                                      @php
+                                            $subTotal = $sessionProduct->price * $item['quantity'];
+                                             $summary += $subTotal;
+                                         @endphp
                                         <li>
+                                              <a href="single-product.html" class="minicart-product-image">
+                                                            <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}" alt="cart products">
+                                                        </a>
+                                                        <div class="minicart-product-details">
+                                                            <h6><a href="single-product.html">{{ $sessionProduct->name}} {{$sessionProduct->colors->where('id', $item['color'])->first()['name']}}</a></h6>
+                                                            <span><span style="color: red;">{{number_format($sessionProduct->price)}}</span><span style="text-decoration: underline; color:red;" >đ</span><span> x {{$item['quantity'] }}  </span>
+                                                        </div>
+                                                        <button class="close" title="Remove">
+                                                          <a href="/products/delete-cart/{{$sessionProduct->id}}?color={{$item['color']}}">  <i class="fa fa-close"></i> </a>
+                                                        </button>
                                         </li>
-                                        <li>
-                                        </li>
+                                              @endforeach
+                                          @endforeach  
+                                       @endif
                                     </ul>
-                                    <p class="minicart-total">TỔNG CỘNG: <span>0Đ</span></p>
+                                    <p class="minicart-total">TỔNG CỘNG: <span>{{number_format($summary)}}Đ</span></p>
                                     <div class="minicart-button">
-                                        <a href="shopping-cart.html" class="li-button li-button-fullwidth li-button-dark">
+                                        <a href="/products/carts"
+                                            class="li-button li-button-fullwidth li-button-dark">
                                             <span>Xem giỏ hàng</span>
                                         </a>
                                         <a href="checkout.html" class="li-button li-button-fullwidth">
@@ -137,6 +197,13 @@
                         </ul>
                     </div>
                     <!-- Header Middle Right Area End Here -->
+                </div>
+                <!-- Search product -->
+                <div class="row justify-content-center">
+                    <div class="col-md-5" style="position:absolute;margin-top:45px;margin-right:1165px; z-index:1;">
+                        <div class="list-group" id="show-list">
+                        </div>
+                    </div>
                 </div>
                 <!-- Header Middle Right Area End Here -->
             </div>
@@ -152,9 +219,9 @@
                     <div class="hb-menu">
                         <nav>
                             <ul class="d-flex">
-                                <li><a href="/" >TRANG CHỦ</a></li>
+                                <li><a href="/">TRANG CHỦ</a></li>
 
-                                <li class="megamenu-holder"><a href="shop-left-sidebar.html" >ĐIỆN THOẠI</a>
+                                <li class="megamenu-holder"><a href="shop-left-sidebar.html">ĐIỆN THOẠI</a>
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="shop-left-sidebar.html">Hãng sản xuất</a>
                                             <ul>
@@ -170,11 +237,16 @@
                                         <li><a href="single-product-gallery-left.html">Mức giá</a>
                                             <ul>
                                                 <li><a href="single-product-carousel.html">Dưới 2 triệu</a></li>
-                                                <li><a href="single-product-gallery-left.html">Từ 2 đến 4 triệu</a></li>
-                                                <li><a href="single-product-gallery-right.html">Từ 4 đến 7 triệu</a></li>
-                                                <li><a href="single-product-tab-style-top.html">Từ 7 đến 13 triệu</a></li>
-                                                <li><a href="single-product-tab-style-left.html">Từ 13 đến 20 triệu</a></li>
-                                                <li><a href="single-product-tab-style-right.html">Trên 20 triệu</a></li>
+                                                <li><a href="single-product-gallery-left.html">Từ 2 đến 4 triệu</a>
+                                                </li>
+                                                <li><a href="single-product-gallery-right.html">Từ 4 đến 7 triệu</a>
+                                                </li>
+                                                <li><a href="single-product-tab-style-top.html">Từ 7 đến 13
+                                                        triệu</a></li>
+                                                <li><a href="single-product-tab-style-left.html">Từ 13 đến 20
+                                                        triệu</a></li>
+                                                <li><a href="single-product-tab-style-right.html">Trên 20 triệu</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li><a href="single-product.html">Theo nhu cầu</a>
@@ -183,14 +255,16 @@
                                                 <li><a href="single-product-sale.html">Thời thượng</a></li>
                                                 <li><a href="single-product-group.html">Chơi game</a></li>
                                                 <li><a href="single-product-normal.html">Chụp ảnh, quay phim</a></li>
-                                                <li><a href="single-product-affiliate.html">Tính năng đặc biệt</a></li>
+                                                <li><a href="single-product-affiliate.html">Tính năng đặc biệt</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown-holder" ><a href="blog-left-sidebar.html">BÀI VIẾT</a>
+                                <li class="dropdown-holder"><a href="blog-left-sidebar.html">BÀI VIẾT</a>
                                     <ul class="hb-dropdown">
-                                        <li class="sub-dropdown-holder"><a href="blog-left-sidebar.html">Mới nhất</a>
+                                        <li class="sub-dropdown-holder"><a href="blog-left-sidebar.html">Mới
+                                                nhất</a>
                                             <ul class="hb-dropdown hb-sub-dropdown">
                                                 <li><a href="blog-2-column.html">Mới nhất</a></li>
                                                 <li><a href="blog-3-column.html">Sản phẩm mới</a></li>
@@ -198,10 +272,12 @@
                                                 <li><a href="blog-right-sidebar.html">Tư vấn</a></li>
                                             </ul>
                                         </li>
-                                        <li class="sub-dropdown-holder"><a href="blog-list-left-sidebar.html">Sản phẩm mới</a>
+                                        <li class="sub-dropdown-holder"><a href="blog-list-left-sidebar.html">Sản
+                                                phẩm mới</a>
 
                                         </li>
-                                        <li class="sub-dropdown-holder"><a href="blog-details-left-sidebar.html">Đánh giá</a>
+                                        <li class="sub-dropdown-holder"><a href="blog-details-left-sidebar.html">Đánh
+                                                giá</a>
                                         </li>
                                         <li class="sub-dropdown-holder"><a href="blog-gallery-format.html">Tư vấn</a>
                                         </li>
@@ -220,7 +296,7 @@
     <!-- Header Bottom Area End Here -->
     <!-- Begin Mobile Menu Area -->
     <div class="mobile-menu-area d-lg-none d-xl-none col-12">
-        <div class="container"> 
+        <div class="container">
             <div class="row">
                 <div class="mobile-menu">
                 </div>

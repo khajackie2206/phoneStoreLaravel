@@ -6,6 +6,7 @@
          @include('head')
     </head>
     <body>
+      @include('sweetalert::alert')
         <!-- Begin Body Wrapper -->
         <div class="body-wrapper">
             <!-- Begin Header Area -->

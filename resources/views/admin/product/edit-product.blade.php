@@ -73,10 +73,10 @@
                                 <label class="form-label">Cover</label>
                                 <input type="file" name="file" class="form-control" id="upload">
                                 <div id="image_show" style="margin-top: 15px;">
-                                    <img src="{{ $product->images->where('type', 'cover')[0]['url'] }}" width="100px"
+                                    <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}" width="100px"
                                         alt="">
                                 </div>
-                                <input type="hidden" name="thumb" id="thumb" value="{{ $product->images->where('type', 'cover')[0]['url'] }}">
+                                <input type="hidden" name="thumb" id="thumb" value="{{ $product->images->where('type', 'cover')->first()['url'] }}">
                             </div>
                              <?php $pathCompletely = [] ?>
                             @foreach ($product->images->where('type', 'gallery') as $gallery)

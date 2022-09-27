@@ -71,6 +71,19 @@ $(".qtybutton").click(function(){
     }
 });
 
+
+$(document).ready(function () {
+    $("#product-card-quantity").change(function () {
+        
+        let quantity = $(this).val();
+        let url = $("#rise-up-card").attr("name");
+        let route = url+'&quantity='+quantity;
+      
+        window.location = route;
+        //location.reload();
+    });
+});
+
 $(".quick-view-btn").click(function () {
     let productId = $(this).attr("productId");
     $.ajax({
@@ -125,5 +138,43 @@ $(".quick-view-btn").click(function () {
             });
     
         },
+    });
+});
+
+ //Live search o phan san pham
+$(document).ready(function () {
+    $('#keyword').on('keyup', function () {
+        var query = $(this).val();
+        if (query != '') {
+            $.ajax({
+                url: "search_pro",
+                type: "get",
+                data: { 'search_pro': query },
+                success: function (data) {
+                    $('#loadProduct').html(data);
+                }
+            });
+        } else {
+            $('#loadProduct').html('');
+        }
+    });
+});
+
+// Live search index
+$(document).ready(function () {
+    $('#inputSearch').on('keyup', function () {
+        var query = $(this).val();
+        if (query != '') {
+            $.ajax({
+                url: "/products/live-search",
+                type: "get",
+                data: { 'search': query },
+                success: function (data) {
+                    $('#show-list').html(data);
+                }
+            });
+        } else {
+            $('#show-list').html('');
+        }
     });
 });

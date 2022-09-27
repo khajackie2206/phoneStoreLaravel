@@ -1,4 +1,5 @@
 @extends('admin.main')
+
 @section('content')
     <main class="content">
         <div class="container-fluid">
@@ -52,16 +53,23 @@
                                                                 <span class="badge bg-danger">Disable</span>
                                                             @endif
                                                         </span></td>
-                                                    <td><img src="{{ $product->images->where('type', 'cover')[0]['url'] }}"
+                                                    <td><img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
                                                             width="100">
                                                     </td>
                                                     <td style="font-weight: bold;">{{ $product->brand->name }}</td>
-                                                    <td class="text-end"> <a class="btn btn-primary btn-sm" href="/admin/product/edit/{{ $product->id}}">
+                                                    <td class="text-end"> <a class="btn btn-primary btn-sm"
+                                                            href="/admin/product/edit/{{ $product->id }}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a class="btn btn-danger btn-sm" href="#">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
+                                                       
+                                                        <form method="delete" style=" display:inline!important;"
+                                                            action="/admin/product/delete/{{ $product->id }}">
+                                                            @csrf
+                                                            <input name="_method" type="hidden" value="DELETE">
+                                                            <button type="submit" style=" display:inline!important;"
+                                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"> <i class="fas fa-trash"></i></button>
+                                                        </form>
+
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -72,9 +80,30 @@
                         </div>
                     </div>
                 </div>
-             
+
             </div>
         </div>
     </main>
-   
+
+    <script type="text/javascript">
+        $('.show-alert-delete-box').click(function(event){
+        var form =  $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+            title: "Bạn có chắc muốn xóa sản phẩm này không?",
+            text: "Xóa là mất luôn đó :(.",
+            icon: "warning",
+            type: "warning",
+            buttons: ["Cancel","Yes!"],
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đã xóa!'
+        }).then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+            }
+        });
+    });
+    </script>
 @endsection

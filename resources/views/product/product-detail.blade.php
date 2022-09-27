@@ -75,35 +75,37 @@
                                     </span>
                                 </p>
                             </div>
-                            <div class="product-variants">
-                                <div class="produt-variants-size">
-                                    <label>Màu sắc</label>
-                                    <select class="nice-select">
-                                        @foreach ($product->colors as $item)
-                                            <option value="{{ $item->id }}" title="{{ $item->name }}">
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <form action="/products/cart" method="POST" class="cart-quantity" style="margin-top:10px;">
+                                <div class="product-variants">
+                                    <div class="produt-variants-size">
+                                        <label>Màu sắc</label>
+                                        <select class="nice-select" name="color">
+                                            @foreach ($product->colors as $item)
+                                                <option value="{{ $item->id }}"  title="{{ $item->name }}">
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="single-add-to-cart">
-                                <form action="#" class="cart-quantity">
+                                <div class="single-add-to-cart" style="margin-top: 25px;">
+
                                     <div class="quantity">
                                         <label>Số lượng</label>
                                         <div class="cart-plus-minus">
                                             <input class="cart-plus-minus-box" value="1" type="text"
-                                                id="product-quantity">
+                                                id="product-quantity" name="quantity">
                                             <div class="dec qtybutton" action="quantity-dec"><i
                                                     class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton" action="quantity-inc"><i
-                                                    class="fa fa-angle-up"></i>
+                                            <div class="inc qtybutton" action="quantity-inc"><i class="fa fa-angle-up"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <button class="add-to-cart" type="submit">Đặt mua ngay</button>
-                                </form>
-                            </div>
-                            <div class="product-additional-info pt-25" style="margin-top: 25px;">
+                                </div>
+                                <input type="hidden" name="productId" value="{{ $product->id }}">
+                                @csrf
+                            </form>
+                            <div class="product-additional-info pt-25">
                                 <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu thích</a>
                                 <div class="product-social-sharing pt-25">
                                     <ul>
@@ -113,31 +115,31 @@
                                         </li>
                                         <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google
                                                 +</a></li>
-                                        <li class="instagram"><a href="#"><i
-                                                    class="fa fa-instagram"></i>Instagram</a></li>
+                                        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                             <div class="block-reassurance" style="margin-top: 40px;">
-                                        <ul>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-truck"></i>
-                                                    </div>
-                                                    <p>Nhận hàng trong vòng 3 - 7 ngày</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-exchange"></i>
-                                                    </div>
-                                                    <p> Bảo hành chính hãng trong vòng 24 tháng</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <div class="block-reassurance" style="margin-top: 40px;">
+                                <ul>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-truck"></i>
+                                            </div>
+                                            <p>Nhận hàng trong vòng 3 - 7 ngày</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-exchange"></i>
+                                            </div>
+                                            <p> Bảo hành chính hãng trong vòng 24 tháng</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,7 +171,8 @@
                 </div>
                 <div id="product-details" class="tab-pane" role="tabpanel">
                     <div class="product-details-manufacturer">
-                        <table class="table table-striped" style="width: 800px;margin: auto; margin-top: 20px; margin-bottom: -100px;">
+                        <table class="table table-striped"
+                            style="width: 800px;margin: auto; margin-top: 20px; margin-bottom: -100px;">
                             <tr style="background-color: #f1f1f1;">
                                 <th colspan="2">
                                     <h5>Màn hình</h5>
@@ -418,7 +421,7 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productBrand->id }}">
-                                                <img src="{{ $productBrand->images->where('type', 'cover')[0]['url'] }}"
+                                                <img src="{{ $productBrand->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
                                         </div>

@@ -11,6 +11,11 @@ class AdminLoginController extends Controller
 {
     public function index()
     {
+         $user = Auth::User();
+         if($user) {
+             return redirect('admin/home');
+         }
+
         return view('admin.authentication.login', [
         ]);
     }

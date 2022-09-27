@@ -128,7 +128,28 @@
                                   </div>
                               </div>
                           </div>
+                          <div>
+                          <ul>
+                                            <li>
+                                                <div style="padding-top: 35px;">
+                                                    <div class="reassurance-icon">
+                                                        <i class="fa fa-truck"></i>
+                                                    </div>
+                                                    <p>Nhận hàng trong vòng 3 - 7 ngày</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <div class="reassurance-icon">
+                                                        <i class="fa fa-exchange"></i>
+                                                    </div>
+                                                    <p> Bảo hành chính hãng trong vòng 24 tháng</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                       </div>
+                      
 
                       <div class="col-lg-7 col-md-6 col-sm-6">
                           <div class="product-details-view-content pt-60">

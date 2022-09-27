@@ -60,9 +60,9 @@
                                 alt="">
                         </a>
                     </div>
-                    <div class="li-banner mt-15 mt-sm-30 mt-xs-30">
+                    <div class="li-banner mt-30 mt-sm-30 mt-xs-30">
                         <a href="#">
-                            <img src="https://ben.com.vn/Content/Images/Products/Galaxy-S22-Series-2-scaled.jpg"
+                            <img src="https://www.techyloud.com/wp-content/uploads/2020/07/iPhone-13-1536x864.jpg"
                                 alt="">
                         </a>
                     </div>
@@ -99,7 +99,7 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productNewly->id }}">
-                                                <img src="{{ $productNewly->images->where('type', 'cover')[0]['url'] }}"
+                                                <img src="{{ $productNewly->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
                                             <span class="sticker"
@@ -154,8 +154,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
+  
     <!-- Product Area End Here -->
     <!-- Begin Li's Static Banner Area -->
     <div class="li-static-banner">
@@ -215,7 +214,7 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productNewly->id }}">
-                                                <img src="{{ $productDiscount->images->where('type', 'cover')[0]['url'] }}"
+                                                <img src="{{ $productDiscount->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
                                         </div>
@@ -319,7 +318,7 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productNewly->id }}">
-                                                <img src="{{ $goodProduct->images->where('type', 'cover')[0]['url'] }}"
+                                                <img src="{{ $goodProduct->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
                                         </div>
