@@ -56,7 +56,7 @@ $("#uploads").change(function () {
     });
 });
 
-$(".qtybutton").click(function(){
+$(".qtybutton1").click(function(){
     let quantity = Number($("#product-quantity").attr("value"));
 
     if ($(this).attr("action") == "quantity-dec" && quantity > 0) {
@@ -71,18 +71,20 @@ $(".qtybutton").click(function(){
     }
 });
 
+function changeQuantity(params)
+{
+    let quantity = params.value;
+    let url = params.name;
+    let route = url + "&quantity=" + quantity;
 
-$(document).ready(function () {
-    $("#product-card-quantity").change(function () {
-        
-        let quantity = $(this).val();
-        let url = $("#rise-up-card").attr("name");
-        let route = url+'&quantity='+quantity;
-      
-        window.location = route;
-        //location.reload();
-    });
-});
+    window.location = route;
+}
+
+function adjustQuantity(element) {
+    let url = element.getAttribute("value");;
+
+     window.location = url;
+}
 
 $(".quick-view-btn").click(function () {
     let productId = $(this).attr("productId");

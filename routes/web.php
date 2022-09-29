@@ -61,9 +61,10 @@ Route::prefix('products')->group(function(){
     Route::post('/cart', [CardController::class,'addCart']);
     Route::get('/carts', [CardController::class,'showCard'])->name('carts');
     Route::get('/delete-cart/{id}', [CardController::class, 'delete']);
-   // Route::get('/update-cart', [CardController::class, 'update']);
-    Route::get('/rise-up/{id}', [CardController::class, 'update']);
-
+    
+    Route::get('/update/{id}', [CardController::class, 'update']);
+    Route::get('/adjust/{id}', [CardController::class, 'adjust']);
+    Route::get('/checkout', [CardController::class, 'checkout']);
 });
 
 

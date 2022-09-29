@@ -91,12 +91,12 @@
 
                                     <div class="quantity">
                                         <label>Số lượng</label>
-                                        <div class="cart-plus-minus">
+                                        <div class="cart-plus-minus card-plus-minus-plus">
                                             <input class="cart-plus-minus-box" value="1" type="text"
                                                 id="product-quantity" name="quantity">
                                             <div class="dec qtybutton" action="quantity-dec"><i
                                                     class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton" action="quantity-inc"><i class="fa fa-angle-up"></i>
+                                            <div class="inc qtybutton qtybutton1" action="quantity-inc"><i class="fa fa-angle-up"></i>
                                             </div>
                                         </div>
                                     </div>

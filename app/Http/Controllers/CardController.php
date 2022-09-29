@@ -16,6 +16,8 @@ use Illuminate\Pagination\Paginator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CardController extends Controller
 {
@@ -81,15 +83,19 @@ class CardController extends Controller
       $product = Product::where('id', $productId)->first();
       $quantity = $input['quantity'];
 
-      if( !is_numeric($quantity) && !is_int($quantity) )
+      $validator = Validator::make($input,[
+          'quantity' => 'required|numeric|integer|gt:0'
+      ]);
+
+      if($validator->fails())
       {
          Alert::error('Lỗi', 'Số lượng không hợp lệ');
         return redirect()->back();
       }
 
-      if($quantity> $product->quantity)
+      if($quantity > ($product->quantity))
       {
-          $input['quantity'] = $product->quantity;
+          $quantity = $product->quantity;
       }
 
       $carts[$productId][$input['color']]['quantity'] = $quantity;
@@ -97,4 +103,54 @@ class CardController extends Controller
 
       return redirect()->back();
    }
+
+   public function adjust(Request $request, int $productId)
+  {
+      $input = $request->all();
+      $carts = session()->get('carts');
+      $product = Product::where('id', $productId)->first();
+      $color = $input['color'];
+      if($input['type'] == 'inc') {
+  
+      if($carts[$productId][$color]['quantity'] == $product->quantity)
+      {
+          return redirect()->back();
+      }
+
+      $carts[$productId][$color]['quantity'] += 1;
+     session()->put('carts', $carts);
+
+      return redirect()->back();
+    } else {
+          if($carts[$productId][$color]['quantity'] == 1){
+          return redirect()->back();
+      }
+         $carts[$productId][$color]['quantity'] -= 1;
+         session()->put('carts', $carts);
+
+      return redirect()->back();
+    }
+  }
+
+  public function checkout()
+  {
+     $user = Auth::User();
+     if(!$user){
+          Alert::error('Đăng nhập', 'Đăng nhập để thanh toán');
+          return view('auth.login-register', [
+           'title' => 'Đăng nhập',
+        ]);
+     }
+    $products = $this->cardService->getProduct();
+    $sessionProducts = $this->cardService->getProduct();
+
+       return view('product.checkout',[
+           'title'=>'Thanh toán sản phẩm',
+           'products'=> $products,
+           'user' => $user,
+           'carts'=> session()->get('carts'),
+           'sessionProducts' => $sessionProducts
+      ]);
+  }
+
 }

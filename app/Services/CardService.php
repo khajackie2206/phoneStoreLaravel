@@ -22,9 +22,7 @@ class CardService
     public function create(array $params)
     {
         $user = Auth::User();
-    //    session()->flush('carts');
-      
-    //  dd(session()->get('carts'));
+  
         if($user){
         $quantity = $params['quantity'];
         $color = $params['color'];

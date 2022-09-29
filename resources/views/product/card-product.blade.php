@@ -42,7 +42,7 @@
                                            @php
                                              $subTotal = $product->price * $item['quantity'];
                                              $summary += $subTotal;
-                                         @endphp
+                                           @endphp
                                             <tr>
                                                 <td class="li-product-remove" style="width: 100px;"><a href="/products/delete-cart/{{$product->id}}?color={{$item['color']}}"><i class="fa fa-times"></i></a></td>
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{ $product->images->where('type', 'cover')->first()['url'] }}" style = "width: 100px;"alt="Li's Product Image"></a></td>
@@ -54,9 +54,9 @@
                                                     
                                                     <label>Số lượng</label>
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" id = "product-card-quantity" name="product-card-quantity" value={{$item['quantity'] }} type="text">
-                                                        <div class="dec qtybutton rise-up" id="rise-up-card" name = "/products/rise-up/{{$product->id}}?color={{$item['color']}}"><i class="fa fa-angle-down"></i></div>
-                                                        <div class="inc qtybutton go-down"><i class="fa fa-angle-up"></i></div>
+                                                        <input class="cart-plus-minus-box" name="/products/update/{{$product->id}}?color={{$item['color']}}"  onchange="changeQuantity(this);" value={{$item['quantity'] }} type="text">
+                                                        <div class="dec qtybutton" value="/products/adjust/{{$product->id}}?color={{$item['color']}}&type=des" onclick="adjustQuantity(this)"><i class="fa fa-angle-down"></i></div>
+                                                        <div class="inc qtybutton" value="/products/adjust/{{$product->id}}?color={{$item['color']}}&type=inc" onclick="adjustQuantity(this)"><i class="fa fa-angle-up"></i></div>
                                                     </div>
                                                 </td>
                                                 <td class="product-subtotal"><span class="amount" style="color: red;">{{ number_format($subTotal) }} <span style="text-decoration: underline;">đ</span></span></td>
@@ -68,19 +68,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="coupon-all">
-                                            <div class="coupon">
-                                                <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Mã giảm giá" type="text">
-                                                <input class="button" name="apply_coupon" value="Áp dụng mã" type="submit">
-                                            </div>
-                                            <div class="coupon2">
-                                                <input class="button" name="update_cart" value="Cập nhật giỏ hàng" type="submit" formaction="/products/update-cart">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            
                                 <div class="row">
                                     <div class="col-md-5 ml-auto">
                                         <div class="cart-page-total">
@@ -89,7 +77,7 @@
                                                 <li>Tạm tính <span>{{ number_format($summary)}} <span style="text-decoration: underline;">đ</span></span></li>
                                                 <li>Tổng cộng<span>{{ number_format($summary)}} <span style="text-decoration: underline;">đ</span></span></li>
                                             </ul>
-                                            <a href="#">Đi đến thanh toán</a>
+                                            <a href="/products/checkout">Đi đến thanh toán</a>
                                         </div>
                                     </div>
                                 </div>
