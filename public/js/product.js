@@ -96,6 +96,7 @@ $(".quick-view-btn").click(function () {
           //  console.log(results);
             // $("#modelProductImage").html('');
             // $("#modelProductImageThumb").html('');
+            $("#productId").val(results.id);
             $("#modelProductBrand").html(results.brand);
             $("#modalProductName").html(results.name);
             $("#modalProductPrice").html(
@@ -123,7 +124,7 @@ $(".quick-view-btn").click(function () {
                     let colorIten =
                         `<option value="` +
                         color.id +
-                        ` selected="selected">` +
+                        `" selected="selected">` +
                         color.name +
                         `</option>`;
                     $("#color-select").append(colorIten);
@@ -180,3 +181,36 @@ $(document).ready(function () {
         }
     });
 });
+
+//filter product
+
+$(document).ready(function() {
+       $(document).on('click', '.feature_checkbox', function() {
+          //alert(123);
+           var ids = [];
+
+           $('.feature_checkbox').each(function () {
+               if($(this).is(":checked")){
+                   ids.push($(this).attr('id'));
+               }
+            });
+
+           // $("#filterArea").empty();
+           fetchDataOfCategory(ids);
+           /*  let url = "/products/filter-product" + "?" + "ids=" + ids;
+
+             window.location = url;*/
+
+         //   alert(ids);
+       });
+});
+
+function fetchDataOfCategory(id) {
+       $.ajax({
+           url: "/products/filter-product" + "?" + "ids=" + id,
+           type: "GET",
+           success: function (data) {
+               $("#filterArea").html(data);
+           },
+       });
+}

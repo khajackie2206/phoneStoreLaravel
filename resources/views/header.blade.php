@@ -148,8 +148,8 @@
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">Đ
-                                        <span class="cart-item-count">
+                                    <span class="item-text">
+                                        <span class="cart-item-count" style="margin-top: 9px;">
                                            {{ $countProduct}}
                                         </span>
                                     </span>
@@ -221,7 +221,7 @@
                             <ul class="d-flex">
                                 <li><a href="/">TRANG CHỦ</a></li>
 
-                                <li class="megamenu-holder"><a href="shop-left-sidebar.html">ĐIỆN THOẠI</a>
+                                <li class="megamenu-holder"><a href="/products/filter">ĐIỆN THOẠI</a>
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="shop-left-sidebar.html">Hãng sản xuất</a>
                                             <ul>

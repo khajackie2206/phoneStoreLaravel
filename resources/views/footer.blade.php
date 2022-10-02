@@ -180,21 +180,21 @@
                                           </span>
                                       </p>
                                   </div>
+                             <form action="/products/cart" method="POST" class="cart-quantity" style="margin-top:10px;">
                                   <div class="product-variants">
                                       <div class="produt-variants-size">
                                           <label>Màu sắc</label>
                                           <div id="modalProductColors" class="w-50">
-                                              <select id="color-select" class="bg-transparent">
+                                              <select id="color-select" name="color" class="bg-transparent">
                                               </select>
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="single-add-to-cart">
-                                      <form action="#" class="cart-quantity">
+                                  <div class="single-add-to-cart"  style="margin-top: 20px;">
                                           <div class="quantity">
                                               <label>Số lượng</label>
                                               <div class="cart-plus-minus card-plus-minus-plus">
-                                                  <input class="cart-plus-minus-box" id="product-quantity"
+                                                  <input class="cart-plus-minus-box" name="quantity" id="product-quantity"
                                                       value="1" type="text">
                                                   <div class="dec qtybutton qtybutton1" action="quantity-dec"><i
                                                           class="fa fa-angle-down"></i></div>
@@ -203,8 +203,10 @@
                                               </div>
                                           </div>
                                           <button class="add-to-cart" type="submit">Đặt mua ngay</button>
-                                      </form>
                                   </div>
+                                   <input type="hidden" id="productId" name="productId" value="">
+                                @csrf
+                            </form>
                                   <div class="product-additional-info pt-25">
                                       <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu
                                           thích</a>

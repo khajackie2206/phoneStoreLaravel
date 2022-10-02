@@ -6,8 +6,8 @@
                 <div class="container">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shopping Cart</li>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li class="active">Giỏ hàng</li>
                         </ul>
                     </div>
                 </div>

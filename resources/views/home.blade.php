@@ -134,7 +134,7 @@
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/{{ $productNewly->id }}">ĐẶT MUA NGAY</a></li>
                                                     <li>
                                                         <p productId="{{ $productNewly->id }}" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
@@ -213,7 +213,7 @@
 
                                     <div class="single-product-wrap">
                                         <div class="product-image">
-                                            <a href="/products/details/{{ $productNewly->id }}">
+                                            <a href="/products/details/{{ $productDiscount->id }}">
                                                 <img src="{{ $productDiscount->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
@@ -249,7 +249,7 @@
                                                 <ul class="add-actions-link">
                                                     <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                        <p productId="{{ $productNewly->id }}" title="quick view"
+                                                        <p productId="{{ $productDiscount->id }}" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
                                                             data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                         </p>
@@ -317,7 +317,7 @@
                                     <!-- single-product-wrap start -->
                                     <div class="single-product-wrap">
                                         <div class="product-image">
-                                            <a href="/products/details/{{ $productNewly->id }}">
+                                            <a href="/products/details/{{ $goodProduct->id }}">
                                                 <img src="{{ $goodProduct->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
                                             </a>
@@ -351,9 +351,9 @@
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/{{ $goodProduct->id }}">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                        <p productId="{{ $productNewly->id }}" title="quick view"
+                                                        <p productId="{{ $goodProduct->id }}" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
                                                             data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                         </p>

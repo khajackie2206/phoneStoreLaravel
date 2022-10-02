@@ -1578,7 +1578,7 @@ textarea:focus {
 	position: absolute;
 	right: 0;
 	top: 100%;
-	z-index: 9;
+	z-index: 300;
 	display: none;
 	border: 1px solid #e5e5e5;
 	padding: 20px;
@@ -4955,7 +4955,7 @@ span.required {
 	height: 30px;
 	line-height: 30px;
 	width: 320px;
-	z-index: 999;
+	z-index: 200;
 }
 @media only screen and (max-width: 767px) {
 	.product-short .nice-select {

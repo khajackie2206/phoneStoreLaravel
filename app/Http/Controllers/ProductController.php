@@ -158,4 +158,90 @@ class ProductController extends Controller
    
         return response()->json($output);
     }
+
+    public function filterPage() {
+        $products = $this->productService->getAllProducts();
+        $sessionProducts = $this->cardService->getProduct();
+        $brands = Brand::get();
+        $features = Feature::get();
+        
+        return view( 'product.filter-product',[
+            'title' => 'Danh sách sản phẩm',
+            'products' => $products,
+            'sessionProducts' => $sessionProducts,
+            'carts' => session()->get('carts'),
+            'brands' => $brands,
+            'features' => $features,
+        ]);
+    }
+
+    public function filter(Request $request) 
+    {
+        $output = '';
+        $input = $request->all();
+        $brands = explode(',', $input['ids']);
+        $products = '';
+        if(!isset($input['ids'])) {
+            $products = Product::get();
+        } else {
+             $products = Product::whereIn('brand_id', $brands)->get();
+        }
+        $count = 0;
+       
+        foreach ($products as $product) {
+              $count ++;
+              $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                            <!-- single-product-wrap start -->
+                                            <div class="single-product-wrap">
+                                                <div class="product-image">
+                                                    <a href="/products/details/'.$product->id.'">
+                                                         <img src="'.$product->images->where('type', 'cover')->first()['url'].'"
+                                                     style="width: 120px;height:120px;">
+                                                    </a>
+                                                </div>
+                                                <div class="product_desc">
+                                                    <div class="product_desc_info">
+                                                        <div class="product-review">
+                                                            <h5 class="manufacturer">
+                                                                <a href="/products/details/'.$product->id.'">'.$product->brand->name.'</a>
+                                                            </h5>
+                                                            <div class="rating-box">
+                                                                <ul class="rating">
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <h4><a class="product_name" href="/products/details/'.$product->id.'">'.$product->name.'</a></h4>
+                                                        <div class="price-box">
+                                                            <span class="new-price"> <p style="color: red; font-weight:bold;">
+                                                            '.number_format($product->price).' đ</p></span>
+                                                        </div>
+                                                    </div>
+                                                  <div class="add-actions">
+                                                <ul class="add-actions-link">
+                                                    <li class="add-cart active"><a href="/products/details/'.$product->id.'">ĐẶT MUA NGAY</a></li>
+                                                    <li>
+                                                        <p productId="'.$product->id.'" title="quick view"
+                                                            class="quick-view-btn" data-toggle="modal"
+                                                            data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                                </div>
+                                            </div>
+                                            <!-- single-product-wrap end -->
+                                        </div>' ; 
+      } 
+
+         if($count == 0){
+          $output ='<div class="row justify-content-center"><h2>Không tìm thấy điện thoại</h2></div>';
+         }
+      
+      return response()->json($output);
+    }
 }

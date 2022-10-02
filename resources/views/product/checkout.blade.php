@@ -5,7 +5,7 @@
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
-                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="/">Trang chủ</a></li>
                     <li class="active">Thanh toán</li>
                 </ul>
             </div>

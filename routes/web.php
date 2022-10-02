@@ -65,6 +65,10 @@ Route::prefix('products')->group(function(){
     Route::get('/update/{id}', [CardController::class, 'update']);
     Route::get('/adjust/{id}', [CardController::class, 'adjust']);
     Route::get('/checkout', [CardController::class, 'checkout']);
+
+    //filter product
+    Route::get('/filter', [ProductController::class, 'filterPage']);
+    Route::get('filter-product', [ProductController::class ,'filter']);
 });
 
 
