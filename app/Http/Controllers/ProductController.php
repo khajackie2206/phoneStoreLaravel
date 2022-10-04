@@ -21,6 +21,7 @@ class ProductController extends Controller
 {
     protected $productService;
     protected $cardService;
+    const LIMIT = 3;
 
     public function __construct(ProductService $productService, CardService $cardService)
     {
@@ -295,5 +296,127 @@ class ProductController extends Controller
       
       return response()->json(['data' => $output, 'flex' => $flex]);
 
+    }
+
+    public function loadMore(Request $request)
+    {
+        $page = $request->input('page', default:0);
+        $output = '';
+        $flex = '';
+        $products = $this->productService->get($page);
+      //  dd($products);
+         if(count($products)!=0){
+             foreach($products as $product)
+             {
+                  $flex .= ' <div class="row product-layout-list">
+                                                <div class="col-lg-3 col-md-5 ">
+                                                    <div class="product-image">
+                                                        <a href="/products/details/'.$product->id.'">
+                                                            <img src="'.$product->images->where('type', 'cover')->first()['url'].'"
+                                                                style="width: 190px;height:190px;">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5 col-md-7">
+                                                    <div class="product_desc">
+                                                        <div class="product_desc_info">
+                                                            <div class="product-review">
+                                                                <h5 class="manufacturer">
+                                                                    <a href="#">'.$product->brand->name.'</a>
+                                                                </h5>
+                                                                <div class="rating-box">
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
+                                                                        </li>
+                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <h4><a class="product_name"
+                                                                    href="single-product.html">'.$product->name.'</a>
+                                                            </h4>
+                                                            <div class="price-box">
+                                                                <span class="new-price">
+                                                                    <p style="color: red; font-weight:bold;">
+                                                                        '. number_format($product->price).' đ</p>
+                                                                </span>
+                                                            </div>
+                                                            <p>'.$product->short_description.'</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="shop-add-action mb-xs-30">
+                                                        <ul class="add-actions-link">
+                                                            <li class="add-cart"><a
+                                                                    href="/products/details/'.$product->id.'">ĐẶT MUA
+                                                                    NGAY</a></li>
+                                                            <li><a class="quick-view quick-view-btn"
+                                                                    productId="'.$product->id.'" data-toggle="modal"
+                                                                    data-target="#exampleModalCenter" href="#"><i
+                                                                        class="fa fa-eye"></i>Xem chi tiết</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>';
+
+                                             $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                            <!-- single-product-wrap start -->
+                                            <div class="single-product-wrap">
+                                                <div class="product-image">
+                                                    <a href="/products/details/' . $product->id . '">
+                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                     style="width: 120px;height:120px;">
+                                                    </a>
+                                                </div>
+                                                <div class="product_desc">
+                                                    <div class="product_desc_info">
+                                                        <div class="product-review">
+                                                            <h5 class="manufacturer">
+                                                                <a href="/products/details/' . $product->id . '">' . $product->brand->name . '</a>
+                                                            </h5>
+                                                            <div class="rating-box">
+                                                                <ul class="rating">
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <h4><a class="product_name" href="/products/details/' . $product->id . '">' . $product->name . '</a></h4>
+                                                        <div class="price-box">
+                                                            <span class="new-price"> <p style="color: red; font-weight:bold;">
+                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                        </div>
+                                                    </div>
+                                                  <div class="add-actions">
+                                                <ul class="add-actions-link">
+                                                    <li class="add-cart active"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
+                                                    <li>
+                                                        <p productId="' . $product->id . '" title="quick view"
+                                                            class="quick-view-btn" data-toggle="modal"
+                                                            data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                                </div>
+                                            </div>
+                                            <!-- single-product-wrap end -->
+                                        </div>';
+             }
+
+            
+            
+            return response()->json(['data' => $output, 'flex' =>$flex]);
+        }      
+        return response()->json(['data' =>'', 'flex' => '']
+            );  
     }
 }

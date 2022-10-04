@@ -62,6 +62,7 @@ Route::prefix('products')->group(function(){
     Route::get('/carts', [CardController::class,'showCard'])->name('carts');
     Route::get('/delete-cart/{id}', [CardController::class, 'delete']);
     
+    //payment
     Route::get('/update/{id}', [CardController::class, 'update']);
     Route::get('/adjust/{id}', [CardController::class, 'adjust']);
     Route::get('/checkout', [CardController::class, 'checkout']);
@@ -69,6 +70,7 @@ Route::prefix('products')->group(function(){
     //filter product
     Route::get('/filter', [ProductController::class, 'filterPage']);
     Route::get('filter-product', [ProductController::class ,'filter']);
+    Route::get('/load-more', [ProductController::class, 'loadMore']);
 });
 
 

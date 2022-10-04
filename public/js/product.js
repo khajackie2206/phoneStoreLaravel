@@ -212,6 +212,29 @@ function fetchDataOfCategory(id) {
            success: function (data) {
                $("#filterArea").html(data['data']);
                $("#flexProduct").html(data['flex']);
+               $(".paginate").html("");
            },
        });
+}
+
+//load more
+function loadMore() {
+    const page = parseInt($("#page").val());
+   /* let url = "/products/load-more";
+    window.location = url;*/
+    $.ajax({
+        type: "get",
+        dataType: "JSON",
+        data: { page },
+        url: "/products/load-more",
+        success: function (result) {
+            if (result.data != "") {
+                $("#flexProduct").append(result.flex);
+                $("#filterArea").append(result.data);
+                $("#page").val(page + 1);
+            } else {
+                $("#button-loadMore").css("display", "none");
+            }
+        },
+    });
 }

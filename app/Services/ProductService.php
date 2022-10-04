@@ -17,6 +17,7 @@ use Exception;
  */
 class ProductService
 {
+    const LIMIT = 3;
 
     public function create($params)
     {
@@ -123,6 +124,7 @@ class ProductService
     {
         $products = Product::where('active', 1)
             ->orderBy('id', 'DESC')
+            ->limit(self::LIMIT)
             ->get();
 
         return $products;
@@ -228,5 +230,14 @@ class ProductService
         }
 
         return true;
+    }
+    public function get($page = null)
+    {
+        return Product::orderByDesc('id')
+            ->when($page != null, function ($query) use ($page) {
+                $query->offset($page * self::LIMIT);
+            })
+            ->limit(self::LIMIT)
+            ->get();
     }
 }

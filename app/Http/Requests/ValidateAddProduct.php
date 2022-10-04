@@ -33,7 +33,7 @@ class ValidateAddProduct extends FormRequest
             'battery' => 'required|integer',
             'front' => 'required|string',
             'rear' => 'required|string',
-            'size' => 'required|float',
+            'size' => 'required',
             'colors' => 'required|array',
             'features' => 'required|array',
         ];
