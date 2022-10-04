@@ -10,8 +10,8 @@ use App\Services\ProductService;
 class MainController extends Controller
 {
 
-     protected $productService;
-     protected $cardService;
+    protected $productService;
+    protected $cardService;
     /**
      * Create a new controller instance.
      *
@@ -29,14 +29,14 @@ class MainController extends Controller
         $productsDiscount = $this->productService->getProductsDiscount();
         $goodProducts = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
-         
+
         return view('home', [
             'title' => 'Trang chủ',
             'productsNewly' => $productsNewly,
             'productsDiscount' => $productsDiscount,
             'goodProducts' => $goodProducts,
             'sessionProducts' => $sessionProducts,
-            'carts'=> session()->get('carts')
+            'carts' => session()->get('carts')
         ]);
     }
 }

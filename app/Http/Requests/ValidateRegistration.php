@@ -31,12 +31,12 @@ class ValidateRegistration extends FormRequest
             're-pass'       => 'same:pass'
         ];
     }
-    
+
     /**
-    * Get the error messages for the defined validation rules.
-    *
-    * @return array
-    */
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [

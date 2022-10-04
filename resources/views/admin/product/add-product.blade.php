@@ -18,13 +18,21 @@
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Tên điện thoại"
                                      name="phone_name">
+                                     @if(isset($errors))
+                                     <ul style="margin-top:5px; ">
+                                        <li class="text-danger">{{$errors->first('phone_name')}}</li>
+                                    </ul>
+                                    @endif
                              </div>
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Giá bán</h5>
                              </div>
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Giá bán" name="price">
-                             </div>
+                                 <ul style="margin-top:5px; ">
+                                    <li class="text-danger">{{$errors->first('price')}}</li>
+                                </ul>
+                                </div>
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Số lượng</h5>
                              </div>
@@ -45,14 +53,14 @@
                          <div class="card">
 
                          </div>
-                          <div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Mô tả ngắn</h5>
-								</div>
-								<div class="card-body">
-									<textarea class="form-control" name="short_description" rows="2" placeholder="Nhập mô tả ngắn"></textarea>
-								</div>
-							</div>
+                         <div class="card">
+                             <div class="card-header">
+                                 <h5 class="card-title mb-0">Mô tả ngắn</h5>
+                             </div>
+                             <div class="card-body">
+                                 <textarea class="form-control" name="short_description" rows="2" placeholder="Nhập mô tả ngắn"></textarea>
+                             </div>
+                         </div>
 
                          <div class="card">
                              <div class="card-header">
@@ -78,7 +86,7 @@
                                  <label class="form-label">Gallery</label>
                                  <input type="file" name="files[]" class="form-control" id="uploads" multiple>
                                  <div id="images_shows"> </div>
-                                  <input type="hidden" name="thumbs" id="thumbs">
+                                 <input type="hidden" name="thumbs" id="thumbs">
                              </div>
                          </div>
 
@@ -216,7 +224,7 @@
                              <div class="card-body">
                                  <input type="text" name="chip" class="form-control" placeholder="Vi xử lý">
                              </div>
-                               <div class="card-header" style="margin-bottom: -20px;">
+                             <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Màu</h5>
                              </div>
                              <div class="card-body" style="margin-bottom: -20px;">

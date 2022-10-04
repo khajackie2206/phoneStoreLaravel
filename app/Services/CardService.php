@@ -13,59 +13,60 @@ use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Exception;
+
 /**
  * Class ProductService.
  */
 class CardService
 {
-    
+
     public function create(array $params)
     {
         $user = Auth::User();
-  
-        if($user){
-        $quantity = $params['quantity'];
-        $color = $params['color'];
-        $product_id = $params['productId'];
 
-        $carts = session()->get('carts');
+        if ($user) {
+            $quantity = $params['quantity'];
+            $color = $params['color'];
+            $product_id = $params['productId'];
 
-        if (is_null($carts)) {
-            session()->put('carts', [
-                 $product_id => [
-                     $color => [ 'color' => $color , 'quantity' => $quantity  ]
-                  ]
-            ]);
+            $carts = session()->get('carts');
 
-            return true;
-        }
-           
-        $exists = Arr::exists($carts, $product_id);
+            if (is_null($carts)) {
+                session()->put('carts', [
+                    $product_id => [
+                        $color => ['color' => $color, 'quantity' => $quantity]
+                    ]
+                ]);
 
-        if ($exists) {
+                return true;
+            }
+
+            $exists = Arr::exists($carts, $product_id);
+
+            if ($exists) {
 
                 $uniqueColor = Arr::exists($carts[$product_id], $color);
-                
-                if($uniqueColor){
-                   
-                 $carts[$product_id][$color]['quantity'] = $carts[$product_id][$color]['quantity'] + $quantity;
-                session()->put('carts', $carts);
-         
-                return true;  
+
+                if ($uniqueColor) {
+
+                    $carts[$product_id][$color]['quantity'] = $carts[$product_id][$color]['quantity'] + $quantity;
+                    session()->put('carts', $carts);
+
+                    return true;
                 }
-        }
+            }
 
-         $carts[$product_id][$color] = [ 'color' => $color, 'quantity' => $quantity];
-         session()->put('carts', $carts);
+            $carts[$product_id][$color] = ['color' => $color, 'quantity' => $quantity];
+            session()->put('carts', $carts);
 
-          return true;
+            return true;
         }
 
 
         return false;
     }
 
-     public function getProduct()
+    public function getProduct()
     {
         $carts = session()->get('carts');
 
@@ -86,5 +87,4 @@ class CardService
         session()->put('carts', $request->input('num_product'));
         return true;
     }
-
 }

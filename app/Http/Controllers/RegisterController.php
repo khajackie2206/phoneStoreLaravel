@@ -12,18 +12,18 @@ class RegisterController extends Controller
 {
     public function create(ValidateRegistration $request)
     {
-       $input=$request->all();
-       $password = Hash::make(request('pass'));
+        $input = $request->all();
+        $password = Hash::make(request('pass'));
 
         $user = User::create(
-        [
-         'name' => $input['full_name'],
-         'email' => $input['gmail'],
-         'phone' => $input['phone'],
-         'password' => $password,
-         'role' => 0,
-         'active' => 1
-        ]
+            [
+                'name' => $input['full_name'],
+                'email' => $input['gmail'],
+                'phone' => $input['phone'],
+                'password' => $password,
+                'role' => 0,
+                'active' => 1
+            ]
         );
 
         Session::put('user', $user);

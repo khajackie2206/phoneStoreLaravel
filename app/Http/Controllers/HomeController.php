@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ProductService;
+
 class HomeController extends Controller
 {
-     protected $productService;
+    protected $productService;
     /**
      * Create a new controller instance.
      *
