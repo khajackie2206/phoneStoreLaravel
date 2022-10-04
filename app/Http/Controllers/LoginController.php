@@ -9,7 +9,7 @@ use App\Http\Requests\ValidateUserLogin;
 
 class LoginController extends Controller
 {
-     public function index()
+    public function index()
     {
         return view('auth.login-register', [
             'title' => 'Đăng nhập - Đăng ký'
@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::attempt($login)) {
             $user = Auth::User();
             Session::put('user', $user);
-            $user=Session::get('user');
+            $user = Session::get('user');
             return redirect('/');
         } else {
             return redirect()->back()->with('status', 'Email hoặc Password không chính xác');

@@ -21,7 +21,7 @@ class ProductController extends Controller
     protected $productService;
     protected $cardService;
 
-     public function __construct(ProductService $productService, CardService $cardService)
+    public function __construct(ProductService $productService, CardService $cardService)
     {
         $this->productService = $productService;
         $this->cardService = $cardService;
@@ -47,7 +47,7 @@ class ProductController extends Controller
 
     public function getAllProducts()
     {
-        $products = Product::Paginate(8)->where('delete_at', '=', null );
+        $products = Product::Paginate(8)->where('delete_at', '=', null);
 
         return view('admin.product.list-product', [
             'products' => $products
@@ -57,20 +57,20 @@ class ProductController extends Controller
     public function storeProduct(Request $request)
     {
         $params = $request->all();
-         $result =  $this->productService->create($params);
-         if($result){
+        $result =  $this->productService->create($params);
+        if ($result) {
             Alert::success('Thành công', 'Thêm sản phẩm thành công');
             return redirect('/admin/product/list');
-         }
+        }
 
-         Alert::error('Lỗi', 'Thêm sản phẩm lỗi');
+        Alert::error('Lỗi', 'Thêm sản phẩm lỗi');
         return redirect()->back();
     }
 
     public function getProductDetail(int $id)
     {
         $product = $this->productService->getProductDetail($id);
-        
+
         return [
             'id' => $product->id,
             'name' => $product->name,
@@ -78,17 +78,17 @@ class ProductController extends Controller
             'description' => $product->short_description,
             'thumbs' => $product->images->where('type', 'cover'),
             'colors' => $product->colors,
-            'brand'=> $product->brand->name,
+            'brand' => $product->brand->name,
         ];
     }
 
-       public function detail(int $id)
+    public function detail(int $id)
     {
         $product = $this->productService->getProductDetail($id);
         $productsSameBrand = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
-        
-        return view( 'product.product-detail',[
+
+        return view('product.product-detail', [
             'title' => 'Chi tiết sản phẩm',
             'product' => $product,
             'productBrands' => $productsSameBrand,
@@ -105,9 +105,9 @@ class ProductController extends Controller
         $vendors = Vendor::get();
         $brands = Brand::get();
         $categories = ProductCategory::get();
-        return view('admin.product.edit-product',[
-            'title'=>'Chỉnh sửa sản phẩm',
-            'product'=>$product,
+        return view('admin.product.edit-product', [
+            'title' => 'Chỉnh sửa sản phẩm',
+            'product' => $product,
             'colors' => $colors,
             'features' => $features,
             'memories' => $memories,
@@ -131,41 +131,43 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-         Product::where('id', $product->id)->update(array('delete_at' => Carbon::now()));
+        Product::where('id', $product->id)->update(array('delete_at' => Carbon::now()));
 
         Alert::success('Thành công', 'xóa sản phẩm thành công');
         return redirect()->back();
     }
 
-    public function Search(Request $request){
+    public function Search(Request $request)
+    {
         $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">Sản phẩm gợi ý</div>';
-        $products = Product::where('name','LIKE','%'.$request->search.'%')->limit(3)->get();
-        if(count($products)>0){
-        foreach ($products as $product){
-            $output .= '<a href="/products/details/'.$product->id.'" class="list-group-item list-group-item-action border-1" style="width: 400px;">
+        $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->limit(3)->get();
+        if (count($products) > 0) {
+            foreach ($products as $product) {
+                $output .= '<a href="/products/details/' . $product->id . '" class="list-group-item list-group-item-action border-1" style="width: 400px;">
             <table style="border-bottom:none;">
                <tr>
-                  <td rowspan="2" style="width: 90px; height: 60px;"><img src="'.$product->images->where('type', 'cover')->first()['url'].'" style="width: 80px; height: 70px;"></td>
-                  <td style="font-weight:bold;width: 220px; height: 1px;">'.$product->name.'</td>
+                  <td rowspan="2" style="width: 90px; height: 60px;"><img src="' . $product->images->where('type', 'cover')->first()['url'] . '" style="width: 80px; height: 70px;"></td>
+                  <td style="font-weight:bold;width: 220px; height: 1px;">' . $product->name . '</td>
                </tr>
                <tr>
-                  <td style="color:red;width: 200px; height: 1px;">'.number_format($product->price).' đ</td>
+                  <td style="color:red;width: 200px; height: 1px;">' . number_format($product->price) . ' đ</td>
                </tr>
             </table>
             </a>';
-        }
-    } else $output='<a  class="list-group-item list-group-item-action border-1" style="width: 300px;text-align:center;">Không tìm thấy kết quả</a>'; 
-   
+            }
+        } else $output = '<a  class="list-group-item list-group-item-action border-1" style="width: 300px;text-align:center;">Không tìm thấy kết quả</a>';
+
         return response()->json($output);
     }
 
-    public function filterPage() {
+    public function filterPage()
+    {
         $products = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::get();
         $features = Feature::get();
-        
-        return view( 'product.filter-product',[
+
+        return view('product.filter-product', [
             'title' => 'Danh sách sản phẩm',
             'products' => $products,
             'sessionProducts' => $sessionProducts,
@@ -175,27 +177,27 @@ class ProductController extends Controller
         ]);
     }
 
-    public function filter(Request $request) 
+    public function filter(Request $request)
     {
         $output = '';
         $input = $request->all();
         $brands = explode(',', $input['ids']);
         $products = '';
-        if(!isset($input['ids'])) {
+        if (!isset($input['ids'])) {
             $products = Product::get();
         } else {
-             $products = Product::whereIn('brand_id', $brands)->get();
+            $products = Product::whereIn('brand_id', $brands)->get();
         }
         $count = 0;
-       
+
         foreach ($products as $product) {
-              $count ++;
-              $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+            $count++;
+            $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
-                                                    <a href="/products/details/'.$product->id.'">
-                                                         <img src="'.$product->images->where('type', 'cover')->first()['url'].'"
+                                                    <a href="/products/details/' . $product->id . '">
+                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
                                                      style="width: 120px;height:120px;">
                                                     </a>
                                                 </div>
@@ -203,7 +205,7 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="/products/details/'.$product->id.'">'.$product->brand->name.'</a>
+                                                                <a href="/products/details/' . $product->id . '">' . $product->brand->name . '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -215,17 +217,17 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="/products/details/'.$product->id.'">'.$product->name.'</a></h4>
+                                                        <h4><a class="product_name" href="/products/details/' . $product->id . '">' . $product->name . '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            '.number_format($product->price).' đ</p></span>
+                                                            ' . number_format($product->price) . ' đ</p></span>
                                                         </div>
                                                     </div>
                                                   <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/'.$product->id.'">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                        <p productId="'.$product->id.'" title="quick view"
+                                                        <p productId="' . $product->id . '" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
                                                             data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                         </p>
@@ -235,13 +237,13 @@ class ProductController extends Controller
                                                 </div>
                                             </div>
                                             <!-- single-product-wrap end -->
-                                        </div>' ; 
-      } 
+                                        </div>';
+        }
 
-         if($count == 0){
-          $output ='<div class="row justify-content-center"><h2>Không tìm thấy điện thoại</h2></div>';
-         }
-      
-      return response()->json($output);
+        if ($count == 0) {
+            $output = '<div class="row justify-content-center"><h2>Không tìm thấy điện thoại</h2></div>';
+        }
+
+        return response()->json($output);
     }
 }
