@@ -210,7 +210,8 @@ function fetchDataOfCategory(id) {
            url: "/products/filter-product" + "?" + "ids=" + id,
            type: "GET",
            success: function (data) {
-               $("#filterArea").html(data);
+               $("#filterArea").html(data['data']);
+               $("#flexProduct").html(data['flex']);
            },
        });
 }

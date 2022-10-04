@@ -540,7 +540,7 @@
                             </div>
                             <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col" id="flexProduct">
                                         @foreach ($products as $product)
                                         <div class="row product-layout-list">
                                             <div class="col-lg-3 col-md-5 ">

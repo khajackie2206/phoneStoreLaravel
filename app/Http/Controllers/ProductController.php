@@ -178,6 +178,7 @@ class ProductController extends Controller
     public function filter(Request $request) 
     {
         $output = '';
+        $flex = '';
         $input = $request->all();
         $brands = explode(',', $input['ids']);
         $products = '';
@@ -236,12 +237,59 @@ class ProductController extends Controller
                                             </div>
                                             <!-- single-product-wrap end -->
                                         </div>' ; 
+
+          $flex .= ' <div class="row product-layout-list">
+                                            <div class="col-lg-3 col-md-5 ">
+                                               <div class="product-image">
+                                                    <a href="/products/details/'.$product->id.'">
+                                                         <img src="'.$product->images->where('type', 'cover')->first()['url'].'"
+                                                     style="width: 190px;height:190px;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5 col-md-7">
+                                                <div class="product_desc">
+                                                    <div class="product_desc_info">
+                                                        <div class="product-review">
+                                                            <h5 class="manufacturer">
+                                                                <a href="#">'.$product->brand->name.'</a>
+                                                            </h5>
+                                                            <div class="rating-box">
+                                                                <ul class="rating">
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <h4><a class="product_name" href="single-product.html">'.$product->name.'</a></h4>
+                                                        <div class="price-box">
+                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
+                                                            '.number_format($product->price).' đ</p></span>
+                                                        </div>
+                                                        <p>'.$product->short_description.'</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="shop-add-action mb-xs-30">
+                                                    <ul class="add-actions-link">
+                                                        <li class="add-cart"><a href="/products/details/'.$product->id.'">ĐẶT MUA NGAY</a></li>
+                                                        <li><a class="quick-view quick-view-btn" productId="'.$product->id.'" data-toggle="modal"
+                                                                data-target="#exampleModalCenter" href="#"><i
+                                                                    class="fa fa-eye"></i>Xem chi tiết</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>';
       } 
 
          if($count == 0){
           $output ='<div class="row justify-content-center"><h2>Không tìm thấy điện thoại</h2></div>';
          }
       
-      return response()->json($output);
+      return response()->json(['data' => $output, 'flex' => $flex]);
     }
 }
