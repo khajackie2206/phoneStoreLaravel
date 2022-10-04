@@ -14,6 +14,7 @@ use App\Models\ProductCategory;
 use App\Services\CardService;
 use Illuminate\Pagination\Paginator;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\ValidateAddProduct;
 use Carbon\Carbon;
 
 class ProductController extends Controller
@@ -54,7 +55,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function storeProduct(Request $request)
+    public function storeProduct(ValidateAddProduct $request)
     {
         $params = $request->all();
         $result =  $this->productService->create($params);
