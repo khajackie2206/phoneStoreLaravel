@@ -34,8 +34,10 @@ class ValidateAddProduct extends FormRequest
             'front' => 'required|string',
             'rear' => 'required|string',
             'size' => 'required',
-            'colors' => 'required|array',
-            'features' => 'required|array',
+            'colors' => 'required',
+            'features' => 'required',
+            'files' => 'required|array',
+            'file' => 'required|string'
         ];
     }
 
@@ -49,6 +51,16 @@ class ValidateAddProduct extends FormRequest
         return [
             'phone_name.required'  => 'Vui long nhap ten dien thoai',
             'price.required'  => 'Vui long nhap gia',
+            'quantity.required' => 'Vui long nhap so luong',
+            'short_description.required' => 'Vui long nhap mo ta ngan',
+            'description.required' => 'Vui long nhap mo ta chi tiet',
+            'chip.required' => 'Vui long nhap vi xu ly',
+            'battery.required' => 'Vui long nhap dung luong pin',
+            'front.required' => 'Vui long nhap thong so camera truoc',
+            'rear.required' => 'Vui long nhap thong so camera sau',
+            'size.required' => 'Vui long nhap thong so man hinh dien thoai',
+            'colors.required' => 'Vui long chon mau sac',
+            'features.required' => 'Vui long chon tinh nang cua dien thoai'
         ];
     }
 }

@@ -18,27 +18,35 @@
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Tên điện thoại"
                                      name="phone_name">
-                                     @if(isset($errors))
-                                     <ul style="margin-top:5px; ">
-                                        <li class="text-danger">{{$errors->first('phone_name')}}</li>
-                                    </ul>
-                                    @endif
+
                              </div>
+                             @if($errors->first('phone_name') != '')
+                             <ul style="margin-top:5px; list-style-type:none;">
+                                <li class="text-danger">{{$errors->first('phone_name')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Giá bán</h5>
                              </div>
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Giá bán" name="price">
-                                 <ul style="margin-top:5px; ">
-                                    <li class="text-danger">{{$errors->first('price')}}</li>
-                                </ul>
                                 </div>
+                                @if($errors->first('price') != '')
+                                <ul style="margin-top:5px;list-style-type:none; ">
+                                   <li class="text-danger">{{$errors->first('price')}}</li>
+                               </ul>
+                               @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Số lượng</h5>
                              </div>
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Số lượng" name="quantity">
                              </div>
+                             @if($errors->first('quantity') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('quantity')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Hãng</h5>
                              </div>
@@ -60,6 +68,11 @@
                              <div class="card-body">
                                  <textarea class="form-control" name="short_description" rows="2" placeholder="Nhập mô tả ngắn"></textarea>
                              </div>
+                             @if($errors->first('short_description') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('short_description')}}</li>
+                            </ul>
+                            @endif
                          </div>
 
                          <div class="card">
@@ -69,6 +82,11 @@
                              <div class="card-body">
                                  <textarea class="form-control" id="content" name="description" rows="2" placeholder="mô tả chi tiết"></textarea>
                              </div>
+                             @if($errors->first('description') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('description')}}</li>
+                            </ul>
+                            @endif
                          </div>
 
                          <div class="card">
@@ -194,6 +212,11 @@
                                  <input type="text" name="size" class="form-control"
                                      placeholder="Kích cỡ màn hình - Inch">
                              </div>
+                             @if($errors->first('size') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('size')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Tần số quét màn hình</h5>
                              </div>
@@ -218,12 +241,22 @@
                                      </label>
                                  @endforeach
                              </div>
+                             @if($errors->first('features') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('features')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Bộ xử lý</h5>
                              </div>
                              <div class="card-body">
                                  <input type="text" name="chip" class="form-control" placeholder="Vi xử lý">
                              </div>
+                             @if($errors->first('chip') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('chip')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Màu</h5>
                              </div>
@@ -234,6 +267,11 @@
                                      @endforeach
                                  </select>
                              </div>
+                             @if($errors->first('colors') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('colors')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px; margin-top:15px;">
                                  <h5 class="card-title mb-0">Bộ Nhớ</h5>
                              </div>
@@ -263,6 +301,11 @@
                                  <input type="text" name="battery" class="form-control"
                                      placeholder="Dung lượng pin tối đa - mAh">
                              </div>
+                             @if($errors->first('battery') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('battery')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Camera</h5>
                              </div>
@@ -271,11 +314,21 @@
                                  <input type="text" class="form-control" name="front"
                                      placeholder="Độ phân giải camera trước - MP">
                              </div>
+                             @if($errors->first('front') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('front')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-body">
                                  <label class="form-label">Camera sau</label>
                                  <input type="text" class="form-control" name="rear"
                                      placeholder="Độ phân giải camera sau - MP">
                              </div>
+                             @if($errors->first('rear') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('rear')}}</li>
+                            </ul>
+                            @endif
                          </div>
                      </div>
                  </div>

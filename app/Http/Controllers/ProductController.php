@@ -59,6 +59,7 @@ class ProductController extends Controller
     public function storeProduct(ValidateAddProduct $request)
     {
         $params = $request->all();
+        dd($params);
         $result =  $this->productService->create($params);
         if ($result) {
             Alert::success('Thành công', 'Thêm sản phẩm thành công');
@@ -240,7 +241,7 @@ class ProductController extends Controller
                                                 </div>
                                             </div>
                                             <!-- single-product-wrap end -->
-                                        </div>' ; 
+                                        </div>' ;
 
           $flex .= ' <div class="row product-layout-list">
                                             <div class="col-lg-3 col-md-5 ">
@@ -288,12 +289,12 @@ class ProductController extends Controller
                                                 </div>
                                             </div>
                                         </div>';
-      } 
+      }
 
          if($count == 0){
           $output ='<div class="row justify-content-center"><h2>Không tìm thấy điện thoại</h2></div>';
          }
-      
+
       return response()->json(['data' => $output, 'flex' => $flex]);
 
     }
@@ -412,11 +413,11 @@ class ProductController extends Controller
                                         </div>';
              }
 
-            
-            
+
+
             return response()->json(['data' => $output, 'flex' =>$flex]);
-        }      
+        }
         return response()->json(['data' =>'', 'flex' => '']
-            );  
+            );
     }
 }
