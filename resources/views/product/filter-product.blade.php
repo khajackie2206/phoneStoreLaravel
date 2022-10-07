@@ -13,7 +13,7 @@
     </div>
     <!-- Li's Breadcrumb Area End Here -->
     <!-- Begin Li's Content Wraper Area -->
-    <div class="content-wraper pt-60 pb-60 pt-sm-30">
+    <div class="content-wraper pt-30 pb-60 pt-sm-30">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 order-1 order-lg-2">
@@ -113,7 +113,7 @@
                                                 <!-- single-product-wrap end -->
                                             </div>
                                         @endforeach
-                                  
+
                                     </div>
                                 </div>
                             </div>
@@ -126,8 +126,7 @@
                                                     <div class="product-image">
                                                         <a href="/products/details/{{ $product->id }}">
                                                             <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
-                                                                alt="Li's Product Image"
-                                                                style="width: 190px;height:190px;">
+                                                                alt="Li's Product Image" style="width: 190px;height:190px;">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -181,9 +180,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="paginate" style="text-align: center; margin-top: 45px;"  id="button-loadMore">
+                            <div class="paginate" style="text-align: center; margin-top: 45px;" id="button-loadMore">
                                 <input type="hidden" value="1" id="page">
-                                     <a onclick="loadMore()" class="btn btn-light">Xem thêm</a>
+                                <a onclick="loadMore()" class="btn btn-light">Xem thêm</a>
                             </div>
                         </div>
                     </div>
@@ -200,42 +199,39 @@
                         <button class="btn-clear-all mb-sm-30 mb-xs-30">Xóa tất cả</button>
                         <!-- btn-clear-all end -->
                         <!-- filter-sub-area start -->
-                        <div class="filter-sub-area">
-                            <h5 class="filter-sub-titel">Thương hiệu</h5>
-                            <div class="categori-checkbox">
-                                <form action="#">
+                        <form action="#" method="post" id="myForm">
+                            <div class="filter-sub-area">
+                                <h5 class="filter-sub-titel">Thương hiệu</h5>
+                                <div class="categori-checkbox">
                                     <ul>
                                         @foreach ($brands as $brand)
-                                            <li><input type="checkbox" class="feature_checkbox" name="product-categori"
-                                                    id="{{ $brand->id }}"><a href="#">{{ $brand->name }}</a>
+                                            <li><input type="checkbox" class="feature_checkbox brands" name="brands[]"
+                                                    value="{{ $brand->id }}"><a href="#">{{ $brand->name }}</a>
                                             </li>
                                         @endforeach
 
                                     </ul>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- filter-sub-area end -->
-                        <!-- filter-sub-area start -->
-                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
-                            <h5 class="filter-sub-titel">Tính năng đặc biệt</h5>
-                            <div class="categori-checkbox">
-                                <form action="#">
+                            <!-- filter-sub-area end -->
+                            <!-- filter-sub-area start -->
+                            <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                                <h5 class="filter-sub-titel">Tính năng đặc biệt</h5>
+                                <div class="categori-checkbox">
                                     <ul>
                                         @foreach ($features as $feature)
-                                            <li><input type="checkbox" name="product-categori"><a
+                                            <li><input type="checkbox" class="product-features" name="product-features[]"
+                                                    value="{{ $feature->id }}"><a
                                                     href="#">{{ $feature->name }}</a></li>
                                         @endforeach
                                     </ul>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- filter-sub-area end -->
-                        <!-- filter-sub-area start -->
-                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
-                            <h5 class="filter-sub-titel">Mức giá</h5>
-                            <div class="size-checkbox">
-                                <form action="#">
+                            <!-- filter-sub-area end -->
+                            <!-- filter-sub-area start -->
+                            <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                                <h5 class="filter-sub-titel">Mức giá</h5>
+                                <div class="size-checkbox">
                                     <ul>
                                         <li><input type="checkbox" name="product-size"><a href="#">Dưới 2
                                                 triệu</a></li>
@@ -248,41 +244,41 @@
                                         <li><input type="checkbox" name="product-size"><a href="#">Từ 13 - 20
                                                 triệu</a></li>
                                     </ul>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- filter-sub-area end -->
-                        <!-- filter-sub-area start -->
-                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
-                            <h5 class="filter-sub-titel">Bộ nhớ trong</h5>
-                            <div class="size-checkbox">
-                                <form action="#">
+                            <!-- filter-sub-area end -->
+                            <!-- filter-sub-area start -->
+                            <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                                <h5 class="filter-sub-titel">Bộ nhớ trong</h5>
+                                <div class="size-checkbox">
                                     <ul>
-                                        <li><input type="checkbox" name="product-size"><a href="#">64 GB</a></li>
-                                        <li><input type="checkbox" name="product-size"><a href="#">128 GB</a></li>
-                                        <li><input type="checkbox" name="product-size"><a href="#">256 GB</a></li>
-                                        <li><input type="checkbox" name="product-size"><a href="#">512 GB</a></li>
+                                        <li><input type="checkbox" class="product-memories" name="product-memories[]" value="64"><a href="#">64 GB</a></li>
+                                        <li><input type="checkbox" class="product-memories" name="product-memories[]" value="128"><a href="#">128 GB</a></li>
+                                        <li><input type="checkbox" class="product-memories" name="product-memories[]" value="256"><a href="#">256 GB</a></li>
+                                        <li><input type="checkbox" class="product-memories" name="product-memories[]" value="512"><a href="#">512 GB</a></li>
                                     </ul>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- filter-sub-area end -->
-                        <!-- filter-sub-area start -->
-                        <div class="filter-sub-area pt-sm-10 pb-sm-15 pb-xs-15">
-                            <h5 class="filter-sub-titel">Loại điện thoại</h5>
-                            <div class="categori-checkbox">
-                                <form action="#">
+                            <!-- filter-sub-area end -->
+                            <!-- filter-sub-area start -->
+                            <div class="filter-sub-area pt-sm-10 pb-sm-15 pb-xs-15">
+                                <h5 class="filter-sub-titel">Loại điện thoại</h5>
+                                <div class="categori-checkbox">
                                     <ul>
-                                        <li><input type="checkbox" name="product-categori"><a href="#">Android</a>
+                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
+                                                value="Android"><a href="#">Android</a>
                                         </li>
-                                        <li><input type="checkbox" name="product-categori"><a href="#">iOS</a>
+                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
+                                                value="IOS"><a href="#">iOS</a>
                                         </li>
-                                        <li><input type="checkbox" name="product-categori"><a href="#">Điện
+                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
+                                                value="Other"><a href="#">Điện
                                                 thoại phổ thông</a></li>
                                     </ul>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+
                         <!-- filter-sub-area end -->
                     </div>
                     <!--sidebar-categores-box end  -->

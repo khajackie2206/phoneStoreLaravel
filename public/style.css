@@ -1910,13 +1910,13 @@ textarea:focus {
 	position: static !important;
 }
 .megamenu-static-holder .hb-megamenu, .megamenu-holder .hb-megamenu {
-	background-image: url(images/menu/li-bg-menu.jpg);
+
 	background-size: cover;
 	background-position: top;
 	background-repeat: no-repeat;
 	top: auto;
 	left: 0;
-	z-index: 99;
+	z-index: 499;
 	width: 100%;
 }
 .megamenu-holder .hb-megamenu {

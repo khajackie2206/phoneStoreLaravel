@@ -10,6 +10,7 @@ class Product extends Model
 {
     use HasFactory;
      protected $fillable = [
+        'id',
         'name',
         'category_id',
         'vendor_id',
@@ -43,7 +44,7 @@ class Product extends Model
     {
         return $this->hasOne(Brand::class,'id','brand_id');
     }
-    
+
     public function images(){
          return $this->hasMany(Image::class, foreignKey:'product_id',localKey:'id');
     }

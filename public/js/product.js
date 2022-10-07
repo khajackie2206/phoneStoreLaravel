@@ -93,11 +93,12 @@ $(".quick-view-btn").click(function () {
         datatype: "JSON",
         url: "/products/detail/" + productId,
         success: function (results) {
-          //  console.log(results);
+           console.log(results);
             // $("#modelProductImage").html('');
             // $("#modelProductImageThumb").html('');
             $("#productId").val(results.id);
             $("#modelProductBrand").html(results.brand);
+            $("#modelProductMemory").html(results.ram+' GB'+' - '+results.memory+' GB');
             $("#modalProductName").html(results.name);
             $("#modalProductPrice").html(
                 results.price.toLocaleString("vi", {
@@ -184,7 +185,7 @@ $(document).ready(function () {
 
 //filter product
 
-$(document).ready(function() {
+/*$(document).ready(function() {
        $(document).on('click', '.feature_checkbox', function() {
           //alert(123);
            var ids = [];
@@ -200,22 +201,20 @@ $(document).ready(function() {
            /*  let url = "/products/filter-product" + "?" + "ids=" + ids;
 
              window.location = url;*/
-
          //   alert(ids);
-       });
-});
+  /*     });
+});*/
 
-function fetchDataOfCategory(id) {
+/*function fetchDataOfCategory(id) {
        $.ajax({
            url: "/products/filter-product" + "?" + "ids=" + id,
            type: "GET",
            success: function (data) {
                $("#filterArea").html(data['data']);
                $("#flexProduct").html(data['flex']);
-               $(".paginate").html("");
            },
        });
-}
+}*/
 
 //load more
 function loadMore() {
@@ -237,4 +236,26 @@ function loadMore() {
             }
         },
     });
+
+
 }
+
+$(document).ready(function () {
+    $(".product-features, .phone-types, .product-memories, .brands").click(function () {
+        var formData = $("#myForm").serialize();
+        //     alert(formData);
+        // let url = "/products/load-product?" + formData;
+        // window.location = url;
+        // console.log("Posting the following: ", formData);
+
+        $.ajax({
+            url: "/products/load-product"+"?"+formData,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                $("#filterArea").html(data["data"]);
+                $("#flexProduct").html(data["flex"]);
+            },
+        });
+    });
+});

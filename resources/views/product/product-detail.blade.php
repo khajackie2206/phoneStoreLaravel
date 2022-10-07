@@ -51,7 +51,20 @@
                 <div class="col-lg-7 col-md-6">
                     <div class="product-details-view-content pt-60">
                         <div class="product-info">
-                            <h2>{{ $product->name }}</h2>
+                            <h2>{{ $product->name }} <span style="margin-left: 70px;">
+                                    @foreach ($groupProduct as $item)
+                                        @if ($item->memories[0]['rom'] == $product->memories[0]['rom'])
+                                            <a href="/products/details/{{ $item->id }}"
+                                                style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; ">{{ $item->ram }}
+                                                GB - {{ $item->memories[0]['rom'] }} GB</a>
+                                        @else
+                                            <a href="/products/details/{{ $item->id }}"
+                                                style="border: 1px solid #e0e0e0;font-size: 15px; padding: 10px; color: #333; ">{{ $item->ram }}
+                                                GB - {{ $item->memories[0]['rom'] }} GB</a>
+                                        @endif
+                                    @endforeach
+
+                                </span></h2>
                             <span class="product-details-ref">Thương hiệu: {{ $product->brand->name }}</span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
@@ -71,7 +84,7 @@
                             <div class="product-desc">
                                 <p>
                                     <span>
-                                        {{ $product->description }}
+                                        {{ $product->short_description }}
                                     </span>
                                 </p>
                             </div>
@@ -81,7 +94,7 @@
                                         <label>Màu sắc</label>
                                         <select class="nice-select" name="color">
                                             @foreach ($product->colors as $item)
-                                                <option value="{{ $item->id }}"  title="{{ $item->name }}">
+                                                <option value="{{ $item->id }}" title="{{ $item->name }}">
                                                     {{ $item->name }}</option>
                                             @endforeach
                                         </select>
@@ -96,7 +109,8 @@
                                                 id="product-quantity" name="quantity">
                                             <div class="dec qtybutton" action="quantity-dec"><i
                                                     class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton qtybutton1" action="quantity-inc"><i class="fa fa-angle-up"></i>
+                                            <div class="inc qtybutton qtybutton1" action="quantity-inc"><i
+                                                    class="fa fa-angle-up"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +129,8 @@
                                         </li>
                                         <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google
                                                 +</a></li>
-                                        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+                                        <li class="instagram"><a href="#"><i
+                                                    class="fa fa-instagram"></i>Instagram</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -166,7 +181,9 @@
             <div class="tab-content">
                 <div id="description" class="tab-pane active show" role="tabpanel">
                     <div class="product-description">
-                        <span>{{ $product->description }}</span>
+                        <span>
+                            {!! $product->description !!}
+                        </span>
                     </div>
                 </div>
                 <div id="product-details" class="tab-pane" role="tabpanel">
@@ -278,6 +295,14 @@
                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
                                 </ul>
+                            </div>
+                            <div class="comment-author-infos pt-25">
+                                <span>Nguyễn Minh Kha</span>
+                                <em>01-12-22</em>
+                            </div>
+                            <div class="comment-details">
+                                <h4 class="title-block">Chất lượng tốt</h4>
+                                <p>Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
                             </div>
                             <div class="review-btn">
                                 <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết

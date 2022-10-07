@@ -34,10 +34,12 @@
                                             <tr class="bg-light">
                                                 <th scope="col" width="5%">#</th>
                                                 <th scope="col" width="20%">Tên điện thoại</th>
+                                                <th scope="col" width="15%">Dung lượng</th>
+
                                                 <th scope="col" width="10%">Trạng thái</th>
                                                 <th scope="col" width="20%">Hình ảnh</th>
-                                                <th scope="col" width="20%">Hãng</th>
-                                                <th scope="col" class="text-end" width="20%"><span>Thao tác</span>
+                                                <th scope="col" width="10%">Hãng</th>
+                                                <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -46,6 +48,7 @@
                                                 <tr>
                                                     <td>{{ $product->id }}</td>
                                                     <td style="font-weight: bold;">{{ $product->name }}</td>
+                                                    <td style="font-weight: bold;">{{ $product->ram }} GB - {{$product->memories[0]['rom'] }} GB</td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($product->active == 1)
                                                                 <span class="badge bg-success">Enable</span>

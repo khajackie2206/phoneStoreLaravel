@@ -134,6 +134,11 @@
                                  <input type="text" name="discount" class="form-control"
                                      placeholder="Số tiền giảm giá - VNĐ">
                              </div>
+                              @if($errors->first('discount') != '')
+                             <ul style="margin-top:5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('discount')}}</li>
+                            </ul>
+                            @endif
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Năm sản xuất</h5>
                              </div>

@@ -154,8 +154,14 @@
                       <div class="col-lg-7 col-md-6 col-sm-6">
                           <div class="product-details-view-content pt-60">
                               <div class="product-info">
-                                  <h2 id="modalProductName"></h2>
-                                  <span style="font-size: 13px;color: #7a7a7a;">Thương hiệu: </span>
+                                  <h2 >
+                                     <span id="modalProductName"></span>
+                                     <span style="margin-left: 70px;">
+                                   <a href="#" id="modelProductMemory" style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; ">GB</a>                                      
+                                  </span>
+                                  </h2>
+                                 
+                                   <span style="font-size: 13px;color: #7a7a7a;">Thương hiệu: </span>
                                   <span class="product-details-ref" id="modelProductBrand"></span>
                                   <div class="rating-box pt-20">
                                       <ul class="rating rating-with-review-item">

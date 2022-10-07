@@ -7,7 +7,7 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li><span>Số điện thoại đặt hàng:</span><a href="#"> (+84) 911603179</a></li>
+                            <li style="margin-top: 5px;"><span>Số điện thoại đặt hàng:</span><a href="#"> (+84) 911603179</a></li>
                         </ul>
                     </div>
                 </div>

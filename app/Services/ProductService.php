@@ -17,7 +17,7 @@ use Exception;
  */
 class ProductService
 {
-    const LIMIT = 3;
+    const LIMIT = 6;
 
     public function create($params)
     {
@@ -105,17 +105,17 @@ class ProductService
         $products = Product::where('active', 1)
             ->orderBy('created_at', 'DESC')
             ->limit(10)
-            ->get();
+            ->get()->unique('name');
 
         return $products;
     }
 
     public function getProductsDiscount()
     {
-        $products = Product::where('active', 1)
+        $products = Product::distinct('name')->where('active', 1)
             ->orderBy('discount', 'DESC')
             ->limit(10)
-            ->get();
+            ->get()->unique('name');
 
         return $products;
     }
@@ -125,7 +125,7 @@ class ProductService
         $products = Product::where('active', 1)
             ->orderBy('id', 'DESC')
             ->limit(self::LIMIT)
-            ->get();
+            ->get()->unique('name');
 
         return $products;
     }
@@ -238,6 +238,10 @@ class ProductService
                 $query->offset($page * self::LIMIT);
             })
             ->limit(self::LIMIT)
-            ->get();
+            ->get()->unique('name');
+    }
+
+    public function getGroupProduct(Product $product) {
+        return Product::where('name', 'like', $product->name)->get();
     }
 }

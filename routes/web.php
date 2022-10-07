@@ -71,6 +71,7 @@ Route::prefix('products')->group(function(){
     Route::get('/filter', [ProductController::class, 'filterPage']);
     Route::get('filter-product', [ProductController::class ,'filter']);
     Route::get('/load-more', [ProductController::class, 'loadMore']);
+    Route::get('/load-product', [ProductController::class, 'loadProduct']);
 });
 
 

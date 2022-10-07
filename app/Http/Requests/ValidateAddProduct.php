@@ -24,20 +24,21 @@ class ValidateAddProduct extends FormRequest
     public function rules()
     {
         return [
-            'phone_name' => 'required|string',
+            'phone_name' => 'required',
             'price' => 'required|integer',
             'quantity' => 'required|integer',
-            'short_description' => 'required|string',
-            'description' => 'required|string',
-            'chip' => 'required|string',
+            'short_description' => 'required',
+            'description' => 'required',
+            'chip' => 'required',
             'battery' => 'required|integer',
-            'front' => 'required|string',
-            'rear' => 'required|string',
+            'front' => 'required',
+            'rear' => 'required',
             'size' => 'required',
             'colors' => 'required',
             'features' => 'required',
-            'files' => 'required|array',
-            'file' => 'required|string'
+            'files' => 'required',
+            'file' => 'required',
+            'discount' => 'required|integer'
         ];
     }
 
@@ -49,18 +50,23 @@ class ValidateAddProduct extends FormRequest
     public function messages()
     {
         return [
-            'phone_name.required'  => 'Vui long nhap ten dien thoai',
-            'price.required'  => 'Vui long nhap gia',
-            'quantity.required' => 'Vui long nhap so luong',
-            'short_description.required' => 'Vui long nhap mo ta ngan',
-            'description.required' => 'Vui long nhap mo ta chi tiet',
-            'chip.required' => 'Vui long nhap vi xu ly',
-            'battery.required' => 'Vui long nhap dung luong pin',
-            'front.required' => 'Vui long nhap thong so camera truoc',
-            'rear.required' => 'Vui long nhap thong so camera sau',
-            'size.required' => 'Vui long nhap thong so man hinh dien thoai',
-            'colors.required' => 'Vui long chon mau sac',
-            'features.required' => 'Vui long chon tinh nang cua dien thoai'
+            'phone_name.required'  => 'Vui lòng nhập tên điện thoại',
+            'price.required'  => 'Vui lòng nhập giá',
+            'price.integer' => 'Giá bán không hợp lệ!',
+            'quantity.required' => 'Vui lòng nhập số lượng',
+            'quantity.integer' => 'Số lượng không hợp lệ!',
+            'short_description.required' => 'Vui lòng nhập mô tả ngắn',
+            'description.required' => 'Vui lòng nhập mô tả chi tiết',
+            'chip.required' => 'Vui lòng nhập thông tin vi xử lý',
+            'battery.required' => 'Vui lòng nhập dung lượng pin',
+            'battery.integer' => 'Thông số dung lượng pin không hợp lệ',
+            'front.required' => 'Vui lòng nhập thông số camera trước',
+            'rear.required' => 'Vui lòng nhập thông số camera sau',
+            'size.required' => 'Vui lòng nhập kích thước điện thoại',
+            'colors.required' => 'Vui lòng chọn màu sắc',
+            'features.required' => 'Vui lòng chọn tính năng của điện thoại',
+            'discount.required' => 'Vui lòng nhập thông tin giảm giá, nhập 0 nếu không giảm',
+            'discount.integer' => 'Số tiền giảm giá không hợp lệ'
         ];
     }
 }
