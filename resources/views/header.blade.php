@@ -7,7 +7,8 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li style="margin-top: 5px;"><span>Số điện thoại đặt hàng:</span><a href="#"> (+84) 911603179</a></li>
+                            <li style="margin-top: 5px;"><span>Số điện thoại đặt hàng:</span><a href="#"> (+84)
+                                    911603179</a></li>
                         </ul>
                     </div>
                 </div>
@@ -133,13 +134,13 @@
                     </form>
                     @php $countProduct = 0; @endphp
 
-                       @if (\Illuminate\Support\Facades\Session::get('carts'))
-                                                 @foreach ($sessionProducts as $sessionProduct)
-                                                     @foreach ($carts[$sessionProduct->id] as $item)
-                                                       @php  $countProduct +=1; @endphp
-                                                     @endforeach
-                                                @endforeach
-                     @endif
+                    @if (\Illuminate\Support\Facades\Session::get('carts'))
+                        @foreach ($sessionProducts as $sessionProduct)
+                            @foreach ($carts[$sessionProduct->id] as $item)
+                                @php  $countProduct +=1; @endphp
+                            @endforeach
+                        @endforeach
+                    @endif
                     <!-- Header Middle Searchbox Area End Here -->
                     <!-- Begin Header Middle Right Area -->
                     <div class="header-middle-right" style="margin-left: 20px;">
@@ -150,38 +151,47 @@
                                     <span class="item-icon"></span>
                                     <span class="item-text">
                                         <span class="cart-item-count" style="margin-top: 9px;">
-                                           {{ $countProduct}}
+                                            {{ $countProduct }}
                                         </span>
                                     </span>
                                 </div>
                                 <span></span>
-                                   @php $summary = 0; @endphp
+                                @php $summary = 0; @endphp
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
-                                         @foreach ($sessionProducts as $sessionProduct)
-                                                     @foreach ($carts[$sessionProduct->id] as $item)
-                                                      @php
-                                            $subTotal = $sessionProduct->price * $item['quantity'];
-                                             $summary += $subTotal;
-                                         @endphp
-                                        <li>
-                                              <a href="single-product.html" class="minicart-product-image">
-                                                            <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}" alt="cart products">
+                                            @foreach ($sessionProducts as $sessionProduct)
+                                                @foreach ($carts[$sessionProduct->id] as $item)
+                                                    @php
+                                                        $subTotal = ($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) * $item['quantity'];
+                                                        $summary += $subTotal;
+                                                    @endphp
+                                                    <li>
+                                                        <a href="single-product.html" class="minicart-product-image">
+                                                            <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
+                                                                alt="cart products">
                                                         </a>
                                                         <div class="minicart-product-details">
-                                                            <h6><a href="single-product.html">{{ $sessionProduct->name}} {{$sessionProduct->colors->where('id', $item['color'])->first()['name']}}</a></h6>
-                                                            <span><span style="color: red;">{{number_format($sessionProduct->price)}}</span><span style="text-decoration: underline; color:red;" >đ</span><span> x {{$item['quantity'] }}  </span>
+                                                            <h6><a href="single-product.html">{{ $sessionProduct->name }}
+                                                                    {{ $sessionProduct->colors->where('id', $item['color'])->first()['name'] }}</a>
+                                                            </h6>
+                                                            <span><span
+                                                                    style="color: red;">{{ number_format($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) }}</span><span
+                                                                    style="text-decoration: underline; color:red;">đ</span><span>
+                                                                    x {{ $item['quantity'] }} </span>
                                                         </div>
                                                         <button class="close" title="Remove">
-                                                          <a href="/products/delete-cart/{{$sessionProduct->id}}?color={{$item['color']}}">  <i class="fa fa-close"></i> </a>
+                                                            <a
+                                                                href="/products/delete-cart/{{ $sessionProduct->id }}?color={{ $item['color'] }}">
+                                                                <i class="fa fa-close"></i> </a>
                                                         </button>
-                                        </li>
-                                              @endforeach
-                                          @endforeach  
-                                       @endif
+                                                    </li>
+                                                @endforeach
+                                            @endforeach
+                                        @endif
                                     </ul>
-                                    <p class="minicart-total">TỔNG CỘNG: <span>{{number_format($summary)}}Đ</span></p>
+                                    <p class="minicart-total">TỔNG CỘNG: <span>{{ number_format($summary) }}Đ</span>
+                                    </p>
                                     <div class="minicart-button">
                                         <a href="/products/carts"
                                             class="li-button li-button-fullwidth li-button-dark">

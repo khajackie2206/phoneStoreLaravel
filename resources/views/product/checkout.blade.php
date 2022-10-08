@@ -105,13 +105,22 @@
                                         @foreach ($products as $product)
                                             @foreach ($carts[$product->id] as $item)
                                                 @php
-                                                    $subTotal = $product->price * $item['quantity'];
+                                                    if ($product->discount > 0) {
+                                                        $subTotal = ($product->price - $product->discount) * $item['quantity'];
+                                                    } else {
+                                                        $subTotal = $product->price * $item['quantity'];
+                                                    }
                                                     $summary += $subTotal;
                                                 @endphp
                                                 <tr class="cart_item">
-                                                    <td class="cart-product-name"> {{$product->name }}<strong
-                                                            class="product-quantity"> × {{$item['quantity'] }}</strong></td>
-                                                    <td class="cart-product-total"><span class="amount">{{ number_format($product->price * $item['quantity']) }} <span style="text-decoration: underline;">đ</span></span></td>
+                                                    <td class="cart-product-name"> {{ $product->name }}<strong
+                                                            class="product-quantity"> × {{ $item['quantity'] }}</strong>
+                                                    </td>
+                                                    <td class="cart-product-total">
+                                                        <span class="amount">
+                                                            {{ number_format(( $product->discount > 0 ? ($product->price - $product->discount) : $product->price ) * $item['quantity']) }}
+                                                            <span style="text-decoration: underline;">đ</span></span>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -120,11 +129,12 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Tạm tính</th>
-                                        <td><span class="amount">{{ number_format($summary)}} <span style="text-decoration: underline;">đ</span></span></td>
+                                        <td><span class="amount">{{ number_format($summary) }} <span
+                                                    style="text-decoration: underline;">đ</span></span></td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Tổng cộng</th>
-                                        <td><strong><span class="amount">{{ number_format($summary)}}</span></strong></td>
+                                        <td><strong><span class="amount">{{ number_format($summary) }}</span></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

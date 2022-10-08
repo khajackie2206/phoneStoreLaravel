@@ -126,10 +126,13 @@
                                                 <h4><a class="product_name"
                                                         href="single-product.html">{{ $productNewly->name }}</a></h4>
                                                 <div class="price-box">
-                                                    <span class="new-price">
-                                                        <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productNewly->price) }} đ</p>
-                                                    </span>
+                                                     @if ($productNewly->discount > 0)
+                                                             <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productNewly->price-$productNewly->discount) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @else
+                                                           <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productNewly->price) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="add-actions">
@@ -154,7 +157,7 @@
             </div>
         </div>
     </div>
-  
+
     <!-- Product Area End Here -->
     <!-- Begin Li's Static Banner Area -->
     <div class="li-static-banner">
@@ -240,8 +243,13 @@
                                                         href="single-product.html">{{ $productDiscount->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                        <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productDiscount->price) }} đ</p>
+                                                          @if ($productDiscount->discount > 0)
+                                                             <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productDiscount->price-$productDiscount->discount) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @else
+                                                           <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productDiscount->price) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @endif
                                                     </span>
                                                 </div>
                                             </div>
@@ -344,8 +352,13 @@
                                                         href="single-product.html">{{ $goodProduct->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                        <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($goodProduct->price) }} đ</p>
+                                                              @if ($goodProduct->discount > 0)
+                                                             <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($goodProduct->price-$goodProduct->discount) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @else
+                                                           <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($goodProduct->price) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @endif
                                                     </span>
                                                 </div>
                                             </div>

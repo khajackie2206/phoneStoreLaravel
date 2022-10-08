@@ -11,6 +11,12 @@
             </div>
         </div>
     </div>
+    <?php
+    if ($product->discount > 0) {
+        $priceSale = $product->price - $product->discount;
+    }
+
+    ?>
     <!-- content-wraper start -->
     <div class="content-wraper" style="margin-bottom: -300px; margin-top:30px;">
         <div class="container">
@@ -78,8 +84,30 @@
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
-                                <span class="new-price new-price-2">{{ number_format($product->price) }} <span
-                                        style="text-decoration: underline;">đ</span></span>
+                                @if (isset($priceSale))
+                                    <span class="new-price new-price-2">
+                                    {{ number_format($priceSale) }}
+                                    <span style="text-decoration: underline;">
+                                        đ
+                                    </span>
+                                </span>
+
+                                 <span class="new-price new-price-2" style="color: #666; font-size: 20px; margin-left: 30px; text-decoration-line: line-through;">
+                                    {{ number_format($product->price) }}
+                                    <span style="text-decoration: underline;">
+                                        đ
+                                    </span>
+                                </span>
+                                @else
+
+                                    <span class="new-price new-price-2">
+                                    {{ number_format($product->price) }}
+                                    <span style="text-decoration: underline;">
+                                        đ
+                                    </span>
+                                </span>
+                                @endif
+
                             </div>
                             <div class="product-desc">
                                 <p>
@@ -286,23 +314,19 @@
                 <div id="reviews" class="tab-pane" role="tabpanel">
                     <div class="product-reviews">
                         <div class="product-details-comment-block">
-                            <div class="comment-review">
-                                <span>Mức độ hài lòng</span>
-                                <ul class="rating">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                            </div>
+
                             <div class="comment-author-infos pt-25">
-                                <span>Nguyễn Minh Kha</span>
+                                <span>Nguyễn Minh Kha   <span><ul class="rating">
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                </ul></span></span>
                                 <em>01-12-22</em>
                             </div>
-                            <div class="comment-details">
-                                <h4 class="title-block">Chất lượng tốt</h4>
-                                <p>Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
+                            <div class="comment-details" style="margin-top: 10px;">
+                                <p >Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
                             </div>
                             <div class="review-btn">
                                 <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
@@ -313,7 +337,6 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <h3 class="review-page-title">Write Your Review</h3>
                                             <div class="modal-inner-area row">
                                                 <div class="col-lg-6">
                                                     <!-- Product Details Left -->
@@ -342,31 +365,17 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                    <!--// Product Details Left -->
-                                                    <div class="li-review-product">
-                                                        <img src="images/product/large-size/3.jpg" alt="Li's Product">
-                                                        <div class="li-review-product-desc">
-                                                            <p class="li-product-name">Today is a good day Framed poster
-                                                            </p>
-                                                            <p>
-                                                                <span>Beach Camera Exclusive Bundle - Includes Two Samsung
-                                                                    Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire
-                                                                    Room With Exquisite Sound via Ring Radiator Technology.
-                                                                    Stream And Control R3 Speakers Wirelessly With Your
-                                                                    Smartphone. Sophisticated, Modern Design </span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="li-review-content">
                                                         <!-- Begin Feedback Area -->
                                                         <div class="feedback-area">
                                                             <div class="feedback">
-                                                                <h3 class="feedback-title">Our Feedback</h3>
+                                                                <h3 class="feedback-title">Viết đánh giá</h3>
                                                                 <form action="#">
                                                                     <p class="your-opinion">
-                                                                        <label>Your Rating</label>
+                                                                        <label>Mức độ hài lòng</label>
                                                                         <span>
                                                                             <select class="star-rating">
                                                                                 <option value="1">1</option>
@@ -378,7 +387,7 @@
                                                                         </span>
                                                                     </p>
                                                                     <p class="feedback-form">
-                                                                        <label for="feedback">Your Review</label>
+                                                                        <label for="feedback">Đánh giá của bạn</label>
                                                                         <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
                                                                     </p>
                                                                     <div class="feedback-input">
@@ -472,8 +481,14 @@
                                                         href="single-product.html">{{ $productBrand->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                        <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productBrand->price) }} đ</p>
+                                                     @if ($productBrand->discount > 0)
+                                                             <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productBrand->price-$productBrand->discount) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @else
+                                                           <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productBrand->price) }} <span style="text-decoration: underline;">đ</span></p>
+                                                     @endif
+
                                                     </span>
                                                 </div>
                                             </div>
