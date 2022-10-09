@@ -86,26 +86,26 @@
                             <div class="price-box pt-20">
                                 @if (isset($priceSale))
                                     <span class="new-price new-price-2">
-                                    {{ number_format($priceSale) }}
-                                    <span style="text-decoration: underline;">
-                                        đ
+                                        {{ number_format($priceSale) }}
+                                        <span style="text-decoration: underline;">
+                                            đ
+                                        </span>
                                     </span>
-                                </span>
 
-                                 <span class="new-price new-price-2" style="color: #666; font-size: 20px; margin-left: 30px; text-decoration-line: line-through;">
-                                    {{ number_format($product->price) }}
-                                    <span style="text-decoration: underline;">
-                                        đ
+                                    <span class="new-price new-price-2"
+                                        style="color: #666; font-size: 20px; margin-left: 30px; text-decoration-line: line-through;">
+                                        {{ number_format($product->price) }}
+                                        <span style="text-decoration: underline;">
+                                            đ
+                                        </span>
                                     </span>
-                                </span>
                                 @else
-
                                     <span class="new-price new-price-2">
-                                    {{ number_format($product->price) }}
-                                    <span style="text-decoration: underline;">
-                                        đ
+                                        {{ number_format($product->price) }}
+                                        <span style="text-decoration: underline;">
+                                            đ
+                                        </span>
                                     </span>
-                                </span>
                                 @endif
 
                             </div>
@@ -145,6 +145,7 @@
                                     <button class="add-to-cart" type="submit">Đặt mua ngay</button>
                                 </div>
                                 <input type="hidden" name="productId" value="{{ $product->id }}">
+                                <input type="hidden" id="url" name="url" value="/products/details/{{ $product->id }}">
                                 @csrf
                             </form>
                             <div class="product-additional-info pt-25">
@@ -316,17 +317,19 @@
                         <div class="product-details-comment-block">
 
                             <div class="comment-author-infos pt-25">
-                                <span>Nguyễn Minh Kha   <span><ul class="rating">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                </ul></span></span>
+                                <span>Nguyễn Minh Kha <span>
+                                        <ul class="rating">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                    </span></span>
                                 <em>01-12-22</em>
                             </div>
-                            <div class="comment-details" style="margin-top: 10px;">
-                                <p >Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
+                            <div class="comment-details" style="margin-top: 1px;">
+                                <p>Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
                             </div>
                             <div class="review-btn">
                                 <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
@@ -342,37 +345,25 @@
                                                     <!-- Product Details Left -->
                                                     <div class="product-details-left">
                                                         <div class="product-details-images slider-navigation-1">
-                                                            @foreach ($product->images as $image)
-                                                                <div class="lg-image">
-                                                                    <img src="{{ $image->url }}" alt="product image">
-                                                                </div>
-                                                            @endforeach
-                                                            @foreach ($product->images as $image)
-                                                                <div class="lg-image">
-                                                                    <img src="{{ $image->url }}" alt="product image">
-                                                                </div>
-                                                            @endforeach
-
-                                                        </div>
-                                                        <div class="product-details-thumbs slider-thumbs-1">
-                                                            @foreach ($product->images as $image)
-                                                                <div class="sm-image"><img src="{{ $image->url }}"
-                                                                        alt="product image thumb"></div>
-                                                            @endforeach
-                                                            @foreach ($product->images as $image)
-                                                                <div class="sm-image"><img src="{{ $image->url }}"
-                                                                        alt="product image thumb"></div>
-                                                            @endforeach
+                                                            <div class="lg-image">
+                                                                <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
+                                                                    alt="product image">
+                                                            </div>
                                                         </div>
                                                     </div>
-
+                                                    <div style="text-align: center;">
+                                                        <label
+                                                            style="margin-top: 30px; color: black; font-size: 13px; text-align:center;"><span
+                                                                style="color: blue;"> * </span>Đánh giá sẽ được phê
+                                                            duyệt trước khi hiển thị công khai</label>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="li-review-content">
                                                         <!-- Begin Feedback Area -->
                                                         <div class="feedback-area">
                                                             <div class="feedback">
-                                                                <h3 class="feedback-title">Viết đánh giá</h3>
+                                                                <h3 class="feedback-title">Đánh giá</h3>
                                                                 <form action="#">
                                                                     <p class="your-opinion">
                                                                         <label>Mức độ hài lòng</label>
@@ -392,7 +383,7 @@
                                                                     </p>
                                                                     <div class="feedback-input">
                                                                         <p class="feedback-form-author">
-                                                                            <label for="author">Name<span
+                                                                            <label for="author">Họ và tên<span
                                                                                     class="required">*</span>
                                                                             </label>
                                                                             <input id="author" name="author"
@@ -401,20 +392,20 @@
                                                                         </p>
                                                                         <p
                                                                             class="feedback-form-author feedback-form-email">
-                                                                            <label for="email">Email<span
+                                                                            <label for="email">Số điện thoại<span
                                                                                     class="required">*</span>
                                                                             </label>
                                                                             <input id="email" name="email"
                                                                                 value="" size="30"
                                                                                 aria-required="true" type="text">
-                                                                            <span class="required"><sub>*</sub> Required
-                                                                                fields</span>
+                                                                            <span class="required"><sub>*</sub> Bắt
+                                                                                buộc</span>
                                                                         </p>
                                                                         <div class="feedback-btn pb-15">
                                                                             <a href="#" class="close"
                                                                                 data-dismiss="modal"
-                                                                                aria-label="Close">Close</a>
-                                                                            <a href="#">Submit</a>
+                                                                                aria-label="Close">Đóng</a>
+                                                                            <a href="#">Gởi</a>
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -481,13 +472,15 @@
                                                         href="single-product.html">{{ $productBrand->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                     @if ($productBrand->discount > 0)
-                                                             <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productBrand->price-$productBrand->discount) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @else
-                                                           <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productBrand->price) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @endif
+                                                        @if ($productBrand->discount > 0)
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($productBrand->price - $productBrand->discount) }}
+                                                                <span style="text-decoration: underline;">đ</span></p>
+                                                        @else
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($productBrand->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></p>
+                                                        @endif
 
                                                     </span>
                                                 </div>

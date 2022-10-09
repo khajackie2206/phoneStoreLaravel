@@ -60,19 +60,16 @@
                                                         name="color{{ $item['color'] }}"><a href="#">
                                                             {{ $product->colors->where('id', $item['color'])->first()['name'] }}</a>
                                                     </td>
-                                                    <td class="li-product-price"><span class="amount"
-                                                            style="color: red;">
+                                                    <td class="li-product-price"><span class="amount" style="color: red;">
                                                             @if ($product->discount > 0)
-                                                                   {{ number_format($product->price - $product->discount) }}
-
-                                                             @else
-
-                                                               {{ number_format($product->price) }}
-                                                                   @endif
+                                                                {{ number_format($product->price - $product->discount) }}
+                                                            @else
+                                                                {{ number_format($product->price) }}
+                                                            @endif
 
 
-                                                            <span
-                                                                style="text-decoration: underline;">đ</span></span></td>
+                                                            <span style="text-decoration: underline;">đ</span>
+                                                        </span></td>
                                                     <td class="quantity">
 
                                                         <label>Số lượng</label>

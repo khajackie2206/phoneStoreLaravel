@@ -52,6 +52,9 @@
                                       <a href="#"> Quên mật khẩu?</a>
                                   </div>
 
+                                  @if (isset($url))
+                                       <input type="hidden" value="{{ $url }}" name="url">
+                                  @endif
                                   <div class="col-md-12">
                                       <button class="register-button mt-0" type="submit">Đăng nhập</button>
                                   </div>

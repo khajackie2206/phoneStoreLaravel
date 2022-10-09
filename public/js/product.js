@@ -64,7 +64,7 @@ $(".qtybutton1").click(function(){
         $("#product-quantity").text = quantity - 1;
     }
     if (
-        $(this).attr("action") == "quantity-inc" 
+        $(this).attr("action") == "quantity-inc"
     ) {
         $("#product-quantity").attr("value", quantity + 1);
         $("#product-quantity").text = quantity + 1;
@@ -97,6 +97,7 @@ $(".quick-view-btn").click(function () {
             // $("#modelProductImage").html('');
             // $("#modelProductImageThumb").html('');
             $("#productId").val(results.id);
+            $("#url").val('/products/details/'+results.id);
             $("#modelProductBrand").html(results.brand);
             $("#modelProductMemory").html(results.ram+' GB'+' - '+results.memory+' GB');
             $("#modalProductName").html(results.name);
@@ -106,7 +107,7 @@ $(".quick-view-btn").click(function () {
                     currency: "VND",
                 })
             );
-          
+
             $("#modalProductDesc").html(results.description);
             results.thumbs.map((productImage) => {
                 $("#modelProductImage").children("img").eq(0).remove();
@@ -119,7 +120,7 @@ $(".quick-view-btn").click(function () {
             });
                   $("#color-select option").remove();
             results.colors.map((color, index) => {
-          
+
              //   console.log(index);
                 if (index == 0) {
                     let colorIten =
@@ -140,7 +141,7 @@ $(".quick-view-btn").click(function () {
                 $("#color-select").append(colorIten);
             }
             });
-    
+
         },
     });
 });

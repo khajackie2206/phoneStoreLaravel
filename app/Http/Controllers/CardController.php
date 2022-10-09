@@ -34,6 +34,7 @@ class CardController extends Controller
     {
         $params = $request->all();
         $result = $this->cardService->create($params);
+        $url = $params['url'];
 
         if ($result) {
             Alert::success('Thành công', 'Thêm sản phẩm vào giỏ hàng thành công');
@@ -41,9 +42,7 @@ class CardController extends Controller
         }
 
         Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
-        return view('auth.login-register', [
-            'title' => 'Đăng nhập',
-        ]);
+        return redirect('/login?url='.$url.'');
     }
 
     public function showCard()

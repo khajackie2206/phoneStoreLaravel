@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\UploadService;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 use Exception;
 
 class UploadController extends Controller
@@ -20,11 +21,13 @@ class UploadController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'file' => ['required', 'mimes:jpg, jpeg, png, gif', 'max:4096'],
+            'file' => ['required', 'mimes:jpg, jpeg, png, gif'],
         ]);
         if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
         {
-            return back()->withInput()->withErrors($validator);
+            return response()->json([
+                'error' => true
+            ]);
         }
 
         $url = $this->upload->create($request);

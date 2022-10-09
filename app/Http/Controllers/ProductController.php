@@ -44,7 +44,8 @@ class ProductController extends Controller
             'memories' => $memories,
             'vendors' => $vendors,
             'brands' => $brands,
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => 'Thêm sản phẩm mới'
         ]);
     }
 
@@ -53,6 +54,7 @@ class ProductController extends Controller
         $products = Product::Paginate(12)->where('delete_at', '=', null);
 
         return view('admin.product.list-product', [
+            'title' => 'Danh sách điện thoại',
             'products' => $products
         ]);
     }
@@ -95,7 +97,7 @@ class ProductController extends Controller
         $groupProduct = $this->productService->getGroupProduct($product);
 
         return view('product.product-detail', [
-            'title' => 'Chi tiết sản phẩm',
+            'title' => $product->name,
             'product' => $product,
             'productBrands' => $productsSameBrand,
             'sessionProducts' => $sessionProducts,

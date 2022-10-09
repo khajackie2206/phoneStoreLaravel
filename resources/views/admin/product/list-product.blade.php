@@ -48,7 +48,8 @@
                                                 <tr>
                                                     <td>{{ $product->id }}</td>
                                                     <td style="font-weight: bold;">{{ $product->name }}</td>
-                                                    <td style="font-weight: bold;">{{ $product->ram }} GB - {{$product->memories[0]['rom'] }} GB</td>
+                                                    <td style="font-weight: bold;">{{ $product->ram }} GB -
+                                                        {{ $product->memories[0]['rom'] }} GB</td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($product->active == 1)
                                                                 <span class="badge bg-success">Enable</span>
@@ -64,13 +65,14 @@
                                                             href="/admin/product/edit/{{ $product->id }}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                       
+
                                                         <form method="delete" style=" display:inline!important;"
                                                             action="/admin/product/delete/{{ $product->id }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" style=" display:inline!important;"
-                                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"> <i class="fas fa-trash"></i></button>
+                                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm">
+                                                                <i class="fas fa-trash"></i></button>
                                                         </form>
 
                                                     </td>
@@ -89,24 +91,24 @@
     </main>
 
     <script type="text/javascript">
-        $('.show-alert-delete-box').click(function(event){
-        var form =  $(this).closest("form");
-        var name = $(this).data("name");
-        event.preventDefault();
-        swal({
-            title: "Bạn có chắc muốn xóa sản phẩm này không?",
-            text: "Xóa là mất luôn đó :(.",
-            icon: "warning",
-            type: "warning",
-            buttons: ["Cancel","Yes!"],
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Đã xóa!'
-        }).then((willDelete) => {
-            if (willDelete) {
-                form.submit();
-            }
+        $('.show-alert-delete-box').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: "Bạn có chắc muốn xóa sản phẩm này không?",
+                text: "Xóa là mất luôn đó :(.",
+                icon: "warning",
+                type: "warning",
+                buttons: ["Cancel", "Yes!"],
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đã xóa!'
+            }).then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
         });
-    });
     </script>
 @endsection
