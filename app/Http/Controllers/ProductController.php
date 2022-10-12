@@ -12,7 +12,6 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Services\CardService;
-use Illuminate\Pagination\Paginator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\ValidateAddProduct;
 use Carbon\Carbon;
@@ -51,7 +50,7 @@ class ProductController extends Controller
 
     public function getAllProducts()
     {
-        $products = Product::Paginate(12)->where('delete_at', '=', null);
+        $products = Product::where('delete_at', '=', null)->Paginate(6);
 
         return view('admin.product.list-product', [
             'title' => 'Danh sách điện thoại',

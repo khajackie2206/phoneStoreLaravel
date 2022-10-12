@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\ValidateRegistration;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisterController extends Controller
 {
@@ -21,6 +22,7 @@ class RegisterController extends Controller
                 'email' => $input['gmail'],
                 'phone' => $input['phone'],
                 'password' => $password,
+                'avatar' => '/images/user.png',
                 'role' => 0,
                 'active' => 1
             ]
@@ -28,7 +30,7 @@ class RegisterController extends Controller
 
         Session::put('user', $user);
 
-
+        Alert::success('Thành công', 'Đăng ký tài khoản thành công');
         return redirect('/');
     }
 }

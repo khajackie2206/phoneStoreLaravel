@@ -27,8 +27,8 @@ class BannerController extends Controller
     {
         $input = $request->all();
         $result = $this->bannerService->store($input);
-        if(!$result){
-             Alert::error('Lỗi', 'Thêm banner lỗi');
+        if (!$result) {
+            Alert::error('Lỗi', 'Thêm banner lỗi');
             return redirect()->back();
         }
 
@@ -42,11 +42,32 @@ class BannerController extends Controller
 
         return view('admin.banner.list', [
             'title' => 'Danh sách banner',
-            'banners' => $banners
+            'banners' => $banners,
         ]);
     }
 
-   public function delete(Banner $banner)
+      public function showEdit(Banner $banner)
+    {
+        return view('admin.banner.edit', [
+            'title' => 'Chỉnh sửa banner',
+            'banner' => $banner,
+        ]);
+    }
+
+    public function update(ValidateBanner $request, Banner $banner)
+    {
+        $input = $request->all();
+        $result = $this->bannerService->update($input, $banner);
+        if ($result) {
+            Alert::success('Thành công', 'Cập nhật banner thành công');
+            return redirect('/admin/banner/list');
+        }
+
+        Alert::error('Lỗi', 'Cập nhật banner lỗi');
+        return redirect()->back();
+    }
+
+    public function delete(Banner $banner)
     {
         Banner::where('id', $banner->id)->delete();
 

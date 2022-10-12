@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,6 @@ Route::prefix('admin')
         Route::post('/product/add', [ProductController::class, 'storeProduct']);
         Route::get('/product/list', [ProductController::class, 'getAllProducts']);
         Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
-        Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
-        Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
@@ -49,8 +48,6 @@ Route::prefix('admin')
         Route::post('/banner/add', [BannerController::class, 'storeBanner']);
         Route::get('/banner/list', [BannerController::class, 'getAllBanners']);
         Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
-        Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
-        Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
         Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
         Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
     });
@@ -59,10 +56,15 @@ Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
 Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
 Route::get('/', [MainController::class, 'index'])->name('index');
 Route::post('/login', [LoginController::class, 'postLogin']);
-Route::get('/register', [LoginController::class, 'index'])->name('register');
+Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
 Route::post('/register', [RegisterController::class, 'create']);
 Route::get('/logout', [LoginController::class, 'getLogout']);
 Route::get('/login', [LoginController::class, 'index']);
+
+#Login with google
+Route::get('google', [LoginController::class, 'redirectToProvider']);
+
+Route::get('/auth/google/callback',[LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
 Route::prefix('products')->group(function () {
@@ -83,4 +85,14 @@ Route::prefix('products')->group(function () {
     Route::get('filter-product', [ProductController::class, 'filter']);
     Route::get('/load-more', [ProductController::class, 'loadMore']);
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });

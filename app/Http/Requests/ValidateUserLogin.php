@@ -37,8 +37,8 @@ class ValidateUserLogin extends FormRequest
     public function messages()
     {
         return [
-            'email.required'  => 'Bạn phải nhập email',
-            'password.required'  => 'Bạn phải nhập password',
+            'email.required'  => 'Vui lòng nhập email',
+            'password.required'  => 'Vui lòng nhập password',
         ];
     }
 }

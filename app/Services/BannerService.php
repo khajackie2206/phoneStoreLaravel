@@ -39,4 +39,28 @@ class BannerService
 
         return true;
     }
+
+    public function update(array $params, Banner $banner)
+    {
+        try {
+            $data = [
+                'header' => $params['header'],
+                'product_name' => $params['product_name'],
+                'price' => $params['price'],
+                'type_banner' => $params['type_banner'],
+                'url' => $params['url'],
+                'order' => $params['order'],
+                'active' => $params['active'],
+            ];
+
+            if ($params['file'] != null) {
+                $data['thumb'] = $params['thumb'];
+            }
+
+            $banner->update($params);
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
 }
