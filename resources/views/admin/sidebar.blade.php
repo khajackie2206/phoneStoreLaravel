@@ -81,7 +81,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="/admin/users">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Khách hàng</span>
                 </a>
             </li>

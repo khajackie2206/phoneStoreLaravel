@@ -49,7 +49,7 @@ class BannerService
                 'price' => $params['price'],
                 'type_banner' => $params['type_banner'],
                 'url' => $params['url'],
-                'order' => $params['order'],
+                'sort_by' => $params['order'],
                 'active' => $params['active'],
             ];
 
@@ -62,5 +62,33 @@ class BannerService
             return false;
         }
         return true;
+    }
+
+    public function getHeaderBanners()
+    {
+        $banners = Banner::where('type_banner', 'header')->where('active', 1)->orderBy('sort_by', 'asc')->get();
+
+        return $banners;
+    }
+
+    public function getStaticBanners()
+    {
+        $banners = Banner::where('type_banner', 'header static')->where('active', 1)->orderBy('sort_by', 'asc')->get();
+
+        return $banners;
+    }
+
+    public function getBroadcastBanner()
+    {
+        $banner = Banner::where('type_banner', 'broadcast')->where('active', 1)->first();
+
+        return $banner;
+    }
+
+    public function getCenterBanners()
+    {
+        $banners = Banner::where('type_banner', 'center static')->where('active', 1)->orderBy('sort_by', 'asc')->get();
+
+        return $banners;
     }
 }

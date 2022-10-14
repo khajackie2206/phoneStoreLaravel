@@ -76,7 +76,7 @@
                          </div>
                      </div>
                  </div>
-
+                {{ $banners->links() }}
              </div>
          </div>
      </main>

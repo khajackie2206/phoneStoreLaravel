@@ -22,7 +22,7 @@ class CardService
 
     public function create(array $params)
     {
-        $user = Auth::User();
+        $user = session()->get('user');
 
         if ($user) {
             $quantity = $params['quantity'];

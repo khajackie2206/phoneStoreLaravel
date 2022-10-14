@@ -23,4 +23,3 @@
 	</div>
 </footer>
 
-@yield('footer')

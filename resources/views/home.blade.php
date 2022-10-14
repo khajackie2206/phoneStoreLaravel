@@ -10,62 +10,33 @@
                     <div class="slider-area">
                         <div class="slider-active owl-carousel">
                             <!-- Begin Single Slide Area -->
-                            <div class="single-slide align-center-left  animation-style-01 bg-1">
+                            @foreach ($bannerHeaders as $header)
+                                  <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{$header->thumb}});">
                                 <div class="slider-progress"></div>
                                 <div class="slider-content">
-                                    <h5>Giảm sốc <span>-20% Off</span> Tuần này</h5>
-                                    <h2>Samsung Galaxy S20 | S20+</h2>
-                                    <h3>Chỉ từ <span>19.990.000 Đ</span></h3>
+                                    <h5>{{ $header->header }}</h5>
+                                    <h2>{{ $header->product_name}}</h2>
+                                    <h3>Chỉ từ: <span>{{ number_format((float)$header->price,0,',', '.') }} Đ</span></h3>
                                     <div class="default-btn slide-btn">
-                                        <a class="links" href="shop-left-sidebar.html">Mua ngay</a>
+                                        <a class="links" href="{{ $header->url}}">Mua ngay</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Single Slide Area End Here -->
-                            <!-- Begin Single Slide Area -->
-                            <div class="single-slide align-center-left animation-style-02 bg-2">
-                                <div class="slider-progress"></div>
-                                <div class="slider-content">
-                                    <h5>Deal Khủng</h5>
-                                    <h2>Iphone 13</h2>
-                                    <h3>Chỉ từ <span>20.990.000 Đ</span></h3>
-                                    <div class="default-btn slide-btn">
-                                        <a class="links" href="shop-left-sidebar.html">Mua ngay</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Slide Area End Here -->
-                            <!-- Begin Single Slide Area -->
-                            <div class="single-slide align-center-left animation-style-01 bg-3">
-                                <div class="slider-progress"></div>
-                                <div class="slider-content">
-                                    <h5>Deal khủng <span>-10% </span> tuần này</h5>
-                                    <h2>Mi 12S Ultra</h2>
-                                    <h3>Chỉ từ <span>22.900.000 Đ</span></h3>
-                                    <div class="default-btn slide-btn">
-                                        <a class="links" href="shop-left-sidebar.html">Mua ngay</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Slide Area End Here -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
                 <!-- Slider Area End Here -->
                 <!-- Begin Li Banner Area -->
                 <div class="col-lg-4 col-md-4 text-center pt-xs-30">
-                    <div class="li-banner">
-                        <a href="#">
-                            <img src="https://www.techyloud.com/wp-content/uploads/2020/07/iPhone-13-1536x864.jpg"
+                    @foreach ($staticHeaders as $banner)
+                    <div class="li-banner mb-30 mt-sm-30 mt-xs-30">
+                        <a href="{{$banner->url}}">
+                            <img src="{{$banner->thumb}}"
                                 alt="">
                         </a>
                     </div>
-                    <div class="li-banner mt-30 mt-sm-30 mt-xs-30">
-                        <a href="#">
-                            <img src="https://www.techyloud.com/wp-content/uploads/2020/07/iPhone-13-1536x864.jpg"
-                                alt="">
-                        </a>
-                    </div>
+                       @endforeach
                 </div>
                 <!-- Li Banner Area End Here -->
             </div>
@@ -164,35 +135,18 @@
         <div class="container">
             <div class="row">
                 <!-- Begin Single Banner Area -->
+                @foreach ($centerBanners as $banner)
                 <div class="col-lg-4 col-md-4 text-center">
-                    <div class="single-banner">
-                        <a href="#">
-                            <img src="https://genk.mediacdn.vn/139269124445442048/2022/6/6/006bwonyly1h2yx7canotj335s1s0gsj-1654533212611-1654533212701993366771.jpg"
+                    <div class="single-banner" >
+                        <a href="{{$banner->url}}">
+                            <img src="{{$banner->thumb}}"
                                 alt="Li's Static Banner">
                         </a>
                     </div>
                 </div>
+                @endforeach
                 <!-- Single Banner Area End Here -->
-                <!-- Begin Single Banner Area -->
-                <div class="col-lg-4 col-md-4 text-center pt-xs-30">
-                    <div class="single-banner">
-                        <a href="#">
-                            <img src="https://cdn.tgdd.vn/Files/2022/04/21/1427587/applewatchseries8-_1920x1080-800-resize.jpg"
-                                alt="Li's Static Banner">
-                        </a>
-                    </div>
-                </div>
-                <!-- Single Banner Area End Here -->
-                <!-- Begin Single Banner Area -->
-                <div class="col-lg-4 col-md-4 text-center pt-xs-30">
-                    <div class="single-banner">
-                        <a href="#">
-                            <img src="https://file.hstatic.net/200000144777/file/apple_iphone13_colors_09142021_big.jpg.large_c3a69d0ee4774b12a58836b1fba2334b.jpg"
-                                alt="Li's Static Banner">
-                        </a>
-                    </div>
-                </div>
-                <!-- Single Banner Area End Here -->
+
             </div>
         </div>
     </div>
@@ -289,15 +243,15 @@
                     <!-- Li's Static Home Image Area End Here -->
                     <!-- Begin Li's Static Home Content Area -->
                     <div class="li-static-home-content">
-                        <p>Giảm sốc<span> -20% </span>Tuần này</p>
+                        <p>{{ $broadcastBanner->header}}</p>
                         <h2>Sản phẩm</h2>
-                        <h2>Hệ sinh thái Apple</h2>
+                        <h2>{{ $broadcastBanner->product_name }}</h2>
                         <p class="schedule">
-                            Chỉ từ
-                            <span> 6.990.000 Đ</span>
+                            Chỉ từ:
+                            <span> {{ number_format((float)$broadcastBanner->price,0,',', '.') }} Đ</span>
                         </p>
                         <div class="default-btn">
-                            <a href="shop-left-sidebar.html" class="links">MUA NGAY</a>
+                            <a href="{{$broadcastBanner->url}}" class="links">MUA NGAY</a>
                         </div>
                     </div>
                     <!-- Li's Static Home Content Area End Here -->

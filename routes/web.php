@@ -46,10 +46,14 @@ Route::prefix('admin')
         #Banner
         Route::get('/banner/add', [BannerController::class, 'index']);
         Route::post('/banner/add', [BannerController::class, 'storeBanner']);
-        Route::get('/banner/list', [BannerController::class, 'getAllBanners']);
+        Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
         Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
         Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
         Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+
+        #users
+        Route::get('/users', [AdminController::class, 'getAllUsers']);
+        Route::post('/users/change-active/{user}', [AdminController::class, 'changeActive']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
@@ -87,12 +91,3 @@ Route::prefix('products')->group(function () {
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});

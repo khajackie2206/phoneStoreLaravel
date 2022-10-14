@@ -82,7 +82,8 @@
                              <div class="card-body">
                                  <select class="form-select mb-1" name="type_banner">
                                      <option value="header" selected>Tiêu đề</option>
-                                     <option value="static">Tĩnh</option>
+                                     <option value="header static">Tiêu đề Tĩnh</option>
+                                     <option value="center static">Giữa Tĩnh</option>
                                      <option value="broadcast">Quảng bá</option>
                                  </select>
                              </div>

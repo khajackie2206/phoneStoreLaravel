@@ -7,6 +7,7 @@ use App\Http\Requests\ValidateBanner;
 use App\Models\Banner;
 use App\Services\BannerService;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Pagination\Paginator;
 
 class BannerController extends Controller
 {
@@ -33,12 +34,12 @@ class BannerController extends Controller
         }
 
         Alert::success('Thành công', 'Thêm banner thành công');
-        return redirect()->back();
+        return redirect()->route('banners');
     }
 
     public function getAllBanners()
     {
-        $banners = Banner::get();
+        $banners = Banner::Paginate(6);
 
         return view('admin.banner.list', [
             'title' => 'Danh sách banner',
@@ -60,7 +61,7 @@ class BannerController extends Controller
         $result = $this->bannerService->update($input, $banner);
         if ($result) {
             Alert::success('Thành công', 'Cập nhật banner thành công');
-            return redirect('/admin/banner/list');
+            return redirect()->route('banners');
         }
 
         Alert::error('Lỗi', 'Cập nhật banner lỗi');

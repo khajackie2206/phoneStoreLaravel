@@ -93,7 +93,7 @@ $(".quick-view-btn").click(function () {
         datatype: "JSON",
         url: "/products/detail/" + productId,
         success: function (results) {
-           console.log(results);
+          // console.log(results);
             // $("#modelProductImage").html('');
             // $("#modelProductImageThumb").html('');
             $("#productId").val(results.id);
@@ -245,13 +245,13 @@ $(document).ready(function () {
     $(".product-features, .phone-types, .product-memories, .brands").click(function () {
         var formData = $("#myForm").serialize();
         //     alert(formData);
-        // let url = "/products/load-product?" + formData;
-        // window.location = url;
+        //let url = "/products/load-product?" + formData;
+         //window.location = url;
         // console.log("Posting the following: ", formData);
 
         $.ajax({
-            url: "/products/load-product"+"?"+formData,
-            type: "post",
+            url: "/products/load-product?" + formData,
+            type: "get",
             dataType: "json",
             success: function (data) {
                 $("#filterArea").html(data["data"]);
@@ -260,3 +260,22 @@ $(document).ready(function () {
         });
     });
 });
+
+  $(".show-alert-delete-box").click(function (event) {
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: "Bạn có chắc muốn khóa tài khoản này không?",
+          icon: "warning",
+          type: "warning",
+          buttons: ["Cancel", "Yes!"],
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Đã khóa tài khoản!",
+      }).then((willDelete) => {
+          if (willDelete) {
+              form.submit();
+          }
+      });
+  });
