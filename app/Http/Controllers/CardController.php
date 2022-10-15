@@ -95,7 +95,7 @@ class CardController extends Controller
             $quantity = $product->quantity;
         }
 
-        $carts[$productId][$input['color']]['quantity'] = $quantity;
+        $carts[$productId] = $quantity;
         session()->put('carts', $carts);
 
         return redirect()->back();
@@ -106,22 +106,21 @@ class CardController extends Controller
         $input = $request->all();
         $carts = session()->get('carts');
         $product = Product::where('id', $productId)->first();
-        $color = $input['color'];
         if ($input['type'] == 'inc') {
 
-            if ($carts[$productId][$color]['quantity'] == $product->quantity) {
+            if ($carts[$productId] == $product->quantity) {
                 return redirect()->back();
             }
 
-            $carts[$productId][$color]['quantity'] += 1;
+            $carts[$productId] += 1;
             session()->put('carts', $carts);
 
             return redirect()->back();
         } else {
-            if ($carts[$productId][$color]['quantity'] == 1) {
+            if ($carts[$productId] == 1) {
                 return redirect()->back();
             }
-            $carts[$productId][$color]['quantity'] -= 1;
+            $carts[$productId] -= 1;
             session()->put('carts', $carts);
 
             return redirect()->back();
@@ -130,7 +129,7 @@ class CardController extends Controller
 
     public function checkout()
     {
-        $user = Auth::User();
+        $user = session()->get('user');
         if (!$user) {
             Alert::error('Đăng nhập', 'Đăng nhập để thanh toán');
             return view('auth.login-register', [

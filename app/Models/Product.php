@@ -33,7 +33,8 @@ class Product extends Model
         'font_cam',
         'rear_cam',
         'ram',
-        'screen_rate'
+        'screen_rate',
+        'color'
     ];
      public function productCategory()
     {

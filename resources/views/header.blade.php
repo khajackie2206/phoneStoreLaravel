@@ -136,9 +136,8 @@
 
                     @if (\Illuminate\Support\Facades\Session::get('carts'))
                         @foreach ($sessionProducts as $sessionProduct)
-                            @foreach ($carts[$sessionProduct->id] as $item)
+
                                 @php  $countProduct +=1; @endphp
-                            @endforeach
                         @endforeach
                     @endif
                     <!-- Header Middle Searchbox Area End Here -->
@@ -161,9 +160,8 @@
                                     <ul class="minicart-product-list">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
                                             @foreach ($sessionProducts as $sessionProduct)
-                                                @foreach ($carts[$sessionProduct->id] as $item)
                                                     @php
-                                                        $subTotal = ($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) * $item['quantity'];
+                                                        $subTotal = ($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) * $carts[$sessionProduct->id];
                                                         $summary += $subTotal;
                                                     @endphp
                                                     <li>
@@ -173,21 +171,21 @@
                                                         </a>
                                                         <div class="minicart-product-details">
                                                             <h6><a href="single-product.html">{{ $sessionProduct->name }}
-                                                                    {{ $sessionProduct->colors->where('id', $item['color'])->first()['name'] }}</a>
+                                                                    {{ $sessionProduct->color }}</a>
                                                             </h6>
                                                             <span><span
                                                                     style="color: red;">{{ number_format($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) }}</span><span
                                                                     style="text-decoration: underline; color:red;">đ</span><span>
-                                                                    x {{ $item['quantity'] }} </span>
+                                                                    x {{ $carts[$sessionProduct->id] }} </span>
                                                         </div>
                                                         <button class="close" title="Remove">
                                                             <a
-                                                                href="/products/delete-cart/{{ $sessionProduct->id }}?color={{ $item['color'] }}">
+                                                                href="/products/delete-cart/{{ $sessionProduct->id }}">
                                                                 <i class="fa fa-close"></i> </a>
                                                         </button>
                                                     </li>
                                                 @endforeach
-                                            @endforeach
+
                                         @endif
                                     </ul>
                                     <p class="minicart-total">TỔNG CỘNG: <span>{{ number_format($summary) }}Đ</span>

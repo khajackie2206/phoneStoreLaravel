@@ -74,15 +74,17 @@ $(".qtybutton1").click(function(){
 function changeQuantity(params)
 {
     let quantity = params.value;
-    let url = params.name;
-    let route = url + "&quantity=" + quantity;
 
-    window.location = route;
+    let url = params.name;
+    let route = url + "?quantity=" + quantity;
+
+     window.location = route;
 }
 
 function adjustQuantity(element) {
     let url = element.getAttribute("value");;
 
+   // console.log(url);
      window.location = url;
 }
 

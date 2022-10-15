@@ -83,7 +83,7 @@
                                   <?php
                                       array_push($pathCompletely, $gallery->url)
                                   ?>
-                                
+
                             @endforeach
 
                             <?php  $arrayPath = json_encode($pathCompletely) ?>
@@ -262,14 +262,9 @@
                                 <h5 class="card-title mb-0">Màu</h5>
                             </div>
                             <div class="card-body" style="margin-bottom: -20px;">
-                                <select class="form-select mb-1" name="colors[]" multiple>
-                                    @foreach ($colors as $color)
-                                        <option value="{{ $color->id }}"
-                                            @foreach ($product->colors as $productColor)
-                                                {{ $productColor->id == $color->id ? 'selected' : '' }} @endforeach>
-                                            {{ $color->name }}</option>
-                                    @endforeach
-                                </select>
+
+                                 <input type="text" value="{{$product->color}}" name="color" class="form-control"
+                                     placeholder="Màu sắc điện thoại">
                             </div>
                             <div class="card-header" style="margin-bottom: -20px; margin-top:15px;">
                                 <h5 class="card-title mb-0">Bộ Nhớ</h5>

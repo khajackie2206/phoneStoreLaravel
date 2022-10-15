@@ -19,23 +19,20 @@ use Exception;
  */
 class CardService
 {
-
     public function create(array $params)
     {
         $user = session()->get('user');
 
         if ($user) {
             $quantity = $params['quantity'];
-            $color = $params['color'];
+            //$color = $params['color'];
             $product_id = $params['productId'];
 
             $carts = session()->get('carts');
 
             if (is_null($carts)) {
                 session()->put('carts', [
-                    $product_id => [
-                        $color => ['color' => $color, 'quantity' => $quantity]
-                    ]
+                    $product_id => $quantity,
                 ]);
 
                 return true;
@@ -44,24 +41,17 @@ class CardService
             $exists = Arr::exists($carts, $product_id);
 
             if ($exists) {
+                $carts[$product_id] = $carts[$product_id] + $quantity;
+                session()->put('carts', $carts);
 
-                $uniqueColor = Arr::exists($carts[$product_id], $color);
-
-                if ($uniqueColor) {
-
-                    $carts[$product_id][$color]['quantity'] = $carts[$product_id][$color]['quantity'] + $quantity;
-                    session()->put('carts', $carts);
-
-                    return true;
-                }
+                return true;
             }
 
-            $carts[$product_id][$color] = ['color' => $color, 'quantity' => $quantity];
+            $carts[$product_id] = $quantity;
             session()->put('carts', $carts);
 
             return true;
         }
-
 
         return false;
     }

@@ -43,7 +43,8 @@ class ProductService
                 'font_cam' => $params['front'],
                 'rear_cam' => $params['rear'],
                 'ram' => $params['ram'],
-                'screen_rate' => $params['rate']
+                'screen_rate' => $params['rate'],
+                'color' => $params['color'],
             );
             $product = Product::create($productData);
 
@@ -82,15 +83,6 @@ class ProductService
                 Image::create($galleryImageData);
             }
 
-            //Insert colors for product
-            foreach ($params['colors'] as $color) {
-                $colorData = array(
-                    'product_id' => $product->id,
-                    'color_id' => $color
-                );
-
-                ProductColor::create($colorData);
-            }
         } catch (Exception $err) {
             Log::info($err->getMessage());
 
@@ -161,7 +153,8 @@ class ProductService
                 'font_cam' => $params['front'],
                 'rear_cam' => $params['rear'],
                 'ram' => $params['ram'],
-                'screen_rate' => $params['rate']
+                'screen_rate' => $params['rate'],
+                'color' => $params['color']
             );
 
             $product->update($productData);
@@ -213,16 +206,6 @@ class ProductService
                 }
             }
 
-            //Update colors of product
-            ProductColor::where('product_id', $product->id)->delete();
-            foreach ($params['colors'] as $color) {
-                $colorData = array(
-                    'product_id' => $product->id,
-                    'color_id' => $color
-                );
-
-                ProductColor::create($colorData);
-            }
         } catch (Exception $err) {
             Log::info($err->getMessage());
 

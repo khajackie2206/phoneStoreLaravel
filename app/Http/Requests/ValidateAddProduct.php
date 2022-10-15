@@ -34,7 +34,7 @@ class ValidateAddProduct extends FormRequest
             'front' => 'required',
             'rear' => 'required',
             'size' => 'required',
-            'colors' => 'required',
+            'color' => 'required',
             'features' => 'required',
             'files' => 'required',
             'file' => 'required',
@@ -63,7 +63,7 @@ class ValidateAddProduct extends FormRequest
             'front.required' => 'Vui lòng nhập thông số camera trước',
             'rear.required' => 'Vui lòng nhập thông số camera sau',
             'size.required' => 'Vui lòng nhập kích thước điện thoại',
-            'colors.required' => 'Vui lòng chọn màu sắc',
+            'color.required' => 'Vui lòng nhập màu sắc',
             'features.required' => 'Vui lòng chọn tính năng của điện thoại',
             'discount.required' => 'Vui lòng nhập thông tin giảm giá, nhập 0 nếu không giảm',
             'discount.integer' => 'Số tiền giảm giá không hợp lệ'

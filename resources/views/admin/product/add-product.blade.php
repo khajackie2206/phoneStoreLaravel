@@ -265,16 +265,13 @@
                              <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Màu</h5>
                              </div>
-                             <div class="card-body" style="margin-bottom: -20px;">
-                                 <select class="form-select mb-1" name="colors[]" multiple>
-                                     @foreach ($colors as $color)
-                                         <option value="{{ $color->id }}">{{ $color->name }}</option>
-                                     @endforeach
-                                 </select>
+                           <div class="card-body">
+                                 <input type="text" name="color" class="form-control"
+                                     placeholder="Màu sắc điện thoại">
                              </div>
-                             @if($errors->first('colors') != '')
+                             @if($errors->first('color') != '')
                              <ul style="margin-top:5px;list-style-type:none; ">
-                                <li class="text-danger">{{$errors->first('colors')}}</li>
+                                <li class="text-danger">{{$errors->first('color')}}</li>
                             </ul>
                             @endif
                              <div class="card-header" style="margin-bottom: -20px; margin-top:15px;">

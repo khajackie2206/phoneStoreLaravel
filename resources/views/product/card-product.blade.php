@@ -36,19 +36,18 @@
                                 <tbody>
                                     @if (\Illuminate\Support\Facades\Session::get('carts'))
                                         @foreach ($products as $product)
-                                            @foreach ($carts[$product->id] as $item)
                                                 @php
                                                     if ($product->discount > 0) {
-                                                        $subTotal = ($product->price - $product->discount) * $item['quantity'];
+                                                        $subTotal = ($product->price - $product->discount) * $carts[$product->id];
                                                     } else {
-                                                        $subTotal = $product->price * $item['quantity'];
+                                                        $subTotal = $product->price * $cards[$product->id];
                                                     }
 
                                                     $summary += $subTotal;
                                                 @endphp
                                                 <tr>
                                                     <td class="li-product-remove" style="width: 100px;"><a
-                                                            href="/products/delete-cart/{{ $product->id }}?color={{ $item['color'] }}"><i
+                                                            href="/products/delete-cart/{{ $product->id }}"><i
                                                                 class="fa fa-times"></i></a></td>
                                                     <td class="li-product-thumbnail"><a href="#"><img
                                                                 src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
@@ -57,8 +56,8 @@
                                                     <td class="li-product-name"><a href="#">{{ $product->name }}</a>
                                                     </td>
                                                     <td class="li-product-name" style="width: 140px;"
-                                                        name="color{{ $item['color'] }}"><a href="#">
-                                                            {{ $product->colors->where('id', $item['color'])->first()['name'] }}</a>
+                                                        name="color"><a href="#">
+                                                            {{ $product->color }}</a>
                                                     </td>
                                                     <td class="li-product-price"><span class="amount" style="color: red;">
                                                             @if ($product->discount > 0)
@@ -75,15 +74,15 @@
                                                         <label>Số lượng</label>
                                                         <div class="cart-plus-minus">
                                                             <input class="cart-plus-minus-box"
-                                                                name="/products/update/{{ $product->id }}?color={{ $item['color'] }}"
+                                                                name="/products/update/{{ $product->id }}"
                                                                 onchange="changeQuantity(this);"
-                                                                value={{ $item['quantity'] }} type="text">
+                                                                value="{{ $carts[$product->id]}}" type="text">
                                                             <div class="dec qtybutton"
-                                                                value="/products/adjust/{{ $product->id }}?color={{ $item['color'] }}&type=des"
+                                                                value="/products/adjust/{{ $product->id }}?type=des"
                                                                 onclick="adjustQuantity(this)"><i
                                                                     class="fa fa-angle-down"></i></div>
                                                             <div class="inc qtybutton"
-                                                                value="/products/adjust/{{ $product->id }}?color={{ $item['color'] }}&type=inc"
+                                                                value="/products/adjust/{{ $product->id }}?type=inc"
                                                                 onclick="adjustQuantity(this)"><i
                                                                     class="fa fa-angle-up"></i></div>
                                                         </div>
@@ -92,7 +91,6 @@
                                                             style="color: red;">{{ number_format($subTotal) }} <span
                                                                 style="text-decoration: underline;">đ</span></span></td>
                                                 </tr>
-                                            @endforeach
                                         @endforeach
                                     @endif
                                 </tbody>

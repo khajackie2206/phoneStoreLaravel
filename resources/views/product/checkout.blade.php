@@ -31,7 +31,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Địa chỉ giao hàng <span class="required">*</span></label>
-                                        <input placeholder="Địa chỉ giao hàng" value="{{ $user->address }}"
+                                        <input placeholder="Địa chỉ giao hàng" value=""
                                             type="text">
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Giới tính<span class="required">*</span></label>
-                                        <input type="text" value="{{ $user->gender }}" placeholder="Giới tính">
+                                        <input type="text" value="" placeholder="Giới tính">
                                     </div>
                                 </div>
 
@@ -52,7 +52,7 @@
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Số điện thoại giao hàng <span class="required">*</span></label>
-                                        <input type="text" value="{{ $user->phone }}" placeholder="Số điện thoại">
+                                        <input type="text" value="" placeholder="Số điện thoại">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -103,26 +103,25 @@
                                 <tbody>
                                     @if (\Illuminate\Support\Facades\Session::get('carts'))
                                         @foreach ($products as $product)
-                                            @foreach ($carts[$product->id] as $item)
+
                                                 @php
                                                     if ($product->discount > 0) {
-                                                        $subTotal = ($product->price - $product->discount) * $item['quantity'];
+                                                        $subTotal = ($product->price - $product->discount) * $carts[$product->id];
                                                     } else {
-                                                        $subTotal = $product->price * $item['quantity'];
+                                                        $subTotal = $product->price * $carts[$product->id];
                                                     }
                                                     $summary += $subTotal;
                                                 @endphp
                                                 <tr class="cart_item">
                                                     <td class="cart-product-name"> {{ $product->name }}<strong
-                                                            class="product-quantity"> × {{ $item['quantity'] }}</strong>
+                                                            class="product-quantity"> × {{ $carts[$product->id]}}</strong>
                                                     </td>
                                                     <td class="cart-product-total">
                                                         <span class="amount">
-                                                            {{ number_format(( $product->discount > 0 ? ($product->price - $product->discount) : $product->price ) * $item['quantity']) }}
+                                                            {{ number_format(( $product->discount > 0 ? ($product->price - $product->discount) : $product->price ) * $carts[$product->id]) }}
                                                             <span style="text-decoration: underline;">đ</span></span>
                                                     </td>
                                                 </tr>
-                                            @endforeach
                                         @endforeach
                                     @endif
                                 </tbody>

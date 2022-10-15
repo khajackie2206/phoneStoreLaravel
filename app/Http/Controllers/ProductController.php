@@ -141,7 +141,6 @@ class ProductController extends Controller
     {
         Product::where('id', $product->id)->update(array('delete_at' => Carbon::now()));
 
-        Alert::success('Thành công', 'xóa sản phẩm thành công');
         return redirect()->back();
     }
 

@@ -37,9 +37,10 @@
                                                 <th scope="col" width="15%">Dung lượng</th>
 
                                                 <th scope="col" width="10%">Trạng thái</th>
-                                                <th scope="col" width="20%">Hình ảnh</th>
+                                                <th scope="col" width="15%">Hình ảnh</th>
+                                                <th scope="col" width="10%">Số lượng</th>
                                                 <th scope="col" width="10%">Hãng</th>
-                                                <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
+                                                <th scope="col" class="text-end" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -60,6 +61,7 @@
                                                     <td><img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
                                                             width="100">
                                                     </td>
+                                                    <td  style="font-weight: bold;"> <span style="margin-left: 10px;"> {{$product->quantity}} </span></td>
                                                     <td style="font-weight: bold;">{{ $product->brand->name }}</td>
                                                     <td class="text-end"> <a class="btn btn-primary btn-sm"
                                                             href="/admin/product/edit/{{ $product->id }}">
@@ -97,7 +99,6 @@
             event.preventDefault();
             swal({
                 title: "Bạn có chắc muốn xóa sản phẩm này không?",
-                text: "Xóa là mất luôn đó :(.",
                 icon: "warning",
                 type: "warning",
                 buttons: ["Cancel", "Yes!"],
@@ -106,7 +107,14 @@
                 confirmButtonText: 'Đã xóa!'
             }).then((willDelete) => {
                 if (willDelete) {
-                    form.submit();
+                    swal({
+                         title: 'Thành công!',
+                         icon: 'success',
+                         text: 'Đã xóa sản phẩm!',
+                         type: 'success'
+                     }).then(function() {
+                         form.submit();
+                     });
                 }
             });
         });
