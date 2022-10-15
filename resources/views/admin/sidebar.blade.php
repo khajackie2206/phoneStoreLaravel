@@ -23,7 +23,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="/admin/brand/list">
                     <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
                 </a>
             </li>
@@ -35,14 +35,13 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="gift"></i> <span class="align-middle">Khuyến mãi &
-                        thuế</span>
+                    <i class="align-middle" data-feather="gift"></i> <span class="align-middle">Khuyến mãi</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="/admin/banner/list">
-                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner</span>
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
                 </a>
             </li>
 

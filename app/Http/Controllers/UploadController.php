@@ -20,7 +20,7 @@ class UploadController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'file' => ['required', 'mimes:jpg, jpeg, png, gif'],
+            'file' => ['required', 'mimes:jpeg,png,jpg,gif'],
         ]);
         if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
         {
@@ -42,15 +42,6 @@ class UploadController extends Controller
     }
     public function multiStore(Request $request)
     {
-        /* $validator = Validator::make($request->all(), [
-            'file' => ['required','mimes:JPG, jpeg, png, gif','max:4096'],
-        ]);
-        if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
-        {
-             return response()->json([
-           'error' =>true
-       ]);
-        }*/
 
         $pathCompletely = [];
         if ($request->TotalFiles > 0) {

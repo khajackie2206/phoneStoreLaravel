@@ -35,7 +35,6 @@ class AdminController extends Controller
         $input = $request->all();
         $user->update(array('active' => $input['active']));
 
-        Alert::success('Thành công', 'Đã cập nhật tài khoản ' . $user->email . '');
-        return redirect()->to('/admin/users');
+        return redirect()->back();
     }
 }

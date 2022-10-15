@@ -57,15 +57,8 @@
                                                                      <i class="fas fa-check"></i></button>
                                                              </form>
                                                          @else
-                                                             <form method="post" style=" display:inline!important;"
-                                                                 action="/admin/users/change-active/{{ $user->id }}?active=1">
-                                                                 @csrf
-                                                                 <input name="_method" type="hidden" value="POST">
-                                                                 <button type="submit" style=" display:inline!important;"
-                                                                     class="btn btn-xs btn-primary btn-flat btn-sm show-alert-active-box ">
-                                                                     <i class="fas fa-check"></i></button>
-                                                             </form>
-                                                             <form method="post" style=" display:inline!important;"
+
+                                                             <form method="post" style=" display:inline!important; margin-right: 20px;"
                                                                  action="/admin/users/change-active/{{ $user->id }}?active=0">
                                                                  @csrf
                                                                  <input name="_method" type="hidden" value="POST">
@@ -107,8 +100,15 @@
                  confirmButtonText: 'Đã khóa tài khoản!'
              }).then((willDelete) => {
                  if (willDelete) {
-                     form.submit();
-                 }
+                  swal({
+                         title: 'Thành công!',
+                         icon: 'success',
+                         text: 'Đã khóa tài khoản!',
+                         type: 'success'
+                     }).then(function() {
+                         form.submit();
+                     });
+                }
              });
          });
      </script>
@@ -129,7 +129,14 @@
                  confirmButtonText: 'Đã kích hoạt tài khoản!'
              }).then((willDelete) => {
                  if (willDelete) {
-                     form.submit();
+                     swal({
+                         title: 'Thành công!',
+                         icon: 'success',
+                         text: 'Đã kích hoạt tài khoản!',
+                         type: 'success'
+                     }).then(function() {
+                         form.submit();
+                     });
                  }
              });
          });

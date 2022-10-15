@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\GoogleController;
 
 /*
@@ -54,6 +55,15 @@ Route::prefix('admin')
         #users
         Route::get('/users', [AdminController::class, 'getAllUsers']);
         Route::post('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+
+        #Brands
+        Route::get('/brand/add', [BrandController::class, 'index']);
+        Route::post('/brand/add', [BrandController::class, 'storeBrand']);
+        Route::get('/brand/list', [BrandController::class, 'getAllBrands'])->name('brands');
+        Route::get('/brand/edit/{brand}', [BrandController::class, 'showEdit']);
+        Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
+        Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
+        Route::post('/brand/delete/{brand}', [BrandController::class, 'delete']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
@@ -68,7 +78,7 @@ Route::get('/login', [LoginController::class, 'index']);
 #Login with google
 Route::get('google', [LoginController::class, 'redirectToProvider']);
 
-Route::get('/auth/google/callback',[LoginController::class, 'handleProviderCallback']);
+Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
 Route::prefix('products')->group(function () {
@@ -90,4 +100,3 @@ Route::prefix('products')->group(function () {
     Route::get('/load-more', [ProductController::class, 'loadMore']);
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
 });
-
