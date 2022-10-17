@@ -45,6 +45,7 @@ class ProductService
                 'ram' => $params['ram'],
                 'screen_rate' => $params['rate'],
                 'color' => $params['color'],
+                'rom' => $params['rom']
             );
             $product = Product::create($productData);
 
@@ -55,13 +56,6 @@ class ProductService
                 );
                 ProductFeature::create($featureData);
             }
-
-            $memoryData = array(
-                'product_id' => $product->id,
-                'memory_id' => $params['rom']
-            );
-
-            ProductMemory::create($memoryData);
 
             //Insert cover image
             $coverImageData = array(
@@ -154,7 +148,8 @@ class ProductService
                 'rear_cam' => $params['rear'],
                 'ram' => $params['ram'],
                 'screen_rate' => $params['rate'],
-                'color' => $params['color']
+                'color' => $params['color'],
+                'rom' => $params['rom']
             );
 
             $product->update($productData);
@@ -169,16 +164,6 @@ class ProductService
                 );
                 ProductFeature::create($featureData);
             }
-
-            // Update memory
-            ProductMemory::where('product_id', $product->id)->delete();
-
-            $memoryData = array(
-                'product_id' => $product->id,
-                'memory_id' => $params['rom']
-            );
-
-            ProductMemory::create($memoryData);
 
             //Update cover image
             if ($params['file'] != null) {

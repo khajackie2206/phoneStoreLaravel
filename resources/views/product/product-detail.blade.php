@@ -59,14 +59,14 @@
                         <div class="product-info">
                             <h2>{{ $product->name }} <span style="margin-left: 70px;">
                                     @foreach ($groupProduct as $item)
-                                        @if ($item->memories[0]['rom'] == $product->memories[0]['rom'])
+                                        @if ($item->rom == $product->rom)
                                             <a href="/products/details/{{ $item->id }}"
-                                                style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; ">{{ $item->ram }}
-                                                GB - {{ $item->memories[0]['rom'] }} GB</a>
+                                                style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; border-radius: 2px; ">{{ $item->ram }}
+                                                GB - {{ $item->rom }}</a>
                                         @else
                                             <a href="/products/details/{{ $item->id }}"
-                                                style="border: 1px solid #e0e0e0;font-size: 15px; padding: 10px; color: #333; ">{{ $item->ram }}
-                                                GB - {{ $item->memories[0]['rom'] }} GB</a>
+                                                style="border: 1px solid #e0e0e0;font-size: 15px; padding: 10px; color: #333; border-radius: 2px; ">{{ $item->ram }}
+                                                GB - {{ $item->rom }}</a>
                                         @endif
                                     @endforeach
 
@@ -119,13 +119,10 @@
                             <form action="/products/cart" method="POST" class="cart-quantity" style="margin-top:10px;">
                                 <div class="product-variants">
                                     <div class="produt-variants-size">
-                                        <label>Màu sắc</label>
-                                        <select class="nice-select" name="color">
-                                            @foreach ($product->colors as $item)
-                                                <option value="{{ $item->id }}" title="{{ $item->name }}">
-                                                    {{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label style="margin-bottom: 20px; font-weight: 600;font-size:15px;">Màu sắc</label>
+                                          <a href="#"
+                                                style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
+                                                {{ $product->color}}</a>
                                     </div>
                                 </div>
                                 <div class="single-add-to-cart" style="margin-top: 25px;">
@@ -273,11 +270,7 @@
                                 <td>{{ $product->ram }} GB</td>
                             <tr>
                                 <td style="font-weight: bold;">Bộ nhớ trong: </td>
-                                <td>{{ $product->memories[0]['rom'] }} GB</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Dung lượng còn lại: </td>
-                                <td>{{ $product->memories[0]['rom'] - 20 }} GB</td>
+                                <td>{{ $product->rom }}</td>
                             </tr>
                             <tr style="background-color: #f1f1f1;">
                                 <th colspan="2">

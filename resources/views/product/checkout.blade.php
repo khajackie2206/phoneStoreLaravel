@@ -156,9 +156,9 @@
                                                     <div class="coupon-info">
                                                         <form action="#" style="margin-top: 15px;margin-bottom: 15px;">
                                                             <p class="checkout-coupon">
-                                                                <input placeholder="Coupon code" type="text"
+                                                                <input placeholder="Mã giảm giá" type="text"
                                                                     style="margin-left: 50px;margin-right: 85px;">
-                                                                <input value="Apply Coupon" type="submit">
+                                                                <input value="Áp dụng mã" type="submit">
                                                             </p>
                                                         </form>
                                                     </div>

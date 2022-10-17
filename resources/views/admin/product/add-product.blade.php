@@ -291,9 +291,12 @@
                              <div class="card-body">
                                  <label class="form-label">Rom</label>
                                  <select class="form-select mb-1" name="rom">
-                                     @foreach ($memories as $memory)
-                                         <option value="{{ $memory->id }}">{{ $memory->rom }} GB</option>
-                                     @endforeach
+                                      <option value="32 GB" selected>32 GB</option>
+                                     <option value="64 GB">64 GB</option>
+                                     <option value="128 GB">128 GB</option>
+                                     <option value="256 GB">256 GB</option>
+                                     <option value="512 GB">512 GB</option>
+                                     <option value="1 TB">1 TB</option>
                                  </select>
                              </div>
                              <div class="card-header" style="margin-bottom: -20px;">

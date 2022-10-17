@@ -123,45 +123,46 @@
                   <div class="modal-inner-area row">
                       <div class="col-lg-5 col-md-6 col-sm-6">
                           <div class="product-details-left" style="margin-top: 25px;">
-                              <div class="product-details-images slider-navigation-1" >
+                              <div class="product-details-images slider-navigation-1">
                                   <div class="lg-image" id="modelProductImage">
                                   </div>
                               </div>
                           </div>
                           <div>
-                          <ul>
-                                            <li>
-                                                <div style="padding-top: 35px;">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-truck"></i>
-                                                    </div>
-                                                    <p>Nhận hàng trong vòng 3 - 7 ngày</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-exchange"></i>
-                                                    </div>
-                                                    <p> Bảo hành chính hãng trong vòng 24 tháng</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                              <ul>
+                                  <li>
+                                      <div style="padding-top: 35px;">
+                                          <div class="reassurance-icon">
+                                              <i class="fa fa-truck"></i>
+                                          </div>
+                                          <p>Nhận hàng trong vòng 3 - 7 ngày</p>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div>
+                                          <div class="reassurance-icon">
+                                              <i class="fa fa-exchange"></i>
+                                          </div>
+                                          <p> Bảo hành chính hãng trong vòng 24 tháng</p>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
                       </div>
 
 
                       <div class="col-lg-7 col-md-6 col-sm-6">
                           <div class="product-details-view-content pt-60">
                               <div class="product-info">
-                                  <h2 >
-                                     <span id="modalProductName"></span>
-                                     <span style="margin-left: 70px;">
-                                   <a href="#" id="modelProductMemory" style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; ">GB</a>
-                                  </span>
+                                  <h2>
+                                      <span id="modalProductName"></span>
+                                      <span style="margin-left: 70px;">
+                                          <a href="#" id="modelProductMemory"
+                                              style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; ">GB</a>
+                                      </span>
                                   </h2>
 
-                                   <span style="font-size: 13px;color: #7a7a7a;">Thương hiệu: </span>
+                                  <span style="font-size: 13px;color: #7a7a7a;">Thương hiệu: </span>
                                   <span class="product-details-ref" id="modelProductBrand"></span>
                                   <div class="rating-box pt-20">
                                       <ul class="rating rating-with-review-item">
@@ -186,22 +187,25 @@
                                           </span>
                                       </p>
                                   </div>
-                             <form action="/products/cart" method="POST" class="cart-quantity" style="margin-top:10px;">
-                                  <div class="product-variants">
-                                      <div class="produt-variants-size">
-                                          <label>Màu sắc</label>
-                                          <div id="modalProductColors" class="w-50">
-                                              <select id="color-select" name="color" class="bg-transparent">
-                                              </select>
+                                  <form action="/products/cart" method="POST" class="cart-quantity"
+                                      style="margin-top:10px;">
+                                      <div class="product-variants">
+                                          <div class="produt-variants-size">
+                                              <label style="margin-bottom: 20px; font-weight: 600;font-size:15px;">Màu
+                                                  sắc</label>
+
+                                              <div id="modalProductColors" class="w-50">
+                                                  <a id="modelProductColor"
+                                                      style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; "></a>
+                                              </div>
                                           </div>
                                       </div>
-                                  </div>
-                                  <div class="single-add-to-cart"  style="margin-top: 20px;">
+                                      <div class="single-add-to-cart" style="margin-top: 20px;">
                                           <div class="quantity">
                                               <label>Số lượng</label>
                                               <div class="cart-plus-minus card-plus-minus-plus">
-                                                  <input class="cart-plus-minus-box" name="quantity" id="product-quantity"
-                                                      value="1" type="text">
+                                                  <input type="text" class="cart-plus-minus-box" value="1" name="quantity" onchange="changeQuantity(this);" >
+
                                                   <div class="dec qtybutton qtybutton1" action="quantity-dec"><i
                                                           class="fa fa-angle-down"></i></div>
                                                   <div class="inc qtybutton qtybutton1" action="quantity-inc"><i
@@ -210,11 +214,11 @@
                                           </div>
 
                                           <button class="add-to-cart" type="submit">Đặt mua ngay</button>
-                                  </div>
-                                  <input type="hidden" id="url" name="url" value=""  >
-                                   <input type="hidden" id="productId" name="productId" value="">
-                                @csrf
-                            </form>
+                                      </div>
+                                      <input type="hidden" id="url" name="url" value="">
+                                      <input type="hidden" id="productId" name="productId" value="">
+                                      @csrf
+                                  </form>
                                   <div class="product-additional-info pt-25">
                                       <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu
                                           thích</a>

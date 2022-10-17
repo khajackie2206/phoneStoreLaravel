@@ -1,9 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-    
+
 <!-- index28:48-->
      <head>
          @include('head')
+         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
       @include('sweetalert::alert')
@@ -14,7 +15,7 @@
             <!-- Header Area End Here -->
 
               @yield('content')
-            
+
            @include('footer')
         </div>
          <!-- Quick View | Modal Area End Here -->

@@ -36,39 +36,29 @@
                             @endif
 
                             <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px;">
-                                <a class="dropdown-item" href="pages-profile.html"><svg
+                                <a class="dropdown-item" href="/users/detail"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
                                         class="feather feather-user align-middle me-1">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
-                                    </svg> Thông tin cá nhân</a>
-                                <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-pie-chart align-middle me-1">
-                                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
-                                        <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
-                                    </svg> Phân tích</a>
+                                    </svg>&nbsp; Thông tin cá nhân</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-settings align-middle me-1">
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                        <path
-                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                        </path>
-                                    </svg> Cài đặt</a>
-                                <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-help-circle align-middle me-1">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                                    </svg> Trợ giúp</a>
+                                <a class="dropdown-item" href="#"><svg version="1.1" id="Layer_1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        x="0px" y="0px" width="20px" height="20px" viewBox="0 0 40 36"
+                                        style="enable-background:new 0 0 40 36;" xml:space="preserve">
+                                        <g id="Page-1_4_" sketch:type="MSPage">
+                                            <g id="Desktop_4_" transform="translate(-84.000000, -410.000000)"
+                                                sketch:type="MSArtboardGroup">
+                                                <path id="Cart" sketch:type="MSShapeGroup" class="st0"
+                                                    d="M94.5,434.6h24.8l4.7-15.7H92.2l-1.3-8.9H84v4.8h3.1l3.7,27.8h0.1
+			c0,1.9,1.8,3.4,3.9,3.4c2.2,0,3.9-1.5,3.9-3.4h12.8c0,1.9,1.8,3.4,3.9,3.4c2.2,0,3.9-1.5,3.9-3.4h1.7v-3.9l-25.8-0.1L94.5,434.6" />
+                                            </g>
+                                        </g>
+                                    </svg>&nbsp; Đơn hàng</a>
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
                             </div>
@@ -117,8 +107,7 @@
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
                             <img src="{{ asset('images/allo.png') }}"
-                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;"
-                                alt="">
+                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
                         </a>
                     </div>
                 </div>
@@ -136,8 +125,7 @@
 
                     @if (\Illuminate\Support\Facades\Session::get('carts'))
                         @foreach ($sessionProducts as $sessionProduct)
-
-                                @php  $countProduct +=1; @endphp
+                            @php  $countProduct +=1; @endphp
                         @endforeach
                     @endif
                     <!-- Header Middle Searchbox Area End Here -->
@@ -160,31 +148,30 @@
                                     <ul class="minicart-product-list">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
                                             @foreach ($sessionProducts as $sessionProduct)
-                                                    @php
-                                                        $subTotal = ($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) * $carts[$sessionProduct->id];
-                                                        $summary += $subTotal;
-                                                    @endphp
-                                                    <li>
-                                                        <a href="single-product.html" class="minicart-product-image">
-                                                            <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
-                                                                alt="cart products">
-                                                        </a>
-                                                        <div class="minicart-product-details">
-                                                            <h6><a href="single-product.html">{{ $sessionProduct->name }}
-                                                                    {{ $sessionProduct->color }}</a>
-                                                            </h6>
-                                                            <span><span
-                                                                    style="color: red;">{{ number_format($sessionProduct->discount > 0 ? ($sessionProduct->price - $sessionProduct->discount) : $sessionProduct->price) }}</span><span
-                                                                    style="text-decoration: underline; color:red;">đ</span><span>
-                                                                    x {{ $carts[$sessionProduct->id] }} </span>
-                                                        </div>
-                                                        <button class="close" title="Remove">
-                                                            <a
-                                                                href="/products/delete-cart/{{ $sessionProduct->id }}">
-                                                                <i class="fa fa-close"></i> </a>
-                                                        </button>
-                                                    </li>
-                                                @endforeach
+                                                @php
+                                                    $subTotal = ($sessionProduct->discount > 0 ? $sessionProduct->price - $sessionProduct->discount : $sessionProduct->price) * $carts[$sessionProduct->id];
+                                                    $summary += $subTotal;
+                                                @endphp
+                                                <li>
+                                                    <a href="single-product.html" class="minicart-product-image">
+                                                        <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
+                                                            alt="cart products">
+                                                    </a>
+                                                    <div class="minicart-product-details">
+                                                        <h6><a href="single-product.html">{{ $sessionProduct->name }}
+                                                                {{ $sessionProduct->color }}</a>
+                                                        </h6>
+                                                        <span><span
+                                                                style="color: red;">{{ number_format($sessionProduct->discount > 0 ? $sessionProduct->price - $sessionProduct->discount : $sessionProduct->price) }}</span><span
+                                                                style="text-decoration: underline; color:red;">đ</span><span>
+                                                                x {{ $carts[$sessionProduct->id] }} </span>
+                                                    </div>
+                                                    <button class="close" title="Remove">
+                                                        <a href="/products/delete-cart/{{ $sessionProduct->id }}">
+                                                            <i class="fa fa-close"></i> </a>
+                                                    </button>
+                                                </li>
+                                            @endforeach
 
                                         @endif
                                     </ul>

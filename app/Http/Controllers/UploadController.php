@@ -18,10 +18,10 @@ class UploadController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'file' => ['required', 'mimes:jpeg,png,jpg,gif'],
         ]);
+
         if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
         {
             return response()->json([

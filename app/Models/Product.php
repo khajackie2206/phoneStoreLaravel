@@ -34,7 +34,8 @@ class Product extends Model
         'rear_cam',
         'ram',
         'screen_rate',
-        'color'
+        'color',
+        'rom',
     ];
      public function productCategory()
     {
@@ -50,14 +51,6 @@ class Product extends Model
          return $this->hasMany(Image::class, foreignKey:'product_id',localKey:'id');
     }
 
-
-    public function colors() {
-        return $this->belongsToMany(Color::class, 'product_colors', 'product_id', 'color_id')->withTimestamps();
-    }
-
-    public function memories() {
-         return $this->belongsToMany(Memory::class, 'product_memories', 'product_id', 'memory_id')->withTimestamps();
-    }
 
      public function features() {
          return $this->belongsToMany(Feature::class, 'product_features', 'product_id', 'feature_id')->withTimestamps();

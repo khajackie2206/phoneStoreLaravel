@@ -33,6 +33,16 @@ class CardController extends Controller
     public function addCart(Request $request)
     {
         $params = $request->all();
+        $validator = Validator::make($params, [
+            'quantity' => 'required|numeric|integer|gt:0',
+        ]);
+        $product = Product::where('id', $params['productId'])->first();
+
+        if ($validator->fails() || ($params['quantity'] > $product->quantity) ) {
+            Alert::error('Lỗi', 'Số lượng không hợp lệ');
+
+            return redirect()->back();
+        }
         $result = $this->cardService->create($params);
         $url = $params['url'];
 
@@ -42,7 +52,7 @@ class CardController extends Controller
         }
 
         Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
-        return redirect('/login?url='.$url.'');
+        return redirect('/login?url=' . $url . '');
     }
 
     public function showCard()
@@ -54,20 +64,15 @@ class CardController extends Controller
             'title' => 'Giỏ hàng',
             'products' => $products,
             'carts' => session()->get('carts'),
-            'sessionProducts' => $sessionProducts
+            'sessionProducts' => $sessionProducts,
         ]);
     }
 
     public function delete(Request $request, int $productId)
     {
         $carts = session()->get('carts');
-        $input = $request->all();
 
-        if (count($carts[$productId]) > 1) {
-            unset($carts[$productId][$input['color']]);
-        } else {
-            unset($carts[$productId]);
-        }
+        unset($carts[$productId]);
 
         session()->put('carts', $carts);
 
@@ -83,7 +88,7 @@ class CardController extends Controller
         $quantity = $input['quantity'];
 
         $validator = Validator::make($input, [
-            'quantity' => 'required|numeric|integer|gt:0'
+            'quantity' => 'required|numeric|integer|gt:0',
         ]);
 
         if ($validator->fails()) {
@@ -91,7 +96,7 @@ class CardController extends Controller
             return redirect()->back();
         }
 
-        if ($quantity > ($product->quantity)) {
+        if ($quantity > $product->quantity) {
             $quantity = $product->quantity;
         }
 
@@ -107,7 +112,6 @@ class CardController extends Controller
         $carts = session()->get('carts');
         $product = Product::where('id', $productId)->first();
         if ($input['type'] == 'inc') {
-
             if ($carts[$productId] == $product->quantity) {
                 return redirect()->back();
             }
@@ -144,7 +148,7 @@ class CardController extends Controller
             'products' => $products,
             'user' => $user,
             'carts' => session()->get('carts'),
-            'sessionProducts' => $sessionProducts
+            'sessionProducts' => $sessionProducts,
         ]);
     }
 }

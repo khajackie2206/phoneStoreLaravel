@@ -13,6 +13,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\UploadUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,9 @@ Route::prefix('admin')
         Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
-        #Upload
-        Route::post('/upload/services', [UploadController::class, 'store']);
-        Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
+       #Upload
+       Route::post('/upload/services', [UploadController::class, 'store']);
+       Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
 
         #Banner
         Route::get('/banner/add', [BannerController::class, 'index']);
@@ -100,3 +101,10 @@ Route::prefix('products')->group(function () {
     Route::get('/load-more', [ProductController::class, 'loadMore']);
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
 });
+
+Route::prefix('users')->group(function () {
+    Route::get('/detail', [MainController::class, 'userDetail']);
+    Route::put('/update/{user}', [MainController::class, 'update']);
+});
+
+Route::post('/upload/services', [UploadUserController::class, 'store']);

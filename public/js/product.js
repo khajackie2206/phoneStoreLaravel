@@ -95,13 +95,15 @@ $(".quick-view-btn").click(function () {
         datatype: "JSON",
         url: "/products/detail/" + productId,
         success: function (results) {
-          // console.log(results);
+            // console.log(results);
             // $("#modelProductImage").html('');
-            // $("#modelProductImageThumb").html('');
+
             $("#productId").val(results.id);
-            $("#url").val('/products/details/'+results.id);
+            $("#url").val("/products/details/" + results.id);
             $("#modelProductBrand").html(results.brand);
-            $("#modelProductMemory").html(results.ram+' GB'+' - '+results.memory+' GB');
+            $("#modelProductMemory").html(
+                results.ram + " GB" + " - " + results.memory
+            );
             $("#modalProductName").html(results.name);
             $("#modalProductPrice").html(
                 results.price.toLocaleString("vi", {
@@ -109,41 +111,15 @@ $(".quick-view-btn").click(function () {
                     currency: "VND",
                 })
             );
-
+             $("#modelProductColor").html(results.color);
             $("#modalProductDesc").html(results.description);
             results.thumbs.map((productImage) => {
                 $("#modelProductImage").children("img").eq(0).remove();
                 let image =
-                    `<img src="` +
-                    productImage.url +
-                    `" alt="product image">`;
-                  $("#modelProductImage").append(image);
+                    `<img src="` + productImage.url + `" alt="product image">`;
+                $("#modelProductImage").append(image);
                 //  $("#modelProductImageThumb").append(image);
             });
-                  $("#color-select option").remove();
-            results.colors.map((color, index) => {
-
-             //   console.log(index);
-                if (index == 0) {
-                    let colorIten =
-                        `<option value="` +
-                        color.id +
-                        `" selected="selected">` +
-                        color.name +
-                        `</option>`;
-                    $("#color-select").append(colorIten);
-                }
-                else{
-                    let colorIten =
-                    `<option value="` +
-                    color.id +
-                    `">` +
-                    color.name +
-                    `</option>`;
-                $("#color-select").append(colorIten);
-            }
-            });
-
         },
     });
 });
@@ -246,11 +222,6 @@ function loadMore() {
 $(document).ready(function () {
     $(".product-features, .phone-types, .product-memories, .brands").click(function () {
         var formData = $("#myForm").serialize();
-        //     alert(formData);
-        //let url = "/products/load-product?" + formData;
-         //window.location = url;
-        // console.log("Posting the following: ", formData);
-
         $.ajax({
             url: "/products/load-product?" + formData,
             type: "get",
@@ -263,4 +234,29 @@ $(document).ready(function () {
     });
 });
 
-
+$("#actual-btn").change(function () {
+     const form = new FormData();
+     form.append("file", $(this)[0].files[0]);
+     //window.location = "/upload/services";
+    $.ajax({
+        processData: false,
+        contentType: false,
+        type: "POST",
+        datatype: "JSON",
+        data: form,
+        url: "/upload/services",
+        success: function (results) {
+            console.log(results);
+            if (results.error == false) {
+                $("#image_show").html(
+                    '<img src="' +
+                        results.url +
+                        '"  class=" mt-5"  style="border-radius: 50%" width="250px">'
+                );
+                $("#thumb").val(results.url);
+            } else {
+                alert("File không đúng định dạng!!!");
+            }
+        },
+    });
+});

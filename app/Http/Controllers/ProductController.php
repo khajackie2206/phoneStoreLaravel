@@ -31,16 +31,12 @@ class ProductController extends Controller
 
     public function index()
     {
-        $colors = Color::get();
         $features = Feature::get();
-        $memories = Memory::get();
         $vendors = Vendor::get();
         $brands = Brand::get();
         $categories = ProductCategory::get();
         return view('admin.product.add-product', [
-            'colors' => $colors,
             'features' => $features,
-            'memories' => $memories,
             'vendors' => $vendors,
             'brands' => $brands,
             'categories' => $categories,
@@ -82,8 +78,8 @@ class ProductController extends Controller
             'description' => $product->short_description,
             'thumbs' => $product->images->where('type', 'cover'),
             'ram' => $product->ram,
-            'memory' => $product->memories[0]['rom'],
-            'colors' => $product->colors,
+            'memory' => $product->rom,
+            'color' => $product->color,
             'brand' => $product->brand->name,
         ];
     }
@@ -107,18 +103,14 @@ class ProductController extends Controller
 
     public function showEdit(Product $product)
     {
-        $colors = Color::get();
         $features = Feature::get();
-        $memories = Memory::get();
         $vendors = Vendor::get();
         $brands = Brand::get();
         $categories = ProductCategory::get();
         return view('admin.product.edit-product', [
             'title' => 'Chỉnh sửa sản phẩm',
             'product' => $product,
-            'colors' => $colors,
             'features' => $features,
-            'memories' => $memories,
             'vendors' => $vendors,
             'brands' => $brands,
             'categories' => $categories
@@ -171,7 +163,7 @@ class ProductController extends Controller
     {
         $products = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
-        $brands = Brand::get();
+        $brands = Brand::where('active',1)->where('delete_at', null)->get();
         $features = Feature::get();
 
         return view('product.filter-product', [

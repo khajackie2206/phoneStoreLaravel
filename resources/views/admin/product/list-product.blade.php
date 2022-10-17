@@ -50,7 +50,7 @@
                                                     <td>{{ $product->id }}</td>
                                                     <td style="font-weight: bold;">{{ $product->name }}</td>
                                                     <td style="font-weight: bold;">{{ $product->ram }} GB -
-                                                        {{ $product->memories[0]['rom'] }} GB</td>
+                                                        {{ $product->rom }}</td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($product->active == 1)
                                                                 <span class="badge bg-success">Enable</span>

@@ -6,7 +6,7 @@
                 <h1 class="h3 d-inline align-middle">Cập nhật điện thoại <span
                         style="font-weight:bold;">{{ $product->name }} </span></h1>
             </div>
-            <form action="/admin/product/edit/{{ $product->id}}" method="POST">
+            <form action="/admin/product/edit/{{ $product->id }}" method="POST">
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <div class="card" style="margin-bottom: 0px;">
@@ -73,26 +73,26 @@
                                 <label class="form-label">Cover</label>
                                 <input type="file" name="file" class="form-control" id="upload">
                                 <div id="image_show" style="margin-top: 15px;">
-                                    <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}" width="100px"
-                                        alt="">
+                                    <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
+                                        width="100px" alt="">
                                 </div>
-                                <input type="hidden" name="thumb" id="thumb" value="{{ $product->images->where('type', 'cover')->first()['url'] }}">
+                                <input type="hidden" name="thumb" id="thumb"
+                                    value="{{ $product->images->where('type', 'cover')->first()['url'] }}">
                             </div>
-                             <?php $pathCompletely = [] ?>
+                            <?php $pathCompletely = []; ?>
                             @foreach ($product->images->where('type', 'gallery') as $gallery)
-                                  <?php
-                                      array_push($pathCompletely, $gallery->url)
-                                  ?>
-
+                                <?php
+                                array_push($pathCompletely, $gallery->url);
+                                ?>
                             @endforeach
 
-                            <?php  $arrayPath = json_encode($pathCompletely) ?>
+                            <?php $arrayPath = json_encode($pathCompletely); ?>
 
                             <div class="card-body">
                                 <label class="form-label">Gallery</label>
                                 <input type="file" name="files[]" class="form-control" id="uploads" multiple>
                                 <div id="images_shows"> </div>
-                                <input type="hidden" name="thumbs" id="thumbs" value="{{ $arrayPath}}">
+                                <input type="hidden" name="thumbs" id="thumbs" value="{{ $arrayPath }}">
                             </div>
                         </div>
 
@@ -263,8 +263,8 @@
                             </div>
                             <div class="card-body" style="margin-bottom: -20px;">
 
-                                 <input type="text" value="{{$product->color}}" name="color" class="form-control"
-                                     placeholder="Màu sắc điện thoại">
+                                <input type="text" value="{{ $product->color }}" name="color" class="form-control"
+                                    placeholder="Màu sắc điện thoại">
                             </div>
                             <div class="card-header" style="margin-bottom: -20px; margin-top:15px;">
                                 <h5 class="card-title mb-0">Bộ Nhớ</h5>
@@ -283,12 +283,15 @@
                             <div class="card-body">
                                 <label class="form-label">Rom</label>
                                 <select class="form-select mb-1" name="rom">
-                                    @foreach ($memories as $memory)
-                                        <option value="{{ $memory->id }}"
-                                            @foreach ($product->memories as $productMemory)
-                                             {{ $productMemory->id == $memory->id ? 'selected' : '' }} @endforeach>
-                                            {{ $memory->rom }} GB</option>
-                                    @endforeach
+                                    <option value="32 GB" {{ $product->rom == '32 GB' ? 'selected' : '' }}>32 GB</option>
+                                    <option value="64 GB" {{ $product->rom == '64 GB' ? 'selected' : '' }}>64 GB</option>
+                                    <option value="128 GB" {{ $product->rom == '128 GB' ? 'selected' : '' }}>128 GB
+                                    </option>
+                                    <option value="256 GB" {{ $product->rom == '256 GB' ? 'selected' : '' }}>256 GB
+                                    </option>
+                                    <option value="512 GB" {{ $product->rom == '512 GB' ? 'selected' : '' }}>512 GB
+                                    </option>
+                                    <option value="1 TB" {{ $product->rom == '1 TB' ? 'selected' : '' }}>1 TB</option>
                                 </select>
                             </div>
                             <div class="card-header" style="margin-bottom: -20px;">
@@ -296,7 +299,7 @@
                             </div>
                             <div class="card-body">
                                 <input type="text" name="battery" class="form-control"
-                                    placeholder="Dung lượng pin tối đa - mAh" value="{{ $product->battery}}">
+                                    placeholder="Dung lượng pin tối đa - mAh" value="{{ $product->battery }}">
                             </div>
                             <div class="card-header" style="margin-bottom: -20px;">
                                 <h5 class="card-title mb-0">Camera</h5>
@@ -304,12 +307,12 @@
                             <div class="card-body" style="margin-bottom: -20px;">
                                 <label class="form-label">Camera trước</label>
                                 <input type="text" class="form-control" name="front"
-                                    placeholder="Độ phân giải camera trước - MP" value="{{$product->font_cam}}">
+                                    placeholder="Độ phân giải camera trước - MP" value="{{ $product->font_cam }}">
                             </div>
                             <div class="card-body">
                                 <label class="form-label">Camera sau</label>
                                 <input type="text" class="form-control" name="rear"
-                                    placeholder="Độ phân giải camera sau - MP" value="{{$product->rear_cam}}">
+                                    placeholder="Độ phân giải camera sau - MP" value="{{ $product->rear_cam }}">
                             </div>
                         </div>
                     </div>

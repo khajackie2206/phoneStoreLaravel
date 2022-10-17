@@ -37,7 +37,7 @@ class LoginController extends Controller
                 Alert::error('Lỗi', 'Tài khoản đã bị vô hiệu hóa!');
                 return redirect()->to('login');
             }
-            Session::put('user', $user);
+            Session::put('user', $existingUser);
             Alert::success('Thành công', 'Đăng nhập thành công');
             return redirect('/');
         } else {
