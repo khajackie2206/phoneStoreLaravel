@@ -41,9 +41,9 @@ Route::prefix('admin')
         Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
-       #Upload
-       Route::post('/upload/services', [UploadController::class, 'store']);
-       Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
+        #Upload
+        Route::post('/upload/services', [UploadController::class, 'store']);
+        Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
 
         #Banner
         Route::get('/banner/add', [BannerController::class, 'index']);
@@ -93,13 +93,16 @@ Route::prefix('products')->group(function () {
     //payment
     Route::get('/update/{id}', [CardController::class, 'update']);
     Route::get('/adjust/{id}', [CardController::class, 'adjust']);
-    Route::get('/checkout', [CardController::class, 'checkout']);
+    Route::get('/checkout', [CardController::class, 'checkout'])->name('checkout');
 
     //filter product
     Route::get('/filter', [ProductController::class, 'filterPage']);
     Route::get('filter-product', [ProductController::class, 'filter']);
     Route::get('/load-more', [ProductController::class, 'loadMore']);
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
+
+    //Apply discount
+    Route::post('/discount', [ProductController::class, 'applyDiscount']);
 });
 
 Route::prefix('users')->group(function () {

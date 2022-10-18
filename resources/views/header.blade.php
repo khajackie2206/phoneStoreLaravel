@@ -182,7 +182,7 @@
                                             class="li-button li-button-fullwidth li-button-dark">
                                             <span>Xem giỏ hàng</span>
                                         </a>
-                                        <a href="checkout.html" class="li-button li-button-fullwidth">
+                                        <a href="/products/checkout" class="li-button li-button-fullwidth">
                                             <span>Thanh toán</span>
                                         </a>
                                     </div>

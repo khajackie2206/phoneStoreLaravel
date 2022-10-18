@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('voucher', function (Blueprint $table) {
+        Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->string('code');
-            $table->float('remain');
-            $table->timestamp('expire')->nullable();
-            $table->timestamps();
+            $table->integer('quantity')->nullable();
+            $table->float('amount');
+            $table->dateTime( 'start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->string('type_discount');
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voucher');
+        Schema::dropIfExists('vouchers');
     }
 };

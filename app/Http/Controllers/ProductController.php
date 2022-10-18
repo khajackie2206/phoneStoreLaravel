@@ -14,6 +14,7 @@ use App\Models\ProductCategory;
 use App\Services\CardService;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\ValidateAddProduct;
+use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -136,6 +137,26 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
+    public function applyDiscount(Request $request)
+    {
+        $input = $request->all();
+        $amount = '';
+        $discount = Voucher::where('code', '=', $input['discount'])
+            ->where('quantity', '>', 0)
+            ->first();
+
+        if ($discount) {
+            $amount = $discount->amount;
+        } else {
+
+            Alert::error('Mã giảm giá không hợp lệ');
+            return redirect()->back();
+        }
+
+       // Alert::success('Áp dụng mã giảm giá thành công');
+        return redirect()->route('checkout')->with(['amount' => $amount]);
+    }
+
     public function Search(Request $request)
     {
         $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">Sản phẩm gợi ý</div>';
@@ -163,7 +184,7 @@ class ProductController extends Controller
     {
         $products = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
-        $brands = Brand::where('active',1)->where('delete_at', null)->get();
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
         $features = Feature::get();
 
         return view('product.filter-product', [
@@ -426,7 +447,7 @@ class ProductController extends Controller
         if (empty($input)) {
             $products = $products;
         }
-    // dd($products);
+        // dd($products);
         /*if (isset($input['brands'])) {
             $products->whereIn('brand_id', $input['brands']);
         }*/
@@ -435,7 +456,7 @@ class ProductController extends Controller
             $products = $products->whereIn('os', $input['phone-types']);
         }
 
-       // $products = $products->get();
+        // $products = $products->get();
 
         $count = 0;
 
@@ -529,7 +550,7 @@ class ProductController extends Controller
                                                 <div class="shop-add-action mb-xs-30">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
-                                                        <li><p productId="'.$product->id.'" title="quick view"
+                                                        <li><p productId="' . $product->id . '" title="quick view"
                                                                         class="quick-view-btn" data-toggle="modal"
                                                                         data-target="#exampleModalCenter"><i
                                                                             class="fa fa-eye"></i>

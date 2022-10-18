@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('express_id');
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('tax_id');
-            $table->unsignedBigInteger('voucher_id');
             $table->unsignedBigInteger('payment_id');
             $table->unsignedBigInteger('user_id');
             $table->date('delivery_date');
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->foreign('express_id')->references('id')->on('expresses');
             $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('tax_id')->references('id')->on('tax');
-            $table->foreign('voucher_id')->references('id')->on('voucher');
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->foreign('user_id')->references('id')->on('users');
         });
