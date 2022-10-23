@@ -102,7 +102,10 @@ Route::prefix('products')->group(function () {
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
 
     //Apply discount
-    Route::post('/discount', [ProductController::class, 'applyDiscount']);
+    Route::get('/discount', [ProductController::class, 'applyDiscount']);
+
+    //Payment
+    Route::post('/checkout-product', [CardController::class, 'payment']);
 });
 
 Route::prefix('users')->group(function () {

@@ -70,19 +70,20 @@ class MainController extends Controller
 
     public function update(Request $request, User $user)
     {
-         $input = $request->all();
-         $dataUpdate = array(
-             'name' => $input['name'] ?? null,
-             'gender' => $input['gender'] ?? null,
-             'phone' => $input['phone'] ?? null,
-             'avatar' =>  $input['thumb'] ?? $input['file'],
-             'address' => $input['address'] ?? null,
-             'updated_at' => Carbon::now()
-         );
+        $input = $request->all();
+        $dataUpdate = array(
+            'name' => $input['name'] ?? null,
+            'gender' => $input['gender'] ?? null,
+            'phone' => $input['phone'] ?? null,
+            'avatar' =>  $input['thumb'] ?? $input['file'],
+            'address' => $input['address'] ?? null,
+            'updated_at' => Carbon::now()
+        );
 
-       $user->update($dataUpdate);
+        $user->update($dataUpdate);
 
         Alert::success('Thành công', 'Cập nhật thông tin thành công');
-         return redirect()->back();
+
+        return redirect()->back();
     }
 }

@@ -4,19 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ProductService;
-use App\Models\Color;
-use App\Models\Feature;
-use App\Models\Memory;
-use App\Models\Vendor;
-use App\Models\Brand;
+use App\Models\DeliveryAddress;
 use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\User;
 use App\Services\CardService;
-use Illuminate\Pagination\Paginator;
 use RealRashid\SweetAlert\Facades\Alert;
-use Carbon\Carbon;
-use PhpParser\Node\Expr\FuncCall;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CardController extends Controller
@@ -38,7 +30,7 @@ class CardController extends Controller
         ]);
         $product = Product::where('id', $params['productId'])->first();
 
-        if ($validator->fails() || ($params['quantity'] > $product->quantity) ) {
+        if ($validator->fails() || ($params['quantity'] > $product->quantity)) {
             Alert::error('Lỗi', 'Số lượng không hợp lệ');
 
             return redirect()->back();
@@ -133,7 +125,8 @@ class CardController extends Controller
 
     public function checkout()
     {
-        $user = session()->get('user');
+        $auth = session()->get('user');
+        $user = User::where('id', $auth->id)->first();
         if (!$user) {
             Alert::error('Đăng nhập', 'Đăng nhập để thanh toán');
             return view('auth.login-register', [
@@ -142,6 +135,7 @@ class CardController extends Controller
         }
         $products = $this->cardService->getProduct();
         $sessionProducts = $this->cardService->getProduct();
+        $addresses = DeliveryAddress::get();
 
         return view('product.checkout', [
             'title' => 'Thanh toán sản phẩm',
@@ -149,6 +143,20 @@ class CardController extends Controller
             'user' => $user,
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
+            'addresses' => $addresses
         ]);
+    }
+
+    public function payment(Request $request)
+    {
+        $input = $request->all();
+        $result = $this->cardService->payment($input);
+        if (!$result) {
+            Alert::error('Xảy ra lỗi trong quá trình đặt hàng!');
+            return redirect()->back();
+        }
+
+        Alert::success('Đặt hàng thành công');
+        return redirect()->back();
     }
 }

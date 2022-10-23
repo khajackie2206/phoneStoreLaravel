@@ -234,6 +234,14 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $("#submit-discount").click(function () {
+        var formData = $("#form-discount").serialize();
+        let url = "/products/discount?"+formData;
+        window.location = url;
+    });
+});
+
 
 $("#actual-btn").change(function () {
      const form = new FormData();
