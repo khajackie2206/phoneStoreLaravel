@@ -45,7 +45,7 @@
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>&nbsp; Thông tin cá nhân</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><svg version="1.1" id="Layer_1"
+                                <a class="dropdown-item" href="/users/order-tracking"><svg version="1.1" id="Layer_1"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         x="0px" y="0px" width="20px" height="20px" viewBox="0 0 40 36"
                                         style="enable-background:new 0 0 40 36;" xml:space="preserve">

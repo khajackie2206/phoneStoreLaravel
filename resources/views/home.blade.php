@@ -1,5 +1,8 @@
 @extends('index')
 @section('content')
+<div class="loader-wrapper" style="z-index: 2000;">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
     <!-- Header Area End Here -->
     <!-- Begin Slider With Banner Area -->
     <div class="slider-with-banner">

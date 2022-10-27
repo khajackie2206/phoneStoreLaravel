@@ -127,6 +127,7 @@ class CardController extends Controller
     {
         $auth = session()->get('user');
         $user = User::where('id', $auth->id)->first();
+        $addresses = DeliveryAddress::where('user_id', $user->id)->get();
         if (!$user) {
             Alert::error('Đăng nhập', 'Đăng nhập để thanh toán');
             return view('auth.login-register', [
@@ -135,7 +136,6 @@ class CardController extends Controller
         }
         $products = $this->cardService->getProduct();
         $sessionProducts = $this->cardService->getProduct();
-        $addresses = DeliveryAddress::get();
 
         return view('product.checkout', [
             'title' => 'Thanh toán sản phẩm',

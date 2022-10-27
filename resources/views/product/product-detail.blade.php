@@ -1,5 +1,8 @@
 @extends('index')
 @section('content')
+<div class="loader-wrapper" style="z-index: 2000;">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
     <!-- Li's Breadcrumb Area End Here -->
     <div class="breadcrumb-area" style="margin-top: -20px;">
         <div class="container">
@@ -160,26 +163,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="block-reassurance" style="margin-top: 40px;">
-                                <ul>
-                                    <li>
-                                        <div class="reassurance-item">
-                                            <div class="reassurance-icon">
-                                                <i class="fa fa-truck"></i>
-                                            </div>
-                                            <p>Nhận hàng trong vòng 3 - 7 ngày</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="reassurance-item">
-                                            <div class="reassurance-icon">
-                                                <i class="fa fa-exchange"></i>
-                                            </div>
-                                            <p> Bảo hành chính hãng trong vòng 24 tháng</p>
-                                        </div>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>

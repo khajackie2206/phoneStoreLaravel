@@ -8,18 +8,18 @@
                       <!-- Begin Footer Logo Area -->
                       <div class="col-lg-4 col-md-6">
                           <div class="footer-block">
-                              <h3>About Me</h3>
+                              <h3>Thông tin hệ thống</h3>
                               <p class="info">
-                                  I am a 4th year student at Can Tho University and this is my graduation project. If
-                                  you have any feedback about this website, just feel free to contact me </p>
+                                  Allo store là website được xây dựng để cung cấp cho khách hàng những mẫu mã
+                                  điện thoại đa dạng, phù hợp với túi tiền </p>
                           </div>
                           <ul class="des">
                               <li>
-                                  <span>Address: </span>
+                                  <span>Địa chỉ: </span>
                                   68, 3/2, Ninh Kieu, Can Tho, Viet Nam
                               </li>
                               <li>
-                                  <span>Phone: </span>
+                                  <span>SĐT: </span>
                                   <a href="#">(+84) 911603179</a>
                               </li>
                               <li>
@@ -32,12 +32,12 @@
                       <!-- Begin Footer Block Area -->
                       <div class="col-lg-2 col-md-3 col-sm-6">
                           <div class="footer-block">
-                              <h3 class="footer-block-title">Product</h3>
+                              <h3 class="footer-block-title">Sản phẩm</h3>
                               <ul>
-                                  <li><a href="#">Hot </a></li>
-                                  <li><a href="#">New products</a></li>
-                                  <li><a href="#">Best sales</a></li>
-                                  <li><a href="#">Contact me</a></li>
+                                  <li><a href="#">Sản phẩm HOT </a></li>
+                                  <li><a href="#">Sản phẩm mới nhất</a></li>
+                                  <li><a href="#">Bán chạy nhất</a></li>
+                                  <li><a href="#">Tính năng đặc biệt</a></li>
                               </ul>
                           </div>
                       </div>
@@ -45,12 +45,12 @@
                       <!-- Begin Footer Block Area -->
                       <div class="col-lg-2 col-md-3 col-sm-6">
                           <div class="footer-block">
-                              <h3 class="footer-block-title">This website</h3>
+                              <h3 class="footer-block-title">Hỗ trợ</h3>
                               <ul>
-                                  <li><a href="#">Delivery</a></li>
-                                  <li><a href="#">Security</a></li>
-                                  <li><a href="#">About me</a></li>
-                                  <li><a href="#">Contact me</a></li>
+                                  <li><a href="#">Vận chuyển</a></li>
+                                  <li><a href="#">Bảo mật</a></li>
+                                  <li><a href="#">Về website</a></li>
+                                  <li><a href="#">Liên hệ</a></li>
                               </ul>
                           </div>
                       </div>
@@ -58,7 +58,7 @@
                       <!-- Begin Footer Block Area -->
                       <div class="col-lg-4">
                           <div class="footer-block">
-                              <h3 class="footer-block-title">Follow Me</h3>
+                              <h3 class="footer-block-title">Theo dõi để biết thêm</h3>
                               <ul class="social-link">
                                   <li class="google-plus">
                                       <a href="https://www.plus.google.com/discover" data-toggle="tooltip"
@@ -84,30 +84,19 @@
                                           <i class="fa fa-instagram"></i>
                                       </a>
                                   </li>
+
                               </ul>
                           </div>
-                          <!-- Begin Footer Newsletter Area -->
-                          <div class="footer-newsletter">
-                              <h4>Sign up</h4>
-                              <form action="#" method="post" id="mc-embedded-subscribe-form"
-                                  name="mc-embedded-subscribe-form" class="footer-subscribe-form validate"
-                                  target="_blank" novalidate>
-                                  <div id="mc_embed_signup_scroll">
-                                      <div id="mc-form" class="mc-form subscribe-form form-group">
-                                          <input id="mc-email" type="email" autocomplete="off"
-                                              placeholder="Enter your email" />
-                                          <button class="btn" id="mc-submit">Subscribe</button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                          <!-- Footer Newsletter Area End Here -->
                       </div>
-                      <!-- Footer Block Area End Here -->
+                      <!-- Begin Footer Newsletter Area -->
+
+                      <!-- Footer Newsletter Area End Here -->
                   </div>
+                  <!-- Footer Block Area End Here -->
               </div>
           </div>
       </div>
+  </div>
 
   </div>
   <!-- Footer Area End Here -->
@@ -204,7 +193,8 @@
                                           <div class="quantity">
                                               <label>Số lượng</label>
                                               <div class="cart-plus-minus card-plus-minus-plus">
-                                                  <input type="text" class="cart-plus-minus-box" value="1" name="quantity" onchange="changeQuantity(this);" >
+                                                  <input type="text" class="cart-plus-minus-box" value="1"
+                                                      name="quantity" onchange="changeQuantity(this);">
 
                                                   <div class="dec qtybutton qtybutton1" action="quantity-dec"><i
                                                           class="fa fa-angle-down"></i></div>

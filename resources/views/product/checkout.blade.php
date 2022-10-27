@@ -31,7 +31,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Địa chỉ giao hàng <span class="required">*</span></label>
-                                        @if (isset($addresses))
+                                        @if (isset($addresses) && count($addresses) > 0)
                                             <select class="form-select" style="background-color: white;"
                                                 aria-label="Default select example" name="delivery_address">
                                                 @foreach ($addresses as $address)
@@ -66,13 +66,8 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list create-acc">
-                                        <input id="cbox" type="checkbox">
-                                        <label>Tôi đã đọc và đồng ý điều khoản</label>
-                                    </div>
-                                </div>
                             </div>
+                         @if (!isset($addresses) && count($addresses) > 0)
                             <div class="different-address">
                                 <div class="ship-different-title">
                                     <h3>
@@ -97,6 +92,14 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                             <div class="order-notes">
+                                    <div class="checkout-form-list">
+                                        <label>Ghi chú giao hàng</label>
+                                        <textarea id="checkout-mess" name="note" cols="30" rows="10"
+                                            placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
+                                    </div>
+                                </div>
                         </div>
 
                     </div>

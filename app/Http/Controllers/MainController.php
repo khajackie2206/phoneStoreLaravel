@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
 use App\Services\BannerService;
@@ -85,5 +87,27 @@ class MainController extends Controller
         Alert::success('Thành công', 'Cập nhật thông tin thành công');
 
         return redirect()->back();
+    }
+
+    public function trackOrder()
+    {
+        $user = session()->get('user');
+         $orders = $this->cardService->getOrders($user);
+        //  foreach($orders->get() as $order)
+        //  {
+        //     foreach($order->orderDetails as $orderdetail)
+        //     {
+        //         dd($orderdetail->product);
+        //     }
+        //  }
+        $sessionProducts = $this->cardService->getProduct();
+
+        return view('product.order-tracking',[
+            'title' => 'Đơn hàng của tôi',
+            'carts' => session()->get('carts'),
+            'sessionProducts' => $sessionProducts,
+            'orders' => $orders,
+            'user' => $user
+        ]);
     }
 }

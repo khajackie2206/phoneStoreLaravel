@@ -13,4 +13,9 @@ class Status extends Model
         'name',
         'description'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, foreignKey: 'status_id', localKey: 'id');
+    }
 }

@@ -147,4 +147,9 @@ class CardService
 
         return true;
     }
+
+    public function getOrders($user)
+    {
+        return $user->orders();
+    }
 }

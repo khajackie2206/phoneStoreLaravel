@@ -216,20 +216,6 @@
                             <!-- filter-sub-area end -->
                             <!-- filter-sub-area start -->
                             <div class="filter-sub-area pt-sm-10 pt-xs-10">
-                                <h5 class="filter-sub-titel">Tính năng đặc biệt</h5>
-                                <div class="categori-checkbox">
-                                    <ul>
-                                        @foreach ($features as $feature)
-                                            <li><input type="checkbox" class="product-features" name="product-features[]"
-                                                    value="{{ $feature->id }}"><a
-                                                    href="#">{{ $feature->name }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- filter-sub-area end -->
-                            <!-- filter-sub-area start -->
-                            <div class="filter-sub-area pt-sm-10 pt-xs-10">
                                 <h5 class="filter-sub-titel">Mức giá</h5>
                                 <div class="size-checkbox">
                                     <ul>

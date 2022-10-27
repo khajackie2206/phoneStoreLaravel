@@ -111,6 +111,7 @@ Route::prefix('products')->group(function () {
 Route::prefix('users')->group(function () {
     Route::get('/detail', [MainController::class, 'userDetail']);
     Route::put('/update/{user}', [MainController::class, 'update']);
+    Route::get('/order-tracking', [MainController::class, 'trackOrder']);
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
