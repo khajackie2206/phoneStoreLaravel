@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -16,8 +18,17 @@ class AdminController extends Controller
 
     public function index()
     {
+        $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
+        $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
+        $products = Product::get();
+        $users = count(User::get());
+
         return view('admin.dashboard.dashboard', [
-            'title' => 'Admin Dashboard'
+            'title' => 'Admin Dashboard',
+            'users' => $users,
+            'orderNews' => $orderNews,
+            'orders' => $orders,
+            'products' => $products
         ]);
     }
 

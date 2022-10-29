@@ -65,6 +65,10 @@ Route::prefix('admin')
         Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
         Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
         Route::post('/brand/delete/{brand}', [BrandController::class, 'delete']);
+
+       #Orders
+       Route::get('/order/lists', [MainController::class, 'orders']);
+       Route::get('/order/detail/{order}',[MainController::class, 'show']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);

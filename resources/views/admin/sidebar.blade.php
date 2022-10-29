@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="/admin/home">
-            <span class="align-middle">Admin Dashboard</span>
+            <span class="align-middle">Bảng điều khiển</span>
         </a>
 
         <ul class="sidebar-nav">
@@ -45,12 +45,12 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">
+                <li class="sidebar-header">
                 Quản lý đơn hàng
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="/admin/order/lists">
                     <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Đơn hàng</span>
                 </a>
             </li>

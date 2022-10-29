@@ -4,17 +4,16 @@
         <div class="container">
             <div class="row">
                 <!-- Begin Header Top Left Area -->
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li style="margin-top: 5px;"><span>Số điện thoại đặt hàng:</span><a href="#"> (+84)
-                                    911603179</a></li>
+                            <li style="margin-top: 5px;"><a href="#"><i class="fa fa-phone fa-lg" style="color: red;"  aria-hidden="true"></i> +84 911603179<i class="fa fa-envelope fa-lg" style="margin-left: 40px;color:red;" aria-hidden="true"></i>&nbsp; khajackie2206@gmail.com</a></li>
                         </ul>
                     </div>
                 </div>
                 <!-- Header Top Left Area End Here -->
                 <!-- Begin Header Top Right Area -->
-                <div class="col-lg-9 col-md-8">
+                <div class="col-lg-8 col-md-8">
                     <div class="header-top-right">
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
@@ -35,7 +34,7 @@
                                 </li>
                             @endif
 
-                            <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px;">
+                            <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px; margin-left: 50px;">
                                 <a class="dropdown-item" href="/users/detail"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -75,7 +74,7 @@
                             </li> -->
                             <!-- Currency Area End Here -->
                             <!-- Begin Language Area -->
-                            <li>
+                            {{-- <li>
                                 <span class="language-selector-wrapper">Ngôn ngữ :</span>
                                 <div class="ht-language-trigger"><span>Tiếng Việt</span></div>
                                 <div class="language ht-language">
@@ -87,7 +86,7 @@
                                                 Việt</a></li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                             <!-- Language Area End Here -->
                         </ul>
                     </div>

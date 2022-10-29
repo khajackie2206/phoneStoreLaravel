@@ -6,18 +6,13 @@
 
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle">Danh sách đơn hàng</h1>
-                <a class="badge bg-info text-white ms-2" href="/admin/product/add">
-                    Thêm +
-                </a>
             </div>
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-body h-100">
                             <div class="container ">
-
                                 <div class="mb-2 d-flex justify-content-between align-items-center">
-
                                     <div class="position-relative" style="margin-bottom: 20px;">
                                         <span class="position-absolute" style="top: 6px; left: 10px;"><i
                                                 class="fa fa-search"></i></span>
@@ -31,50 +26,59 @@
                                     <table class="table table-responsive table-borderless">
 
                                         <thead>
-                                            <tr class="bg-light">
-                                                <th scope="col" width="5%">#</th>
-                                                <th scope="col" width="20%">Tên điện thoại</th>
-                                                <th scope="col" width="15%">Dung lượng</th>
+                                            <tr class="bg-warning text-dark" style="text-align: center;">
+                                                <th scope="col" width="5%">ID</th>
+                                                <th scope="col" width="20%">Tên khách hàng</th>
+                                                <th scope="col" width="15%">Tổng đơn</th>
 
                                                 <th scope="col" width="10%">Trạng thái</th>
-                                                <th scope="col" width="15%">Hình ảnh</th>
-                                                <th scope="col" width="10%">Số lượng</th>
-                                                <th scope="col" width="10%">Hãng</th>
-                                                <th scope="col" class="text-end" width="10%"><span>Thao tác</span>
+                                                <th scope="col" width="15%">Thanh Toán</th>
+                                                <th scope="col" width="20%">Ngày đặt hàng</th>
+                                                <th scope="col" width="15%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($products as $product)
-                                                <tr>
-                                                    <td>{{ $product->id }}</td>
-                                                    <td style="font-weight: bold;">{{ $product->name }}</td>
-                                                    <td style="font-weight: bold;">{{ $product->ram }} GB -
-                                                        {{ $product->rom }}</td>
+                                            @foreach ($orders as $order)
+                                                <tr style="text-align: center;">
+                                                    <td>{{ $order->id }}</td>
+                                                    <td style="font-weight: bold;">{{ $order->user->name }}</td>
+                                                    <td style="color:red;">{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span></td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                                            @if ($product->active == 1)
-                                                                <span class="badge bg-success">Enable</span>
-                                                            @else
-                                                                <span class="badge bg-danger">Disable</span>
+                                                            @if ($order->status->id == 1)
+                                                                <span class="badge bg-secondary">Chờ duyệt</span>
+                                                            @elseif ($order->status->id == 2)
+                                                                <span class="badge bg-success">Đã duyệt</span>
+                                                            @elseif ($order->status->id == 3)
+                                                                <span class="badge bg-warning">Đang giao hàng</span>
+                                                            @elseif ($order->status->id == 4)
+                                                                <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                                            @elseif ($order->status->id == 5)
+                                                                <span class="badge bg-danger">Đã hủy</span>
                                                             @endif
                                                         </span></td>
-                                                    <td><img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
-                                                            width="100">
+                                                    <td>
+                                                        <i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                                            @if ($order->payment_id == 1)
+                                                                <span class="badge bg-success">Trả khi nhận hàng</span>
+                                                            @elseif ($order->payment_id == 2)
+                                                                <span class="badge bg-warning">Thanh toán Momo</span>
+                                                            @elseif ($order->payment_id == 3)
+                                                                <span class="badge bg-warning">Thanh toán Stripe</span>
+                                                            @endif
+                                                        </span>
                                                     </td>
-                                                    <td  style="font-weight: bold;"> <span style="margin-left: 10px;"> {{$product->quantity}} </span></td>
-                                                    <td style="font-weight: bold;">{{ $product->brand->name }}</td>
-                                                    <td class="text-end"> <a class="btn btn-primary btn-sm"
-                                                            href="/admin/product/edit/{{ $product->id }}">
-                                                            <i class="fas fa-edit"></i>
+                                                    <td  style="font-weight: bold;"> <span> {{$order->created_at}} </span></td>
+                                                    <td> <a
+                                                            href="/admin/order/detail/{{$order->id}}">
+                                                            <i class="fas fa-edit fa-xl"></i>
                                                         </a>
 
                                                         <form method="delete" style=" display:inline!important;"
-                                                            action="/admin/product/delete/{{ $product->id }}">
+                                                            action="/admin/product/delete/{{ $order->id }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" style=" display:inline!important;"
-                                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm">
-                                                                <i class="fas fa-trash"></i></button>
+                                                        <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
                                                         </form>
 
                                                     </td>
@@ -87,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-             {{ $products->links() }}
+             {{ $orders->links() }}
             </div>
         </div>
     </main>

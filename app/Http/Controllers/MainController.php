@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Voucher;
 use App\Services\BannerService;
 use App\Services\CardService;
 use Illuminate\Http\Request;
@@ -92,14 +93,7 @@ class MainController extends Controller
     public function trackOrder()
     {
         $user = session()->get('user');
-         $orders = $this->cardService->getOrders($user);
-        //  foreach($orders->get() as $order)
-        //  {
-        //     foreach($order->orderDetails as $orderdetail)
-        //     {
-        //         dd($orderdetail->product);
-        //     }
-        //  }
+        $orders = $this->cardService->getOrders($user);
         $sessionProducts = $this->cardService->getProduct();
 
         return view('product.order-tracking',[
@@ -109,5 +103,34 @@ class MainController extends Controller
             'orders' => $orders,
             'user' => $user
         ]);
+    }
+
+    public function orders(Request $request)
+    {
+        $input = $request->all();
+        $orders = Order::where('created_at','<>' ,null);
+        if(isset($input['search']) && $input['search'] !== "")
+        {
+           $orders->where('');
+        }
+
+        $results = $orders->Paginate(10);
+        return view('admin.order.list', [
+            'title' => 'Danh sách đơn hàng',
+            'orders' => $results
+        ]);
+    }
+
+    public function show(Order $order)
+    {
+       if($order->voucher_id != null)
+       {
+           $discount = Voucher::where('id', $order->voucher_id)->first();
+       }
+       return view('admin.order.detail',[
+           'title' => 'Chi tiết đơn hàng',
+           'order' => $order,
+           'discount' => $discount ?? null
+       ]);
     }
 }
