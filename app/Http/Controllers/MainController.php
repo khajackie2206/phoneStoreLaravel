@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MainController extends Controller
 {
@@ -132,5 +133,23 @@ class MainController extends Controller
            'order' => $order,
            'discount' => $discount ?? null
        ]);
+    }
+
+    public function generatePDF(Order $order)
+    {
+        if ($order->voucher_id != null) {
+            $discount = Voucher::where('id', $order->voucher_id)->first();
+        }
+        $data = [
+            'title' => 'Chi tiết đơn hàng',
+            'order' => $order,
+            'discount' => $discount ?? null
+        ];
+
+        $pdf = Pdf::loadView('pdf.test', $data);
+        $pdf->set_option('isRemoteEnabled', TRUE);
+        $pdf->render();
+
+        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
     }
 }

@@ -19,7 +19,7 @@
                     <strong>Tên khách hàng: </strong><br>
                     <strong>Số điện thoại: </strong><br>
                     <strong>Địa chỉ giao hàng: </strong><br>
-                    <strong>Email: </strong>
+                    <strong>Email khách hàng: </strong>
                 </address>
             </div>
             <!-- /.col -->
@@ -99,15 +99,15 @@
                 </span>
             </div>
             <div class="col-3">
-                 <p class="lead">Trạng thái đơn hàng: </p>
-                     <div class="form-group">
+                <p class="lead">Trạng thái đơn hàng: </p>
+                <div class="form-group">
 
                     <select class="custom-select">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>option 4</option>
-                        <option>option 5</option>
+                        <option value="1" {{ $order->status->id == 1 ? 'selected' : '' }}>Chờ xác nhận</option>
+                        <option value="2" {{ $order->status->id == 2 ? 'selected' : '' }}>Đã xác nhận</option>
+                        <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng</option>
+                        <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao thành công</option>
+                        <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng</option>
                     </select>
                 </div>
             </div>
@@ -138,11 +138,11 @@
                         </tr>
                         <tr>
                             <th>Vận chuyển:</th>
-                            <td style="font-weight: bold;">30,000 <span style="text-decoration: underline;">đ</span></td>
+                            <td style="font-weight: bold;">30,000<span style="text-decoration: underline;">đ</span></td>
                         </tr>
                         <tr>
                             <th>Tổng thanh toán:</th>
-                            <td style="color: red; font-weight: bold;">{{ number_format($order->total) }} <span
+                            <td style="color: red; font-weight: bold;">{{ number_format($order->total+30000) }} <span
                                     style="text-decoration: underline;">đ</span></td>
                         </tr>
                     </table>
@@ -155,12 +155,13 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-8">
-                <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                        class="fas fa-print"></i> In</a>
 
                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Xuất PDF
+                    <a href="/admin/order/generate-pdf/{{ $order->id }}" style="color: white;"> <i
+                            class="fas fa-print"></i> Xuất PDF</a>
                 </button>
+
+                <button type="button" class="btn btn-info">Lưu thay đổi</button>
 
             </div>
         </div>

@@ -69,6 +69,7 @@ Route::prefix('admin')
        #Orders
        Route::get('/order/lists', [MainController::class, 'orders']);
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
+       Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
