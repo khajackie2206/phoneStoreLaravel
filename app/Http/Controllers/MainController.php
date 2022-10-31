@@ -94,7 +94,7 @@ class MainController extends Controller
     public function trackOrder()
     {
         $user = session()->get('user');
-        $orders = $this->cardService->getOrders($user);
+        $orders = $this->cardService->getOrders($user)->paginate(3);
         $sessionProducts = $this->cardService->getProduct();
 
         return view('product.order-tracking',[
@@ -146,10 +146,35 @@ class MainController extends Controller
             'discount' => $discount ?? null
         ];
 
-        $pdf = Pdf::loadView('pdf.test', $data);
+        $pdf = Pdf::loadView('pdf.generatePDF', $data);
         $pdf->set_option('isRemoteEnabled', TRUE);
         $pdf->render();
 
         return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
+    }
+
+    public function updateOrderStatus(Request $request,Order $order)
+    {
+       $input = $request->all();
+       $order->update(array('status_id' => $input['status']));
+       Alert::success('Cập nhật trạng thái đơn hàng thành công!');
+
+       return redirect()->back();
+    }
+
+    public function customerUpdateStatus(Request $request, Order $order)
+    {
+        $input = $request->all();
+        $order->update(array('status_id' => $input['status']));
+        if($input['status'] == 5) {
+            Alert::success('Đã hủy đơn hàng!');
+        }
+        if($input['status'] == 4)
+        {
+            Alert::success('Đã xác nhận!');
+        }
+
+
+        return redirect()->back();
     }
 }

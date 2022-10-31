@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
 		:not(.pagination-product) {
-			
 		}
 	</style>
 </head>
@@ -267,8 +266,6 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src=" {{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
-
-
 </body>
 
 </html>

@@ -70,6 +70,7 @@ Route::prefix('admin')
        Route::get('/order/lists', [MainController::class, 'orders']);
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
+       Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
@@ -111,6 +112,9 @@ Route::prefix('products')->group(function () {
 
     //Payment
     Route::post('/checkout-product', [CardController::class, 'payment']);
+
+    //Order
+    Route::get('/order/update-status/{order}',[MainController::class, 'customerUpdateStatus']);
 });
 
 Route::prefix('users')->group(function () {

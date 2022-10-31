@@ -178,9 +178,9 @@
                 <div class="col-lg-12">
                     <div class="li-product-tab">
                         <ul class="nav li-product-menu">
-                            <li><a class="active" data-toggle="tab" href="#description"><span>Thông tin sản
+                            <li><a class="active" data-toggle="tab" href="#description"><span>Mô tả sản
                                         phẩm</span></a></li>
-                            <li><a data-toggle="tab" href="#product-details"><span>Cấu hình chi tiết</span></a></li>
+                            {{-- <li><a data-toggle="tab" href="#product-details"><span>Cấu hình chi tiết</span></a></li> --}}
                             <li><a data-toggle="tab" href="#reviews"><span>Đánh giá sản phẩm</span></a></li>
                         </ul>
                     </div>
@@ -190,15 +190,96 @@
             <div class="tab-content">
                 <div id="description" class="tab-pane active show" role="tabpanel">
                     <div class="product-description">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7">
                         <span>
                             {!! $product->description !!}
                         </span>
                     </div>
+                    <div class="col-lg-5 col-md-5">
+                        <table class="table table-striped">
+                            <tr style="background-color: #f1f1f1;">
+                                <th colspan="2">
+                                    <h6>Màn hình</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Công nghệ màn hình: </td>
+                                <td>{{ $product->display_tech }}, {{ $product->size }}, {{ $product->resolution }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Tần số quét: </td>
+                                <td>{{ $product->screen_rate }}</td>
+                            </tr>
+                            <tr style="background-color: #f1f1f1;">
+                                <th colspan="2">
+                                    <h6>Camera</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Camera sau: </td>
+                                <td>{{ $product->rear_cam }}</td>
+                            <tr>
+                                <td style="font-weight: bold;">Camera trước: </td>
+                                <td>{{ $product->font_cam }}</td>
+                            </tr>
+                            <tr style="background-color: #f1f1f1;">
+                                <th colspan="2">
+                                    <h6>Hệ điều hành & CPU</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Hệ điều hành: </td>
+                                <td>{{ $product->os }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Chip xử lý: </td>
+                                <td>{{ $product->cpu }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Dung lượng pin: </td>
+                                <td>{{ $product->battery }} mAh</td>
+                            <tr>
+                            <tr style="background-color: #f1f1f1;">
+                                <th colspan="2">
+                                    <h6>Bộ nhớ & Lưu trữ</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">RAM: </td>
+                                <td>{{ $product->ram }} GB</td>
+                            <tr>
+                                <td style="font-weight: bold;">Bộ nhớ trong: </td>
+                                <td>{{ $product->rom }}</td>
+                            </tr>
+
+                            <tr style="background-color: #f1f1f1;">
+                                <th colspan="2">
+                                    <h6>Thông tin chung</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Tính năng: </td>
+                                <td>
+                                    <ul>
+                                        @foreach ($product->features as $feature)
+                                            <li style="list-style-type: circle;">{{ $feature->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            <tr>
+                                <td style="font-weight: bold;">Thời gian ra mắt: </td>
+                                <td style="color: rgb(66, 90, 224);">{{ $product->year }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                    </div>
+
                 </div>
-                <div id="product-details" class="tab-pane" role="tabpanel">
+                {{-- <div id="product-details" class="tab-pane" role="tabpanel">
                     <div class="product-details-manufacturer">
-                        <table class="table table-striped"
-                            style="width: 800px;margin: auto; margin-top: 20px; margin-bottom: -100px;">
+                        <table class="table table-striped">
                             <tr style="background-color: #f1f1f1;">
                                 <th colspan="2">
                                     <h5>Màn hình</h5>
@@ -287,7 +368,7 @@
                             </tr>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 <div id="reviews" class="tab-pane" role="tabpanel">
                     <div class="product-reviews">
                         <div class="product-details-comment-block">
@@ -404,12 +485,12 @@
     </div>
     <!-- Product Area End Here -->
     <!-- Begin Li's Laptop Product Area -->
-    <section class="product-area li-laptop-product pt-30 pb-50" style="margin-bottom: 105px;">
+    <div class="product-area li-laptop-product pt-30 pb-50" >
         <div class="container">
             <div class="row">
                 <!-- Begin Li's Section Area -->
-                <div class="col-lg-12" style="margin-top: 150px;">
-                    <div class="li-section-title" style="margin-bottom: 50px;">
+                <div class="col-lg-12" >
+                    <div class="li-section-title">
                         <h2>
                             <span>{{ count($productBrands) }} sản phẩm khác liên quan: </span>
                         </h2>
@@ -483,6 +564,6 @@
                 <!-- Li's Section Area End Here -->
             </div>
         </div>
-    </section>
+    </div>
     <!-- Li's Laptop Product Area End Here -->
 @endsection

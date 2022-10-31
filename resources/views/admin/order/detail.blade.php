@@ -101,14 +101,38 @@
             <div class="col-3">
                 <p class="lead">Trạng thái đơn hàng: </p>
                 <div class="form-group">
-
-                    <select class="custom-select">
-                        <option value="1" {{ $order->status->id == 1 ? 'selected' : '' }}>Chờ xác nhận</option>
-                        <option value="2" {{ $order->status->id == 2 ? 'selected' : '' }}>Đã xác nhận</option>
-                        <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng</option>
-                        <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao thành công</option>
-                        <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng</option>
-                    </select>
+                    <form method="post" id="form-status" style=" display:inline!important;"
+                        action="/admin/order/update/{{ $order->id }}">
+                        @csrf
+                        <input name="_method" type="hidden" value="POST">
+                        <select class="custom-select" name="status"
+                        {{
+                           ($order->status->id == 3 || $order->status->id == 4) ? 'disabled' : ''
+                        }}>
+                            @if ($order->status->id == 1)
+                                <option value="1" {{ $order->status->id == 1 ? 'selected' : '' }}>Chờ xác nhận
+                                </option>
+                                <option value="2" {{ $order->status->id == 2 ? 'selected' : '' }}>Đã xác nhận
+                                </option>
+                                <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng
+                                </option>
+                            @elseif ($order->status->id == 2)
+                                <option value="2" {{ $order->status->id == 2 ? 'selected' : '' }}>Đã xác nhận
+                                </option>
+                                <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng
+                                </option>
+                            @elseif ($order->status->id == 3)
+                                <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng
+                                </option>
+                            @elseif ($order->status->id == 4)
+                                <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao thành công
+                                </option>
+                            @elseif ($order->status->id == 5)
+                                <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng
+                                </option>
+                            @endif
+                        </select>
+                    </form>
                 </div>
             </div>
             <!-- /.col -->
@@ -142,7 +166,7 @@
                         </tr>
                         <tr>
                             <th>Tổng thanh toán:</th>
-                            <td style="color: red; font-weight: bold;">{{ number_format($order->total+30000) }} <span
+                            <td style="color: red; font-weight: bold;">{{ number_format($order->total + 30000) }} <span
                                     style="text-decoration: underline;">đ</span></td>
                         </tr>
                     </table>
@@ -161,35 +185,26 @@
                             class="fas fa-print"></i> Xuất PDF</a>
                 </button>
 
-                <button type="button" class="btn btn-info">Lưu thay đổi</button>
+                <button type="button" class="btn btn-info show-alert-change-status">Lưu thay đổi</button>
 
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        $('.show-alert-delete-box').click(function(event) {
-            var form = $(this).closest("form");
+
+        $('.show-alert-change-status').click(function(event) {
+            var form = document.getElementById("form-status");
             var name = $(this).data("name");
             event.preventDefault();
-            swal({
-                title: "Bạn có chắc muốn xóa sản phẩm này không?",
+             new swal({
+                title: "Bạn có chắc lưu thay đổi?",
                 icon: "warning",
                 type: "warning",
-                buttons: ["Cancel", "Yes!"],
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Đã xóa!'
+                buttons: ["Cancel", "Yes"]
             }).then((willDelete) => {
                 if (willDelete) {
-                    swal({
-                        title: 'Thành công!',
-                        icon: 'success',
-                        text: 'Đã xóa sản phẩm!',
-                        type: 'success'
-                    }).then(function() {
-                        form.submit();
-                    });
+                    form.submit();
                 }
             });
         });

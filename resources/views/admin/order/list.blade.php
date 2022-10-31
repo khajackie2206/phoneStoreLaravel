@@ -28,13 +28,13 @@
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
                                                 <th scope="col" width="5%">ID</th>
-                                                <th scope="col" width="20%">Tên khách hàng</th>
+                                                <th scope="col" width="17%">Tên khách hàng</th>
                                                 <th scope="col" width="15%">Tổng đơn</th>
 
-                                                <th scope="col" width="10%">Trạng thái</th>
+                                                <th scope="col" width="18%">Trạng thái</th>
                                                 <th scope="col" width="15%">Thanh Toán</th>
                                                 <th scope="col" width="20%">Ngày đặt hàng</th>
-                                                <th scope="col" width="15%"><span>Thao tác</span>
+                                                <th scope="col" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -46,9 +46,9 @@
                                                     <td style="color:red;">{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span></td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($order->status->id == 1)
-                                                                <span class="badge bg-secondary">Chờ duyệt</span>
+                                                                <span class="badge bg-secondary">Chờ xác nhận</span>
                                                             @elseif ($order->status->id == 2)
-                                                                <span class="badge bg-success">Đã duyệt</span>
+                                                                <span class="badge bg-success">Đã xác nhận</span>
                                                             @elseif ($order->status->id == 3)
                                                                 <span class="badge bg-warning">Đang giao hàng</span>
                                                             @elseif ($order->status->id == 4)
