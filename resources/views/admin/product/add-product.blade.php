@@ -80,7 +80,7 @@
                                  <h5 class="card-title mb-0">Mô tả chi tiết</h5>
                              </div>
                              <div class="card-body">
-                                 <textarea class="form-control" id="content" name="description" rows="2" placeholder="mô tả chi tiết"></textarea>
+                                 <textarea class="form-control ckeditor"  name="description" rows="2" placeholder="mô tả chi tiết"></textarea>
                              </div>
                              @if($errors->first('description') != '')
                              <ul style="margin-top:5px;list-style-type:none; ">
@@ -346,8 +346,4 @@
      </main>
  @endsection
 
- @section('footer')
-     <script>
-         CKEDITOR.replace('content');
-     </script>
- @endsection
+

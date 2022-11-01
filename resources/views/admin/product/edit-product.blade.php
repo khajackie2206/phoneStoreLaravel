@@ -61,7 +61,7 @@
                                 <h5 class="card-title mb-0">Mô tả chi tiết</h5>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" id="content" name="description" rows="2" placeholder="mô tả chi tiết">{{ $product->description }}</textarea>
+                                <textarea class="form-control ckeditor" name="description" rows="2" placeholder="mô tả chi tiết">{{ $product->description }}</textarea>
                             </div>
                         </div>
 
@@ -324,10 +324,4 @@
             </form>
         </div>
     </main>
-@endsection
-
-@section('footer')
-    <script>
-        CKEDITOR.replace('content');
-    </script>
 @endsection

@@ -123,7 +123,7 @@ class ProductController extends Controller
         $result = $this->productService->updateProduct($request->all(), $product);
         if ($result) {
             Alert::success('Thành công', 'Cập nhật sản phẩm thành công');
-            return redirect('/admin/product/list');
+            return redirect()->back();
         }
 
         Alert::error('Lỗi', 'Cập nhật sản phẩm lỗi');

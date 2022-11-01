@@ -20,4 +20,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="/ckeditor/ckeditor.js"></script>
+{{-- <script src="/ckeditor/ckeditor.js"></script> --}}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
+ <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}

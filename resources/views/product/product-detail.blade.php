@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class="loader-wrapper" style="z-index: 2000;">
+    <div class="loader-wrapper" style="z-index: 2000;">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
     <!-- Li's Breadcrumb Area End Here -->
@@ -122,10 +122,11 @@
                             <form action="/products/cart" method="POST" class="cart-quantity" style="margin-top:10px;">
                                 <div class="product-variants">
                                     <div class="produt-variants-size">
-                                        <label style="margin-bottom: 20px; font-weight: 600;font-size:15px;">Màu sắc</label>
-                                          <a href="#"
-                                                style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
-                                                {{ $product->color}}</a>
+                                        <label style="margin-bottom: 20px; font-weight: 600;font-size:15px;">Màu
+                                            sắc</label>
+                                        <a href="#"
+                                            style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
+                                            {{ $product->color }}</a>
                                     </div>
                                 </div>
                                 <div class="single-add-to-cart" style="margin-top: 25px;">
@@ -145,11 +146,13 @@
                                     <button class="add-to-cart" type="submit">Đặt mua ngay</button>
                                 </div>
                                 <input type="hidden" name="productId" value="{{ $product->id }}">
-                                <input type="hidden" id="url" name="url" value="/products/details/{{ $product->id }}">
+                                <input type="hidden" id="url" name="url"
+                                    value="/products/details/{{ $product->id }}">
                                 @csrf
                             </form>
                             <div class="product-additional-info pt-25">
-                                <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu thích</a>
+                                <a class="wishlist-btn" style="color: grey;" href="wishlist.html"><i
+                                        class="fa fa-heart-o"></i>Yêu thích</a>
                                 <div class="product-social-sharing pt-25">
                                     <ul>
                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a>
@@ -181,7 +184,7 @@
                             <li><a class="active" data-toggle="tab" href="#description"><span>Mô tả sản
                                         phẩm</span></a></li>
                             {{-- <li><a data-toggle="tab" href="#product-details"><span>Cấu hình chi tiết</span></a></li> --}}
-                            <li><a data-toggle="tab" href="#reviews"><span>Đánh giá sản phẩm</span></a></li>
+                            {{-- <li><a data-toggle="tab" href="#reviews"><span>Đánh giá sản phẩm</span></a></li> --}}
                         </ul>
                     </div>
                     <!-- Begin Li's Tab Menu Content Area -->
@@ -190,306 +193,328 @@
             <div class="tab-content">
                 <div id="description" class="tab-pane active show" role="tabpanel">
                     <div class="product-description">
-                        <div class="row">
-                            <div class="col-lg-7 col-md-7">
-                        <span>
-                            {!! $product->description !!}
-                        </span>
-                    </div>
-                    <div class="col-lg-5 col-md-5">
-                        <table class="table table-striped">
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h6>Màn hình</h6>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Công nghệ màn hình: </td>
-                                <td>{{ $product->display_tech }}, {{ $product->size }}, {{ $product->resolution }}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Tần số quét: </td>
-                                <td>{{ $product->screen_rate }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h6>Camera</h6>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Camera sau: </td>
-                                <td>{{ $product->rear_cam }}</td>
-                            <tr>
-                                <td style="font-weight: bold;">Camera trước: </td>
-                                <td>{{ $product->font_cam }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h6>Hệ điều hành & CPU</h6>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Hệ điều hành: </td>
-                                <td>{{ $product->os }}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Chip xử lý: </td>
-                                <td>{{ $product->cpu }}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Dung lượng pin: </td>
-                                <td>{{ $product->battery }} mAh</td>
-                            <tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h6>Bộ nhớ & Lưu trữ</h6>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">RAM: </td>
-                                <td>{{ $product->ram }} GB</td>
-                            <tr>
-                                <td style="font-weight: bold;">Bộ nhớ trong: </td>
-                                <td>{{ $product->rom }}</td>
-                            </tr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6"
+                                    style="margin-right: 65px;margin-left: 15px;; background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
+    box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding: 30px;">
+                                    <span style="color: black !important">
 
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h6>Thông tin chung</h6>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Tính năng: </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($product->features as $feature)
-                                            <li style="list-style-type: circle;">{{ $feature->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            <tr>
-                                <td style="font-weight: bold;">Thời gian ra mắt: </td>
-                                <td style="color: rgb(66, 90, 224);">{{ $product->year }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
-                    </div>
+                                        {!! $product->description !!}
 
+                                    </span>
+                                </div>
+                                <div class="col-lg-5 col-md-5"
+                                    style="background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding: 43px;">
+                                    <table class="table table-striped">
+                                        <tr style="background-color: #f1f1f1;">
+                                            <th colspan="2">
+                                                <h6>Màn hình</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Công nghệ màn hình: </td>
+                                            <td>{{ $product->display_tech }}, {{ $product->size }},
+                                                {{ $product->resolution }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Tần số quét: </td>
+                                            <td>{{ $product->screen_rate }}</td>
+                                        </tr>
+                                        <tr style="background-color: #f1f1f1;">
+                                            <th colspan="2">
+                                                <h6>Camera</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Camera sau: </td>
+                                            <td>{{ $product->rear_cam }}</td>
+                                        <tr>
+                                            <td style="font-weight: bold;">Camera trước: </td>
+                                            <td>{{ $product->font_cam }}</td>
+                                        </tr>
+                                        <tr style="background-color: #f1f1f1;">
+                                            <th colspan="2">
+                                                <h6>Hệ điều hành & CPU</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Hệ điều hành: </td>
+                                            <td>{{ $product->os }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Chip xử lý: </td>
+                                            <td>{{ $product->cpu }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Dung lượng pin: </td>
+                                            <td>{{ $product->battery }} mAh</td>
+                                        <tr>
+                                        <tr style="background-color: #f1f1f1;">
+                                            <th colspan="2">
+                                                <h6>Bộ nhớ & Lưu trữ</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">RAM: </td>
+                                            <td>{{ $product->ram }} GB</td>
+                                        <tr>
+                                            <td style="font-weight: bold;">Bộ nhớ trong: </td>
+                                            <td>{{ $product->rom }}</td>
+                                        </tr>
+
+                                        <tr style="background-color: #f1f1f1;">
+                                            <th colspan="2">
+                                                <h6>Thông tin chung</h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold;">Tính năng: </td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($product->features as $feature)
+                                                        <li style="list-style-type: circle;">{{ $feature->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                        <tr>
+                                            <td style="font-weight: bold;">Thời gian ra mắt: </td>
+                                            <td style="color: rgb(66, 90, 224);">{{ $product->year }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {{-- <div id="product-details" class="tab-pane" role="tabpanel">
-                    <div class="product-details-manufacturer">
-                        <table class="table table-striped">
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Màn hình</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Công nghệ màn hình: </td>
-                                <td>{{ $product->display_tech }}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Độ phân giải: </td>
-                                <td>{{ $product->resolution }}</td>
-                            <tr>
-                                <td style="font-weight: bold;">Kích thước: </td>
-                                <td>{{ $product->size }} "</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Tần số quét: </td>
-                                <td>{{ $product->screen_rate }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Camera</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Camera sau: </td>
-                                <td>{{ $product->rear_cam }}</td>
-                            <tr>
-                                <td style="font-weight: bold;">Camera trước: </td>
-                                <td>{{ $product->font_cam }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Hệ điều hành & CPU</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Hệ điều hành: </td>
-                                <td>{{ $product->os }}</td>
-                            <tr>
-                                <td style="font-weight: bold;">Chip xử lý: </td>
-                                <td>{{ $product->cpu }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Bộ nhớ & Lưu trữ</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">RAM: </td>
-                                <td>{{ $product->ram }} GB</td>
-                            <tr>
-                                <td style="font-weight: bold;">Bộ nhớ trong: </td>
-                                <td>{{ $product->rom }}</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Pin</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Dung lượng pin: </td>
-                                <td>{{ $product->battery }} mAh</td>
-                            <tr>
-                                <td style="font-weight: bold;">Công nghệ pin: </td>
-                                <td style="color: rgb(66, 90, 224);">Li-Po</td>
-                            </tr>
-                            <tr style="background-color: #f1f1f1;">
-                                <th colspan="2">
-                                    <h5>Thông tin chung</h5>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;">Tính năng: </td>
-                                <td>
-                                    <ul>
-                                        @foreach ($product->features as $feature)
-                                            <li style="list-style-type: circle;">{{ $feature->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            <tr>
-                                <td style="font-weight: bold;">Thời gian ra mắt: </td>
-                                <td style="color: rgb(66, 90, 224);">{{ $product->year }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div> --}}
+
                 <div id="reviews" class="tab-pane" role="tabpanel">
                     <div class="product-reviews">
                         <div class="product-details-comment-block">
 
-                            <div class="comment-author-infos pt-25">
-                                <span>Nguyễn Minh Kha <span>
-                                        <ul class="rating">
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                        </ul>
-                                    </span></span>
-                                <em>01-12-22</em>
+                        </div>
+                        <div class="comment-author-infos pt-25">
+                            <span>Nguyễn Minh Kha <span>
+                                    <ul class="rating">
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                </span></span>
+                            <em>01-12-22</em>
+                        </div>
+                        <div class="comment-details" style="margin-top: 1px;">
+                            <p>Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
+                        </div>
+                        <div class="review-btn">
+                            <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
+                                đánh giá</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container rating-area" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-center">
+                            <div class="content text-center">
+                                <div class="ratings">
+                                    <span class="product-rating">4.6</span><span>/5</span>
+                                    <div class="stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="rating-text">
+                                        <span>46 ratings & 15 reviews</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="comment-details" style="margin-top: 1px;">
-                                <p>Sản phẩm chất lượng tốt, phù hợp giá tiền</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="margin-top: 40px;">
+                        <div class="card p-3">
+                            <div class="mt-5 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">Cleanliness</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+
                             </div>
-                            <div class="review-btn">
-                                <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
-                                    đánh giá</a>
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">Approachability of SLT</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
                             </div>
-                            <!-- Begin Quick View | Modal Area -->
-                            <div class="modal fade modal-wrapper" id="mymodal">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="modal-inner-area row">
-                                                <div class="col-lg-6">
-                                                    <!-- Product Details Left -->
-                                                    <div class="product-details-left">
-                                                        <div class="product-details-images slider-navigation-1">
-                                                            <div class="lg-image">
-                                                                <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
-                                                                    alt="product image">
-                                                            </div>
+
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">Front Office</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">CPD</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                </div>
+                            </div>
+
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">Pastrol</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">Office Space</h5>
+                                <div class="small-ratings">
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-4" style="text-align: center; margin-top: 120px;">
+                        <div class="review-btn">
+                            <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
+                                đánh giá</a>
+                        </div>
+                    </div>
+                </div>
+
+                       <!-- Begin Quick View | Modal Area -->
+                        <div class="modal fade modal-wrapper" id="mymodal">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="modal-inner-area row">
+                                            <div class="col-lg-6">
+                                                <!-- Product Details Left -->
+                                                <div class="product-details-left">
+                                                    <div class="product-details-images slider-navigation-1">
+                                                        <div class="lg-image">
+                                                            <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
+                                                                alt="product image">
                                                         </div>
-                                                    </div>
-                                                    <div style="text-align: center;">
-                                                        <label
-                                                            style="margin-top: 30px; color: black; font-size: 13px; text-align:center;"><span
-                                                                style="color: blue;"> * </span>Đánh giá sẽ được phê
-                                                            duyệt trước khi hiển thị công khai</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="li-review-content">
-                                                        <!-- Begin Feedback Area -->
-                                                        <div class="feedback-area">
-                                                            <div class="feedback">
-                                                                <h3 class="feedback-title">Đánh giá</h3>
-                                                                <form action="#">
-                                                                    <p class="your-opinion">
-                                                                        <label>Mức độ hài lòng</label>
-                                                                        <span>
-                                                                            <select class="star-rating">
-                                                                                <option value="1">1</option>
-                                                                                <option value="2">2</option>
-                                                                                <option value="3">3</option>
-                                                                                <option value="4">4</option>
-                                                                                <option value="5">5</option>
-                                                                            </select>
-                                                                        </span>
+                                                <div style="text-align: center;">
+                                                    <label
+                                                        style="margin-top: 30px; color: black; font-size: 13px; text-align:center;"><span
+                                                            style="color: blue;"> * </span>Đánh giá sẽ được phê
+                                                        duyệt trước khi hiển thị công khai</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="li-review-content">
+                                                    <!-- Begin Feedback Area -->
+                                                    <div class="feedback-area">
+                                                        <div class="feedback">
+                                                            <h3 class="feedback-title">Đánh giá</h3>
+                                                            <form action="#">
+                                                                <p class="your-opinion">
+                                                                    <label>Mức độ hài lòng</label>
+                                                                    <span>
+                                                                        <select class="star-rating">
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                        </select>
+                                                                    </span>
+                                                                </p>
+                                                                <p class="feedback-form">
+                                                                    <label for="feedback">Đánh giá của bạn</label>
+                                                                    <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                                                </p>
+                                                                <div class="feedback-input">
+                                                                    <p class="feedback-form-author">
+                                                                        <label for="author">Họ và tên<span
+                                                                                class="required">*</span>
+                                                                        </label>
+                                                                        <input id="author" name="author"
+                                                                            value="" size="30"
+                                                                            aria-required="true" type="text">
                                                                     </p>
-                                                                    <p class="feedback-form">
-                                                                        <label for="feedback">Đánh giá của bạn</label>
-                                                                        <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                                                    <p class="feedback-form-author feedback-form-email">
+                                                                        <label for="email">Số điện thoại<span
+                                                                                class="required">*</span>
+                                                                        </label>
+                                                                        <input id="email" name="email"
+                                                                            value="" size="30"
+                                                                            aria-required="true" type="text">
+                                                                        <span class="required"><sub>*</sub> Bắt
+                                                                            buộc</span>
                                                                     </p>
-                                                                    <div class="feedback-input">
-                                                                        <p class="feedback-form-author">
-                                                                            <label for="author">Họ và tên<span
-                                                                                    class="required">*</span>
-                                                                            </label>
-                                                                            <input id="author" name="author"
-                                                                                value="" size="30"
-                                                                                aria-required="true" type="text">
-                                                                        </p>
-                                                                        <p
-                                                                            class="feedback-form-author feedback-form-email">
-                                                                            <label for="email">Số điện thoại<span
-                                                                                    class="required">*</span>
-                                                                            </label>
-                                                                            <input id="email" name="email"
-                                                                                value="" size="30"
-                                                                                aria-required="true" type="text">
-                                                                            <span class="required"><sub>*</sub> Bắt
-                                                                                buộc</span>
-                                                                        </p>
-                                                                        <div class="feedback-btn pb-15">
-                                                                            <a href="#" class="close"
-                                                                                data-dismiss="modal"
-                                                                                aria-label="Close">Đóng</a>
-                                                                            <a href="#">Gởi</a>
-                                                                        </div>
+                                                                    <div class="feedback-btn pb-15">
+                                                                        <a href="#" class="close"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">Đóng</a>
+                                                                        <a href="#">Gởi</a>
                                                                     </div>
-                                                                </form>
-                                                            </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <!-- Feedback Area End Here -->
                                                     </div>
+                                                    <!-- Feedback Area End Here -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Quick View | Modal Area End Here -->
                         </div>
-                    </div>
-                </div>
+                        <!-- Quick View | Modal Area End Here -->
             </div>
         </div>
     </div>
+
     <!-- Product Area End Here -->
     <!-- Begin Li's Laptop Product Area -->
-    <div class="product-area li-laptop-product pt-30 pb-50" >
+    <div class="product-area li-laptop-product pt-50 pb-50">
         <div class="container">
             <div class="row">
                 <!-- Begin Li's Section Area -->
-                <div class="col-lg-12" >
+                <div class="col-lg-12">
                     <div class="li-section-title">
                         <h2>
                             <span>{{ count($productBrands) }} sản phẩm khác liên quan: </span>
@@ -532,7 +557,8 @@
                                                         @if ($productBrand->discount > 0)
                                                             <p style="color: red; font-weight:bold;">
                                                                 {{ number_format($productBrand->price - $productBrand->discount) }}
-                                                                <span style="text-decoration: underline;">đ</span></p>
+                                                                <span style="text-decoration: underline;">đ</span>
+                                                            </p>
                                                         @else
                                                             <p style="color: red; font-weight:bold;">
                                                                 {{ number_format($productBrand->price) }} <span
