@@ -172,9 +172,9 @@
 
     <div class="logo-container">
         <img style="height: 18px" src="images/allo.png" style="width: 250x; height: 80px;">
-        <span class="col-12" style="text-align: center; margin-bottom: 50px;">
+        <span class="col-12 footer-thanks" style="text-align: center; margin-bottom: 50px;">
             <h2>
-                HÓA ĐƠN
+                HÓA ĐƠN MUA BÁN
             </h2>
             <!-- /.col -->
         </span>

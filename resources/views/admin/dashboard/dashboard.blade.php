@@ -140,19 +140,19 @@
                                     <td class="d-none d-xl-table-cell" style="color: red;">{{ number_format($order->total) }} <span
                                             style="text-decoration: underline;">đ</span></td>
                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                            @if ($order->status->id == 1)
-                                                <span class="badge bg-secondary">Chờ duyệt</span>
-                                            @elseif ($order->status->id == 2)
-                                                <span class="badge bg-success">Đã duyệt</span>
-                                            @elseif ($order->status->id == 3)
-                                                <span class="badge bg-warning">Đang giao hàng</span>
-                                            @elseif ($order->status->id == 4)
-                                                <span class="badge bg-info text-dark">Giao hàng thành công</span>
-                                            @elseif ($order->status->id == 5)
-                                                <span class="badge bg-danger">Đã hủy</span>
-                                            @endif
-                                        </span></td>
-                                        <td><a href="/admin/product/edit/{{ $order->id }}">
+                                                            @if ($order->status->id == 1)
+                                                                <span class="badge bg-secondary">Chờ xác nhận</span>
+                                                            @elseif ($order->status->id == 2)
+                                                                <span class="badge bg-success">Đã xác nhận</span>
+                                                            @elseif ($order->status->id == 3)
+                                                                <span class="badge bg-warning">Đang giao hàng</span>
+                                                            @elseif ($order->status->id == 4)
+                                                                <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                                            @elseif ($order->status->id == 5)
+                                                                <span class="badge bg-danger">Đã hủy</span>
+                                                            @endif
+                                                        </span></td>
+                                        <td><a href="/admin/order/detail/{{$order->id}}">
                                             <i class="fas fa-edit fa-xl"></i>
                                         </a>
                                         <form method="delete" style=" display:inline!important;"

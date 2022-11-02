@@ -277,7 +277,6 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li style="margin-right: 20px;"><a href="about-us.html">VỀ WEBSITE</a></li>
                                 <li><a href="contact.html">LIÊN HỆ</a></li>
                             </ul>
                         </nav>

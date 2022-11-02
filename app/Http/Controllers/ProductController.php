@@ -41,7 +41,7 @@ class ProductController extends Controller
             'vendors' => $vendors,
             'brands' => $brands,
             'categories' => $categories,
-            'title' => 'Thêm sản phẩm mới'
+            'title' => 'Thêm sản phẩm mới',
         ]);
     }
 
@@ -51,14 +51,14 @@ class ProductController extends Controller
 
         return view('admin.product.list-product', [
             'title' => 'Danh sách điện thoại',
-            'products' => $products
+            'products' => $products,
         ]);
     }
 
     public function storeProduct(ValidateAddProduct $request)
     {
         $params = $request->all();
-        $result =  $this->productService->create($params);
+        $result = $this->productService->create($params);
         if ($result) {
             Alert::success('Thành công', 'Thêm sản phẩm thành công');
             return redirect('/admin/product/list');
@@ -98,7 +98,7 @@ class ProductController extends Controller
             'productBrands' => $productsSameBrand,
             'sessionProducts' => $sessionProducts,
             'groupProduct' => $groupProduct,
-            'carts' => session()->get('carts')
+            'carts' => session()->get('carts'),
         ]);
     }
 
@@ -114,7 +114,7 @@ class ProductController extends Controller
             'features' => $features,
             'vendors' => $vendors,
             'brands' => $brands,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -132,7 +132,7 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        Product::where('id', $product->id)->update(array('delete_at' => Carbon::now()));
+        Product::where('id', $product->id)->update(['delete_at' => Carbon::now()]);
 
         return redirect()->back();
     }
@@ -153,28 +153,43 @@ class ProductController extends Controller
         }
 
         Alert::success('Áp dụng mã giảm giá thành công');
-        return redirect()->route('checkout')->with(['amount' => $amount, 'code' => $discount->code]);
+        return redirect()
+            ->route('checkout')
+            ->with(['amount' => $amount, 'code' => $discount->code]);
     }
 
     public function Search(Request $request)
     {
         $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">Sản phẩm gợi ý</div>';
-        $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->limit(3)->get();
+        $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
+            ->limit(3)
+            ->get();
         if (count($products) > 0) {
             foreach ($products as $product) {
-                $output .= '<a href="/products/details/' . $product->id . '" class="list-group-item list-group-item-action border-1" style="width: 400px;">
+                $output .=
+                    '<a href="/products/details/' .
+                    $product->id .
+                    '" class="list-group-item list-group-item-action border-1" style="width: 400px;">
             <table style="border-bottom:none;">
                <tr>
-                  <td rowspan="2" style="width: 90px; height: 60px;"><img src="' . $product->images->where('type', 'cover')->first()['url'] . '" style="width: 80px; height: 70px;"></td>
-                  <td style="font-weight:bold;width: 220px; height: 1px;">' . $product->name . '</td>
+                  <td rowspan="2" style="width: 90px; height: 60px;"><img src="' .
+                    $product->images->where('type', 'cover')->first()['url'] .
+                    '" style="width: 80px; height: 70px;"></td>
+                  <td style="font-weight:bold;width: 220px; height: 1px;">' .
+                    $product->name .
+                    '</td>
                </tr>
                <tr>
-                  <td style="color:red;width: 200px; height: 1px;">' . number_format($product->price) . ' đ</td>
+                  <td style="color:red;width: 200px; height: 1px;">' .
+                    number_format($product->price) .
+                    ' đ</td>
                </tr>
             </table>
             </a>';
             }
-        } else $output = '<a  class="list-group-item list-group-item-action border-1" style="width: 300px;text-align:center;">Không tìm thấy kết quả</a>';
+        } else {
+            $output = '<a  class="list-group-item list-group-item-action border-1" style="width: 300px;text-align:center;">Không tìm thấy kết quả</a>';
+        }
 
         return response()->json($output);
     }
@@ -183,7 +198,9 @@ class ProductController extends Controller
     {
         $products = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
-        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        $brands = Brand::where('active', 1)
+            ->where('delete_at', null)
+            ->get();
         $features = Feature::get();
 
         return view('product.filter-product', [
@@ -212,12 +229,17 @@ class ProductController extends Controller
 
         foreach ($products as $product) {
             $count++;
-            $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+            $output .=
+                '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
-                                                    <a href="/products/details/' . $product->id . '">
-                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                    <a href="/products/details/' .
+                $product->id .
+                '">
+                                                         <img src="' .
+                $product->images->where('type', 'cover')->first()['url'] .
+                '"
                                                      style="width: 120px;height:120px;">
                                                     </a>
                                                 </div>
@@ -225,7 +247,11 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="/products/details/' . $product->id . '">' . $product->brand->name . '</a>
+                                                                <a href="/products/details/' .
+                $product->id .
+                '">' .
+                $product->brand->name .
+                '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -237,17 +263,27 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="/products/details/' . $product->id . '">' . $product->name . '</a></h4>
+                                                        <h4><a class="product_name" href="/products/details/' .
+                $product->id .
+                '">' .
+                $product->name .
+                '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                            ' .
+                number_format($product->price) .
+                ' đ</p></span>
                                                         </div>
                                                     </div>
                                                   <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/' .
+                $product->id .
+                '">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                        <p productId="' . $product->id . '" title="quick view"
+                                                        <p productId="' .
+                $product->id .
+                '" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
                                                             data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                         </p>
@@ -259,11 +295,16 @@ class ProductController extends Controller
                                             <!-- single-product-wrap end -->
                                         </div>';
 
-            $flex .= ' <div class="row product-layout-list">
+            $flex .=
+                ' <div class="row product-layout-list">
                                             <div class="col-lg-3 col-md-5 ">
                                                <div class="product-image">
-                                                    <a href="/products/details/' . $product->id . '">
-                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                    <a href="/products/details/' .
+                $product->id .
+                '">
+                                                         <img src="' .
+                $product->images->where('type', 'cover')->first()['url'] .
+                '"
                                                      style="width: 190px;height:190px;">
                                                     </a>
                                                 </div>
@@ -273,7 +314,9 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="#">' . $product->brand->name . '</a>
+                                                                <a href="#">' .
+                $product->brand->name .
+                '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -285,20 +328,30 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="single-product.html">' . $product->name . '</a></h4>
+                                                        <h4><a class="product_name" href="single-product.html">' .
+                $product->name .
+                '</a></h4>
                                                         <div class="price-box">
                                                              <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                            ' .
+                number_format($product->price) .
+                ' đ</p></span>
                                                         </div>
-                                                        <p>' . $product->short_description . '</p>
+                                                        <p>' .
+                $product->short_description .
+                '</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="shop-add-action mb-xs-30">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
-                                                        <li><a class="quick-view quick-view-btn" productId="' . $product->id . '" data-toggle="modal"
+                                                        <li class="add-cart"><a href="/products/details/' .
+                $product->id .
+                '">ĐẶT MUA NGAY</a></li>
+                                                        <li><a class="quick-view quick-view-btn" productId="' .
+                $product->id .
+                '" data-toggle="modal"
                                                                 data-target="#exampleModalCenter" href="#"><i
                                                                     class="fa fa-eye"></i>Xem chi tiết</a></li>
                                                     </ul>
@@ -323,11 +376,16 @@ class ProductController extends Controller
         //  dd($products);
         if (count($products) != 0) {
             foreach ($products as $product) {
-                $flex .= ' <div class="row product-layout-list">
+                $flex .=
+                    ' <div class="row product-layout-list">
                                                 <div class="col-lg-3 col-md-5 ">
                                                     <div class="product-image">
-                                                        <a href="/products/details/' . $product->id . '">
-                                                            <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                        <a href="/products/details/' .
+                    $product->id .
+                    '">
+                                                            <img src="' .
+                    $product->images->where('type', 'cover')->first()['url'] .
+                    '"
                                                                 style="width: 190px;height:190px;">
                                                         </a>
                                                     </div>
@@ -337,7 +395,9 @@ class ProductController extends Controller
                                                         <div class="product_desc_info">
                                                             <div class="product-review">
                                                                 <h5 class="manufacturer">
-                                                                    <a href="#">' . $product->brand->name . '</a>
+                                                                    <a href="#">' .
+                    $product->brand->name .
+                    '</a>
                                                                 </h5>
                                                                 <div class="rating-box">
                                                                     <ul class="rating">
@@ -352,15 +412,21 @@ class ProductController extends Controller
                                                                 </div>
                                                             </div>
                                                             <h4><a class="product_name"
-                                                                    href="single-product.html">' . $product->name . '</a>
+                                                                    href="single-product.html">' .
+                    $product->name .
+                    '</a>
                                                             </h4>
                                                             <div class="price-box">
                                                                 <span class="new-price">
                                                                     <p style="color: red; font-weight:bold;">
-                                                                        ' . number_format($product->price) . ' đ</p>
+                                                                        ' .
+                    number_format($product->price) .
+                    ' đ</p>
                                                                 </span>
                                                             </div>
-                                                            <p>' . $product->short_description . '</p>
+                                                            <p>' .
+                    $product->short_description .
+                    '</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -368,10 +434,14 @@ class ProductController extends Controller
                                                     <div class="shop-add-action mb-xs-30">
                                                         <ul class="add-actions-link">
                                                             <li class="add-cart"><a
-                                                                    href="/products/details/' . $product->id . '">ĐẶT MUA
+                                                                    href="/products/details/' .
+                    $product->id .
+                    '">ĐẶT MUA
                                                                     NGAY</a></li>
                                                             <li><a class="quick-view quick-view-btn"
-                                                                    productId="' . $product->id . '" data-toggle="modal"
+                                                                    productId="' .
+                    $product->id .
+                    '" data-toggle="modal"
                                                                     data-target="#exampleModalCenter" href="#"><i
                                                                         class="fa fa-eye"></i>Xem chi tiết</a></li>
                                                         </ul>
@@ -379,12 +449,17 @@ class ProductController extends Controller
                                                 </div>
                                             </div>';
 
-                $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                $output .=
+                    '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
-                                                    <a href="/products/details/' . $product->id . '">
-                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                    <a href="/products/details/' .
+                    $product->id .
+                    '">
+                                                         <img src="' .
+                    $product->images->where('type', 'cover')->first()['url'] .
+                    '"
                                                      style="width: 120px;height:120px;">
                                                     </a>
                                                 </div>
@@ -392,7 +467,11 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="/products/details/' . $product->id . '">' . $product->brand->name . '</a>
+                                                                <a href="/products/details/' .
+                    $product->id .
+                    '">' .
+                    $product->brand->name .
+                    '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -404,17 +483,27 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="/products/details/' . $product->id . '">' . $product->name . '</a></h4>
+                                                        <h4><a class="product_name" href="/products/details/' .
+                    $product->id .
+                    '">' .
+                    $product->name .
+                    '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                            ' .
+                    number_format($product->price) .
+                    ' đ</p></span>
                                                         </div>
                                                     </div>
                                                   <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/' .
+                    $product->id .
+                    '">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                        <p productId="' . $product->id . '" title="quick view"
+                                                        <p productId="' .
+                    $product->id .
+                    '" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
                                                             data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                         </p>
@@ -427,13 +516,9 @@ class ProductController extends Controller
                                         </div>';
             }
 
-
-
             return response()->json(['data' => $output, 'flex' => $flex]);
         }
-        return response()->json(
-            ['data' => '', 'flex' => '']
-        );
+        return response()->json(['data' => '', 'flex' => '']);
     }
 
     public function loadProduct(Request $request)
@@ -460,14 +545,18 @@ class ProductController extends Controller
         $count = 0;
 
         foreach ($products as $product) {
-
             $count++;
-            $output .= '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+            $output .=
+                '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
-                                                    <a href="/products/details/' . $product->id . '">
-                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                    <a href="/products/details/' .
+                $product->id .
+                '">
+                                                         <img src="' .
+                $product->images->where('type', 'cover')->first()['url'] .
+                '"
                                                      style="width: 120px;height:120px;">
                                                     </a>
                                                 </div>
@@ -475,7 +564,11 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="/products/details/' . $product->id . '">' . $product->brand->name . '</a>
+                                                                <a href="/products/details/' .
+                $product->id .
+                '">' .
+                $product->brand->name .
+                '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -487,17 +580,27 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="/products/details/' . $product->id . '">' . $product->name . '</a></h4>
+                                                        <h4><a class="product_name" href="/products/details/' .
+                $product->id .
+                '">' .
+                $product->name .
+                '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                            ' .
+                number_format($product->price) .
+                ' đ</p></span>
                                                         </div>
                                                     </div>
                                                   <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a href="/products/details/' .
+                $product->id .
+                '">ĐẶT MUA NGAY</a></li>
                                                     <li>
-                                                       <p productId="' . $product->id . '" title="quick view"
+                                                       <p productId="' .
+                $product->id .
+                '" title="quick view"
                                                                         class="quick-view-btn" data-toggle="modal"
                                                                         data-target="#exampleModalCenter"><i
                                                                             class="fa fa-eye"></i>
@@ -510,11 +613,16 @@ class ProductController extends Controller
                                             <!-- single-product-wrap end -->
                                         </div>';
 
-            $flex .= ' <div class="row product-layout-list">
+            $flex .=
+                ' <div class="row product-layout-list">
                                             <div class="col-lg-3 col-md-5 ">
                                                <div class="product-image">
-                                                    <a href="/products/details/' . $product->id . '">
-                                                         <img src="' . $product->images->where('type', 'cover')->first()['url'] . '"
+                                                    <a href="/products/details/' .
+                $product->id .
+                '">
+                                                         <img src="' .
+                $product->images->where('type', 'cover')->first()['url'] .
+                '"
                                                      style="width: 190px;height:190px;">
                                                     </a>
                                                 </div>
@@ -524,7 +632,9 @@ class ProductController extends Controller
                                                     <div class="product_desc_info">
                                                         <div class="product-review">
                                                             <h5 class="manufacturer">
-                                                                <a href="#">' . $product->brand->name . '</a>
+                                                                <a href="#">' .
+                $product->brand->name .
+                '</a>
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
@@ -536,20 +646,30 @@ class ProductController extends Controller
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <h4><a class="product_name" href="single-product.html">' . $product->name . '</a></h4>
+                                                        <h4><a class="product_name" href="single-product.html">' .
+                $product->name .
+                '</a></h4>
                                                         <div class="price-box">
                                                              <span class="new-price"> <p style="color: red; font-weight:bold;">
-                                                            ' . number_format($product->price) . ' đ</p></span>
+                                                            ' .
+                number_format($product->price) .
+                ' đ</p></span>
                                                         </div>
-                                                        <p>' . $product->short_description . '</p>
+                                                        <p>' .
+                $product->short_description .
+                '</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="shop-add-action mb-xs-30">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart"><a href="/products/details/' . $product->id . '">ĐẶT MUA NGAY</a></li>
-                                                        <li><p productId="' . $product->id . '" title="quick view"
+                                                        <li class="add-cart"><a href="/products/details/' .
+                $product->id .
+                '">ĐẶT MUA NGAY</a></li>
+                                                        <li><p productId="' .
+                $product->id .
+                '" title="quick view"
                                                                         class="quick-view-btn" data-toggle="modal"
                                                                         data-target="#exampleModalCenter"><i
                                                                             class="fa fa-eye"></i>

@@ -14,6 +14,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UploadUserController;
+use App\Http\Controllers\DiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,15 @@ Route::prefix('admin')
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
+
+       #Discount
+       Route::get('/discount/lists', [DiscountController::class, 'index']);
+       Route::get('/discount/add', [DiscountController::class, 'add']);
+       Route::post('/discount/add', [DiscountController::class, 'store']);
+       Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
+       Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
+       Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
+
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);

@@ -198,7 +198,7 @@
                                 <div class="col-lg-6 col-md-6"
                                     style="margin-right: 65px;margin-left: 15px;; background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
     box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding: 30px;">
-                                    <span style="color: black !important">
+                                    <span style="color: black !important;font-family: inherit !important">
 
                                         {!! $product->description !!}
 
@@ -330,180 +330,320 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                     <div class="rating-text">
-                                        <span>46 ratings & 15 reviews</span>
+                                        <span>46 đánh giá</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-top: 40px;">
-                        <div class="card p-3">
+                        {{-- <div class="card-star p-3">
                             <div class="mt-5 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">Cleanliness</h5>
+                                <h5 class="review-stat">5 Đánh giá</h5>
                                 <div class="small-ratings">
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star rating-color"></i>
                                 </div>
 
                             </div>
 
                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">Approachability of SLT</h5>
+                                <h5 class="review-stat">25 Đánh giá</h5>
                                 <div class="small-ratings">
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">Front Office</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
                             </div>
 
 
                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">CPD</h5>
+                                <h5 class="review-stat">15 Đánh giá</h5>
                                 <div class="small-ratings">
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+
+
+                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                <h5 class="review-stat">2 Đánh giá</h5>
+                                <div class="small-ratings">
                                     <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star rating-color"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
                                 </div>
                             </div>
 
 
                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">Pastrol</h5>
+                                <h5 class="review-stat">3 Đánh giá</h5>
                                 <div class="small-ratings">
                                     <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">Office Space</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
                             </div>
+                        </div> --}}
+                        {{-- <div class="col-md-8"> --}}
+                        <div class="rating-bar0 justify-content-center">
+                            <table class="text-left mx-auto">
+                                <tr>
+                                    <td class="rating-label">5 <i class="fa fa-star" style="color: #fbc634;"></i> </td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar-5" style="width: {{ 70 }}%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">123</td>
+                                </tr>
+                                <tr>
+                                    <td class="rating-label">4 <i class="fa fa-star" style="color: #fbc634;"></i></td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar-4"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">23</td>
+                                </tr>
+                                <tr>
+                                    <td class="rating-label">3 <i class="fa fa-star" style="color: #fbc634;"></i></td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar-3"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">10</td>
+                                </tr>
+                                <tr>
+                                    <td class="rating-label">2 <i class="fa fa-star" style="color: #fbc634;"></i></td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar-2"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">3</td>
+                                </tr>
+                                <tr>
+                                    <td class="rating-label">1 <i class="fa fa-star" style="color: #fbc634;"></i></td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar-1"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                            </table>
+                            {{-- </div> --}}
                         </div>
-
 
                     </div>
 
-                    <div class="col-lg-4" style="text-align: center; margin-top: 120px;">
+                    <div class="col-lg-4" style="text-align: center; margin-top: 100px;">
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Viết
                                 đánh giá</a>
                         </div>
                     </div>
-                </div>
 
-                       <!-- Begin Quick View | Modal Area -->
-                        <div class="modal fade modal-wrapper" id="mymodal">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="modal-inner-area row">
-                                            <div class="col-lg-6">
-                                                <!-- Product Details Left -->
-                                                <div class="product-details-left">
-                                                    <div class="product-details-images slider-navigation-1">
-                                                        <div class="lg-image">
-                                                            <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
-                                                                alt="product image">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style="text-align: center;">
-                                                    <label
-                                                        style="margin-top: 30px; color: black; font-size: 13px; text-align:center;"><span
-                                                            style="color: blue;"> * </span>Đánh giá sẽ được phê
-                                                        duyệt trước khi hiển thị công khai</label>
+                </div>
+                <!--Begin comment -->
+                <div class="container" style="padding: 50px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="media g-mb-30 media-comment" style="margin-bottom: 30px;">
+                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                    style="width: 50px; margin-right: 15px;"
+                                    src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                    <div class="g-mb-15">
+                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+                                        <span class="g-color-gray-dark-v4 g-font-size-12">
+                                            <div class="small-ratings">
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                        Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
+                                        felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                    </p>
+
+                                    <ul class="list-inline d-sm-flex my-0">
+                                        <li class="list-inline-item g-mr-20">
+                                            <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                        </li>
+                                        <li class="list-inline-item g-mr-20">
+                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                href="#!">
+                                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                                178
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item g-mr-20">
+                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                href="#!">
+                                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                                34
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="media g-mb-30 media-comment">
+                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                    style="width: 50px;  margin-right: 15px;"
+                                    src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
+                                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                    <div class="g-mb-15">
+                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+                                        <span class="g-color-gray-dark-v4 g-font-size-12">
+                                            <div class="small-ratings">
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star rating-color"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                        Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
+                                        felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                    </p>
+
+                                    <ul class="list-inline d-sm-flex my-0">
+                                        <li class="list-inline-item g-mr-20">
+                                            <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+                                        </li>
+                                        <li class="list-inline-item g-mr-20">
+                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                href="#!">
+                                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                                178
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item g-mr-20">
+                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                href="#!">
+                                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                                34
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end comment -->
+
+                <!-- Begin Quick View | Modal Area -->
+                <div class="modal fade modal-wrapper" id="mymodal">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="modal-inner-area row">
+                                    <div class="col-lg-6">
+                                        <!-- Product Details Left -->
+                                        <div class="product-details-left">
+                                            <div class="product-details-images slider-navigation-1">
+                                                <div class="lg-image">
+                                                    <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
+                                                        alt="product image">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="li-review-content">
-                                                    <!-- Begin Feedback Area -->
-                                                    <div class="feedback-area">
-                                                        <div class="feedback">
-                                                            <h3 class="feedback-title">Đánh giá</h3>
-                                                            <form action="#">
-                                                                <p class="your-opinion">
-                                                                    <label>Mức độ hài lòng</label>
-                                                                    <span>
-                                                                        <select class="star-rating">
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3">3</option>
-                                                                            <option value="4">4</option>
-                                                                            <option value="5">5</option>
-                                                                        </select>
-                                                                    </span>
-                                                                </p>
-                                                                <p class="feedback-form">
-                                                                    <label for="feedback">Đánh giá của bạn</label>
-                                                                    <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
-                                                                </p>
-                                                                <div class="feedback-input">
-                                                                    <p class="feedback-form-author">
-                                                                        <label for="author">Họ và tên<span
-                                                                                class="required">*</span>
-                                                                        </label>
-                                                                        <input id="author" name="author"
-                                                                            value="" size="30"
-                                                                            aria-required="true" type="text">
-                                                                    </p>
-                                                                    <p class="feedback-form-author feedback-form-email">
-                                                                        <label for="email">Số điện thoại<span
-                                                                                class="required">*</span>
-                                                                        </label>
-                                                                        <input id="email" name="email"
-                                                                            value="" size="30"
-                                                                            aria-required="true" type="text">
-                                                                        <span class="required"><sub>*</sub> Bắt
-                                                                            buộc</span>
-                                                                    </p>
-                                                                    <div class="feedback-btn pb-15">
-                                                                        <a href="#" class="close"
-                                                                            data-dismiss="modal"
-                                                                            aria-label="Close">Đóng</a>
-                                                                        <a href="#">Gởi</a>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
+                                        </div>
+                                        <div style="text-align: center;">
+                                            <label
+                                                style="margin-top: 30px; color: black; font-size: 13px; text-align:center;"><span
+                                                    style="color: blue;"> * </span>Đánh giá sẽ được phê
+                                                duyệt trước khi hiển thị công khai</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="li-review-content">
+                                            <!-- Begin Feedback Area -->
+                                            <div class="feedback-area">
+                                                <div class="feedback">
+                                                    <h3 class="feedback-title">Đánh giá</h3>
+                                                    <form action="#">
+                                                        <p class="your-opinion">
+                                                            <label>Mức độ hài lòng</label>
+                                                            <span>
+                                                                <select class="star-rating">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                </select>
+                                                            </span>
+                                                        </p>
+                                                        <p class="feedback-form">
+                                                            <label for="feedback">Đánh giá của bạn</label>
+                                                            <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                                        </p>
+                                                        <div class="feedback-input">
+                                                            <p class="feedback-form-author">
+                                                                <label for="author">Họ và tên<span
+                                                                        class="required">*</span>
+                                                                </label>
+                                                                <input id="author" name="author" value=""
+                                                                    size="30" aria-required="true" type="text">
+                                                            </p>
+                                                            <p class="feedback-form-author feedback-form-email">
+                                                                <label for="email">Số điện thoại<span
+                                                                        class="required">*</span>
+                                                                </label>
+                                                                <input id="email" name="email" value=""
+                                                                    size="30" aria-required="true" type="text">
+                                                                <span class="required"><sub>*</sub> Bắt
+                                                                    buộc</span>
+                                                            </p>
+                                                            <div class="feedback-btn pb-15">
+                                                                <a href="#" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">Đóng</a>
+                                                                <a href="#">Gởi</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- Feedback Area End Here -->
+                                                    </form>
                                                 </div>
                                             </div>
+                                            <!-- Feedback Area End Here -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Quick View | Modal Area End Here -->
+                    </div>
+                </div>
+                <!-- Quick View | Modal Area End Here -->
             </div>
         </div>
     </div>

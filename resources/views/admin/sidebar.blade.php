@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="/admin/discount/lists">
                     <i class="align-middle" data-feather="gift"></i> <span class="align-middle">Khuyến mãi</span>
                 </a>
             </li>

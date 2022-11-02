@@ -31,7 +31,7 @@
                                     <table class="table table-responsive table-borderless">
 
                                         <thead>
-                                            <tr class="bg-light">
+                                            <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">#</th>
                                                 <th scope="col" width="20%">Tên điện thoại</th>
                                                 <th scope="col" width="15%">Dung lượng</th>
@@ -53,9 +53,9 @@
                                                         {{ $product->rom }}</td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($product->active == 1)
-                                                                <span class="badge bg-success">Enable</span>
+                                                                <span class="badge bg-success">Kích hoạt</span>
                                                             @else
-                                                                <span class="badge bg-danger">Disable</span>
+                                                                <span class="badge bg-danger">Hủy kích hoạt</span>
                                                             @endif
                                                         </span></td>
                                                     <td><img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
@@ -63,18 +63,16 @@
                                                     </td>
                                                     <td  style="font-weight: bold;"> <span style="margin-left: 10px;"> {{$product->quantity}} </span></td>
                                                     <td style="font-weight: bold;">{{ $product->brand->name }}</td>
-                                                    <td class="text-end"> <a class="btn btn-primary btn-sm"
+                                                    <td class="text-end"> <a
                                                             href="/admin/product/edit/{{ $product->id }}">
-                                                            <i class="fas fa-edit"></i>
+                                                               <i class="fas fa-edit fa-xl"></i>
                                                         </a>
 
                                                         <form method="delete" style=" display:inline!important;"
                                                             action="/admin/product/delete/{{ $product->id }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" style=" display:inline!important;"
-                                                                class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm">
-                                                                <i class="fas fa-trash"></i></button>
+                                                            <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
                                                         </form>
 
                                                     </td>

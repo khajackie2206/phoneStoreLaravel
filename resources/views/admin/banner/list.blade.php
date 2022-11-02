@@ -20,7 +20,7 @@
                                      <table class="table table-responsive table-borderless">
 
                                          <thead>
-                                             <tr class="bg-light">
+                                             <tr class="bg-warning text-dark">
                                                  <th scope="col" width="5%">#</th>
                                                  <th scope="col" width="15%">Tên banner</th>
                                                  <th scope="col" width="20%">Sản phẩm quảng bá</th>
@@ -41,9 +41,9 @@
                                                      <td style="font-weight: bold;">{{ $banner->product_name }} GB</td>
                                                      <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                              @if ($banner->active == 1)
-                                                                 <span class="badge bg-success">Enable</span>
+                                                                 <span class="badge bg-success">Kích hoạt</span>
                                                              @else
-                                                                 <span class="badge bg-danger">Disable</span>
+                                                                 <span class="badge bg-danger">Hủy kích hoạt</span>
                                                              @endif
                                                          </span></td>
                                                      <td><img src="{{ $banner->thumb }}" width="100">
@@ -52,18 +52,16 @@
                                                      <td style="font-weight: bold;"><span style="margin-left: 15px;">{{ $banner->sort_by }}</span></td>
 
                                                      <td class="text-end">
-                                                         <a class="btn btn-primary btn-sm"
+                                                         <a
                                                              href="/admin/banner/edit/{{ $banner->id }}">
-                                                             <i class="fas fa-edit"></i>
+                                                              <i class="fas fa-edit fa-xl"></i>
                                                          </a>
 
                                                          <form method="delete" style=" display:inline!important;"
                                                              action="/admin/banner/delete/{{ $banner->id }}">
                                                              @csrf
                                                              <input name="_method" type="hidden" value="DELETE">
-                                                             <button type="submit" style=" display:inline!important;"
-                                                                 class="btn btn-xs btn-danger btn-flat btn-sm show-alert-delete-box ">
-                                                                 <i class="fas fa-trash"></i></button>
+                                                             <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
                                                          </form>
 
                                                      </td>
