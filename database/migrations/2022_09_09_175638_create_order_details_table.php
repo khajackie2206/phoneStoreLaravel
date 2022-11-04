@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->float('total_price');
             $table->timestamps();
-             $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('product_id')->references('id')->on('products');
+             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

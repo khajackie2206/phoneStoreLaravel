@@ -72,6 +72,7 @@ Route::prefix('admin')
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
+       Route::post('/order/delete/{order}', [MainController::class, 'delete']);
 
        #Discount
        Route::get('/discount/lists', [DiscountController::class, 'index']);
@@ -79,7 +80,7 @@ Route::prefix('admin')
        Route::post('/discount/add', [DiscountController::class, 'store']);
        Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
-       Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
+       Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');

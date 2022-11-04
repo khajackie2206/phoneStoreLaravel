@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function detail(int $id)
     {
         $product = $this->productService->getProductDetail($id);
-        $productsSameBrand = $this->productService->getAllProducts();
+        $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
 

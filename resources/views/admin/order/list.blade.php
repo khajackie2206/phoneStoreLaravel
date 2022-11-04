@@ -69,18 +69,18 @@
                                                         </span>
                                                     </td>
                                                     <td  style="font-weight: bold;"> <span> {{$order->created_at}} </span></td>
-                                                    <td> <a
+                                                    <td style="text-align: left;"> <a style="margin-left:20px; "
                                                             href="/admin/order/detail/{{$order->id}}">
                                                             <i class="fas fa-edit fa-xl"></i>
                                                         </a>
-
-                                                        <form method="delete" style=" display:inline!important;"
-                                                            action="/admin/product/delete/{{ $order->id }}">
+                                                       @if ($order->status->id == 1 || $order->status->id == 5)
+                                                        <form method="post" style=" display:inline!important;"
+                                                            action="/admin/order/delete/{{ $order->id }}">
                                                             @csrf
-                                                            <input name="_method" type="hidden" value="DELETE">
-                                                        <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
+                                                            <input name="_method" type="hidden" value="post">
+                                                          <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
                                                         </form>
-
+                                                       @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -102,7 +102,7 @@
             var name = $(this).data("name");
             event.preventDefault();
             swal({
-                title: "Bạn có chắc muốn xóa sản phẩm này không?",
+                title: "Bạn có chắc muốn xóa đơn hàng này không?",
                 icon: "warning",
                 type: "warning",
                 buttons: ["Cancel", "Yes!"],
@@ -114,7 +114,7 @@
                     swal({
                          title: 'Thành công!',
                          icon: 'success',
-                         text: 'Đã xóa sản phẩm!',
+                         text: 'Đã xóa đơn hàng!',
                          type: 'success'
                      }).then(function() {
                          form.submit();

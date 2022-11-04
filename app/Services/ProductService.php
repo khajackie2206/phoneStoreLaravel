@@ -89,6 +89,7 @@ class ProductService
     public function getProductsNewly()
     {
         $products = Product::where('active', 1)
+            ->where('delete_at', null)
             ->orderBy('created_at', 'DESC')
             ->limit(10)
             ->get()->unique('name');
@@ -99,6 +100,7 @@ class ProductService
     public function getProductsDiscount()
     {
         $products = Product::distinct('name')->where('active', 1)
+            ->where('delete_at', null)
             ->orderBy('discount', 'DESC')
             ->limit(10)
             ->get()->unique('name');
@@ -109,12 +111,27 @@ class ProductService
     public function getAllProducts()
     {
         $products = Product::where('active', 1)
+           ->where('delete_at', null)
             ->orderBy('id', 'DESC')
             ->limit(self::LIMIT)
             ->get()->unique('name');
 
         return $products;
     }
+
+    public function getSameBrands(Product $product)
+    {
+        $products = Product::where('active', 1)
+             ->where('id', '<>', $product->id)
+             ->where('delete_at', null)
+             ->where('brand_id', $product->brand_id)
+             ->where('name','<>', $product->name)
+             ->orderBy('id', 'DESC')
+             ->get()->unique('name');
+
+        return $products;
+    }
+
 
     public function getProductDetail(int $id)
     {

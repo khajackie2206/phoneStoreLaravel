@@ -177,4 +177,11 @@ class MainController extends Controller
 
         return redirect()->back();
     }
+
+    public function delete(Order $order)
+    {
+        Order::where('id', $order->id)->delete();
+
+        return redirect()->back();
+    }
 }

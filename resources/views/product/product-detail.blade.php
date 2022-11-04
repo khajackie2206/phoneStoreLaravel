@@ -27,30 +27,20 @@
                 <div class="col-lg-5 col-md-6">
                     <!-- Product Details Left -->
                     <div class="product-details-left" style="margin-top: 25px;">
-                        <div class="product-details-images slider-navigation-1">
+                        <div class="product-details-images slider-navigation-1" >
                             @foreach ($product->images as $image)
                                 <div class="lg-image">
                                     <a class="popup-img venobox vbox-item" href="{{ $image->url }}" data-gall="myGallery">
-                                        <img src="{{ $image->url }}" alt="product image">
+                                        <img src="{{ $image->url }}" alt="product image" style="max-height: 510px;">
                                     </a>
                                 </div>
                             @endforeach
-                            @foreach ($product->images as $image)
-                                <div class="lg-image">
-                                    <a class="popup-img venobox vbox-item" href="{{ $image->url }}" data-gall="myGallery">
-                                        <img src="{{ $image->url }}" alt="product image">
-                                    </a>
-                                </div>
-                            @endforeach
+
                         </div>
-                        <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 50px;">
+                        <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 20px;">
 
                             @foreach ($product->images as $image)
-                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"></div>
-                            @endforeach
-
-                            @foreach ($product->images as $image)
-                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"></div>
+                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb" style="max-height: 160px; "></div>
                             @endforeach
                         </div>
                     </div>
@@ -469,7 +459,7 @@
                                     src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
                                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                                     <div class="g-mb-15">
-                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">Kha Jackie</h5>
                                         <span class="g-color-gray-dark-v4 g-font-size-12">
                                             <div class="small-ratings">
                                                 <i class="fa fa-star rating-color"></i>
@@ -481,10 +471,7 @@
                                         </span>
                                     </div>
 
-                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                                        Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                        felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                    <p>Sản phẩm tốt, chất lượng khỏi chê có điều hơi đắt và nóng máy
                                     </p>
 
                                     <ul class="list-inline d-sm-flex my-0">
@@ -494,15 +481,11 @@
                                         <li class="list-inline-item g-mr-20">
                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                                 href="#!">
-                                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                                                178
                                             </a>
                                         </li>
                                         <li class="list-inline-item g-mr-20">
                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                                 href="#!">
-                                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                                                34
                                             </a>
                                         </li>
 
@@ -518,7 +501,7 @@
                                     src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
                                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                                     <div class="g-mb-15">
-                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">Hoài Tô</h5>
                                         <span class="g-color-gray-dark-v4 g-font-size-12">
                                             <div class="small-ratings">
                                                 <i class="fa fa-star rating-color"></i>
@@ -530,10 +513,7 @@
                                         </span>
                                     </div>
 
-                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                                        Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                        felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                                    <p> Hiệu năng tốt nhưng camera chụp không đẹp lắm, 3 sao là vừa
                                     </p>
 
                                     <ul class="list-inline d-sm-flex my-0">
@@ -543,15 +523,12 @@
                                         <li class="list-inline-item g-mr-20">
                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                                 href="#!">
-                                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                                                178
+
                                             </a>
                                         </li>
                                         <li class="list-inline-item g-mr-20">
                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                                 href="#!">
-                                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                                                34
                                             </a>
                                         </li>
 
@@ -661,9 +638,8 @@
                         </h2>
                     </div>
                     <div class="row">
-                        <div class="product-active owl-carousel">
                             @foreach ($productBrands as $productBrand)
-                                <div class="col-lg-12">
+                                <div class="col-lg-2" style="margin-top: 20px; margin-right: 40px;">
                                     <!-- single-product-wrap start -->
                                     <div class="single-product-wrap">
                                         <div class="product-image">
@@ -724,7 +700,6 @@
                                     <!-- single-product-wrap end -->
                                 </div>
                             @endforeach
-                        </div>
                     </div>
                 </div>
                 <!-- Li's Section Area End Here -->
