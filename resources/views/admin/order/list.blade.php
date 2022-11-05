@@ -61,10 +61,10 @@
                                                         <i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($order->payment_id == 1)
                                                                 <span class="badge bg-success">Trả khi nhận hàng</span>
-                                                            @elseif ($order->payment_id == 2)
-                                                                <span class="badge bg-warning">Thanh toán Momo</span>
                                                             @elseif ($order->payment_id == 3)
-                                                                <span class="badge bg-warning">Thanh toán Stripe</span>
+                                                                <span class="badge bg-warning">Thanh toán Momo</span>
+                                                            @elseif ($order->payment_id == 2)
+                                                                <span class="badge bg-danger">Thanh toán Stripe</span>
                                                             @endif
                                                         </span>
                                                     </td>

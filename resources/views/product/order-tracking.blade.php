@@ -3,11 +3,13 @@
     <div class="container" style="margin-bottom: 30px;">
 
         <div class="card">
-            @if ($orders)
-                   <div class="text-center" style="margin-top: 50px;">
-     <i class="fa fa-shopping-cart fa-5x" style="color: #666;" aria-hidden="true"></i>
-    </div>
-    <div class="text-center" style="margin-top: 20px;color: #666;"><h4>Bạn chưa mua sản phẩm nào</h4></div>
+            @if ($orders->isEmpty())
+                <div class="text-center" style="margin-top: 50px;">
+                    <i class="fa fa-shopping-cart fa-5x" style="color: #666;" aria-hidden="true"></i>
+                </div>
+                <div class="text-center" style="margin-top: 20px;color: #666;">
+                    <h4>Bạn chưa mua sản phẩm nào</h4>
+                </div>
             @endif
             @foreach ($orders as $order)
                 <div class="card-body">
@@ -31,13 +33,15 @@
                                 <div style="padding: 0px 15px 25px 15px;"><a style="color: white;"
                                         class="btn btn-warning back-order" data-abc="true"> Đã hủy đơn hàng</a></div>
                             @elseif ($order->status->id == 3)
-                              <form method="get" id="form-confirm" style=" display:inline!important;"
+                                <form method="get" id="form-confirm" style=" display:inline!important;"
                                     action="/products/order/update-status/{{ $order->id }}">
                                     @csrf
                                     <input type="hidden" name="status" value="4">
-                                <div class="receive-order" style="padding: 0px 15px 25px 15px;"><p
-                                        class="btn btn-warning back-order" data-abc="true"> <i class="fa fa-check"></i> Đã
-                                        nhận hàng</p></div>
+                                    <div class="receive-order" style="padding: 0px 15px 25px 15px;">
+                                        <p class="btn btn-warning back-order" data-abc="true"> <i class="fa fa-check"></i>
+                                            Đã
+                                            nhận hàng</p>
+                                    </div>
                                 </form>
                             @endif
                         </div>

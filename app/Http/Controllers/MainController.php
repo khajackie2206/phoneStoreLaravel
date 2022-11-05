@@ -109,7 +109,7 @@ class MainController extends Controller
     public function orders(Request $request)
     {
         $input = $request->all();
-        $orders = Order::where('created_at','<>' ,null);
+        $orders = Order::where('created_at','<>' ,null)->orderBy('created_at', 'DESC');
         if(isset($input['search']) && $input['search'] !== "")
         {
            $orders->where('');

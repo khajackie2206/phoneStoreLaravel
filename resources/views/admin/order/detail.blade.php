@@ -87,11 +87,11 @@
                 <i class="fa fa-check-circle-o green"></i><span class="ms-1">
                     @if ($order->payment_id == 1)
                         <span class="badge bg-success" style="font-size: 18px;">Trả khi nhận hàng</span>
-                    @elseif ($order->payment_id == 2)
+                    @elseif ($order->payment_id == 3)
                         <span class="badge bg-warning" style="font-size: 18px;"><img
                                 src="https://images.careerbuilder.vn/employer_folders/lot9/221789/103316momopink-logo.png"
                                 style="margin-right: 10px;" width="30px">Thanh toán Momo</span>
-                    @elseif ($order->payment_id == 3)
+                    @elseif ($order->payment_id == 2)
                         <span class="badge bg-warning" style="font-size: 18px;"><img
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
                                 style="margin-right: 10px;" width="50px">Thanh toán Stripe</span>
