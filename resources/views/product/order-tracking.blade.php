@@ -3,6 +3,12 @@
     <div class="container" style="margin-bottom: 30px;">
 
         <div class="card">
+            @if ($orders)
+                   <div class="text-center" style="margin-top: 50px;">
+     <i class="fa fa-shopping-cart fa-5x" style="color: #666;" aria-hidden="true"></i>
+    </div>
+    <div class="text-center" style="margin-top: 20px;color: #666;"><h4>Bạn chưa mua sản phẩm nào</h4></div>
+            @endif
             @foreach ($orders as $order)
                 <div class="card-body">
                     <div class="row">
@@ -85,7 +91,7 @@
                     <hr style="margin: 15px 0px 0px 0px;">
                 </div>
             @endforeach
-            <div style="padding: 0px 15px 25px 15px;"><a href="#" class="btn btn-warning back-order" data-abc="true">
+            <div style="padding: 0px 15px 25px 15px;"><a href="/" class="btn btn-warning back-order" data-abc="true">
                     <i class="fa fa-chevron-left"></i> Quay lại mua hàng</a></div>
         </div>
         <div class="row" style="margin: 20px 0px; color: black;">

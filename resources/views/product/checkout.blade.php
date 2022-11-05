@@ -67,39 +67,32 @@
                                     </div>
                                 </div>
                             </div>
-                         @if (!isset($addresses) && count($addresses) > 0)
-                            <div class="different-address">
-                                <div class="ship-different-title">
-                                    <h3>
-                                        <label>Giao đến địa chỉ mới?</label>
-                                        <input id="ship-box" type="checkbox">
-                                    </h3>
-                                </div>
-                                <div id="ship-box-info" class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Địa chỉ giao hàng mới <span class="required">*</span></label>
-                                            <input placeholder="Địa chỉ giao hàng mới" name="new_address"
-                                                type="text">
+                            @if (isset($addresses) && count($addresses) > 0)
+                                <div class="different-address">
+                                    <div class="ship-different-title">
+                                        <h3>
+                                            <label>Giao đến địa chỉ mới?</label>
+                                            <input id="ship-box" type="checkbox">
+                                        </h3>
+                                    </div>
+                                    <div id="ship-box-info" class="row">
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Địa chỉ giao hàng mới </label>
+                                                <input placeholder="Địa chỉ giao hàng mới" name="new_address"
+                                                    type="text">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="order-notes">
-                                    <div class="checkout-form-list">
-                                        <label>Ghi chú giao hàng</label>
-                                        <textarea id="checkout-mess" name="note" cols="30" rows="10"
-                                            placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
-                                    </div>
+                            @endif
+                            <div class="order-notes">
+                                <div class="checkout-form-list">
+                                    <label>Ghi chú giao hàng</label>
+                                    <textarea id="checkout-mess" name="note" cols="30" rows="10"
+                                        placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
                                 </div>
                             </div>
-                            @endif
-                             <div class="order-notes">
-                                    <div class="checkout-form-list">
-                                        <label>Ghi chú giao hàng</label>
-                                        <textarea id="checkout-mess" name="note" cols="30" rows="10"
-                                            placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
-                                    </div>
-                                </div>
                         </div>
 
                     </div>
@@ -146,14 +139,30 @@
                                                         style="text-decoration: underline;">đ</span></span></td>
                                         </tr>
                                         <tr class="cart-subtotal">
+                                            <th>Giao hàng</th>
+                                            <td><span class="amount">
+                                                    @if (\Illuminate\Support\Facades\Session::get('carts'))
+                                                        {{ number_format(30000) }}
+                                                    @else
+                                                        {{ 0 }}
+                                                    @endif <span
+                                                        style="text-decoration: underline;">đ</span>
+                                                </span></td>
+
+                                        </tr>
+                                        <tr class="cart-subtotal">
                                             <th>Giảm giá</th>
                                             <td id="#show-discount"><span class="amount">
-                                                    @if (Session::get('amount'))
-                                                        <span>- {{ number_format(Session::get('amount')) }}</span>
+                                                    @if (Session::get('amount') && Session::get('type_discount') == 'money')
+                                                        <span> {{ number_format(Session::get('amount')) }} <span
+                                                                style="text-decoration: underline;">đ</span></span>
+                                                    @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
+                                                        {{ number_format($summary * (Session::get('amount') / 100)) }}
+                                                        <span style="text-decoration: underline;">đ</span>
+                                                        ({{ Session::get('amount') }} %)
                                                     @else
-                                                        0
+                                                        0 <span style="text-decoration: underline;">đ</span>
                                                     @endif
-                                                    <span style="text-decoration: underline;">đ</span>
                                                 </span></td>
                                             <input type="hidden" name="discount_summary"
                                                 value="@if (Session::get('amount')) {{ number_format(Session::get('amount')) }}
@@ -161,16 +170,25 @@
                                                         {{ 0 }} @endif">
                                         </tr>
                                         <tr class="order-total">
+                                            <?php
+                                            if (\Illuminate\Support\Facades\Session::get('carts')) {
+                                                $summary += 30000;
+                                            }
+                                            ?>
                                             <th>Tổng cộng</th>
                                             <td id="order-summary"><strong><span class="amount">
-                                                        @if (Session::get('amount'))
+                                                        @if (Session::get('amount') && Session::get('type_discount') == 'money')
                                                             {{ number_format($summary - Session::get('amount')) }}
+                                                        @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
+                                                            {{ number_format($summary - $summary * (Session::get('amount') / 100)) }}
                                                         @else
                                                             {{ number_format($summary) }}
                                                         @endif
                                                     </span><span style="text-decoration: underline;">đ</span></strong></td>
                                             <input type="hidden"
-                                                value=" @if (Session::get('amount')) {{ $summary - Session::get('amount') }}
+                                                value=" @if (Session::get('amount') && Session::get('type_discount') == 'money') {{ $summary - Session::get('amount') }}
+                                                        @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
+                                                               {{ $summary - $summary * (Session::get('amount') / 100) }}
                                                         @else
                                                             {{ $summary }} @endif"
                                                 name="summary">
@@ -223,18 +241,18 @@
                                                 </h5>
                                             </div>
                                             <div>
-                                                <input type="radio" id="html" name="payment_method" value="1" checked
-                                                    style="height: 20px; width: 18%;">
+                                                <input type="radio" id="html" name="payment_method"
+                                                    value="1" checked style="height: 20px; width: 18%;">
                                                 <label for="html"> <span class="amount"
                                                         style="font-weight: bold;">Thanh toán khi nhận
                                                         hàng</span></label><br>
-                                                <input type="radio" id="html" name="payment_method" value="2"
-                                                    style="height: 20px; width: 18%;">
+                                                <input type="radio" id="html" name="payment_method"
+                                                    value="2" style="height: 20px; width: 18%;">
                                                 <label for="html"><img
                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
                                                         width="50px;"></label><br>
-                                                <input type="radio" id="html" name="payment_method" value="3"
-                                                    style="height: 20px; width: 18%;">
+                                                <input type="radio" id="html" name="payment_method"
+                                                    value="3" style="height: 20px; width: 18%;">
                                                 <label for="html"><img
                                                         src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1458245625/pwegh6kadcb37kuz0woj.png"
                                                         width="25px;"></label><br>

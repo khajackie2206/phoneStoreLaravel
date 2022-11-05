@@ -17,7 +17,7 @@
                                      <table class="table table-responsive table-borderless">
 
                                          <thead>
-                                             <tr class="bg-light">
+                                             <tr class="bg-warning text-dark">
                                                  <th scope="col" width="5%">#</th>
                                                  <th scope="col" width="25%">Tên khách hàng</th>
                                                  <th scope="col" width="20%">Email</th>
@@ -36,9 +36,9 @@
                                                      <td style="font-weight: bold;">{{ $user->email }}</td>
                                                      <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                              @if ($user->active == 1)
-                                                                 <span class="badge bg-success">Enable</span>
+                                                                 <span class="badge bg-success">Kích hoạt</span>
                                                              @else
-                                                                 <span class="badge bg-danger">Disable</span>
+                                                                 <span class="badge bg-danger">Khóa</span>
                                                              @endif
                                                          </span></td>
                                                      <td><img src="{{ $user->avatar }}" width="50"
@@ -48,13 +48,11 @@
 
                                                      <td class="text-end">
                                                          @if ($user->active == 0)
-                                                             <form method="post" style=" display:inline!important; margin-right: 15px;"
+                                                             <form method="post" style=" display:inline!important; margin-right: 20px;"
                                                                  action="/admin/users/change-active/{{ $user->id }}?active=1">
                                                                  @csrf
                                                                  <input name="_method" type="hidden" value="POST">
-                                                                 <button type="submit" style=" display:inline!important;"
-                                                                     class="btn btn-xs btn-primary btn-flat btn-sm show-alert-active-box ">
-                                                                     <i class="fas fa-check"></i></button>
+                                                                    <i class="fa fa-unlock fa-xl show-alert-active-box" style="color: blue;cursor: pointer;" aria-hidden="true"></i>
                                                              </form>
                                                          @else
 
@@ -62,9 +60,7 @@
                                                                  action="/admin/users/change-active/{{ $user->id }}?active=0">
                                                                  @csrf
                                                                  <input name="_method" type="hidden" value="POST">
-                                                                 <button type="submit" style=" display:inline!important;"
-                                                                     class="btn btn-xs btn-danger btn-flat btn-sm show-alert-delete-box ">
-                                                                     <i class="fas fa-close"></i></button>
+                                                                    <i class="fa fa-lock fa-xl show-alert-delete-box " style="color: red;cursor: pointer;   " aria-hidden="true"></i>
                                                              </form>
                                                          @endif
                                                      </td>

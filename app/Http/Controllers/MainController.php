@@ -94,7 +94,7 @@ class MainController extends Controller
     public function trackOrder()
     {
         $user = session()->get('user');
-        $orders = $this->cardService->getOrders($user)->paginate(3);
+        $orders = $this->cardService->getOrders($user)->orderBy('created_at' ,'DESC')->paginate(3);
         $sessionProducts = $this->cardService->getProduct();
 
         return view('product.order-tracking',[
@@ -173,7 +173,6 @@ class MainController extends Controller
         {
             Alert::success('Đã xác nhận!');
         }
-
 
         return redirect()->back();
     }

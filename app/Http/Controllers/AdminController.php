@@ -34,7 +34,7 @@ class AdminController extends Controller
 
     public function getAllUsers()
     {
-        $users = DB::table('users')->paginate(6);
+        $users = DB::table('users')->where('role' ,0)->paginate(6);
         return view('admin.user.list', [
             'title' => 'Danh sách người dùng',
             'users' => $users

@@ -292,7 +292,7 @@
                     <strong> Tổng thanh toán: </strong>
                 </td>
                 <td></td>
-                <td class="large total" style="font-size: 1.4em;">{{ number_format($order->total + 30000) }} <span
+                <td class="large total" style="font-size: 1.4em;">{{ number_format($order->total) }} <span
                                     style="text-decoration: underline;">đ</span></td>
             </tr>
 

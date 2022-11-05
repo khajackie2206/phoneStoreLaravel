@@ -166,7 +166,7 @@
                         </tr>
                         <tr>
                             <th>Tổng thanh toán:</th>
-                            <td style="color: red; font-weight: bold;">{{ number_format($order->total + 30000) }} <span
+                            <td style="color: red; font-weight: bold;">{{ number_format($order->total) }} <span
                                     style="text-decoration: underline;">đ</span></td>
                         </tr>
                     </table>

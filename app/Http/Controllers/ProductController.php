@@ -147,6 +147,7 @@ class ProductController extends Controller
 
         if ($discount) {
             $amount = $discount->amount;
+            $typeDiscount = $discount->type_discount;
         } else {
             Alert::error('Mã giảm giá không hợp lệ');
             return redirect()->back();
@@ -155,7 +156,7 @@ class ProductController extends Controller
         Alert::success('Áp dụng mã giảm giá thành công');
         return redirect()
             ->route('checkout')
-            ->with(['amount' => $amount, 'code' => $discount->code]);
+            ->with(['amount' => $amount, 'code' => $discount->code, 'type_discount' => $typeDiscount ]);
     }
 
     public function Search(Request $request)
