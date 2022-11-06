@@ -5,7 +5,7 @@
 
              <div class="mb-3">
                  <h1 class="h3 d-inline align-middle">Danh sách giảm giá</h1>
-                 <a class="badge bg-info text-white ms-2" href="/admin/brand/add">
+                 <a class="badge bg-info text-white ms-2" href="/admin/discount/add">
                      Thêm +
                  </a>
              </div>

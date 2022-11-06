@@ -36,15 +36,15 @@ class CardController extends Controller
             return redirect()->back();
         }
         $result = $this->cardService->create($params);
-        $url = $params['url'];
 
-        if ($result) {
-            Alert::success('Thành công', 'Thêm sản phẩm vào giỏ hàng thành công');
-            return redirect()->route('carts');
+        if (!$result) {
+            $url = $params['url'];
+            Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
+            return redirect('/login?url=' . $url . '');
         }
 
-        Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
-        return redirect('/login?url=' . $url . '');
+        Alert::success('Thành công', 'Thêm sản phẩm vào giỏ hàng thành công');
+        return redirect()->route('carts');
     }
 
     public function showCard()

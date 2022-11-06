@@ -16,4 +16,11 @@ class DiscountController extends Controller
             'vouchers' => $vouchers,
         ]);
     }
+
+    public function add()
+    {
+        return view('admin.discount.add', [
+            'title' => 'Thêm khuyến mãi'
+        ]);
+    }
 }

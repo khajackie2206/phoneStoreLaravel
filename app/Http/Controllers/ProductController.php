@@ -91,6 +91,7 @@ class ProductController extends Controller
         $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
+        $user = session()->get('user');
 
         return view('product.product-detail', [
             'title' => $product->name,
@@ -99,6 +100,7 @@ class ProductController extends Controller
             'sessionProducts' => $sessionProducts,
             'groupProduct' => $groupProduct,
             'carts' => session()->get('carts'),
+            'user' => $user
         ]);
     }
 

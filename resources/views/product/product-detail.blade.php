@@ -569,44 +569,57 @@
                                             <div class="feedback-area">
                                                 <div class="feedback">
                                                     <h3 class="feedback-title">Đánh giá</h3>
-                                                    <form action="#">
+                                                    <form action="/products/comment" method="post">
+                                                        @csrf
+                                                        <input type="hidden" value="{{$product->id}}" name="product_id">
                                                         <p class="your-opinion">
                                                             <label>Mức độ hài lòng</label>
                                                             <span>
-                                                                <select class="star-rating">
+                                                                <select class="star-rating" name="star-rating">
                                                                     <option value="1">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
                                                                     <option value="4">4</option>
-                                                                    <option value="5">5</option>
+                                                                    <option value="5" selected>5</option>
                                                                 </select>
                                                             </span>
                                                         </p>
                                                         <p class="feedback-form">
                                                             <label for="feedback">Đánh giá của bạn</label>
-                                                            <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                                            <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true" ></textarea>
                                                         </p>
                                                         <div class="feedback-input">
                                                             <p class="feedback-form-author">
                                                                 <label for="author">Họ và tên<span
                                                                         class="required">*</span>
                                                                 </label>
-                                                                <input id="author" name="author" value=""
+                                                                @if ($user)
+                                                                <input id="author" name="author" value="{{ $user->name}}"
+                                                                    size="30" aria-required="true" type="text" style="background-color: #f1f1f1;" type="text" disabled>
+                                                                @else
+                                                                 <input id="author" name="author" class="required"
                                                                     size="30" aria-required="true" type="text">
+                                                              @endif
                                                             </p>
                                                             <p class="feedback-form-author feedback-form-email">
-                                                                <label for="email">Số điện thoại<span
+                                                                <label for="phone">Số điện thoại<span
                                                                         class="required">*</span>
                                                                 </label>
-                                                                <input id="email" name="email" value=""
+                                                              @if ($user)
+                                                                    <input id="phone" name="phone" value="{{ $user->phone}}"
+                                                                    size="30" aria-required="true" style="background-color: #f1f1f1;" type="text" disabled>
+                                                              @else
+                                                              <input id="phone" name="phone" class="required"
                                                                     size="30" aria-required="true" type="text">
-                                                                <span class="required"><sub>*</sub> Bắt
+                                                              @endif
+                                                                    <span class="required"><sub>*</sub> Bắt
                                                                     buộc</span>
                                                             </p>
                                                             <div class="feedback-btn pb-15">
                                                                 <a href="#" class="close" data-dismiss="modal"
                                                                     aria-label="Close">Đóng</a>
-                                                                <a href="#">Gởi</a>
+                                                                <button type="submit" style="background: #242424;color: #fff !important;width: 80px;font-size: 14px; height: 30px;
+                                                                 line-height: 30px;text-align: center;left: 110px;right: auto; top: 0;display: block;transition: all 0.3s ease-in-out;cursor: pointer;">Gởi</button>
                                                             </div>
                                                         </div>
                                                     </form>

@@ -15,6 +15,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UploadUserController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +127,9 @@ Route::prefix('products')->group(function () {
 
     //Order
     Route::get('/order/update-status/{order}',[MainController::class, 'customerUpdateStatus']);
+
+    //Comment
+    Route::post('/comment', [RatingController::class, 'add']);
 });
 
 Route::prefix('users')->group(function () {
