@@ -30,4 +30,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Feature::class, 'product_features', 'product_id', 'feature_id')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, foreignKey: 'product_id', localKey: 'id');
+    }
 }

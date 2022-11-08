@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\RatingService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Comment;
 
 class RatingController extends Controller
 {
@@ -35,5 +36,15 @@ class RatingController extends Controller
 
         Alert::success('Thêm thành công', 'Bình luận của bạn sẽ được quản trị viên duyệt qua!');
         return redirect()->back();
+    }
+
+    public function comments()
+    {
+        $comments = Comment::paginate(8);
+        return view('admin.comment.list', [
+            'title' => 'Danh sách bình luận',
+            'comments' => $comments,
+        ]);
+
     }
 }

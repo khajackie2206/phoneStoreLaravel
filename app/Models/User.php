@@ -39,4 +39,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, foreignKey: 'user_id', localKey: 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, foreignKey: 'user_id', localKey: 'id');
+    }
 }

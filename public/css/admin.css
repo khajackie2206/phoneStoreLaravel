@@ -13,3 +13,48 @@
     box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
 
 }
+ .ratings{ background-color:#fff; padding: 54px; /* border: 1px solid rgba(0, 0, 0, 0.1); box-shadow:
+    0px 10px 10px #E0E0E0; */ } .product-rating{ font-size: 50px; } .stars i{ font-size: 18px; color: #28a745; }
+    .rating-text{ margin-top: 10px; } /* rating each*/ .height-100{ height:100vh; } .card-star{ width:380px; border:none;
+    height:280px; } .ratings{ margin-right:10px; } .ratings i{ color:#fbc634; font-size:32px; } .rating-color{
+    color:#fbc634 !important; } .review-count{ font-weight:400; margin-bottom:2px; font-size:24px !important; }
+    .small-ratings i{ color:#cecece; } .review-stat{ font-weight:300; font-size:18px; margin-bottom:2px; }
+
+    .rating-area{
+      background-clip: border-box;
+    -webkit-box-shadow: 0 0 3px 0 #dee2e6;
+    box-shadow: 0 0 3px 0 #dee2e6;
+    border-radius: 6px;
+    }
+
+
+.card-star {
+	border-radius: 5px;
+	background-color: #fff;
+	padding-left: 60px;
+	padding-right: 60px;
+	margin-top: 30px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.rating-box-star {
+	width: 130px;
+	height: 130px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FBC02D;
+	color: #fff;
+}
+
+.rating-label {
+	font-weight: bold;
+}
+
+/* Rating bar width */
+.rating-bar {
+	width: 300px;
+	padding: 8px;
+	border-radius: 5px;
+}
+

@@ -229,4 +229,9 @@ class ProductService
     public function getGroupProduct(Product $product) {
         return Product::where('name', 'like', $product->name)->get();
     }
+
+    public function getAllComments(Product $product)
+    {
+        return Product::where('', '');
+    }
 }

@@ -83,6 +83,9 @@ Route::prefix('admin')
        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
        Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
+       #Comments
+       Route::get('/comments/lists', [RatingController::class, 'comments']);
+
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);

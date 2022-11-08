@@ -27,7 +27,7 @@
                 <div class="col-lg-5 col-md-6">
                     <!-- Product Details Left -->
                     <div class="product-details-left" style="margin-top: 25px;">
-                        <div class="product-details-images slider-navigation-1" >
+                        <div class="product-details-images slider-navigation-1">
                             @foreach ($product->images as $image)
                                 <div class="lg-image">
                                     <a class="popup-img venobox vbox-item" href="{{ $image->url }}" data-gall="myGallery">
@@ -40,7 +40,8 @@
                         <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 20px;">
 
                             @foreach ($product->images as $image)
-                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb" style="max-height: 160px; "></div>
+                                <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"
+                                        style="max-height: 160px; "></div>
                             @endforeach
                         </div>
                     </div>
@@ -306,7 +307,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container rating-area" style="margin-top: 30px;">
+            <div class="container rating-area" style="margin-top: 30px;" id="foo">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-center">
@@ -450,92 +451,56 @@
 
                 </div>
                 <!--Begin comment -->
-                <div class="container" style="padding: 50px;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="media g-mb-30 media-comment" style="margin-bottom: 30px;">
-                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                                    style="width: 50px; margin-right: 15px;"
-                                    src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-                                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                                    <div class="g-mb-15">
-                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">Kha Jackie</h5>
-                                        <span class="g-color-gray-dark-v4 g-font-size-12">
-                                            <div class="small-ratings">
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </span>
+                <div class="container" style="padding: 10px 50px 50px 50px;">
+                      <div style="border-top:1px solid#f1f1f1"> </div>
+                    <div class="row" style="margin-top:50px; ">
+
+                        @foreach ($comments as $comment)
+                            <div class="col-md-12">
+                                <div class="media g-mb-30 media-comment" style="margin-bottom: 30px;">
+                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                        style="width: 50px; margin-right: 15px;"
+                                        src="{{ $comment->user->avatar}}" alt="Image Description">
+                                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                        <div class="g-mb-15">
+                                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ $comment->user->name}}</h5>
+                                            <span class="g-color-gray-dark-v4 g-font-size-12">
+                                                <div class="small-ratings">
+                                                    <i class="fa fa-star {{ $comment->rating >= 1 ? 'rating-color' : '' }}"></i>
+                                                    <i class="fa fa-star {{ $comment->rating >= 2 ? 'rating-color' : '' }}"></i>
+                                                    <i class="fa fa-star {{ $comment->rating >= 3 ? 'rating-color' : '' }}"></i>
+                                                    <i class="fa fa-star {{ $comment->rating >= 4 ? 'rating-color' : '' }}"></i>
+                                                    <i class="fa fa-star {{ $comment->rating >= 5 ? 'rating-color' : '' }}"></i>
+                                                </div>
+                                            </span>
+                                        </div>
+
+                                        <p>{{ $comment->comment}}
+                                        </p>
+
+                                        <ul class="list-inline d-sm-flex my-0">
+                                            <li class="list-inline-item g-mr-20">
+                                                <span class="g-color-gray-dark-v4 g-font-size-12">{{ $comment->created_at->diffForHumans()}}</span>
+                                            </li>
+                                            <li class="list-inline-item g-mr-20">
+                                                <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                    href="#!">
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item g-mr-20">
+                                                <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                    href="#!">
+                                                </a>
+                                            </li>
+
+                                        </ul>
                                     </div>
-
-                                    <p>Sản phẩm tốt, chất lượng khỏi chê có điều hơi đắt và nóng máy
-                                    </p>
-
-                                    <ul class="list-inline d-sm-flex my-0">
-                                        <li class="list-inline-item g-mr-20">
-                                            <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                                        </li>
-                                        <li class="list-inline-item g-mr-20">
-                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                href="#!">
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item g-mr-20">
-                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                href="#!">
-                                            </a>
-                                        </li>
-
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="media g-mb-30 media-comment">
-                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                                    style="width: 50px;  margin-right: 15px;"
-                                    src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
-                                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                                    <div class="g-mb-15">
-                                        <h5 class="h5 g-color-gray-dark-v1 mb-0">Hoài Tô</h5>
-                                        <span class="g-color-gray-dark-v4 g-font-size-12">
-                                            <div class="small-ratings">
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star rating-color"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </span>
-                                    </div>
-
-                                    <p> Hiệu năng tốt nhưng camera chụp không đẹp lắm, 3 sao là vừa
-                                    </p>
-
-                                    <ul class="list-inline d-sm-flex my-0">
-                                        <li class="list-inline-item g-mr-20">
-                                            <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                                        </li>
-                                        <li class="list-inline-item g-mr-20">
-                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                href="#!">
-
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item g-mr-20">
-                                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                href="#!">
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    </div>
+                    <div class="row justify-content-center" style="margin-top: 30px;">
+                    {{ $comments->fragment('reviews')->links('custom')}}
                     </div>
                 </div>
                 <!--end comment -->
@@ -571,7 +536,8 @@
                                                     <h3 class="feedback-title">Đánh giá</h3>
                                                     <form action="/products/comment" method="post">
                                                         @csrf
-                                                        <input type="hidden" value="{{$product->id}}" name="product_id">
+                                                        <input type="hidden" value="{{ $product->id }}"
+                                                            name="product_id">
                                                         <p class="your-opinion">
                                                             <label>Mức độ hài lòng</label>
                                                             <span>
@@ -586,7 +552,7 @@
                                                         </p>
                                                         <p class="feedback-form">
                                                             <label for="feedback">Đánh giá của bạn</label>
-                                                            <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true" ></textarea>
+                                                            <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true"></textarea>
                                                         </p>
                                                         <div class="feedback-input">
                                                             <p class="feedback-form-author">
@@ -594,31 +560,40 @@
                                                                         class="required">*</span>
                                                                 </label>
                                                                 @if ($user)
-                                                                <input id="author" name="author" value="{{ $user->name}}"
-                                                                    size="30" aria-required="true" type="text" style="background-color: #f1f1f1;" type="text" disabled>
+                                                                    <input id="author" name="author"
+                                                                        value="{{ $user->name }}" size="30"
+                                                                        aria-required="true" type="text"
+                                                                        style="background-color: #f1f1f1;" type="text"
+                                                                        disabled>
                                                                 @else
-                                                                 <input id="author" name="author" class="required"
-                                                                    size="30" aria-required="true" type="text">
-                                                              @endif
+                                                                    <input id="author" name="author" class="required"
+                                                                        size="30" aria-required="true"
+                                                                        type="text">
+                                                                @endif
                                                             </p>
                                                             <p class="feedback-form-author feedback-form-email">
                                                                 <label for="phone">Số điện thoại<span
                                                                         class="required">*</span>
                                                                 </label>
-                                                              @if ($user)
-                                                                    <input id="phone" name="phone" value="{{ $user->phone}}"
-                                                                    size="30" aria-required="true" style="background-color: #f1f1f1;" type="text" disabled>
-                                                              @else
-                                                              <input id="phone" name="phone" class="required"
-                                                                    size="30" aria-required="true" type="text">
-                                                              @endif
-                                                                    <span class="required"><sub>*</sub> Bắt
+                                                                @if ($user)
+                                                                    <input id="phone" name="phone"
+                                                                        value="{{ $user->phone }}" size="30"
+                                                                        aria-required="true"
+                                                                        style="background-color: #f1f1f1;" type="text"
+                                                                        disabled>
+                                                                @else
+                                                                    <input id="phone" name="phone" class="required"
+                                                                        size="30" aria-required="true"
+                                                                        type="text">
+                                                                @endif
+                                                                <span class="required"><sub>*</sub> Bắt
                                                                     buộc</span>
                                                             </p>
                                                             <div class="feedback-btn pb-15">
                                                                 <a href="#" class="close" data-dismiss="modal"
                                                                     aria-label="Close">Đóng</a>
-                                                                <button type="submit" style="background: #242424;color: #fff !important;width: 80px;font-size: 14px; height: 30px;
+                                                                <button type="submit"
+                                                                    style="background: #242424;color: #fff !important;width: 80px;font-size: 14px; height: 30px;
                                                                  line-height: 30px;text-align: center;left: 110px;right: auto; top: 0;display: block;transition: all 0.3s ease-in-out;cursor: pointer;">Gởi</button>
                                                             </div>
                                                         </div>
@@ -651,68 +626,67 @@
                         </h2>
                     </div>
                     <div class="row">
-                            @foreach ($productBrands as $productBrand)
-                                <div class="col-lg-2" style="margin-top: 20px; margin-right: 40px;">
-                                    <!-- single-product-wrap start -->
-                                    <div class="single-product-wrap">
-                                        <div class="product-image">
-                                            <a href="/products/details/{{ $productBrand->id }}">
-                                                <img src="{{ $productBrand->images->where('type', 'cover')->first()['url'] }}"
-                                                    alt="Li's Product Image" style="width: 120px;height:120px;">
-                                            </a>
-                                        </div>
+                        @foreach ($productBrands as $productBrand)
+                            <div class="col-lg-2" style="margin-top: 20px; margin-right: 40px;">
+                                <!-- single-product-wrap start -->
+                                <div class="single-product-wrap">
+                                    <div class="product-image">
+                                        <a href="/products/details/{{ $productBrand->id }}">
+                                            <img src="{{ $productBrand->images->where('type', 'cover')->first()['url'] }}"
+                                                alt="Li's Product Image" style="width: 120px;height:120px;">
+                                        </a>
+                                    </div>
 
-                                        <div class="product_desc">
-                                            <div class="product_desc_info">
-                                                <div class="product-review">
-                                                    <h5 class="manufacturer">
-                                                        <a
-                                                            href="shop-left-sidebar.html">{{ $productBrand->brand->name }}</a>
-                                                    </h5>
-                                                    <div class="rating-box">
-                                                        <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <h4><a class="product_name"
-                                                        href="single-product.html">{{ $productBrand->name }}</a></h4>
-                                                <div class="price-box">
-                                                    <span class="new-price">
-                                                        @if ($productBrand->discount > 0)
-                                                            <p style="color: red; font-weight:bold;">
-                                                                {{ number_format($productBrand->price - $productBrand->discount) }}
-                                                                <span style="text-decoration: underline;">đ</span>
-                                                            </p>
-                                                        @else
-                                                            <p style="color: red; font-weight:bold;">
-                                                                {{ number_format($productBrand->price) }} <span
-                                                                    style="text-decoration: underline;">đ</span></p>
-                                                        @endif
-
-                                                    </span>
+                                    <div class="product_desc">
+                                        <div class="product_desc_info">
+                                            <div class="product-review">
+                                                <h5 class="manufacturer">
+                                                    <a href="shop-left-sidebar.html">{{ $productBrand->brand->name }}</a>
+                                                </h5>
+                                                <div class="rating-box">
+                                                    <ul class="rating">
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    </ul>
                                                 </div>
                                             </div>
-                                            <div class="add-actions">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
-                                                    <li>
-                                                        <p productId="{{ $productBrand->id }}" title="quick view"
-                                                            class="quick-view-btn" data-toggle="modal"
-                                                            data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
+                                            <h4><a class="product_name"
+                                                    href="single-product.html">{{ $productBrand->name }}</a></h4>
+                                            <div class="price-box">
+                                                <span class="new-price">
+                                                    @if ($productBrand->discount > 0)
+                                                        <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productBrand->price - $productBrand->discount) }}
+                                                            <span style="text-decoration: underline;">đ</span>
                                                         </p>
-                                                    </li>
-                                                </ul>
+                                                    @else
+                                                        <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productBrand->price) }} <span
+                                                                style="text-decoration: underline;">đ</span></p>
+                                                    @endif
+
+                                                </span>
                                             </div>
+                                        </div>
+                                        <div class="add-actions">
+                                            <ul class="add-actions-link">
+                                                <li class="add-cart active"><a href="#">ĐẶT MUA NGAY</a></li>
+                                                <li>
+                                                    <p productId="{{ $productBrand->id }}" title="quick view"
+                                                        class="quick-view-btn" data-toggle="modal"
+                                                        data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
+                                                    </p>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <!-- single-product-wrap end -->
                                 </div>
-                            @endforeach
+                                <!-- single-product-wrap end -->
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- Li's Section Area End Here -->

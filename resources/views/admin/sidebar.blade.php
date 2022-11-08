@@ -56,8 +56,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Phản hồi &
+                <a class="sidebar-link" href="/admin/comments/lists">
+                    <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Bình luận &
                         đánh giá</span>
                 </a>
             </li>

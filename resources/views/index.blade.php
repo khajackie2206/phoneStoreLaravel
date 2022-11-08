@@ -156,6 +156,32 @@
             $(".loader-wrapper").fadeOut(200);
         });
     </script>
+    {{-- <script>
+    window.addEventListener('load', function() {
+        // Do we have a #scroll in the URL hash?
+        if(window.location.hash && /#scroll/.test(window.location.hash)) {
+            // Scroll to the #scroll value
+            window.scrollTo(0, window.location.hash.replace('#scroll=', ''));
+        }
+
+        // Get all <a> elements with data-remember-position attribute
+        var links = document.querySelectorAll('a[data-remember-position]');
+
+        if(links.length) {
+            // Loop through the found links
+            for(var i = 0; i < links.length; i++) {
+                // Listen for clicks
+                links[i].addEventListener('click', function(e) {
+                    // Prevent normal redirection
+                    e.preventDefault();
+
+                    // Redirect manually but put the current scroll value at the end
+                    window.location = this.href + '?scroll=' + window.scrollY;
+                });
+            }
+        }
+    });
+</script> --}}
 </body>
 
 <!-- index30:23-->

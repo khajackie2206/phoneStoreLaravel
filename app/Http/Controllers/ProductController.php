@@ -18,6 +18,8 @@ use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Pagination\CursorPaginator;
+
 class ProductController extends Controller
 {
     protected $productService;
@@ -91,6 +93,7 @@ class ProductController extends Controller
         $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
+        $comments = $product->comments()->paginate(2);
         $user = session()->get('user');
 
         return view('product.product-detail', [
@@ -100,7 +103,8 @@ class ProductController extends Controller
             'sessionProducts' => $sessionProducts,
             'groupProduct' => $groupProduct,
             'carts' => session()->get('carts'),
-            'user' => $user
+            'user' => $user,
+            'comments' => $comments
         ]);
     }
 
