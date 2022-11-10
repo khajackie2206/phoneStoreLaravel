@@ -17,7 +17,7 @@
 
 
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless">
+                                     <table class="table table-responsive table-borderless table-striped">
 
                                          <thead>
                                              <tr class="bg-warning text-dark" style="text-align: center;">
@@ -81,7 +81,7 @@
                          </div>
                      </div>
                  </div>
-                 {{ $vouchers->links() }}
+                 {{ $vouchers->links('custom') }}
              </div>
          </div>
      </main>

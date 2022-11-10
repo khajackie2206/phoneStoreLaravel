@@ -14,26 +14,26 @@
 
 
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless">
+                                     <table class="table table-responsive table-borderless table-striped">
 
-                                         <thead>
+                                         <thead style="text-align: center;">
                                              <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="5%">#</th>
-                                                 <th scope="col" width="25%">Tên khách hàng</th>
-                                                 <th scope="col" width="20%">Email</th>
+                                                 <th scope="col" width="7%">#</th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Tên khách hàng</th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Email</th>
                                                  <th scope="col" width="10%">Trạng thái</th>
-                                                 <th scope="col" width="10%">Hình ảnh</th>
-                                                 <th scope="col" width="15%">Số điện thoại</th>
+                                                 <th scope="col" width="15%">Hình ảnh</th>
+                                                 <th scope="col" width="13%">Số điện thoại</th>
                                                  <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
                                                  </th>
                                              </tr>
                                          </thead>
-                                         <tbody>
+                                         <tbody >
                                              @foreach ($users as $user)
-                                                 <tr>
+                                                 <tr style="text-align: center;" >
                                                      <td>{{ $user->id }}</td>
-                                                     <td style="font-weight: bold;">{{ $user->name }}</td>
-                                                     <td style="font-weight: bold;">{{ $user->email }}</td>
+                                                     <td style="font-weight: bold; text-align: left;">{{ $user->name }}</td>
+                                                     <td style="font-weight: bold; text-align: left;">{{ $user->email }}</td>
                                                      <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                              @if ($user->active == 1)
                                                                  <span class="badge bg-success">Kích hoạt</span>
@@ -76,7 +76,7 @@
                          </div>
                      </div>
                  </div>
-                  {{ $users->links() }}
+                  {{ $users->links('custom') }}
              </div>
          </div>
      </main>

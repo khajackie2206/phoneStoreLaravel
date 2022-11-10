@@ -23,7 +23,7 @@
 
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless">
+                                    <table class="table table-responsive table-borderless table-striped">
 
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
@@ -42,8 +42,8 @@
                                             @foreach ($comments as $comment)
                                                 <tr style="text-align: center;">
                                                     <td>{{ $comment->id }}</td>
-                                                    <td style="font-weight: bold;">{{ $comment->user->name }}</td>
-                                                    <td>{{ $comment->product->name }}
+                                                    <td>{{ $comment->user->name }}</td>
+                                                    <td style="font-weight: bold;">{{ $comment->product->name }}
                                                         {{ $comment->product->rom }}</td>
                                                     <td> <span class="g-color-gray-dark-v4 g-font-size-12">
                                                             <div class="small-ratings">
@@ -70,18 +70,30 @@
 
                                                     <td style="text-align: left;">
                                                         @if ($comment->status == 0)
-                                                            <a style="margin-left:20px; margin-right: 7px; "
-                                                                href="/admin/comments/censorship/{{ $comment->id }}">
-                                                                <i class="fa fa-check-square fa-xl" aria-hidden="true"></i>
-                                                            </a>
+                                                            <form method="post"
+                                                                style="display:inline!important; margin-left:20px; margin-right: 7px;"
+                                                                action="/admin/comments/censorship/{{ $comment->id }}?status=1">
+                                                                @csrf
+                                                                <input name="_method" type="hidden" value="post">
+                                                                <i type="submit"
+                                                                    class="fa fa-check-square fa-xl show-alert-approve-comment"
+                                                                    style="color: rgb(53, 112, 240);"
+                                                                    aria-hidden="true"></i>
+                                                            </form>
                                                         @else
-                                                            <a style="margin-left:20px; margin-right: 7px; "
-                                                                href="/admin/comments/censorship/{{ $comment->id }}">
-                                                                <i class="fa fa-ban fa-xl" aria-hidden="true"></i>
-                                                            </a>
+                                                            <form method="post"
+                                                                style=" display:inline!important; margin-left:20px; margin-right: 7px;"
+                                                                action="/admin/comments/censorship/{{ $comment->id }}?status=0">
+                                                                @csrf
+                                                                <input name="_method" type="hidden" value="post">
+                                                                <i type="submit"
+                                                                    class="fa fa-ban fa-xl show-alert-reject-comment"
+                                                                    style="color: rgb(53, 112, 240);"
+                                                                    aria-hidden="true"></i>
+                                                            </form>
                                                         @endif
                                                         <form method="post" style=" display:inline!important;"
-                                                            action="/admin/order/delete/{{ $comment->id }}">
+                                                            action="/admin/comments/delete/{{ $comment->id }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="post">
                                                             <i type="submit" style="color: red;"
@@ -108,7 +120,7 @@
             var name = $(this).data("name");
             event.preventDefault();
             swal({
-                title: "Bạn có chắc muốn xóa đơn hàng này không?",
+                title: "Bạn có chắc muốn xóa bình luận này không?",
                 icon: "warning",
                 type: "warning",
                 buttons: ["Cancel", "Yes!"],
@@ -120,11 +132,52 @@
                     swal({
                         title: 'Thành công!',
                         icon: 'success',
-                        text: 'Đã xóa đơn hàng!',
+                        text: 'Đã xóa bình luận!',
                         type: 'success'
                     }).then(function() {
                         form.submit();
                     });
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('.show-alert-approve-comment').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: "Bạn có chắc muốn duyệt bình luận này không?",
+                icon: "warning",
+                type: "warning",
+                buttons: ["Cancel", "Yes!"],
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đã duyệt!'
+            }).then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.show-alert-reject-comment').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: "Bạn có chắc muốn từ chối bình luận này không?",
+                icon: "warning",
+                type: "warning",
+                buttons: ["Cancel", "Yes!"],
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đã duyệt!'
+            }).then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
                 }
             });
         });

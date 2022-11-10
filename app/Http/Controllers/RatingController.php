@@ -6,6 +6,7 @@ use App\Services\RatingService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Comment;
+use Illuminate\Support\Carbon;
 
 class RatingController extends Controller
 {
@@ -46,5 +47,20 @@ class RatingController extends Controller
             'comments' => $comments,
         ]);
 
+    }
+
+    public function delete(Comment $comment)
+    {
+        $comment->delete();
+
+        return redirect()->back();
+    }
+
+    public function updateStatus(Request $request, Comment $comment)
+    {
+        $input = $request->all();
+        $comment->update(array('status' => $input['status']));
+
+        return redirect()->back();
     }
 }

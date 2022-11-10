@@ -23,7 +23,7 @@
 
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless">
+                                    <table class="table table-responsive table-borderless table-striped">
 
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
@@ -43,7 +43,7 @@
                                                 <tr style="text-align: center;">
                                                     <td>{{ $order->id }}</td>
                                                     <td style="font-weight: bold;">{{ $order->user->name }}</td>
-                                                    <td style="color:red;">{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span></td>
+                                                    <td style="color:red;font-weight: bold;">{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span></td>
                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                             @if ($order->status->id == 1)
                                                                 <span class="badge bg-secondary">Chờ xác nhận</span>
@@ -69,7 +69,7 @@
                                                         </span>
                                                     </td>
                                                     <td  style="font-weight: bold;"> <span> {{$order->created_at}} </span></td>
-                                                    <td style="text-align: left;"> <a style="margin-left:20px; "
+                                                    <td style="text-align: left;"> <a style="margin-left:20px; margin-right: 7px;"
                                                             href="/admin/order/detail/{{$order->id}}">
                                                             <i class="fas fa-edit fa-xl"></i>
                                                         </a>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-             {{ $orders->links() }}
+             {{ $orders->links('custom') }}
             </div>
         </div>
     </main>

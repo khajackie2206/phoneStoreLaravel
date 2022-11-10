@@ -85,7 +85,8 @@ Route::prefix('admin')
 
        #Comments
        Route::get('/comments/lists', [RatingController::class, 'comments']);
-
+       Route::post('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
+       Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);

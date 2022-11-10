@@ -17,10 +17,10 @@
 
 
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless">
+                                     <table class="table table-responsive table-borderless table-striped">
 
                                          <thead>
-                                             <tr class="bg-light">
+                                             <tr class="bg-warning text-dark">
                                                  <th scope="col" width="5%">#</th>
                                                  <th scope="col" width="20%">Tên thương hiệu</th>
                                                  <th scope="col" width="15%">Trạng thái</th>
@@ -39,9 +39,9 @@
                                                      <td style="font-weight: bold;">{{ $brand->name }}</td>
                                                      <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                                              @if ($brand->active == 1)
-                                                                 <span class="badge bg-success">Enable</span>
+                                                                 <span class="badge bg-success">Kích hoạt</span>
                                                              @else
-                                                                 <span class="badge bg-danger">Disable</span>
+                                                                 <span class="badge bg-danger">Hủy kích hoạt</span>
                                                              @endif
                                                          </span></td>
                                                      <td><img src="{{ $brand->image }}" width="50">
@@ -51,27 +51,24 @@
                                                              style="margin-left: 15px;">{{ $brand->sort_by }}</span></td>
 
                                                      <td class="text-center">
-                                                         <a class="btn btn-primary btn-sm"
+                                                         <a style="margin-right: 5px;"
                                                              href="/admin/brand/edit/{{ $brand->id }}">
-                                                             <i class="fas fa-edit"></i>
+                                                             <i class="fas fa-edit fa-xl"></i>
                                                          </a>
                                                          @if ($brand->active == 1)
-                                                             <form method="post" style=" display:inline!important;"
+                                                             <form method="post" style=" display:inline!important;margin-right: 5px; cursor: pointer;"
                                                                  action="/admin/brand/change-status/{{ $brand->id }}?active=0">
                                                                  @csrf
                                                                  <input name="_method" type="hidden" value="POST">
-                                                                 <button type="submit" style=" display:inline!important;"
-                                                                     class="btn btn-xs btn-danger btn-flat btn-sm show-alert-deactive-brand">
-                                                                     <i class="fas fa-close"></i></button>
+
+                                                                     <i class="fa fa-ban fa-xl show-alert-deactive-brand" style="color: #0d6efd;"></i>
                                                              </form>
                                                          @else
-                                                             <form method="post" style=" display:inline!important;"
+                                                             <form method="post" style=" display:inline!important;margin-right: 5px;"
                                                                  action="/admin/brand/change-status/{{ $brand->id }}?active=1">
                                                                  @csrf
                                                                  <input name="_method" type="hidden" value="POST">
-                                                                 <button type="submit" style=" display:inline!important;"
-                                                                     class="btn btn-xs btn-primary btn-flat btn-sm show-alert-active-brand">
-                                                                     <i class="fas fa-check"></i></button>
+                                                                     <i class="fas fa-check-square fa-xl show-alert-active-brand" style="color: #0d6efd;"></i>
                                                              </form>
                                                          @endif
 
@@ -80,9 +77,7 @@
                                                              action="/admin/brand/delete/{{ $brand->id }}">
                                                              @csrf
                                                              <input name="_method" type="hidden" value="POST">
-                                                             <button type="submit" style=" display:inline!important;"
-                                                                 class="btn btn-xs btn-danger btn-flat btn-sm show-alert-delete-brand">
-                                                                 <i class="fas fa-trash"></i></button>
+                                                                 <i type="submit" class="fas fa-trash fa-xl show-alert-delete-brand" style="color: red;"></i>
                                                          </form>
 
                                                      </td>
@@ -95,7 +90,7 @@
                          </div>
                      </div>
                  </div>
-                 {{ $brands->links() }}
+                 {{ $brands->links('custom') }}
              </div>
          </div>
      </main>

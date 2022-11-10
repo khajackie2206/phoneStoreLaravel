@@ -28,7 +28,7 @@
 
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless">
+                                    <table class="table table-responsive table-borderless table-striped">
 
                                         <thead>
                                             <tr class="bg-warning text-dark">
@@ -63,7 +63,7 @@
                                                     </td>
                                                     <td  style="font-weight: bold;"> <span style="margin-left: 10px;"> {{$product->quantity}} </span></td>
                                                     <td style="font-weight: bold;">{{ $product->brand->name }}</td>
-                                                    <td class="text-end"> <a
+                                                    <td class="text-end"> <a style="margin-right:7px;"
                                                             href="/admin/product/edit/{{ $product->id }}">
                                                                <i class="fas fa-edit fa-xl"></i>
                                                         </a>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-             {{ $products->links() }}
+             {{ $products->links('custom') }}
             </div>
         </div>
     </main>

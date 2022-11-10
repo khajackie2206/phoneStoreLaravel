@@ -17,7 +17,7 @@
 
 
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless">
+                                     <table class="table table-responsive table-borderless table-striped">
 
                                          <thead>
                                              <tr class="bg-warning text-dark">
@@ -74,7 +74,7 @@
                          </div>
                      </div>
                  </div>
-                {{ $banners->links() }}
+                {{ $banners->links('custom') }}
              </div>
          </div>
      </main>
