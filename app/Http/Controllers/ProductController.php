@@ -93,7 +93,7 @@ class ProductController extends Controller
         $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
-        $comments = $product->comments()->paginate(2);
+        $comments = $product->comments()->where('status', 1)->paginate(4);
         $user = session()->get('user');
 
         return view('product.product-detail', [

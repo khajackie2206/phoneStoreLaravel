@@ -15,8 +15,19 @@
         </div>
     </div>
     <?php
+
     if ($product->discount > 0) {
         $priceSale = $product->price - $product->discount;
+    }
+
+    $countRating = count($comments);
+    $avgRating = 0;
+    $sumRating = 0;
+    if ($countRating > 0) {
+        foreach ($comments as $comment) {
+            $sumRating += $comment->rating;
+        }
+        $avgRating = $sumRating / count($comments);
     }
 
     ?>
@@ -68,12 +79,12 @@
                             <span class="product-details-ref">Thương hiệu: {{ $product->brand->name }}</span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li><a href="#" style="color: #2f80ed;font-size: 9pt;">606 Đánh
+                                    <li class="{{ $avgRating >= 1 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                    <li class="{{ $avgRating >= 2 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                    <li class="{{ $avgRating >= 3 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                    <li class="{{ $avgRating >= 4 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                    <li class="{{ $avgRating >= 5 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                    <li><a href="#" style="color: #2f80ed;font-size: 9pt;">{{ $countRating }} Đánh
                                             giá</a></li>
                                 </ul>
                             </div>
@@ -313,128 +324,69 @@
                         <div class="d-flex justify-content-center">
                             <div class="content text-center">
                                 <div class="ratings">
-                                    <span class="product-rating">4.6</span><span>/5</span>
+                                    <span class="product-rating">{{ $avgRating }}</span><span>/5</span>
                                     <div class="stars">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                        <i class="{{ $avgRating >= 1 ? 'fa fa-star' : '' }}"></i>
+                                        <i class="{{ $avgRating >= 2 ? 'fa fa-star' : '' }}"></i>
+                                        <i class="{{ $avgRating >= 3 ? 'fa fa-star' : '' }}"></i>
+                                        <i class="{{ $avgRating >= 4 ? 'fa fa-star' : '' }}"></i>
+                                        <i class="{{ $avgRating >= 5 ? 'fa fa-star' : '' }}"></i>
                                     </div>
                                     <div class="rating-text">
-                                        <span>46 đánh giá</span>
+                                        <span>{{ $countRating }} đánh giá</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-top: 40px;">
-                        {{-- <div class="card-star p-3">
-                            <div class="mt-5 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">5 Đánh giá</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                </div>
 
-                            </div>
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">25 Đánh giá</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">15 Đánh giá</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">2 Đánh giá</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-
-
-                            <div class="mt-1 d-flex justify-content-between align-items-center">
-                                <h5 class="review-stat">3 Đánh giá</h5>
-                                <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div> --}}
-                        {{-- <div class="col-md-8"> --}}
                         <div class="rating-bar0 justify-content-center">
                             <table class="text-left mx-auto">
                                 <tr>
                                     <td class="rating-label">5 <i class="fa fa-star" style="color: #fbc634;"></i> </td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-5" style="width: {{ 70 }}%"></div>
+                                            <div class="bar-5" style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 5))/$countRating)*100 : 0 }}%"></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">123</td>
+                                    <td class="text-right">{{ count($comments->where('rating', 5)) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">4 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-4"></div>
+                                            <div class="bar-4" style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 4))/$countRating)*100 : 0 }}%"></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">23</td>
+                                    <td class="text-right">{{ count($comments->where('rating', 4)) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">3 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-3"></div>
+                                            <div class="bar-3" style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 3))/$countRating)*100 : 0 }}%"></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">10</td>
+                                    <td class="text-right">{{ count($comments->where('rating', 3)) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">2 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-2"></div>
+                                            <div class="bar-2" style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 2))/$countRating)*100 : 0 }}%"></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">3</td>
+                                    <td class="text-right">{{ count($comments->where('rating', 2)) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">1 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-1"></div>
+                                            <div class="bar-1" style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 1))/$countRating)*100 : 0 }}%"></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">0</td>
+                                    <td class="text-right">{{ count($comments->where('rating', 1)) }}</td>
                                 </tr>
                             </table>
                             {{-- </div> --}}
@@ -452,35 +404,41 @@
                 </div>
                 <!--Begin comment -->
                 <div class="container" style="padding: 10px 50px 50px 50px;">
-                      <div style="border-top:1px solid#f1f1f1"> </div>
+                    <div style="border-top:1px solid#f1f1f1"> </div>
                     <div class="row" style="margin-top:50px; ">
 
                         @foreach ($comments as $comment)
                             <div class="col-md-12">
                                 <div class="media g-mb-30 media-comment" style="margin-bottom: 30px;">
                                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                                        style="width: 50px; margin-right: 15px;"
-                                        src="{{ $comment->user->avatar}}" alt="Image Description">
+                                        style="width: 50px; margin-right: 15px;" src="{{ $comment->user->avatar }}"
+                                        alt="Image Description">
                                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                                         <div class="g-mb-15">
-                                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ $comment->user->name}}</h5>
+                                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ $comment->user->name }}</h5>
                                             <span class="g-color-gray-dark-v4 g-font-size-12">
                                                 <div class="small-ratings">
-                                                    <i class="fa fa-star {{ $comment->rating >= 1 ? 'rating-color' : '' }}"></i>
-                                                    <i class="fa fa-star {{ $comment->rating >= 2 ? 'rating-color' : '' }}"></i>
-                                                    <i class="fa fa-star {{ $comment->rating >= 3 ? 'rating-color' : '' }}"></i>
-                                                    <i class="fa fa-star {{ $comment->rating >= 4 ? 'rating-color' : '' }}"></i>
-                                                    <i class="fa fa-star {{ $comment->rating >= 5 ? 'rating-color' : '' }}"></i>
+                                                    <i
+                                                        class="fa fa-star {{ $comment->rating >= 1 ? 'rating-color' : '' }}"></i>
+                                                    <i
+                                                        class="fa fa-star {{ $comment->rating >= 2 ? 'rating-color' : '' }}"></i>
+                                                    <i
+                                                        class="fa fa-star {{ $comment->rating >= 3 ? 'rating-color' : '' }}"></i>
+                                                    <i
+                                                        class="fa fa-star {{ $comment->rating >= 4 ? 'rating-color' : '' }}"></i>
+                                                    <i
+                                                        class="fa fa-star {{ $comment->rating >= 5 ? 'rating-color' : '' }}"></i>
                                                 </div>
                                             </span>
                                         </div>
 
-                                        <p>{{ $comment->comment}}
+                                        <p>{{ $comment->comment }}
                                         </p>
 
                                         <ul class="list-inline d-sm-flex my-0">
                                             <li class="list-inline-item g-mr-20">
-                                                <span class="g-color-gray-dark-v4 g-font-size-12">{{ $comment->created_at->diffForHumans()}}</span>
+                                                <span
+                                                    class="g-color-gray-dark-v4 g-font-size-12">{{ $comment->created_at->diffForHumans() }}</span>
                                             </li>
                                             <li class="list-inline-item g-mr-20">
                                                 <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
@@ -500,7 +458,7 @@
                         @endforeach
                     </div>
                     <div class="row justify-content-center" style="margin-top: 30px;">
-                    {{ $comments->fragment('reviews')->links('custom')}}
+                        {{ $comments->fragment('reviews')->links('custom') }}
                     </div>
                 </div>
                 <!--end comment -->

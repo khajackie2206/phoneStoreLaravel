@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class="loader-wrapper" style="z-index: 2000;">
+    <div class="loader-wrapper" style="z-index: 2000;">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
     <!-- Header Area End Here -->
@@ -14,17 +14,20 @@
                         <div class="slider-active owl-carousel">
                             <!-- Begin Single Slide Area -->
                             @foreach ($bannerHeaders as $header)
-                                  <div class="single-slide align-center-left  animation-style-01 bg-1" style="background-image: url({{$header->thumb}});">
-                                <div class="slider-progress"></div>
-                                <div class="slider-content">
-                                    <h5>{{ $header->header }}</h5>
-                                    <h2>{{ $header->product_name}}</h2>
-                                    <h3>Chỉ từ: <span>{{ number_format((float)$header->price,0,',', '.') }} Đ</span></h3>
-                                    <div class="default-btn slide-btn">
-                                        <a class="links" href="{{ $header->url}}">Mua ngay</a>
+                                <div class="single-slide align-center-left  animation-style-01 bg-1"
+                                    style="background-image: url({{ $header->thumb }});">
+                                    <div class="slider-progress"></div>
+                                    <div class="slider-content">
+                                        <h5>{{ $header->header }}</h5>
+                                        <h2>{{ $header->product_name }}</h2>
+                                        <h3>Chỉ từ: <span>{{ number_format((float) $header->price, 0, ',', '.') }}
+                                                Đ</span>
+                                        </h3>
+                                        <div class="default-btn slide-btn">
+                                            <a class="links" href="{{ $header->url }}">Mua ngay</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -33,13 +36,12 @@
                 <!-- Begin Li Banner Area -->
                 <div class="col-lg-4 col-md-4 text-center pt-xs-30">
                     @foreach ($staticHeaders as $banner)
-                    <div class="li-banner mb-30 mt-sm-30 mt-xs-30">
-                        <a href="{{$banner->url}}">
-                            <img src="{{$banner->thumb}}"
-                                alt="">
-                        </a>
-                    </div>
-                       @endforeach
+                        <div class="li-banner mb-30 mt-sm-30 mt-xs-30">
+                            <a href="{{ $banner->url }}">
+                                <img src="{{ $banner->thumb }}" alt="">
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
                 <!-- Li Banner Area End Here -->
             </div>
@@ -67,6 +69,18 @@
                     <div class="row">
                         <div class="product-active owl-carousel">
                             @foreach ($productsNewly as $productNewly)
+                                <?php
+                                $countRatingNewly = count($productNewly->comments->where('status', 1));
+                                $avgRatingNewly = 0;
+                                $sumRatingNewly = 0;
+                                if ($countRatingNewly > 0) {
+                                    foreach ($productNewly->comments->where('status', 1) as $comment) {
+                                        $sumRatingNewly += $comment->rating;
+                                    }
+                                    $avgRatingNewly = $sumRatingNewly / $countRatingNewly;
+                                }
+
+                                ?>
                                 <div class="col-lg-12">
                                     <!-- single-product-wrap start -->
 
@@ -89,29 +103,39 @@
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingNewly >= 1 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingNewly >= 2 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingNewly >= 3 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingNewly >= 4 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingNewly >= 5 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <h4><a class="product_name"
                                                         href="single-product.html">{{ $productNewly->name }}</a></h4>
                                                 <div class="price-box">
-                                                     @if ($productNewly->discount > 0)
-                                                             <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productNewly->price-$productNewly->discount) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @else
-                                                           <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productNewly->price) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @endif
+                                                    @if ($productNewly->discount > 0)
+                                                        <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productNewly->price - $productNewly->discount) }}
+                                                            <span style="text-decoration: underline;">đ</span>
+                                                        </p>
+                                                    @else
+                                                        <p style="color: red; font-weight:bold;">
+                                                            {{ number_format($productNewly->price) }} <span
+                                                                style="text-decoration: underline;">đ</span></p>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/{{ $productNewly->id }}">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a
+                                                            href="/products/details/{{ $productNewly->id }}">ĐẶT MUA
+                                                            NGAY</a></li>
                                                     <li>
                                                         <p productId="{{ $productNewly->id }}" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
@@ -139,14 +163,13 @@
             <div class="row">
                 <!-- Begin Single Banner Area -->
                 @foreach ($centerBanners as $banner)
-                <div class="col-lg-4 col-md-4 text-center">
-                    <div class="single-banner" >
-                        <a href="{{$banner->url}}">
-                            <img src="{{$banner->thumb}}"
-                                alt="Li's Static Banner">
-                        </a>
+                    <div class="col-lg-4 col-md-4 text-center">
+                        <div class="single-banner">
+                            <a href="{{ $banner->url }}">
+                                <img src="{{ $banner->thumb }}" alt="Li's Static Banner">
+                            </a>
+                        </div>
                     </div>
-                </div>
                 @endforeach
                 <!-- Single Banner Area End Here -->
 
@@ -200,13 +223,16 @@
                                                         href="single-product.html">{{ $productDiscount->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                          @if ($productDiscount->discount > 0)
-                                                             <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productDiscount->price-$productDiscount->discount) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @else
-                                                           <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($productDiscount->price) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @endif
+                                                        @if ($productDiscount->discount > 0)
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($productDiscount->price - $productDiscount->discount) }}
+                                                                <span style="text-decoration: underline;">đ</span>
+                                                            </p>
+                                                        @else
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($productDiscount->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></p>
+                                                        @endif
                                                     </span>
                                                 </div>
                                             </div>
@@ -246,15 +272,15 @@
                     <!-- Li's Static Home Image Area End Here -->
                     <!-- Begin Li's Static Home Content Area -->
                     <div class="li-static-home-content">
-                        <p>{{ $broadcastBanner->header}}</p>
+                        <p>{{ $broadcastBanner->header }}</p>
                         <h2>Sản phẩm</h2>
                         <h2>{{ $broadcastBanner->product_name }}</h2>
                         <p class="schedule">
                             Chỉ từ:
-                            <span> {{ number_format((float)$broadcastBanner->price,0,',', '.') }} Đ</span>
+                            <span> {{ number_format((float) $broadcastBanner->price, 0, ',', '.') }} Đ</span>
                         </p>
                         <div class="default-btn">
-                            <a href="{{$broadcastBanner->url}}" class="links">MUA NGAY</a>
+                            <a href="{{ $broadcastBanner->url }}" class="links">MUA NGAY</a>
                         </div>
                     </div>
                     <!-- Li's Static Home Content Area End Here -->
@@ -309,19 +335,24 @@
                                                         href="single-product.html">{{ $goodProduct->name }}</a></h4>
                                                 <div class="price-box">
                                                     <span class="new-price">
-                                                              @if ($goodProduct->discount > 0)
-                                                             <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($goodProduct->price-$goodProduct->discount) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @else
-                                                           <p style="color: red; font-weight:bold;">
-                                                            {{ number_format($goodProduct->price) }} <span style="text-decoration: underline;">đ</span></p>
-                                                     @endif
+                                                        @if ($goodProduct->discount > 0)
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($goodProduct->price - $goodProduct->discount) }}
+                                                                <span style="text-decoration: underline;">đ</span>
+                                                            </p>
+                                                        @else
+                                                            <p style="color: red; font-weight:bold;">
+                                                                {{ number_format($goodProduct->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></p>
+                                                        @endif
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="/products/details/{{ $goodProduct->id }}">ĐẶT MUA NGAY</a></li>
+                                                    <li class="add-cart active"><a
+                                                            href="/products/details/{{ $goodProduct->id }}">ĐẶT MUA
+                                                            NGAY</a></li>
                                                     <li>
                                                         <p productId="{{ $goodProduct->id }}" title="quick view"
                                                             class="quick-view-btn" data-toggle="modal"
