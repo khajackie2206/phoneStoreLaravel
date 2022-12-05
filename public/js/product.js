@@ -95,15 +95,33 @@ $(".quick-view-btn").click(function () {
         datatype: "JSON",
         url: "/products/detail/" + productId,
         success: function (results) {
-            // console.log(results);
-            // $("#modelProductImage").html('');
-
             $("#productId").val(results.id);
             $("#url").val("/products/details/" + results.id);
             $("#modelProductBrand").html(results.brand);
+            if(results.rating >= 1) {
+            } else {
+               $("#star-1").toggleClass("no-star");
+            }
+             if (results.rating >= 2) {
+             } else {
+                 $("#star-2").toggleClass("no-star");
+             }
+              if (results.rating >= 3) {
+              } else {
+                  $("#star-3").toggleClass("no-star");
+              }
+               if (results.rating >= 4) {
+               } else {
+                   $("#star-4").toggleClass("no-star");
+               }
+                if (results.rating >= 5) {
+                } else {
+                    $("#star-5").toggleClass("no-star");
+                }
             $("#modelProductMemory").html(
                 results.ram + " GB" + " - " + results.memory
             );
+             $("#numberRating").html(results.numberRating);
             $("#modalProductName").html(results.name);
             $("#modalProductPrice").html(
                 results.price.toLocaleString("vi", {
@@ -111,7 +129,7 @@ $(".quick-view-btn").click(function () {
                     currency: "VND",
                 })
             );
-             $("#modelProductColor").html(results.color);
+            $("#modelProductColor").html(results.color);
             $("#modalProductDesc").html(results.description);
             results.thumbs.map((productImage) => {
                 $("#modelProductImage").children("img").eq(0).remove();

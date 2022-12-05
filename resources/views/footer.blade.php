@@ -155,13 +155,12 @@
                                   <span class="product-details-ref" id="modelProductBrand"></span>
                                   <div class="rating-box pt-20">
                                       <ul class="rating rating-with-review-item">
-                                          <li><i class="fa fa-star-o"></i></li>
-                                          <li><i class="fa fa-star-o"></i></li>
-                                          <li><i class="fa fa-star-o"></i></li>
-                                          <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                          <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                          <li><a href="#" style="color: #2f80ed;font-size: 9pt;">606 Đánh
-                                                  giá</a></li>
+                                          <li id="star-1"><i class="fa fa-star-o"></i></li>
+                                          <li id="star-2"><i class="fa fa-star-o"></i></li>
+                                          <li id="star-3"><i class="fa fa-star-o"></i></li>
+                                          <li id="star-4"><i class="fa fa-star-o"></i></li>
+                                          <li id="star-5"><i class="fa fa-star-o"></i></li>
+                                          <li><a href="#" id="numberRating" style="color: #2f80ed;font-size: 9pt;"></a><span style="color: #2f80ed;font-size: 9pt;"> Đánh giá</span></li>
                                       </ul>
                                   </div>
                                   <div class="price-box pt-20">

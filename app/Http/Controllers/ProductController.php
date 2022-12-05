@@ -73,6 +73,15 @@ class ProductController extends Controller
     public function getProductDetail(int $id)
     {
         $product = $this->productService->getProductDetail($id);
+        $countRating = count($product->comments);
+        $avgRating = 0;
+        $sumRating = 0;
+        if ($countRating > 0) {
+            foreach ($product->comments as $comment) {
+                $sumRating += $comment->rating;
+            }
+            $avgRating = $sumRating / $countRating;
+        }
 
         return [
             'id' => $product->id,
@@ -84,6 +93,8 @@ class ProductController extends Controller
             'memory' => $product->rom,
             'color' => $product->color,
             'brand' => $product->brand->name,
+            'numberRating' => $countRating,
+            'rating' => $avgRating,
         ];
     }
 
