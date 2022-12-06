@@ -191,6 +191,18 @@
                     <div class="row">
                         <div class="product-active owl-carousel">
                             @foreach ($productsDiscount as $productDiscount)
+                             <?php
+                                $countRatingDiscount = count($productDiscount->comments->where('status', 1));
+                                $avgRatingDiscount = 0;
+                                $sumRatingDiscount = 0;
+                                if ($countRatingDiscount > 0) {
+                                    foreach ($productDiscount->comments->where('status', 1) as $comment) {
+                                        $sumRatingDiscount += $comment->rating;
+                                    }
+                                    $avgRatingDiscount = $sumRatingDiscount / $countRatingDiscount;
+                                }
+
+                                ?>
                                 <div class="col-lg-12">
                                     <!-- single-product-wrap start -->
 
@@ -211,11 +223,16 @@
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
+                                                             <li class="{{ $avgRatingDiscount >= 1 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingDiscount >= 2 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingDiscount >= 3 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingDiscount >= 4 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingDiscount >= 5 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -304,6 +321,18 @@
                     <div class="row">
                         <div class="product-active owl-carousel">
                             @foreach ($goodProducts as $goodProduct)
+                              <?php
+                                $countRatingGood = count($goodProduct->comments->where('status', 1));
+                                $avgRatingGood = 0;
+                                $sumRatingGood = 0;
+                                if ($countRatingGood > 0) {
+                                    foreach ($goodProduct->comments->where('status', 1) as $comment) {
+                                        $sumRatingGood += $comment->rating;
+                                    }
+                                    $avgRatingGood = $sumRatingGood / $countRatingGood;
+                                }
+
+                                ?>
                                 <div class="col-lg-12">
                                     <!-- single-product-wrap start -->
                                     <div class="single-product-wrap">
@@ -323,11 +352,16 @@
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                             <li class="{{ $avgRatingGood >= 1 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingGood >= 2 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingGood >= 3 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingGood >= 4 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
+                                                            <li class="{{ $avgRatingGood >= 5 ? '' : 'no-star' }}"><i
+                                                                    class="fa fa-star-o"></i></li>
                                                         </ul>
                                                     </div>
                                                 </div>

@@ -98,26 +98,40 @@ $(".quick-view-btn").click(function () {
             $("#productId").val(results.id);
             $("#url").val("/products/details/" + results.id);
             $("#modelProductBrand").html(results.brand);
-            if(results.rating >= 1) {
-            } else {
-               $("#star-1").toggleClass("no-star");
+             $("#star-1").removeClass("no-star");
+             $("#star-2").removeClass("no-star");
+             $("#star-3").removeClass("no-star");
+             $("#star-4").removeClass("no-star");
+             $("#star-5").removeClass("no-star");
+            if (results.rating < 1)
+            {
+                $("#star-1").toggleClass("no-star");
+                $("#star-2").toggleClass("no-star");
+                $("#star-3").toggleClass("no-star");
+                $("#star-4").toggleClass("no-star");
+                $("#star-5").toggleClass("no-star");
             }
-             if (results.rating >= 2) {
-             } else {
-                 $("#star-2").toggleClass("no-star");
+             if (results.rating >= 1 && results.rating < 2) {
+               $("#star-2").toggleClass("no-star");
+               $("#star-3").toggleClass("no-star");
+               $("#star-4").toggleClass("no-star");
+               $("#star-5").toggleClass("no-star");
              }
-              if (results.rating >= 3) {
-              } else {
-                  $("#star-3").toggleClass("no-star");
+             if (results.rating >= 2 && results.rating < 3) {
+               $("#star-3").toggleClass("no-star");
+               $("#star-4").toggleClass("no-star");
+               $("#star-5").toggleClass("no-star");
+             }
+              if (results.rating >= 3 && results.rating < 4) {
+                $("#star-4").toggleClass("no-star");
+                $("#star-5").toggleClass("no-star");
               }
-               if (results.rating >= 4) {
-               } else {
-                   $("#star-4").toggleClass("no-star");
-               }
-                if (results.rating >= 5) {
-                } else {
-                    $("#star-5").toggleClass("no-star");
-                }
+              if (results.rating >= 4 && results.rating < 5) {
+                  $("#star-5").toggleClass("no-star");
+              }
+              if (results.rating >= 5) {
+
+              }
             $("#modelProductMemory").html(
                 results.ram + " GB" + " - " + results.memory
             );
