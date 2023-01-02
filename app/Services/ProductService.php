@@ -11,6 +11,8 @@ use App\Models\ProductFeature;
 use App\Models\ProductMemory;
 use App\Repositories\ProductRepository;
 use Exception;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  * Class ProductService.
@@ -115,6 +117,14 @@ class ProductService
             ->orderBy('id', 'DESC')
             ->limit(self::LIMIT)
             ->get()->unique('name');
+
+        return $products;
+    }
+
+    public function filterProduct(){
+        $products = QueryBuilder::for(Product::class)
+            ->allowedFilters(['name', AllowedFilter::scope('brand')])
+            ->get();
 
         return $products;
     }

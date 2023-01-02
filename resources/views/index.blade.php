@@ -104,6 +104,8 @@
         @yield('content')
 
         @include('footer')
+
+        @yield('scripts')
     </div>
 
     <!-- Quick View | Modal Area End Here -->

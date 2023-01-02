@@ -205,8 +205,10 @@
                                 <div class="categori-checkbox">
                                     <ul>
                                         @foreach ($brands as $brand)
-                                            <li><input type="checkbox" class="feature_checkbox brands" name="brands[]"
-                                                    value="{{ $brand->id }}"><a href="#">{{ $brand->name }}</a>
+                                            <li class="d-flex align-items-center"><input type="checkbox" class="feature_checkbox brands" name="brands[]"
+                                                       id="branch-{{$brand->id}}"
+                                                       class="brandFilter"
+                                                    value="{{ $brand->id }}"><a><label class="mb-0 pb-0" for="branch-{{$brand->id}}">{{ $brand->name }}</label></a>
                                             </li>
                                         @endforeach
 
@@ -263,6 +265,8 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <button class="btn-primary mb-sm-30 mb-xs-30">Tìm kiếm</button>
                         </form>
 
                         <!-- filter-sub-area end -->
@@ -275,3 +279,11 @@
     </div>
     <!-- Content Wraper Area End Here -->
 @endsection
+
+@section('scripts')
+    <script>
+        $( document ).ready(function() {
+
+        });
+    </script>
+@stop

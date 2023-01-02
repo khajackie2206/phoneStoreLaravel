@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Pagination\CursorPaginator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductController extends Controller
 {
@@ -214,7 +215,7 @@ class ProductController extends Controller
 
     public function filterPage()
     {
-        $products = $this->productService->getAllProducts();
+        $products = $this->productService->filterProduct();
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::where('active', 1)
             ->where('delete_at', null)
