@@ -87,8 +87,10 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productNewly->id }}">
+                                                @if(isset($productNewly->images->where('type', 'cover')->first()['url']))
                                                 <img src="{{ $productNewly->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
+                                                @endif
                                             </a>
                                             <span class="sticker"
                                                 style="background-color: yellow; color: black; font-weight:bold;">New</span>
@@ -209,8 +211,10 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $productDiscount->id }}">
+                                                @if(isset($productDiscount->images->where('type', 'cover')->first()['url']))
                                                 <img src="{{ $productDiscount->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
+                                                @endif
                                             </a>
                                         </div>
 
@@ -289,6 +293,7 @@
                     <!-- Li's Static Home Image Area End Here -->
                     <!-- Begin Li's Static Home Content Area -->
                     <div class="li-static-home-content">
+                        @if(isset($broadcastBanner))
                         <p>{{ $broadcastBanner->header }}</p>
                         <h2>Sản phẩm</h2>
                         <h2>{{ $broadcastBanner->product_name }}</h2>
@@ -299,6 +304,7 @@
                         <div class="default-btn">
                             <a href="{{ $broadcastBanner->url }}" class="links">MUA NGAY</a>
                         </div>
+                        @endif
                     </div>
                     <!-- Li's Static Home Content Area End Here -->
                 </div>
@@ -338,8 +344,10 @@
                                     <div class="single-product-wrap">
                                         <div class="product-image">
                                             <a href="/products/details/{{ $goodProduct->id }}">
+                                                @if(isset($goodProduct->images->where('type', 'cover')->first()['url']))
                                                 <img src="{{ $goodProduct->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="Li's Product Image" style="width: 120px;height:120px;">
+                                                @endif
                                             </a>
                                         </div>
 
