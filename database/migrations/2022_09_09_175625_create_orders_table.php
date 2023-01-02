@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('total');
             $table->integer('profit');
             $table->string('delivery_address');
+            $table->dateTime('order_date');
             $table->timestamps();
             $table->foreign('express_id')->references('id')->on('expresses');
             $table->foreign('status_id')->references('id')->on('status');
