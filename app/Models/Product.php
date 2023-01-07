@@ -43,4 +43,9 @@ class Product extends Model
 
         return $query->whereIn('brand_id', $branchId);
     }
+
+    public function scopePrice(Builder $query, string $minPrice, string $maxPrice): Builder
+    {
+        return $query->whereBetween('price', [$minPrice, $maxPrice]);
+    }
 }
