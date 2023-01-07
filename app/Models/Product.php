@@ -48,4 +48,11 @@ class Product extends Model
     {
         return $query->whereBetween('price', [$minPrice, $maxPrice]);
     }
+
+    public function scopeRom(Builder $query, string $romId): Builder
+    {
+        $romId = explode('-', $romId);
+
+        return $query->whereIn('rom', $romId);
+    }
 }
