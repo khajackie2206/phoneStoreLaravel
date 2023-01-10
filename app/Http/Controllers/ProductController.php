@@ -215,6 +215,12 @@ class ProductController extends Controller
 
     public function filterPage()
     {
+        //get value of param with name is filter[brand]
+        $brandFilter = request()->input('filter.brand');
+        $priceFilter = request()->input('filter.price');
+
+        //convert $brandFilter to array by - if not null
+        $brandFilter = $brandFilter ? explode('-', $brandFilter) : [];
         $products = $this->productService->filterProduct();
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::where('active', 1)
@@ -229,6 +235,8 @@ class ProductController extends Controller
             'carts' => session()->get('carts'),
             'brands' => $brands,
             'features' => $features,
+            'brandFilter' => $brandFilter,
+            'priceFilter' => $priceFilter,
         ]);
     }
 

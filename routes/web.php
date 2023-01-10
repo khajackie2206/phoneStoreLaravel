@@ -118,7 +118,7 @@ Route::prefix('products')->group(function () {
     Route::get('/checkout', [CardController::class, 'checkout'])->name('checkout');
 
     //filter product
-    Route::get('/filter', [ProductController::class, 'filterPage']);
+    Route::get('/filter', [ProductController::class, 'filterPage'])->name('product.filter');
     Route::get('filter-product', [ProductController::class, 'filter']);
     Route::get('/load-more', [ProductController::class, 'loadMore']);
     Route::get('/load-product', [ProductController::class, 'loadProduct']);
