@@ -123,7 +123,13 @@ class ProductService
 
     public function filterProduct(){
         $products = QueryBuilder::for(Product::class)
-            ->allowedFilters(['name', AllowedFilter::scope('brand'),AllowedFilter::scope('price'), AllowedFilter::scope('rom')])
+            ->allowedFilters([
+                'name',
+                AllowedFilter::scope('brand'),
+                AllowedFilter::scope('price'),
+                AllowedFilter::scope('rom'),
+                AllowedFilter::exact('os')
+            ])
             ->get();
 
         return $products;
