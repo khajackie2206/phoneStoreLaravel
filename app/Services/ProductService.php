@@ -121,19 +121,18 @@ class ProductService
         return $products;
     }
 
-    public function filterProduct(){
+    public function filterProduct($params){
         $products = QueryBuilder::for(Product::class)
             ->allowedFilters([
                 'name',
                 AllowedFilter::scope('brand'),
-                AllowedFilter::scope('price'),
                 AllowedFilter::scope('rom'),
-                AllowedFilter::exact('os')
+                AllowedFilter::scope('os'),
+                AllowedFilter::scope('price'),
             ])
-            ->allowedSorts(['name', 'price'])
-            ->get();
+            ->allowedSorts(['name', 'price']);
 
-        return $products;
+        return $products->get();
     }
 
     public function getSameBrands(Product $product)

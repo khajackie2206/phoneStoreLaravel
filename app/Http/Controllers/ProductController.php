@@ -226,7 +226,9 @@ class ProductController extends Controller
         $osFilter = request()->input('filter.os');
         $osFilter = $osFilter ? explode(',', $osFilter): [];
         $sortFilter = request()->input('sort');
-        $products = $this->productService->filterProduct();
+
+
+        $products = $this->productService->filterProduct(request()->input());
 
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::where('active', 1)

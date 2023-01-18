@@ -45,23 +45,7 @@ class Product extends Model
         return $query->whereIn('brand_id', $branchId);
     }
 
-    public function scopePrice(Builder $query, string $price): Builder
-    {
-        $price = explode('-', $price);
-        $price = array_map(function ($item) {
-            return (object) [
-                'minPrice' => explode(';', $item)[0],
-                'maxPrice' => explode(';', $item)[1],
-            ];
-        }, $price);
 
-        foreach ($price as $item) {
-            $query->orWhereBetween('price', [$item->minPrice, $item->maxPrice]);
-        }
-
-        return $query;
-
-    }
 
     public function scopeRom(Builder $query, string $romId): Builder
     {
@@ -75,5 +59,28 @@ class Product extends Model
         $osId = explode(',', $osId);
 
         return $query->whereIn('os', $osId);
+    }
+
+    public function scopePrice(Builder $query, string $price): Builder
+    {
+        $price = explode('-', $price);
+        $price = array_map(function ($item) {
+            return (object) [
+                'minPrice' => explode(';', $item)[0],
+                'maxPrice' => explode(';', $item)[1],
+            ];
+        }, $price);
+
+        //write query for $query with price beetwen minPrice and maxPrice
+        $query->whereBetween('price', [$price[0]->minPrice, $price[0]->maxPrice]);
+        //check if price has second value, loop and add orWhereBetween value
+        if (count($price) > 1) {
+            for ($i = 1; $i < count($price); $i++) {
+                $query->orWhereBetween('price', [$price[$i]->minPrice, $price[$i]->maxPrice]);
+            }
+        }
+
+        return $query;
+
     }
 }
