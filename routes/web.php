@@ -134,12 +134,17 @@ Route::prefix('products')->group(function () {
 
     //Comment
     Route::post('/comment', [RatingController::class, 'add']);
+
 });
 
 Route::prefix('users')->group(function () {
     Route::get('/detail', [MainController::class, 'userDetail']);
     Route::put('/update/{user}', [MainController::class, 'update']);
     Route::get('/order-tracking', [MainController::class, 'trackOrder']);
+
+       //Change password
+    Route::get('/change-password', [MainController::class, 'changePasswordPage']);
+    Route::post('/change-password', [MainController::class, 'changePassword']);
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);

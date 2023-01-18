@@ -7,7 +7,10 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li style="margin-top: 5px;"><a href="#"><i class="fa fa-phone fa-lg" style="color: red;"  aria-hidden="true"></i> +84 911603179<i class="fa fa-envelope fa-lg" style="margin-left: 40px;color:red;" aria-hidden="true"></i>&nbsp; khajackie2206@gmail.com</a></li>
+                            <li style="margin-top: 5px;"><a href="#"><i class="fa fa-phone fa-lg" style="color: red;"
+                                        aria-hidden="true"></i> +84 911603179<i class="fa fa-envelope fa-lg"
+                                        style="margin-left: 40px;color:red;" aria-hidden="true"></i>&nbsp;
+                                    khajackie2206@gmail.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,11 +38,10 @@
                             @endif
 
                             <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px; margin-left: 50px;">
-                                <a class="dropdown-item" href="/users/detail"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-user align-middle me-1">
+                                <a class="dropdown-item" href="/users/detail"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-user align-middle me-1">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>&nbsp; Thông tin cá nhân</a>
@@ -57,7 +59,8 @@
                                             </g>
                                         </g>
                                     </svg>&nbsp; Đơn hàng</a>
-
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/users/change-password"><img  style="height: 23px;" src="https://img.icons8.com/ios/50/null/re-enter-pincode.png"/>&nbsp; Đổi mật khẩu</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
                             </div>
@@ -106,7 +109,8 @@
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
                             <img src="{{ asset('images/allo.png') }}"
-                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
+                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;"
+                                alt="">
                         </a>
                     </div>
                 </div>
