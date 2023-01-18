@@ -71,7 +71,7 @@ class Product extends Model
             ];
         }, $price);
 
-        //write query for $query with price beetwen minPrice and maxPrice
+        //write query for $query with price between minPrice and maxPrice
         $query->whereBetween('price', [$price[0]->minPrice, $price[0]->maxPrice]);
         //check if price has second value, loop and add orWhereBetween value
         if (count($price) > 1) {
@@ -81,6 +81,5 @@ class Product extends Model
         }
 
         return $query;
-
     }
 }
