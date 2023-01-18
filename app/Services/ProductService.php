@@ -130,6 +130,7 @@ class ProductService
                 AllowedFilter::scope('rom'),
                 AllowedFilter::exact('os')
             ])
+            ->allowedSorts(['name', 'price'])
             ->get();
 
         return $products;

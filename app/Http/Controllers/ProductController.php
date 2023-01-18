@@ -225,6 +225,7 @@ class ProductController extends Controller
         $romFilter = $romFilter ? explode('-', $romFilter): [];
         $osFilter = request()->input('filter.os');
         $osFilter = $osFilter ? explode(',', $osFilter): [];
+        $sortFilter = request()->input('sort');
         $products = $this->productService->filterProduct();
 
         $sessionProducts = $this->cardService->getProduct();
@@ -243,6 +244,7 @@ class ProductController extends Controller
             'priceFilter' => $priceFilter,
             'romFilter' => $romFilter,
             'osFilter' => $osFilter,
+            'sortFilter' => $sortFilter,
         ]);
     }
 

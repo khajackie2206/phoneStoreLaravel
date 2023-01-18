@@ -37,11 +37,11 @@
                         <div class="product-select-box">
                             <div class="product-short">
                                 <p>Sắp xếp theo:</p>
-                                <select class="nice-select">
-                                    <option value="sales">Tên điện thoại (A - Z)</option>
-                                    <option value="sales">Tên điện thoại (Z - A)</option>
-                                    <option value="rating">Mức giá (Thấp &gt; Cao)</option>
-                                    <option value="rating">Mức giá (Cao &gt; Thấp)</option>
+                                <select class="nice-select" id="product-sort">
+                                    <option value="name" {{ in_array('name', [$sortFilter]) ? 'selected' : '' }}>Tên điện thoại (A - Z)</option>
+                                    <option value="-name" {{ in_array('-name', [$sortFilter]) ? 'selected' : '' }}>Tên điện thoại (Z - A)</option>
+                                    <option value="price" {{ in_array('price', [$sortFilter]) ? 'selected' : '' }}>Mức giá (Thấp &gt; Cao)</option>
+                                    <option value="-price" {{ in_array('-price', [$sortFilter]) ? 'selected' : '' }}>Mức giá (Cao &gt; Thấp)</option>
                                     <option value="date">Bán chạy nhất</option>
                                 </select>
                             </div>
@@ -196,10 +196,11 @@
                             <h2>Lọc sản phẩm</h2>
                         </div>
                         <!-- btn-clear-all start -->
-                        <button class="btn-clear-all mb-sm-30 mb-xs-30">Xóa tất cả</button>
+                        <button class="btn-clear-all mb-sm-30 mb-xs-30"><a href="{{route('product.filter')}}">Xóa tất cả</a></button>
                         <!-- btn-clear-all end -->
                         <!-- filter-sub-area start -->
                         <form action="{{route('product.filter')}}" method="GET" id="myForm">
+                            <input type="hidden" name="sort" id="sort">
                             <div class="filter-sub-area">
                                 <h5 class="filter-sub-titel">Thương hiệu</h5>
                                 <div class="categori-checkbox">
@@ -314,7 +315,12 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-           //when button with id btnSearch click, get value of input with name is brands[] and log it
+            var sort = $('#product-sort :selected').val();
+            $('#sort').val(sort);
+           //when select with id product-sort change value, alert value
+            $('#product-sort').change(function(){
+                $('input[name="sort"]').val($(this).val());
+            });
             $('#btnSearch').click(function(e){
                 //prevent form submit
                 e.preventDefault();
@@ -367,7 +373,6 @@
                 else{
                     $('input[name="filter[os]"]').remove();
                 }
-
                 //submit form
                 $('#myForm').submit();
             });
