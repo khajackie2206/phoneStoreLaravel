@@ -218,16 +218,20 @@ class ProductController extends Controller
         //get value of param with name is filter[brand]
         $brandFilter = request()->input('filter.brand');
         $priceFilter = request()->input('filter.price');
-
+        $priceFilter = $priceFilter ? explode('-', $priceFilter): [];
         //convert $brandFilter to array by - if not null
         $brandFilter = $brandFilter ? explode('-', $brandFilter) : [];
+        $romFilter = request()->input('filter.rom');
+        $romFilter = $romFilter ? explode('-', $romFilter): [];
+        $osFilter = request()->input('filter.os');
+        $osFilter = $osFilter ? explode(',', $osFilter): [];
         $products = $this->productService->filterProduct();
+
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::where('active', 1)
             ->where('delete_at', null)
             ->get();
         $features = Feature::get();
-
         return view('product.filter-product', [
             'title' => 'Danh sách sản phẩm',
             'products' => $products,
@@ -237,6 +241,8 @@ class ProductController extends Controller
             'features' => $features,
             'brandFilter' => $brandFilter,
             'priceFilter' => $priceFilter,
+            'romFilter' => $romFilter,
+            'osFilter' => $osFilter,
         ]);
     }
 

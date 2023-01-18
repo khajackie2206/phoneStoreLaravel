@@ -45,9 +45,22 @@ class Product extends Model
         return $query->whereIn('brand_id', $branchId);
     }
 
-    public function scopePrice(Builder $query, string $minPrice, string $maxPrice): Builder
+    public function scopePrice(Builder $query, string $price): Builder
     {
-        return $query->whereBetween('price', [$minPrice, $maxPrice]);
+        $price = explode('-', $price);
+        $price = array_map(function ($item) {
+            return (object) [
+                'minPrice' => explode(';', $item)[0],
+                'maxPrice' => explode(';', $item)[1],
+            ];
+        }, $price);
+
+        foreach ($price as $item) {
+            $query->orWhereBetween('price', [$item->minPrice, $item->maxPrice]);
+        }
+
+        return $query;
+
     }
 
     public function scopeRom(Builder $query, string $romId): Builder
@@ -55,5 +68,12 @@ class Product extends Model
         $romId = explode('-', $romId);
 
         return $query->whereIn('rom', $romId);
+    }
+
+    public function scopeOs(Builder $query, string $osId): Builder
+    {
+        $osId = explode(',', $osId);
+
+        return $query->whereIn('os', $osId);
     }
 }

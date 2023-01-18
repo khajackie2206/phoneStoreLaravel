@@ -225,24 +225,24 @@
                                 <div class="size-checkbox">
                                     <ul>
                                         <li class="d-flex align-items-center">
-                                            <input type="checkbox" class="priceFilter" value="0,2000000" id="price1"
-                                            {{ in_array('0,2000000', [$priceFilter]) ? 'checked' : '' }}
+                                            <input type="checkbox" class="priceFilter" value="0;2000000" id="price1"
+                                            {{ in_array('0;2000000', $priceFilter) ? 'checked' : '' }}
                                             >
                                             <label class="pl-3 mb-0" for="price1">Dưới 2 triệu</label></li>
-                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="2000000,4000000" id="price2"
-                                                {{ in_array('2000000,4000000', [$priceFilter]) ? 'checked' : '' }}
+                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="2000000;4000000" id="price2"
+                                                {{ in_array('2000000;4000000', $priceFilter) ? 'checked' : '' }}
                                             >
                                             <label class="pl-3 mb-0" for="price2">Từ 2 - 4 triệu</label></li>
-                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="4000000,7000000" id="price3"
-                                                {{ in_array('4000000,7000000', [$priceFilter]) ? 'checked' : '' }}
+                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="4000000;7000000" id="price3"
+                                                {{ in_array('4000000;7000000', $priceFilter) ? 'checked' : '' }}
                                             >
                                             <label class="pl-3 mb-0" for="price3">Từ 4 - 7 triệu</label></li>
-                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="7000000,13000000" id="price4"
-                                                {{ in_array('7000000,13000000', [$priceFilter]) ? 'checked' : '' }}
+                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter"  value="7000000;13000000" id="price4"
+                                                {{ in_array('7000000;13000000', $priceFilter) ? 'checked' : '' }}
                                             >
                                             <label class="pl-3 mb-0" for="price4">Từ 7 - 13 triệu</label></li>
-                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter" value="13000000,20000000" id="price5"
-                                                {{ in_array('13000000,20000000', [$priceFilter]) ? 'checked' : '' }}
+                                        <li class="d-flex align-items-center"><input type="checkbox" class="priceFilter" value="13000000;20000000" id="price5"
+                                                {{ in_array('13000000;20000000', $priceFilter) ? 'checked' : '' }}
                                             >
                                             <label class="pl-3 mb-0" for="price5">Từ 13 - 20 triệu</label></li>
                                     </ul>
@@ -255,10 +255,18 @@
                                 <h5 class="filter-sub-titel">Bộ nhớ trong</h5>
                                 <div class="size-checkbox">
                                     <ul>
-                                        <li><input type="checkbox" class="product-memories" id="rom1" value="64 GB"><label for="rom1">64 GB</label></li>
-                                        <li><input type="checkbox" class="product-memories" id="rom2" value="128 GB"><label for="rom2">128 GB</label></li>
-                                        <li><input type="checkbox" class="product-memories" id="rom3"  value="256 GB"><label for="rom3" >256 GB</label></li>
-                                        <li><input type="checkbox" class="product-memories" id="rom4" value="512 GB"><label for="rom4" >512 GB</label></li>
+                                        <li><input type="checkbox" class="product-memories" id="rom1" value="64 GB"
+                                                {{ in_array('64 GB', $romFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="rom1">64 GB</label></li>
+                                        <li><input type="checkbox" class="product-memories" id="rom2" value="128 GB"
+                                                {{ in_array('128 GB', $romFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="rom2">128 GB</label></li>
+                                        <li><input type="checkbox" class="product-memories" id="rom3"  value="256 GB"
+                                                {{ in_array('256 GB', $romFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="rom3">256 GB</label></li>
+                                        <li><input type="checkbox" class="product-memories" id="rom4" value="512 GB"
+                                                {{ in_array('512 GB', $romFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="rom4">512 GB</label></li>
                                     </ul>
                                     <input type="hidden" name="filter[rom]">
                                 </div>
@@ -269,16 +277,23 @@
                                 <h5 class="filter-sub-titel">Loại điện thoại</h5>
                                 <div class="categori-checkbox">
                                     <ul>
-                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
-                                                value="Android"><a href="#">Android</a>
+                                        <li><input type="checkbox" class="phone-types" id="android"
+                                                value="Android"
+                                                {{ in_array('Android', $osFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="android">Android</label>
                                         </li>
-                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
-                                                value="IOS"><a href="#">iOS</a>
+                                        <li><input type="checkbox" class="phone-types" id="ios"
+                                                value="IOS"
+                                                {{ in_array('IOS', $osFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="ios">iOS</label>
                                         </li>
-                                        <li><input type="checkbox" class="phone-types" name="phone-types[]"
-                                                value="Other"><a href="#">Điện
-                                                thoại phổ thông</a></li>
+                                        <li><input type="checkbox" class="phone-types" id="other_phone"
+                                                value="Other"
+                                                {{ in_array('Other', $osFilter) ? 'checked' : '' }}
+                                            ><label class="ml-2" for="other_phone">Điện
+                                                thoại phổ thông</label></li>
                                     </ul>
+                                    <input type="hidden" name="filter[os]">
                                 </div>
                             </div>
 
@@ -341,6 +356,18 @@
                 else{
                     $('input[name="filter[rom]"]').remove();
                 }
+                //get value of all input with class name is phone-types and add it to array with -
+                var phoneTypes = $('.phone-types:checked').map(function(){
+                    return $(this).val();
+                }).get();
+                var phoneTypesString = phoneTypes.join(',');
+                if(phoneTypesString != ''){
+                    $('input[name="filter[os]"]').val(phoneTypesString);
+                }
+                else{
+                    $('input[name="filter[os]"]').remove();
+                }
+
                 //submit form
                 $('#myForm').submit();
             });
