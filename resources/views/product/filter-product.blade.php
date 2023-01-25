@@ -248,6 +248,19 @@
                                             <label class="pl-3 mb-0" for="price5">Từ 13 - 20 triệu</label></li>
                                     </ul>
                                 </div>
+                                <div class="mb-5">Hoặc tìm kiếm theo khoảng giá tuỳ chọn (Đơn vị: triệu)</div>
+                                <br>
+                                <div id="slider" class="mt-3 mx-3"></div>
+                                <div class="d-flex justify-content-center align-items-center mt-3">
+                                    <div class="d-flex flex-column mr-1">
+                                        <label style="font-size: 0.8rem">Giá từ</label>
+                                        <input type="number" id="input-with-keypress-0">
+                                    </div>
+                                    <div class="d-flex flex-column ml-1">
+                                        <label style="font-size: 0.8rem" >đến</label>
+                                        <input type="number" id="input-with-keypress-1">
+                                    </div>
+                                </div>
                                 <input type="hidden" name="filter[price]">
                             </div>
                             <!-- filter-sub-area end -->
@@ -297,7 +310,6 @@
                                     <input type="hidden" name="filter[os]">
                                 </div>
                             </div>
-
                             <button class="btn-primary mb-sm-30 mb-xs-30" id="btnSearch">Tìm kiếm</button>
                         </form>
 
@@ -315,6 +327,128 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+
+            //slider
+            var slider = document.getElementById('slider');
+            var input0 = document.getElementById('input-with-keypress-0');
+            var input1 = document.getElementById('input-with-keypress-1');
+            var inputs = [input0, input1];
+
+            noUiSlider.create(slider, {
+                connect: true,
+                range: {
+                    'min': 0,
+                    '10%': 10,
+                    '15%': 15,
+                    '20%': 20,
+                    '25%': 25,
+                    '30%': 30,
+                    '35%': 35,
+                    '40%': 40,
+                    '45%': 45,
+                    '50%': 50,
+                    '55%': 55,
+                    '60%': 60,
+                    '65%': 65,
+                    '70%': 70,
+                    '75%': 75,
+                    '80%': 80,
+                    '85%': 85,
+                    '90%': 90,
+                    '95%': 95,
+                    'max': 100
+                },
+                tooltips: true,
+                start: [0, 100],
+            });
+
+
+            function changeValueOfPriceFilter(priceRange){
+                //remove all check of input with class priceFilter
+                $('.priceFilter').prop('checked', false);
+                //convert priceRange to string
+                priceRange = priceRange.from * 1000000 + ';' + priceRange.to * 1000000;
+                $('input[name="filter[price]"]').val(priceRange);
+            }
+            slider.noUiSlider.on('update', function (values, handle) {
+                inputs[handle].value = values[handle];
+            });
+
+            slider.noUiSlider.on('change', function (values, handle) {
+                changeValueOfPriceFilter({'from': values[0], 'to': values[1]});
+                inputs[handle].value = values[handle];
+            });
+
+
+            inputs.forEach(function (input, handle) {
+                input.addEventListener('change', function () {
+                    slider.noUiSlider.setHandle(handle, this.value);
+                    let from = $('#input-with-keypress-0').val();
+                    let to = $('#input-with-keypress-1').val();
+                    changeValueOfPriceFilter({'from': from, 'to': to});
+                });
+
+                input.addEventListener('keydown', function (e) {
+
+                    var values = slider.noUiSlider.get();
+
+                    var value = Number(values[handle]);
+
+                    // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
+                    var steps = slider.noUiSlider.steps();
+
+                    // [down, up]
+                    var step = steps[handle];
+
+                    var position;
+
+                    // 13 is enter,
+                    // 38 is key up,
+                    // 40 is key down.
+                    switch (e.which) {
+
+                        case 13:
+                            slider.noUiSlider.setHandle(handle, this.value);
+                            break;
+
+                        case 38:
+
+                            // Get step to go increase slider value (up)
+                            position = step[1];
+
+                            // false = no step is set
+                            if (position === false) {
+                                position = 1;
+                            }
+
+                            // null = edge of slider
+                            if (position !== null) {
+                                slider.noUiSlider.setHandle(handle, value + position);
+                            }
+
+                            break;
+
+                        case 40:
+
+                            position = step[0];
+
+                            if (position === false) {
+                                position = 1;
+                            }
+
+                            if (position !== null) {
+                                slider.noUiSlider.setHandle(handle, value - position);
+                            }
+
+                            break;
+
+
+                    }
+                });
+            });
+
+            //slider
+
             var sort = $('#product-sort :selected').val();
             $('#sort').val(sort);
            //when select with id product-sort change value, alert value
@@ -347,9 +481,6 @@
                 var priceString = priceFilter.join('-');
                 if(priceString != ''){
                     $('input[name="filter[price]"]').val(priceString);
-                }
-                else{
-                    $('input[name="filter[price]"]').remove();
                 }
                 //get value of all input with class name is product-memories and add it to array with -
                 var productMemories = $('.product-memories:checked').map(function(){
