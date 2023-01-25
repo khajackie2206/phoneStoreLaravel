@@ -345,7 +345,6 @@
 
 @section('scripts')
     <script>
-<<<<<<< HEAD
         $( document ).ready(function() {
 
             //slider
@@ -461,17 +460,12 @@
                             }
 
                             break;
-
-
                     }
                 });
             });
 
             //slider
 
-=======
-        $(document).ready(function() {
->>>>>>> 2405e4a36ddc276c2df60362ac3998f44b5cd8b3
             var sort = $('#product-sort :selected').val();
             $('#sort').val(sort);
             //when select with id product-sort change value, alert value
@@ -503,11 +497,6 @@
                 var priceString = priceFilter.join('-');
                 if (priceString != '') {
                     $('input[name="filter[price]"]').val(priceString);
-<<<<<<< HEAD
-=======
-                } else {
-                    $('input[name="filter[price]"]').remove();
->>>>>>> 2405e4a36ddc276c2df60362ac3998f44b5cd8b3
                 }
                 //get value of all input with class name is product-memories and add it to array with -
                 var productMemories = $('.product-memories:checked').map(function() {
