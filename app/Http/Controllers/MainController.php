@@ -72,6 +72,19 @@ class MainController extends Controller
         ]);
     }
 
+    public function changePasswordPage(Request $request, User $user)
+    {
+        $user = User::where('email', session()->get('user')['email'])->first();
+        $sessionProducts = $this->cardService->getProduct();
+
+        return view('user.change-password', [
+            'user' => $user,
+            'title' => 'Cập nhật mật khẩu',
+            'sessionProducts' => $sessionProducts,
+            'carts' => session()->get('carts'),
+        ]);
+    }
+
     public function update(Request $request, User $user)
     {
         $input = $request->all();
@@ -94,10 +107,10 @@ class MainController extends Controller
     public function trackOrder()
     {
         $user = session()->get('user');
-        $orders = $this->cardService->getOrders($user)->orderBy('created_at' ,'DESC')->paginate(3);
+        $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
         $sessionProducts = $this->cardService->getProduct();
 
-        return view('product.order-tracking',[
+        return view('product.order-tracking', [
             'title' => 'Đơn hàng của tôi',
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
@@ -109,10 +122,9 @@ class MainController extends Controller
     public function orders(Request $request)
     {
         $input = $request->all();
-        $orders = Order::where('created_at','<>' ,null)->orderBy('created_at', 'DESC');
-        if(isset($input['search']) && $input['search'] !== "")
-        {
-           $orders->where('');
+        $orders = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC');
+        if (isset($input['search']) && $input['search'] !== "") {
+            $orders->where('');
         }
 
         $results = $orders->Paginate(10);
@@ -124,15 +136,14 @@ class MainController extends Controller
 
     public function show(Order $order)
     {
-       if($order->voucher_id != null)
-       {
-           $discount = Voucher::where('id', $order->voucher_id)->first();
-       }
-       return view('admin.order.detail',[
-           'title' => 'Chi tiết đơn hàng',
-           'order' => $order,
-           'discount' => $discount ?? null
-       ]);
+        if ($order->voucher_id != null) {
+            $discount = Voucher::where('id', $order->voucher_id)->first();
+        }
+        return view('admin.order.detail', [
+            'title' => 'Chi tiết đơn hàng',
+            'order' => $order,
+            'discount' => $discount ?? null
+        ]);
     }
 
     public function generatePDF(Order $order)
@@ -147,30 +158,30 @@ class MainController extends Controller
         ];
 
         $pdf = Pdf::loadView('pdf.generatePDF', $data);
-        $pdf->set_option('isRemoteEnabled', TRUE);
+        $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
+        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
+        ;
     }
 
-    public function updateOrderStatus(Request $request,Order $order)
+    public function updateOrderStatus(Request $request, Order $order)
     {
-       $input = $request->all();
-       $order->update(array('status_id' => $input['status']));
-       Alert::success('Cập nhật trạng thái đơn hàng thành công!');
+        $input = $request->all();
+        $order->update(array('status_id' => $input['status']));
+        Alert::success('Cập nhật trạng thái đơn hàng thành công!');
 
-       return redirect()->back();
+        return redirect()->back();
     }
 
     public function customerUpdateStatus(Request $request, Order $order)
     {
         $input = $request->all();
         $order->update(array('status_id' => $input['status']));
-        if($input['status'] == 5) {
+        if ($input['status'] == 5) {
             Alert::success('Đã hủy đơn hàng!');
         }
-        if($input['status'] == 4)
-        {
+        if ($input['status'] == 4) {
             Alert::success('Đã xác nhận!');
         }
 
