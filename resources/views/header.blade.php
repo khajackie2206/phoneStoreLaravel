@@ -226,37 +226,34 @@
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="shop-left-sidebar.html">Hãng sản xuất</a>
                                             <ul>
-                                                <li><a href="shop-3-column.html">Samsung</a></li>
-                                                <li><a href="shop-4-column.html">Apple</a></li>
-                                                <li><a href="shop-left-sidebar.html">Xiaomi</a></li>
-                                                <li><a href="shop-right-sidebar.html">Vivo</a></li>
-                                                <li><a href="shop-list.html">Oppo</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">LG</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">VSmart</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=3&filter%5Bprice%5D=">Samsung</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=1&filter%5Bprice%5D=">Apple</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=2&filter%5Bprice%5D=">Xiaomi</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=6&filter%5Bprice%5D=">Vivo</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=5&filter%5Bprice%5D=">Oppo</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=4&filter%5Bprice%5D=">Nokia</a></li>
                                             </ul>
                                         </li>
                                         <li><a href="single-product-gallery-left.html">Mức giá</a>
                                             <ul>
-                                                <li><a href="single-product-carousel.html">Dưới 2 triệu</a></li>
-                                                <li><a href="single-product-gallery-left.html">Từ 2 đến 4 triệu</a>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=0%3B2000000">Dưới 2 triệu</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=2000000%3B4000000">Từ 2 đến 4 triệu</a>
                                                 </li>
-                                                <li><a href="single-product-gallery-right.html">Từ 4 đến 7 triệu</a>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=4000000%3B7000000">Từ 4 đến 7 triệu</a>
                                                 </li>
-                                                <li><a href="single-product-tab-style-top.html">Từ 7 đến 13
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=7000000%3B13000000">Từ 7 đến 13
                                                         triệu</a></li>
-                                                <li><a href="single-product-tab-style-left.html">Từ 13 đến 20
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=13000000%3B20000000">Từ 13 đến 20
                                                         triệu</a></li>
-                                                <li><a href="single-product-tab-style-right.html">Trên 20 triệu</a>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=20000000%3B100000000">Trên 20 triệu</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="single-product.html">Theo nhu cầu</a>
+                                        <li><a href="single-product.html">Loại điện thoại</a>
                                             <ul>
-                                                <li><a href="single-product.html">Mỏng nhẹ</a></li>
-                                                <li><a href="single-product-sale.html">Thời thượng</a></li>
-                                                <li><a href="single-product-group.html">Chơi game</a></li>
-                                                <li><a href="single-product-normal.html">Chụp ảnh, quay phim</a></li>
-                                                <li><a href="single-product-affiliate.html">Tính năng đặc biệt</a>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Android">Android</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=IOS">iOS</a></li>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Other">Điện thoại phổ thông</a></li>
                                                 </li>
                                             </ul>
                                         </li>
