@@ -14,8 +14,11 @@ use App\Services\ProductService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\ValidateChangePassword;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
@@ -83,6 +86,25 @@ class MainController extends Controller
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
         ]);
+    }
+
+    public function changePassword(ValidateChangePassword $request, User $user)
+    {
+        $input = $request->all();
+        $dataUpdate = array(
+            'password' => Hash::make($input['new-pass']),
+        );
+
+       if (Hash::check($input['new-pass'], $user->password)) {
+          Alert::error('Mật khẩu mới không được trùng với mật khẩu cũ');
+          return redirect()->back();
+        }
+
+        $user->update($dataUpdate);
+        Session::flush();
+        Alert::success('Thành công', 'Đổi mật khẩu thành công, mời bạn đăng nhập lại');
+
+        return redirect()->route('user-login');
     }
 
     public function update(Request $request, User $user)

@@ -264,17 +264,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="mb-5">Hoặc tìm kiếm theo khoảng giá tuỳ chọn (Đơn vị: triệu)</div>
                                 <br>
-                                <div id="slider" class="mt-3 mx-3"></div>
+                                <div id="slider" style="font-weight: bold;" class="mt-3 mx-3"></div>
                                 <div class="d-flex justify-content-center align-items-center mt-3">
                                     <div class="d-flex flex-column mr-1">
                                         <label style="font-size: 0.8rem">Giá từ</label>
-                                        <input type="number" id="input-with-keypress-0">
+                                        <input type="number" style="font-weight: bold;" id="input-with-keypress-0">
                                     </div>
                                     <div class="d-flex flex-column ml-1">
                                         <label style="font-size: 0.8rem" >đến</label>
-                                        <input type="number" id="input-with-keypress-1">
+                                        <input type="number" style="font-weight: bold;" id="input-with-keypress-1">
                                     </div>
                                 </div>
                                 <input type="hidden" name="filter[price]">
@@ -329,7 +328,7 @@
                                     <input type="hidden" name="filter[os]">
                                 </div>
                             </div>
-                            <button class="btn-primary mb-sm-30 mb-xs-30" id="btnSearch">Tìm kiếm</button>
+                            <button class="btn-primary mb-sm-30 mb-xs-30" style="border: none; border-radius: 2px; padding: 3px 15px 3px 15px;cursor: pointer;" id="btnSearch">Tìm kiếm</button>
                         </form>
 
                         <!-- filter-sub-area end -->

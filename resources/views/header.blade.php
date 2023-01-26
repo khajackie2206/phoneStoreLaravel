@@ -59,8 +59,11 @@
                                             </g>
                                         </g>
                                     </svg>&nbsp; Đơn hàng</a>
+
+                                @if (!isset(session('user')->provider_name))
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/users/change-password"><img  style="height: 23px;" src="https://img.icons8.com/ios/50/null/re-enter-pincode.png"/>&nbsp; Đổi mật khẩu</a>
+                                @endif
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
                             </div>

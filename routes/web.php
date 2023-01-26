@@ -92,7 +92,7 @@ Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login'
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
 Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
 Route::get('/', [MainController::class, 'index'])->name('index');
-Route::post('/login', [LoginController::class, 'postLogin']);
+Route::post('/login', [LoginController::class, 'postLogin'])->name('user-login');
 Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
 Route::post('/register', [RegisterController::class, 'create']);
 Route::get('/logout', [LoginController::class, 'getLogout']);
@@ -144,7 +144,7 @@ Route::prefix('users')->group(function () {
 
        //Change password
     Route::get('/change-password', [MainController::class, 'changePasswordPage']);
-    Route::post('/change-password', [MainController::class, 'changePassword']);
+    Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);

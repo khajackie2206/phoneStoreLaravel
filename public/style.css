@@ -399,14 +399,16 @@ color: #f10;
 /* 1.6 Input
 /*----------------------------------------*/
 input {
-background: #eceff8;
-border: 2px solid #eceff8;
+background: #fff;
+border: 1px solid #bdbdbd;
+box-shadow: 0 2px 20px rgb(0 0 0 / 50%);
 height: 45px;
 box-shadow: none;
 padding-left: 10px;
 font-size: 14px;
 color: #626262;
 width: 100%;
+border-radius: 4px;
 }
 select {
 width: 100%;
