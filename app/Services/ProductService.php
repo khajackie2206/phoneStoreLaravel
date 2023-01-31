@@ -130,9 +130,11 @@ class ProductService
                 AllowedFilter::scope('os'),
                 AllowedFilter::scope('price'),
             ])
-            ->allowedSorts(['name', 'price']);
+            ->allowedSorts(['name', 'price'])
+            ->paginate(2)
+            ->appends(request()->query());
 
-        return $products->get();
+        return $products;
     }
 
     public function getSameBrands(Product $product)

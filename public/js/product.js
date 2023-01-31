@@ -229,14 +229,23 @@ $(document).ready(function () {
 
 //load more
 function loadMore() {
-    const page = parseInt($("#page").val());
-   /* let url = "/products/load-more";
-    window.location = url;*/
+    let page = parseInt($("#page").val());
+    if(page === 1){
+        page=2;
+    }
+    const url = window.location.href;
+    let newUrl = url.replace("products/filter", "products/load-more");
+    if(newUrl === 'http://127.0.0.1:8000/products/load-more'){
+        newUrl += "?page=" + page;
+    }else{
+        newUrl += "&page=" + page;
+    }
     $.ajax({
         type: "get",
         dataType: "JSON",
         data: { page },
-        url: "/products/load-more",
+        //generate url keep current url and add page to url
+        url: newUrl,
         success: function (result) {
             if (result.data != "") {
                 $("#flexProduct").append(result.flex);
@@ -252,18 +261,18 @@ function loadMore() {
 }
 
 $(document).ready(function () {
-    $(".product-features, .phone-types, .product-memories, .brands").click(function () {
-        var formData = $("#myForm").serialize();
-        $.ajax({
-            url: "/products/load-product?" + formData,
-            type: "get",
-            dataType: "json",
-            success: function (data) {
-                $("#filterArea").html(data["data"]);
-                $("#flexProduct").html(data["flex"]);
-            },
-        });
-    });
+    // $(".product-features, .phone-types, .product-memories, .brands").click(function () {
+    //     var formData = $("#myForm").serialize();
+    //     $.ajax({
+    //         url: "/products/load-product?" + formData,
+    //         type: "get",
+    //         dataType: "json",
+    //         success: function (data) {
+    //             $("#filterArea").html(data["data"]);
+    //             $("#flexProduct").html(data["flex"]);
+    //         },
+    //     });
+    // });
 });
 
 $(document).ready(function () {

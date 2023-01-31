@@ -409,7 +409,7 @@ class ProductController extends Controller
         $page = $request->input('page', default: 0);
         $output = '';
         $flex = '';
-        $products = $this->productService->get($page);
+        $products = $this->productService->filterProduct(request()->input());
         //  dd($products);
         if (count($products) != 0) {
             foreach ($products as $product) {
