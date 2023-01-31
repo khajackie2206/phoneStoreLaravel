@@ -89,6 +89,15 @@ function adjustQuantity(element) {
 }
 
 $(document).on("click", ".quick-view-btn", function(){
+    $("#modelProductMemory").html("");
+    $("#numberRating").html("");
+    $("#modalProductName").html("");
+    $("#modalProductPrice").html("");
+    $("#modelProductColor").html("");
+    $("#modalProductDesc").html("");
+    $("#modelProductImage").attr("src",
+        "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+    );
     let productId = $(this).attr("productId");
     $.ajax({
         type: "GET",
@@ -145,12 +154,14 @@ $(document).on("click", ".quick-view-btn", function(){
             );
             $("#modelProductColor").html(results.color);
             $("#modalProductDesc").html(results.description);
+
             results.thumbs.map((productImage) => {
                 $("#modelProductImage").children("img").eq(0).remove();
-                let image =
-                    `<img src="` + productImage.url + `" alt="product image">`;
-                $("#modelProductImage").append(image);
+                // let image =
+                //     `<img src="` + productImage.url + `" alt="product image">`;
+                // $("#modelProductImage").append(image);
                 //  $("#modelProductImageThumb").append(image);
+                $("#modelProductImage").attr("src", productImage.url);
             });
         },
     });

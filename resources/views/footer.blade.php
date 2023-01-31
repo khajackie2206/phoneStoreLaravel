@@ -102,7 +102,7 @@
   <!-- Footer Area End Here -->
 
   <!-- Begin Quick View | Modal Area -->
-  <div class="modal fade modal-wrapper" id="exampleModalCenter">
+  <div class="modal fade modal-wrapper" id="exampleModalCenter" style="height: 700px;">
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
               <div class="modal-body">
@@ -113,8 +113,7 @@
                       <div class="col-lg-5 col-md-6 col-sm-6">
                           <div class="product-details-left" style="margin-top: 25px;">
                               <div class="product-details-images slider-navigation-1">
-                                  <div class="lg-image" id="modelProductImage">
-                                  </div>
+                                  <img class="lg-image" id="modelProductImage">
                               </div>
                           </div>
                           <div>
@@ -209,8 +208,6 @@
                                       @csrf
                                   </form>
                                   <div class="product-additional-info pt-25">
-                                      <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Yêu
-                                          thích</a>
                                       <div class="product-social-sharing pt-25">
                                           <ul>
                                               <li class="facebook"><a href="#"><i

@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="checkbox-form">
-                            <h3>Thông tin giao hàng</h3>
+                            <h3 style="color: #d0021c;">Thanh toán đơn hàng</h3>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
@@ -103,12 +103,12 @@
                             <div class="your-order-table table-responsive">
                                 <table class="table">
                                     <thead>
-                                        <tr>
+                                        <tr style="text-align: left;">
                                             <th class="cart-product-name">Sản phẩm</th>
                                             <th class="cart-product-total">Tổng cộng</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style="text-align: left;">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
                                             @foreach ($products as $product)
                                                 @php
@@ -138,7 +138,7 @@
                                             <td><span class="amount">{{ number_format($summary) }} <span
                                                         style="text-decoration: underline;">đ</span></span></td>
                                         </tr>
-                                        <tr class="cart-subtotal">
+                                        <tr class="cart-subtotal" style="text-align: left;">
                                             <th>Giao hàng</th>
                                             <td><span class="amount">
                                                     @if (\Illuminate\Support\Facades\Session::get('carts'))
