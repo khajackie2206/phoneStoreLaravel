@@ -218,7 +218,9 @@
                             </div>
                             <div class="paginate" style="text-align: center; margin-top: 45px;" id="button-loadMore">
                                 <input type="hidden" value="1" id="page">
+                                @if($productQuantity>6)
                                 <a onclick="loadMore()" class="btn btn-light">Xem thêm</a>
+                                @endif
                             </div>
 
 
@@ -379,6 +381,10 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+
+            $(document).on("click", ".quick-view-btn", function(){
+
+            });
 
             //slider
             var slider = document.getElementById('slider');

@@ -131,10 +131,12 @@ class ProductService
                 AllowedFilter::scope('price'),
             ])
             ->allowedSorts(['name', 'price'])
-            ->paginate(2)
+            ->paginate(6)
             ->appends(request()->query());
+        //get number of products
+        $count = $products->total();
 
-        return $products;
+        return ['data'=>$products,'total'=>$count];
     }
 
     public function getSameBrands(Product $product)

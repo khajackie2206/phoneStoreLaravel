@@ -88,7 +88,7 @@ function adjustQuantity(element) {
      window.location = url;
 }
 
-$(".quick-view-btn").click(function () {
+$(document).on("click", ".quick-view-btn", function(){
     let productId = $(this).attr("productId");
     $.ajax({
         type: "GET",
@@ -155,6 +155,7 @@ $(".quick-view-btn").click(function () {
         },
     });
 });
+
 
  //Live search o phan san pham
 $(document).ready(function () {
@@ -228,6 +229,7 @@ $(document).ready(function () {
 }*/
 
 //load more
+//pagination = 6
 function loadMore() {
     let page = parseInt($("#page").val());
     if(page === 1){
@@ -235,7 +237,7 @@ function loadMore() {
     }
     const url = window.location.href;
     let newUrl = url.replace("products/filter", "products/load-more");
-    if(newUrl === 'http://127.0.0.1:8000/products/load-more'){
+    if(newUrl === 'http://127.0.0.1:8000/products/load-more' || newUrl === 'http://localhost:8000/products/load-more'){
         newUrl += "?page=" + page;
     }else{
         newUrl += "&page=" + page;
@@ -247,11 +249,15 @@ function loadMore() {
         //generate url keep current url and add page to url
         url: newUrl,
         success: function (result) {
+            if(page === 2){
+                page=1;
+            }
             if (result.data != "") {
                 $("#flexProduct").append(result.flex);
                 $("#filterArea").append(result.data);
                 $("#page").val(page + 1);
-            } else {
+                //6 is product quantity/request
+            } if( (result.numberOfProduct - page * 6 )< 6) {
                 $("#button-loadMore").css("display", "none");
             }
         },

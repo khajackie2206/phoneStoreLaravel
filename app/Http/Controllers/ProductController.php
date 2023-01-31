@@ -227,8 +227,9 @@ class ProductController extends Controller
         $osFilter = $osFilter ? explode(',', $osFilter): [];
         $sortFilter = request()->input('sort');
 
-
-        $products = $this->productService->filterProduct(request()->input());
+        $productWithTotal = $this->productService->filterProduct(request()->input());
+        $products = $productWithTotal['data'];
+        $productQuantity = $productWithTotal['total'];
 
         $sessionProducts = $this->cardService->getProduct();
         $brands = Brand::where('active', 1)
@@ -238,6 +239,7 @@ class ProductController extends Controller
         return view('product.filter-product', [
             'title' => 'Danh sách sản phẩm',
             'products' => $products,
+            'productQuantity'=> $productQuantity,
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
             'brands' => $brands,
@@ -409,8 +411,10 @@ class ProductController extends Controller
         $page = $request->input('page', default: 0);
         $output = '';
         $flex = '';
-        $products = $this->productService->filterProduct(request()->input());
-        //  dd($products);
+        $productWithTotal = $this->productService->filterProduct(request()->input());
+        $products = $productWithTotal['data'];
+        $numberOfProduct = $productWithTotal['total'];
+
         if (count($products) != 0) {
             foreach ($products as $product) {
                 $flex .=
@@ -552,10 +556,10 @@ class ProductController extends Controller
                                             <!-- single-product-wrap end -->
                                         </div>';
             }
-
-            return response()->json(['data' => $output, 'flex' => $flex]);
+        $numberOfProduct = $productWithTotal['total'];
+            return response()->json(['data' => $output, 'flex' => $flex, 'numberOfProduct'=>$numberOfProduct]);
         }
-        return response()->json(['data' => '', 'flex' => '']);
+        return response()->json(['data' => '', 'flex' => '', 'numberOfProduct'=>0]);
     }
 
     public function loadProduct(Request $request)
