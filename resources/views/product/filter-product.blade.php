@@ -99,7 +99,7 @@
                                                                                 style="text-decoration: underline;">đ</span>
                                                                         </span>
                                                                         <span
-                                                                            style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                                            style="color: #333; font-weight:bold; font-size: 95%;margin-left: 15px;text-decoration: line-through;">
                                                                             {{ number_format($product->price) }} <span
                                                                                 style="text-decoration: underline;">đ</span></span>
                                                                         <span
