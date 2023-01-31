@@ -30,11 +30,24 @@ class CardController extends Controller
         ]);
         $product = Product::where('id', $params['productId'])->first();
 
-        if ($validator->fails() || ($params['quantity'] > $product->quantity)) {
+        if ($validator->fails()) {
             Alert::error('Lỗi', 'Số lượng không hợp lệ');
 
             return redirect()->back();
         }
+
+        if ($product->quantity === 0) {
+            Alert::error('Sản phẩm này đã bán hết');
+
+            return redirect()->back();
+        }
+
+        if ($params['quantity'] > $product->quantity) {
+            Alert::error('Vượt quá số lượng sản phẩm trong kho');
+
+            return redirect()->back();
+        }
+
         $result = $this->cardService->create($params);
 
         if (!$result) {

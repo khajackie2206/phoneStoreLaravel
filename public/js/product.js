@@ -135,7 +135,7 @@ $(".quick-view-btn").click(function () {
             $("#modelProductMemory").html(
                 results.ram + " GB" + " - " + results.memory
             );
-             $("#numberRating").html(results.numberRating);
+            $("#numberRating").html("("+ results.numberRating + ")");
             $("#modalProductName").html(results.name);
             $("#modalProductPrice").html(
                 results.price.toLocaleString("vi", {

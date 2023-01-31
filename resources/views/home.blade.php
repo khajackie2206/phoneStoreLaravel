@@ -122,10 +122,17 @@
                                                         href="single-product.html">{{ $productNewly->name }}</a></h4>
                                                 <div class="price-box">
                                                     @if ($productNewly->discount > 0)
-                                                        <p style="color: red; font-weight:bold;">
+                                                        <span style="color: red; font-weight:bold;">
                                                             {{ number_format($productNewly->price - $productNewly->discount) }}
                                                             <span style="text-decoration: underline;">đ</span>
-                                                        </p>
+                                                        </span>
+
+                                                          <span style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                                {{ number_format($productNewly->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></span>
+                                                         <span></span>
+                                                          <span class="discount-percentage">-{{ number_format(($productNewly->discount/$productNewly->price)*100) }}%</span>
+
                                                     @else
                                                         <p style="color: red; font-weight:bold;">
                                                             {{ number_format($productNewly->price) }} <span
@@ -245,10 +252,14 @@
                                                 <div class="price-box">
                                                     <span class="new-price">
                                                         @if ($productDiscount->discount > 0)
-                                                            <p style="color: red; font-weight:bold;">
+                                                            <span style="color: red; font-weight:bold;">
                                                                 {{ number_format($productDiscount->price - $productDiscount->discount) }}
                                                                 <span style="text-decoration: underline;">đ</span>
-                                                            </p>
+                                                            </span>
+                                                             <span style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                                {{ number_format($productDiscount->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></span>
+                                                                    <span class="discount-percentage">-{{ number_format(($productDiscount->discount/$productDiscount->price)*100) }}%</span>
                                                         @else
                                                             <p style="color: red; font-weight:bold;">
                                                                 {{ number_format($productDiscount->price) }} <span
@@ -378,10 +389,14 @@
                                                 <div class="price-box">
                                                     <span class="new-price">
                                                         @if ($goodProduct->discount > 0)
-                                                            <p style="color: red; font-weight:bold;">
+                                                            <span style="color: red; font-weight:bold;">
                                                                 {{ number_format($goodProduct->price - $goodProduct->discount) }}
                                                                 <span style="text-decoration: underline;">đ</span>
-                                                            </p>
+                                                            </span>
+                                                             <span style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                                {{ number_format($goodProduct->price) }} <span
+                                                                    style="text-decoration: underline;">đ</span></span>
+                                                              <span class="discount-percentage">-{{ number_format(($goodProduct->discount/$goodProduct->price)*100) }}%</span>
                                                         @else
                                                             <p style="color: red; font-weight:bold;">
                                                                 {{ number_format($goodProduct->price) }} <span

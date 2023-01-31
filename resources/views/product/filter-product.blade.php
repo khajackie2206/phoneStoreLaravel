@@ -46,7 +46,6 @@
                                         giá (Thấp &gt; Cao)</option>
                                     <option value="-price" {{ in_array('-price', [$sortFilter]) ? 'selected' : '' }}>Mức
                                         giá (Cao &gt; Thấp)</option>
-                                    <option value="date">Bán chạy nhất</option>
                                 </select>
                             </div>
                         </div>
@@ -93,8 +92,24 @@
                                                             </h4>
                                                             <div class="price-box">
                                                                 <span class="new-price">
-                                                                    <p style="color: red; font-weight:bold;">
-                                                                        {{ number_format($product->price) }} đ</p>
+                                                                    @if ($product->discount > 0)
+                                                                        <span style="color: red; font-weight:bold;">
+                                                                            {{ number_format($product->price - $product->discount) }}
+                                                                            <span
+                                                                                style="text-decoration: underline;">đ</span>
+                                                                        </span>
+                                                                        <span
+                                                                            style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                                            {{ number_format($product->price) }} <span
+                                                                                style="text-decoration: underline;">đ</span></span>
+                                                                        <span
+                                                                            class="discount-percentage">-{{ number_format(($product->discount / $product->price) * 100) }}%</span>
+                                                                    @else
+                                                                        <p style="color: red; font-weight:bold;">
+                                                                            {{ number_format($product->price) }} <span
+                                                                                style="text-decoration: underline;">đ</span>
+                                                                        </p>
+                                                                    @endif
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -130,7 +145,8 @@
                                                     <div class="product-image">
                                                         <a href="/products/details/{{ $product->id }}">
                                                             <img src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
-                                                                alt="Li's Product Image" style="width: 190px;height:190px;">
+                                                                alt="Li's Product Image"
+                                                                style="width: 190px;height:190px;">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -158,11 +174,27 @@
                                                             </h4>
                                                             <div class="price-box">
                                                                 <span class="new-price">
-                                                                    <p style="color: red; font-weight:bold;">
-                                                                        {{ number_format($product->price) }} đ</p>
+                                                                    @if ($product->discount > 0)
+                                                                        <span style="color: red; font-weight:bold;">
+                                                                            {{ number_format($product->price - $product->discount) }}
+                                                                            <span
+                                                                                style="text-decoration: underline;">đ</span>
+                                                                        </span>
+                                                                        <span
+                                                                            style="color: #333; font-weight:bold; font-size: 95%;margin-left: 25px;text-decoration: line-through;">
+                                                                            {{ number_format($product->price) }} <span
+                                                                                style="text-decoration: underline;">đ</span></span>
+                                                                        <span
+                                                                            class="discount-percentage">-{{ number_format(($product->discount / $product->price) * 100) }}%</span>
+                                                                    @else
+                                                                        <p style="color: red; font-weight:bold;">
+                                                                            {{ number_format($product->price) }} <span
+                                                                                style="text-decoration: underline;">đ</span>
+                                                                        </p>
+                                                                    @endif
                                                                 </span>
                                                             </div>
-                                                            <p>{{ $product->short_description }}</p>
+                                                            <p style="margin-top: 10px;">{{ $product->short_description }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -272,7 +304,7 @@
                                         <input type="number" style="font-weight: bold;" id="input-with-keypress-0">
                                     </div>
                                     <div class="d-flex flex-column ml-1">
-                                        <label style="font-size: 0.8rem" >đến</label>
+                                        <label style="font-size: 0.8rem">đến</label>
                                         <input type="number" style="font-weight: bold;" id="input-with-keypress-1">
                                     </div>
                                 </div>
@@ -328,7 +360,9 @@
                                     <input type="hidden" name="filter[os]">
                                 </div>
                             </div>
-                            <button class="btn-primary mb-sm-30 mb-xs-30" style="border: none; border-radius: 2px; padding: 3px 15px 3px 15px;cursor: pointer;" id="btnSearch">Tìm kiếm</button>
+                            <button class="btn-primary mb-sm-30 mb-xs-30"
+                                style="border: none; border-radius: 2px; padding: 3px 15px 3px 15px;cursor: pointer;"
+                                id="btnSearch">Tìm kiếm</button>
                         </form>
 
                         <!-- filter-sub-area end -->
@@ -344,7 +378,7 @@
 
 @section('scripts')
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function() {
 
             //slider
             var slider = document.getElementById('slider');
@@ -381,32 +415,38 @@
             });
 
 
-            function changeValueOfPriceFilter(priceRange){
+            function changeValueOfPriceFilter(priceRange) {
                 //remove all check of input with class priceFilter
                 $('.priceFilter').prop('checked', false);
                 //convert priceRange to string
                 priceRange = priceRange.from * 1000000 + ';' + priceRange.to * 1000000;
                 $('input[name="filter[price]"]').val(priceRange);
             }
-            slider.noUiSlider.on('update', function (values, handle) {
+            slider.noUiSlider.on('update', function(values, handle) {
                 inputs[handle].value = values[handle];
             });
 
-            slider.noUiSlider.on('change', function (values, handle) {
-                changeValueOfPriceFilter({'from': values[0], 'to': values[1]});
+            slider.noUiSlider.on('change', function(values, handle) {
+                changeValueOfPriceFilter({
+                    'from': values[0],
+                    'to': values[1]
+                });
                 inputs[handle].value = values[handle];
             });
 
 
-            inputs.forEach(function (input, handle) {
-                input.addEventListener('change', function () {
+            inputs.forEach(function(input, handle) {
+                input.addEventListener('change', function() {
                     slider.noUiSlider.setHandle(handle, this.value);
                     let from = $('#input-with-keypress-0').val();
                     let to = $('#input-with-keypress-1').val();
-                    changeValueOfPriceFilter({'from': from, 'to': to});
+                    changeValueOfPriceFilter({
+                        'from': from,
+                        'to': to
+                    });
                 });
 
-                input.addEventListener('keydown', function (e) {
+                input.addEventListener('keydown', function(e) {
 
                     var values = slider.noUiSlider.get();
 

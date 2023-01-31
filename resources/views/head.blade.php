@@ -40,8 +40,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script src="{{ asset('https://kit.fontawesome.com/a076d05399.js') }}" crossorigin='anonymous'></script>
-
+        {{-- <script src="{{ asset('https://kit.fontawesome.com/a076d05399.js') }}" crossorigin='anonymous'></script> --}}
 
 
         <!-- Modernizr js -->

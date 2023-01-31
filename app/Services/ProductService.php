@@ -137,8 +137,7 @@ class ProductService
 
     public function getSameBrands(Product $product)
     {
-        $products = Product::where('active', 1)
-             ->where('id', '<>', $product->id)
+        $products = Product::where('id', '<>', $product->id)
              ->where('delete_at', null)
              ->where('brand_id', $product->brand_id)
              ->where('name','<>', $product->name)
@@ -151,8 +150,7 @@ class ProductService
 
     public function getProductDetail(int $id)
     {
-        return Product::where('active', 1)
-            ->where('id', $id)
+        return Product::where('id', $id)
             ->first();
     }
 

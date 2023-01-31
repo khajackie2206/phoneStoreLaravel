@@ -126,12 +126,23 @@ class CardService
                 ->get();
 
             foreach ($products as $product) {
+                if($carts[$product->id] > $product->quantity ) {
+                   return false;
+                }
+                $productNewQuantity = $product->quantity - $carts[$product->id];
+                $dataUpdateQuantity = [
+                    'quantity' => $productNewQuantity,
+                ];
+
                 $orderDetailData = [
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'quantity' => $carts[$product->id],
                     'total_price' => $carts[$product->id] * ($product->price - $product->discount),
                 ];
+
+                $product->update($dataUpdateQuantity);
+
                 OrderDetail::create($orderDetailData);
             }
             DB::commit();

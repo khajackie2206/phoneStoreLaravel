@@ -84,11 +84,21 @@
                                     <li class="{{ $avgRating >= 3 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
                                     <li class="{{ $avgRating >= 4 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
                                     <li class="{{ $avgRating >= 5 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
-                                    <li><a href="#" style="color: #2f80ed;font-size: 9pt;">{{ $countRating }} Đánh
+                                    <li><a href="#" style="color: #2f80ed;font-size: 9pt;"> &nbsp; ({{ $countRating }}) Đánh
                                             giá</a></li>
                                 </ul>
                             </div>
-                            <div class="price-box pt-20">
+                            @if ($product->active === 0)
+                                   <div class="price-box pt-20">
+                                     <strong style="display: block; line-height: 1.3em;font-size: 16px;color: red;text-transform: uppercase;margin-bottom: 10px;"> Sản phẩm đã ngừng kinh doanh</strong>
+                                 </div>
+                            @elseif ($product->quantity === 0)
+
+                                   <div class="price-box pt-20">
+                                     <strong style="display: block; line-height: 1.3em;font-size: 16px;color: red;text-transform: uppercase;margin-bottom: 10px;"> Sản phẩm đã hết hàng</strong>
+                                 </div>
+                            @else
+    <div class="price-box pt-20">
                                 @if (isset($priceSale))
                                     <span class="new-price new-price-2">
                                         {{ number_format($priceSale) }}
@@ -112,8 +122,8 @@
                                         </span>
                                     </span>
                                 @endif
-
                             </div>
+                            @endif
                             <div class="product-desc">
                                 <p>
                                     <span>
@@ -152,7 +162,8 @@
                                     value="/products/details/{{ $product->id }}">
                                 @csrf
                             </form>
-                            <div class="product-additional-info pt-25">
+
+                            <div class="product-additional-info pt-20">
                                 <a class="wishlist-btn" style="color: grey;" href="wishlist.html"><i
                                         class="fa fa-heart-o"></i>Yêu thích</a>
                                 <div class="product-social-sharing pt-25">
@@ -168,6 +179,9 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                               <div class="product-additional-info pt-20">
+                                <a class="wishlist-btn" style="color: grey;" href="wishlist.html">Số lượng hàng: <span style="font-weight: bold;">{{ $product->quantity }}</span> sản phẩm trong kho</a>
                             </div>
                         </div>
                     </div>
