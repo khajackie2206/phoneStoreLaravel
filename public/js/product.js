@@ -89,6 +89,10 @@ function adjustQuantity(element) {
 }
 
 $(document).on("click", ".quick-view-btn", function(){
+     $("#modalProductPrice").html("");
+      $("#modalProductDiscount").html("");
+       $("#modalProductPriceOnly").html("");
+       $("#discountPercentage").html("");
     $("#modelProductMemory").html("");
     $("#numberRating").html("");
     $("#modalProductName").html("");
@@ -146,14 +150,37 @@ $(document).on("click", ".quick-view-btn", function(){
             );
             $("#numberRating").html("("+ results.numberRating + ")");
             $("#modalProductName").html(results.name);
-            $("#modalProductPrice").html(
-                results.price.toLocaleString("vi", {
-                    style: "currency",
-                    currency: "VND",
-                })
-            );
+            if(results.discount == 0) {
+                 $("#modalProductPriceOnly").html(
+                     results.price.toLocaleString("vi", {
+                         style: "currency",
+                         currency: "VND",
+                     })
+                 );
+            }
+
+
+            if(results.discount > 0) {
+                const newPrice = results.price - results.discount;
+                const percent = newPrice / results.price;
+                   $("#modalProductPrice").html(
+                       results.price.toLocaleString("vi", {
+                           style: "currency",
+                           currency: "VND",
+                       })
+                   );
+ $("#modalProductDiscount").html(
+     newPrice.toLocaleString("vi", {
+         style: "currency",
+         currency: "VND",
+     })
+ );
+   $("#discountPercentage").html("-"+percent.toFixed(0)+"%");
+            }
+
             $("#modelProductColor").html(results.color);
             $("#modalProductDesc").html(results.description);
+             $("#quantity-phone").html(results.quantity);
 
             results.thumbs.map((productImage) => {
                 $("#modelProductImage").children("img").eq(0).remove();

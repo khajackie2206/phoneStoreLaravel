@@ -114,6 +114,8 @@
                                             đ
                                         </span>
                                     </span>
+
+                                     <span class="discountPercentage" style="margin-left: 10px;color: #e80f0f;font-weight: bold; font-size: 120%;">-{{ number_format(($product->discount/$product->price)*100) }}%</span>
                                 @else
                                     <span class="new-price new-price-2">
                                         {{ number_format($product->price) }}

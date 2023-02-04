@@ -96,6 +96,8 @@ class ProductController extends Controller
             'brand' => $product->brand->name,
             'numberRating' => $countRating,
             'rating' => $avgRating,
+            'quantity' => $product->quantity,
+            'discount' => $product->discount,
         ];
     }
 

@@ -163,7 +163,16 @@
                                       </ul>
                                   </div>
                                   <div class="price-box pt-20">
-                                      <span class="new-price new-price-2" id="modalProductPrice">$57.98</span>
+                                      {{-- <span class="new-price new-price-2" id="modalProductPrice">$57.98</span> --}}
+                                 <span class="new-price new-price-2" id="modalProductPriceOnly"></span>
+
+
+                                <span class="new-price new-price-2" id="modalProductDiscount"></span>
+
+                                    <span class="new-price new-price-2" id="modalProductPrice"
+                                        style="color: #666; font-size: 20px; margin-left: 30px; text-decoration-line: line-through;">
+                                    </span>
+                                   <span class="discount-percentage" id="discountPercentage" style="margin-left: 5px;color: #e80f0f;     font-size: 110%;">%</span>
                                   </div>
                                   <div class="product-desc" id="modalProductDesc">
                                       <p>
@@ -207,8 +216,8 @@
                                       <input type="hidden" id="productId" name="productId" value="">
                                       @csrf
                                   </form>
-                                  <div class="product-additional-info pt-25">
-                                      <div class="product-social-sharing pt-25">
+                                  <div class="product-additional-info pt-20">
+                                      <div class="product-social-sharing pt-20">
                                           <ul>
                                               <li class="facebook"><a href="#"><i
                                                           class="fa fa-facebook"></i>Facebook</a></li>
@@ -221,6 +230,10 @@
                                           </ul>
                                       </div>
                                   </div>
+
+                                  <div class="product-additional-info pt-5 pb-20">
+                                <a class="wishlist-btn" style="color: grey;" href="wishlist.html">Số lượng hàng: <span id="quantity-phone" style="font-weight: bold;"></span> sản phẩm trong kho</a>
+                            </div>
                               </div>
                           </div>
                       </div>
