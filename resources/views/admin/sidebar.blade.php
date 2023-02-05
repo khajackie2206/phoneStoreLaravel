@@ -15,14 +15,14 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-product">
                 <a class="sidebar-link" href="/admin/product/list">
                     <i class="align-middle" data-feather="smartphone"></i> <span class="align-middle">Điện
                         thoại</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-brand">
                 <a class="sidebar-link" href="/admin/brand/list">
                     <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
                 </a>
@@ -33,13 +33,13 @@
                     <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Bài viết</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-discount">
                 <a class="sidebar-link" href="/admin/discount/lists">
                     <i class="align-middle" data-feather="gift"></i> <span class="align-middle">Khuyến mãi</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-banner">
                 <a class="sidebar-link" href="/admin/banner/list">
                     <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
                 </a>
@@ -49,13 +49,13 @@
                 Quản lý đơn hàng
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-order">
                 <a class="sidebar-link" href="/admin/order/lists">
                     <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Đơn hàng</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-comments">
                 <a class="sidebar-link" href="/admin/comments/lists">
                     <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Bình luận &
                         đánh giá</span>
@@ -79,7 +79,7 @@
                 Quản lý khách hàng
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-users">
                 <a class="sidebar-link" href="/admin/users">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Khách hàng</span>
                 </a>

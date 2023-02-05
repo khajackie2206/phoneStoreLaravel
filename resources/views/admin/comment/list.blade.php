@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                {{ $comments->links() }}
+                {{ $comments->links('custom') }}
             </div>
         </div>
     </main>

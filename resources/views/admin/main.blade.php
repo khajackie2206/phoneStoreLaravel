@@ -249,8 +249,36 @@
         });
     </script>
     <script>
-        //Get current path
+        //Get current path to active location
         var path = window.location.href;
+        if(path.includes("/admin/order/")){
+            document.getElementById("sidebar-order").classList.add("active");
+        }
+        if(path.includes("/admin/product/")){
+            document.getElementById("sidebar-product").classList.add("active");
+        }
+
+        if(path.includes("/admin/brand/")){
+            document.getElementById("sidebar-brand").classList.add("active");
+        }
+
+        if(path.includes("/admin/banner/")){
+            document.getElementById("sidebar-banner").classList.add("active");
+        }
+
+         if(path.includes("/admin/comments/")){
+            document.getElementById("sidebar-comments").classList.add("active");
+        }
+
+         if(path.includes("/admin/discount/")){
+            document.getElementById("sidebar-discount").classList.add("active");
+        }
+
+         if(path.includes("/admin/users/")){
+            document.getElementById("sidebar-users").classList.add("active");
+        }
+
+
         //Remove previous active class name
         let previousSideBarActiveItem = document.getElementsByClassName('sidebar-item active')[0].classList.remove("active")
         //Get list of sidebar link
