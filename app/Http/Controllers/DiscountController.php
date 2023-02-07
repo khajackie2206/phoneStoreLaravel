@@ -9,7 +9,7 @@ class DiscountController extends Controller
 {
     public function index()
     {
-        $vouchers = Voucher::where('created_at','<>',null)->Paginate(8);
+        $vouchers = Voucher::where('created_at','<>',null)->get()->toArray();
 
         return view('admin.discount.list', [
             'title' => 'Danh sách brand',

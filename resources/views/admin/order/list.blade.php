@@ -28,12 +28,12 @@
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
                                                 <th scope="col" width="5%">ID</th>
-                                                <th scope="col" width="17%">Tên khách hàng</th>
-                                                <th scope="col" width="15%">Tổng đơn</th>
+                                                <th scope="col" width="17%">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="15%">Tổng đơn &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
 
-                                                <th scope="col" width="18%">Trạng thái</th>
-                                                <th scope="col" width="15%">Thanh Toán</th>
-                                                <th scope="col" width="20%">Ngày đặt hàng</th>
+                                                <th scope="col" width="18%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="15%">Thanh Toán &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="20%">Ngày đặt hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                 <th scope="col" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>

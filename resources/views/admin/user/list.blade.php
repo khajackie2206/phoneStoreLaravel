@@ -18,12 +18,12 @@
 
                                          <thead style="text-align: center;">
                                              <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="7%">#</th>
-                                                 <th scope="col" width="20%" style="text-align: left;">Tên khách hàng</th>
-                                                 <th scope="col" width="20%" style="text-align: left;">Email</th>
-                                                 <th scope="col" width="10%">Trạng thái</th>
-                                                 <th scope="col" width="15%">Hình ảnh</th>
-                                                 <th scope="col" width="13%">Số điện thoại</th>
+                                                 <th scope="col" width="7%"># &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Email &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="12%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="13%">Hình ảnh</th>
+                                                 <th scope="col" width="13%">Số điện thoại &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                  <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
                                                  </th>
                                              </tr>
@@ -41,7 +41,7 @@
                                                                  <span class="badge bg-danger">Khóa</span>
                                                              @endif
                                                          </span></td>
-                                                     <td><img src="{{ $user->avatar }}" width="50"
+                                                     <td><img src="{{ $user->avatar }}" width="40"
                                                              style="border-radius: 50%;">
                                                      </td>
                                                      <td style="font-weight: bold;">{{ $user->phone }}</td>

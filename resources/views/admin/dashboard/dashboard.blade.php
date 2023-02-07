@@ -124,7 +124,7 @@
 
                             <h5 class="card-title mb-0">Đơn hàng mới nhất</h5>
                         </div>
-                        <table class="table table-hover my-0">
+                        {{-- <table class="table table-hover my-0">
                             <thead>
                                 <tr class="bg-warning text-dark" style="text-align: center;">
                                     <th>Tên khách hàng</th>
@@ -167,7 +167,13 @@
                                 </tr>
                                 @endforeach
                                 </tbody>
-                        </table>
+                        </table> --}}
+                        <div class="card-body py-3">
+									<div class="chart chart-sm">
+										<canvas id="chartjs-bar"></canvas>
+									</div>
+								</div>
+
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 col-xxl-3 d-flex">
@@ -176,11 +182,32 @@
 
                             <h5 class="card-title mb-0">Đơn hàng mỗi tháng</h5>
                         </div>
-                        <div class="card-body d-flex w-100">
-                            <div class="align-self-center chart chart-lg">
-                                <canvas id="chartjs-dashboard-bar"></canvas>
-                            </div>
-                        </div>
+                        <div class="card-body d-flex">
+									<div class="align-self-center w-100">
+										<div class="py-3">
+											<div class="chart chart-xs">
+												<canvas id="chartjs-dashboard-pie"></canvas>
+											</div>
+										</div>
+
+										<table class="table mb-0">
+											<tbody>
+												<tr>
+													<td>Chrome</td>
+													<td class="text-end">4306</td>
+												</tr>
+												<tr>
+													<td>Firefox</td>
+													<td class="text-end">3801</td>
+												</tr>
+												<tr>
+													<td>IE</td>
+													<td class="text-end">1689</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
                     </div>
                 </div>
             </div>

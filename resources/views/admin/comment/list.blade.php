@@ -27,13 +27,13 @@
 
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
-                                                <th scope="col" width="5%">ID</th>
-                                                <th scope="col" width="17%">Tên khách hàng</th>
-                                                <th scope="col" width="15%">Sản phẩm đánh giá</th>
+                                                <th scope="col" width="6%">ID &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="17%">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="17%">Sản phẩm đánh giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
 
-                                                <th scope="col" width="15%">Số sao</th>
-                                                <th scope="col" width="23%">Nội dung đánh giá</th>
-                                                <th scope="col" width="15%">Trạng thái</th>
+                                                <th scope="col" width="15%">Số sao &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="22%">Nội dung đánh giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="13%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                 <th scope="col" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>

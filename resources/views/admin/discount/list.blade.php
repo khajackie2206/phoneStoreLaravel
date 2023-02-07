@@ -15,19 +15,19 @@
                          <div class="card-body h-100">
                              <div class="container ">
 
-
+                                <table id="example" class="display" width="100%"></table>
                                  <div class="table-responsive">
                                      <table class="table table-responsive table-borderless table-striped">
 
                                          <thead>
                                              <tr class="bg-warning text-dark" style="text-align: center;">
-                                                 <th scope="col" width="5%">#</th>
-                                                 <th scope="col" width="10%">Mã giảm giá</th>
-                                                 <th scope="col" width="10%">Số lượng</th>
-                                                 <th scope="col" width="10%">Loại giảm giá</th>
-                                                  <th scope="col" width="15%">Giá trị</th>
-                                                 <th scope="col" width="15%">Ngày bắt đầu</th>
-                                                 <th scope="col" width="15%">Ngày kết thúc</th>
+                                                 <th scope="col" width="5%"># &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="12%">Mã giảm giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="10%">Số lượng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="10%">Loại giảm giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                  <th scope="col" width="13%">Giá trị &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="15%">Ngày bắt đầu &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="15%">Ngày kết thúc &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                  <th scope="col" class="text-center" width="10%"><span>Thao
                                                          tác</span>
                                                  </th>
@@ -168,5 +168,27 @@
                  }
              });
          });
+   //test datatable
+   var dataSet = [
+       ["id":1,"name":"srping","code":"JACK","quantity":84,"amount":500000,"start_date":"2022-11-02 00:00:00","end_date":"2022-11-10 00:00:00","type_discount":"money","created_at":"2022-10-23T00:00:00.000000Z","updated_at":"2023-02-06T16:33:34.000000Z"},
+       {"id":2,"name":"sprint","code":"KHA","quantity":96,"amount":10,"start_date":"2022-11-02 00:00:00","end_date":"2022-11-10 00:00:00","type_discount":"percent","created_at":"2022-11-10T00:00:00.000000Z","updated_at":"2022-11-08T14:07:22.000000Z"}]
+    // ['Tiger Nixon', 'System Architect', '<span class="badge bg-success">Giảm theo tiền</span>', '5421', '2011/04/25', '$320,800', ['thao tac']],
+];
+
+$(document).ready(function () {
+    $('#example').DataTable({
+        data: dataSet,
+        columns: [
+            { title: 'Mã giảm giá' },
+            { title: 'Số lượng' },
+            { title: 'Loại giảm giá' },
+            { title: 'Giá trị ' },
+            { title: 'Ngày bắt đầu' },
+            { title: 'Ngày kết thúc' },
+            { title: 'Thao tác' },
+        ],
+
+    });
+});
      </script>
  @endsection

@@ -431,7 +431,12 @@
                                         alt="Image Description">
                                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                                         <div class="g-mb-15">
-                                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ $comment->user->name }}</h5>
+                                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ $comment->user->name }}
+                                                @if($comment->user->orders != "[]")
+                                                <span style="color: #2f855a;font-size: 14px;"><img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/523/posts/32694/final_image/tutorial-preview-large.png" width="25px">Đã mua tại cửa hàng</span>
+                                                @endif
+                                                {{-- <span> {{ $comment->user->orders}}</span> --}}
+                                            </h5>
                                             <span class="g-color-gray-dark-v4 g-font-size-12">
                                                 <div class="small-ratings">
                                                     <i

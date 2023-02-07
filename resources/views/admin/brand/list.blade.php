@@ -22,11 +22,11 @@
                                          <thead>
                                              <tr class="bg-warning text-dark">
                                                  <th scope="col" width="5%">#</th>
-                                                 <th scope="col" width="20%">Tên thương hiệu</th>
-                                                 <th scope="col" width="15%">Trạng thái</th>
+                                                 <th scope="col" width="20%">Tên thương hiệu &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="15%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                  <th scope="col" width="20%">Hình ảnh</th>
-                                                 <th scope="col" width="15%">Quốc gia</th>
-                                                 <th scope="col" width="10%">Mô tả</th>
+                                                 <th scope="col" width="15%">Quốc gia &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="10%">Mô tả &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
                                                  <th scope="col" class="text-center" width="15%"><span>Thao
                                                          tác</span>
                                                  </th>
@@ -44,7 +44,7 @@
                                                                  <span class="badge bg-danger">Hủy kích hoạt</span>
                                                              @endif
                                                          </span></td>
-                                                     <td><img src="{{ $brand->image }}" width="50">
+                                                     <td><img src="{{ $brand->image }}" width="50" >
                                                      </td>
                                                      <td style="font-weight: bold;">{{ $brand->country }}</td>
                                                      <td style="font-weight: bold;"><span

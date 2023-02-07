@@ -24,11 +24,12 @@
                                      <li class="text-danger">{{ $errors->first('name') }}</li>
                                  </ul>
                              @endif
-                              <div class="card-header" style="padding-top: 5px;">
+                             <div class="card-header" style="padding-top: 5px;">
                                  <h5 class="card-title mb-0">Mã khuyến mãi</h5>
                              </div>
                              <div class="card-body">
-                                 <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi" name="code">
+                                 <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi"
+                                     name="code">
 
                              </div>
                              @if ($errors->first('name') != '')
@@ -36,11 +37,12 @@
                                      <li class="text-danger">{{ $errors->first('name') }}</li>
                                  </ul>
                              @endif
-                               <div class="card-header" style="padding-top: 5px;">
+                             <div class="card-header" style="padding-top: 5px;">
                                  <h5 class="card-title mb-0">Số lượng của khuyến mãi</h5>
                              </div>
                              <div class="card-body">
-                                 <input type="text" class="form-control" placeholder="Nhập số lượng mã khuyến mãi" name="quantity">
+                                 <input type="text" class="form-control" placeholder="Nhập số lượng mã khuyến mãi"
+                                     name="quantity">
 
                              </div>
                              @if ($errors->first('name') != '')
@@ -48,6 +50,19 @@
                                      <li class="text-danger">{{ $errors->first('name') }}</li>
                                  </ul>
                              @endif
+
+                             <div class="card-header" style="padding-top: 5px;">
+                                 <h5 class="card-title mb-0">Ngày bắt đầu</h5>
+                             </div>
+                             <div class="card-body">
+                                 <div class="form-group">
+datetime
+<div class="col-md-8">
+        <input type="text" class="form-control" id="datetimepicker" name="Appointment_time">
+ </div>
+                                 </div>
+
+                             </div>
 
                          </div>
 
@@ -60,20 +75,20 @@
                          <div class="card">
 
 
-                      <!-- select -->
-                       <div class="card-header">
+                             <!-- select -->
+                             <div class="card-header">
                                  <h5 class="card-title mb-0">Loại giảm giá</h5>
                              </div>
-                      <div class="card-body" style="margin-top: -22px;">
-                        <select class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                       <div class="card-header">
+                             <div class="card-body" style="margin-top: -22px;">
+                                 <select class="form-control">
+                                     <option>option 1</option>
+                                     <option>option 2</option>
+                                     <option>option 3</option>
+                                     <option>option 4</option>
+                                     <option>option 5</option>
+                                 </select>
+                             </div>
+                             <div class="card-header">
                                  <h5 class="card-title mb-0">Giá trị của khuyến mãi</h5>
                              </div>
                              <div class="card-body" style="margin-top: -22px;">
@@ -132,5 +147,8 @@
  @section('footer')
      <script>
          CKEDITOR.replace('content');
+         alert(2);
      </script>
+
+     <script></script>
  @endsection

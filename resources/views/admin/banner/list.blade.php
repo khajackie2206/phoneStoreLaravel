@@ -21,15 +21,15 @@
 
                                          <thead>
                                              <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="5%">#</th>
-                                                 <th scope="col" width="15%">Tên banner</th>
-                                                 <th scope="col" width="20%">Sản phẩm quảng bá</th>
+                                                 <th scope="col" width="5%"># &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="15%">Tên banner &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="19%">Sản phẩm quảng bá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
 
-                                                 <th scope="col" width="10%">Trạng thái</th>
-                                                 <th scope="col" width="15%">Hình ảnh</th>
-                                                 <th scope="col" width="10%">Loại banner</th>
-                                                 <th scope="col" width="10%">Thứ tự</th>
-                                                 <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
+                                                 <th scope="col" width="13%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="15%">Hình ảnh </th>
+                                                 <th scope="col" width="12%">Loại banner &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="10%">Thứ tự &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col"  width="11%"><span>Thao tác</span>
                                                  </th>
                                              </tr>
                                          </thead>
@@ -51,7 +51,7 @@
                                                      <td style="font-weight: bold;">{{ $banner->type_banner }}</td>
                                                      <td style="font-weight: bold;"><span style="margin-left: 15px;">{{ $banner->sort_by }}</span></td>
 
-                                                     <td class="text-end">
+                                                     <td >
                                                          <a
                                                              href="/admin/banner/edit/{{ $banner->id }}">
                                                               <i class="fas fa-edit fa-xl"></i>

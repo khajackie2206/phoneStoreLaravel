@@ -33,13 +33,13 @@
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">#</th>
-                                                <th scope="col" width="20%">Tên điện thoại</th>
-                                                <th scope="col" width="15%">Dung lượng</th>
+                                                <th scope="col" width="20%">Tên điện thoại &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
+                                                <th scope="col" width="15%">Dung lượng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
 
-                                                <th scope="col" width="10%">Trạng thái</th>
+                                                <th scope="col" width="10%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
                                                 <th scope="col" width="15%">Hình ảnh</th>
-                                                <th scope="col" width="10%">Số lượng</th>
-                                                <th scope="col" width="10%">Hãng</th>
+                                                <th scope="col" width="10%">Số lượng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
+                                                <th scope="col" width="10%">Hãng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
                                                 <th scope="col" class="text-end" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>

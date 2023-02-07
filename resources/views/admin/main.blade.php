@@ -5,9 +5,8 @@
     @include('admin.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-		:not(.pagination-product) {
-		}
-	</style>
+        :not(.pagination-product) {}
+    </style>
 </head>
 
 <body>
@@ -236,6 +235,54 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+                    new Chart(document.getElementById("chartjs-bar"), {
+                        type: "bar",
+                        data: {
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                                "Dec"
+                            ],
+                            datasets: [{
+                                label: "Last year",
+                                backgroundColor: window.theme.primary,
+                                borderColor: window.theme.primary,
+                                hoverBackgroundColor: window.theme.primary,
+                                hoverBorderColor: window.theme.primary,
+                                data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                                barPercentage: .75,
+                                categoryPercentage: .5
+                            }, {
+                                label: "This year",
+                                backgroundColor: "#dee2e6",
+                                borderColor: "#dee2e6",
+                                hoverBackgroundColor: "#dee2e6",
+                                hoverBorderColor: "#dee2e6",
+                                data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                                barPercentage: .75,
+                                categoryPercentage: .5
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    },
+                                    stacked: false
+                                }],
+                                xAxes: [{
+                                    stacked: false,
+                                    gridLines: {
+                                        color: "transparent"
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
@@ -251,30 +298,30 @@
     <script>
         //Get current path to active location
         var path = window.location.href;
-        if(path.includes("/admin/order/")){
+        if (path.includes("/admin/order/")) {
             document.getElementById("sidebar-order").classList.add("active");
         }
-        if(path.includes("/admin/product/")){
+        if (path.includes("/admin/product/")) {
             document.getElementById("sidebar-product").classList.add("active");
         }
 
-        if(path.includes("/admin/brand/")){
+        if (path.includes("/admin/brand/")) {
             document.getElementById("sidebar-brand").classList.add("active");
         }
 
-        if(path.includes("/admin/banner/")){
+        if (path.includes("/admin/banner/")) {
             document.getElementById("sidebar-banner").classList.add("active");
         }
 
-         if(path.includes("/admin/comments/")){
+        if (path.includes("/admin/comments/")) {
             document.getElementById("sidebar-comments").classList.add("active");
         }
 
-         if(path.includes("/admin/discount/")){
+        if (path.includes("/admin/discount/")) {
             document.getElementById("sidebar-discount").classList.add("active");
         }
 
-         if(path.includes("/admin/users/")){
+        if (path.includes("/admin/users/")) {
             document.getElementById("sidebar-users").classList.add("active");
         }
 
