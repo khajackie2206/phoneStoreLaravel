@@ -83,6 +83,8 @@ Route::prefix('admin')
        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
        Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
+      Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+
        #Comments
        Route::get('/comments/lists', [RatingController::class, 'comments']);
        Route::post('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
