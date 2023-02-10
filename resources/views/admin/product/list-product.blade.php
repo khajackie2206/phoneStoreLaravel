@@ -15,37 +15,25 @@
                     <div class="card">
                         <div class="card-body h-100">
                             <div class="container ">
-
-                                <div class="mb-2 d-flex justify-content-between align-items-center">
-
-                                    <div class="position-relative" style="margin-bottom: 20px;">
-                                        <span class="position-absolute" style="top: 6px; left: 10px;"><i
-                                                class="fa fa-search"></i></span>
-                                        <input class="form-control w-100" style="text-indent: 17px;"
-                                            placeholder="Tìm kiếm theo tên, mã sản phẩm...">
-                                    </div>
-
-
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless table-striped">
+                                    <table class="table table-responsive table-borderless table-striped" id="product-table">
 
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">#</th>
-                                                <th scope="col" width="20%">Tên điện thoại &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
-                                                <th scope="col" width="15%">Dung lượng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
+                                                <th scope="col" width="20%">Tên điện thoại</th>
+                                                <th scope="col" width="15%">Dung lượng</th>
 
-                                                <th scope="col" width="10%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
+                                                <th scope="col" width="10%">Trạng thái</th>
                                                 <th scope="col" width="15%">Hình ảnh</th>
-                                                <th scope="col" width="10%">Số lượng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
-                                                <th scope="col" width="10%">Hãng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></span></th>
+                                                <th scope="col" width="10%">Số lượng</th>
+                                                <th scope="col" width="10%">Hãng</th>
                                                 <th scope="col" class="text-end" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($products as $product)
+                                            {{-- @foreach ($products as $product)
                                                 <tr>
                                                     <td>{{ $product->id }}</td>
                                                     <td style="font-weight: bold;">{{ $product->name }}</td>
@@ -77,7 +65,7 @@
 
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -85,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-             {{ $products->links('custom') }}
+             {{-- {{ $products->links('custom') }} --}}
             </div>
         </div>
     </main>
@@ -117,4 +105,64 @@
             });
         });
     </script>
+       <script>
+         $(document).ready(function() {
+             $('#product-table').DataTable({
+                 processing: true,
+                 serverSide: true,
+                 ajax: '{!! route('product_data') !!}',
+                 columns: [{
+                         data: 'id',
+
+                     },
+                     {
+                         data: 'name',
+
+                     },
+                     {
+                         data: 'size_memory',
+
+                     },
+                      {
+                         data: 'active',
+
+                     },
+                     {
+                         data: 'image',
+                     },
+                     {
+                         data: 'quantity',
+                     },
+                     {
+                         data: 'brand_id',
+
+                     },
+                     {
+                         data: 'action',
+
+                     },
+                 ],
+
+             });
+         });
+     </script>
+      <script>
+         function deleteProduct(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn xóa điện thoại này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
 @endsection

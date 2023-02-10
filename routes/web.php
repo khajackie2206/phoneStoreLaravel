@@ -43,6 +43,8 @@ Route::prefix('admin')
         Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
+        Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
+
         #Upload
         Route::post('/upload/services', [UploadController::class, 'store']);
         Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
@@ -70,10 +72,11 @@ Route::prefix('admin')
 
        #Orders
        Route::get('/order/lists', [MainController::class, 'orders']);
+       Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
-       Route::post('/order/delete/{order}', [MainController::class, 'delete']);
+       Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
        #Discount
        Route::get('/discount/lists', [DiscountController::class, 'index']);
@@ -87,8 +90,9 @@ Route::prefix('admin')
 
        #Comments
        Route::get('/comments/lists', [RatingController::class, 'comments']);
-       Route::post('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
+       Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
        Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
+       Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);

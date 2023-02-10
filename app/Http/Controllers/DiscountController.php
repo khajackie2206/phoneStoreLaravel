@@ -28,7 +28,7 @@ class DiscountController extends Controller
 
     public function getData()
     {
-       $discounts = DB::table('vouchers')->select(['id', 'code', 'quantity', 'type_discount','amount', 'start_date','end_date']);
+       $discounts = Voucher::select(['id', 'code', 'quantity', 'type_discount','amount', 'start_date','end_date']);
 
        return Datatables::of($discounts)->addColumn('action', function ($discount) {
         return '

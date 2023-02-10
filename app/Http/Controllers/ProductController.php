@@ -17,7 +17,7 @@ use App\Http\Requests\ValidateAddProduct;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\Datatables\Datatables;
 use Illuminate\Pagination\CursorPaginator;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -57,6 +57,27 @@ class ProductController extends Controller
             'products' => $products,
         ]);
     }
+
+     public function getData()
+     {
+         $products = Product::select(['id','name','quantity','brand_id', 'active','ram','rom']);
+
+         return Datatables::of($products)->addColumn('action', function ($product) {
+             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/product/edit/'.$product->id.'"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/product/delete/'.$product->id.'" onclick="return deleteProduct(event);"<i type="submit" style="color: red;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
+         })->addColumn('size_memory', function ($product) {
+             return ' <span style="font-weight: bold;">'.$product->ram.' GB - '.$product->rom.'</span>';
+         })->addColumn('image', function ($product) {
+             return  ' <img src="'.$product->images->where('type', 'cover')->first()['url'].'" width="100">';
+         })->editColumn('active', function ($product) {
+             return  $product->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+         })->editColumn('brand_id', function ($product) {
+             return  $product->brand->name;
+         })->editColumn('name', function ($product) {
+             return  '<span style="font-weight: bold;">'.$product->name.'</span>';
+         })->rawColumns(['action', 'size_memory', 'image', 'active','brand_id','name'])->make();
+     }
 
     public function storeProduct(ValidateAddProduct $request)
     {

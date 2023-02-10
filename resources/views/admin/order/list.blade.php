@@ -12,33 +12,23 @@
                     <div class="card">
                         <div class="card-body h-100">
                             <div class="container ">
-                                <div class="mb-2 d-flex justify-content-between align-items-center">
-                                    <div class="position-relative" style="margin-bottom: 20px;">
-                                        <span class="position-absolute" style="top: 6px; left: 10px;"><i
-                                                class="fa fa-search"></i></span>
-                                        <input class="form-control w-100" style="text-indent: 17px;"
-                                            placeholder="Tìm kiếm theo tên, mã sản phẩm...">
-                                    </div>
-
-
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless table-striped">
-
+                                    <table class="table table-responsive table-borderless table-striped" id="order-table">
                                         <thead>
-                                            <tr class="bg-warning text-dark" style="text-align: center;">
+                                            <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">ID</th>
-                                                <th scope="col" width="17%">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="15%">Tổng đơn &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="17%" style="text-align: center;">Tên khách hàng</th>
+                                                <th scope="col" width="15%" style="text-align: center;">Tổng đơn</th>
 
-                                                <th scope="col" width="18%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="15%">Thanh Toán &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="20%">Ngày đặt hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="18%"  style="text-align: center;">Trạng thái</th>
+                                                <th scope="col" width="15%"  style="text-align: center;">Thanh toán</th>
+                                                <th scope="col" width="20%"  style="text-align: center;">Ngày đặt hàng</th>
                                                 <th scope="col" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="text-align: center;"></tbody>
+                                        {{-- <tbody>
                                             @foreach ($orders as $order)
                                                 <tr style="text-align: center;">
                                                     <td>{{ $order->id }}</td>
@@ -84,14 +74,14 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        </tbody>
+                                        </tbody> --}}
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-             {{ $orders->links('custom') }}
+             {{-- {{ $orders->links('custom') }} --}}
             </div>
         </div>
     </main>
@@ -123,4 +113,87 @@
             });
         });
     </script>
+     <script>
+         $(document).ready(function() {
+             $('#order-table').DataTable({
+                 processing: true,
+                 serverSide: true,
+                 ajax: '{!! route('order_data') !!}',
+                 columns: [{
+                         data: 'id',
+
+                     },
+                     {
+                         data: 'user_id',
+
+                     },
+                     {
+                         data: 'total',
+
+                     },
+                     {
+                         data: 'status_id',
+                         "render": function(data, type, row, meta) {
+                            if (row["status_id"] === 1) {
+                                return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                            <span class="badge bg-secondary">Chờ xác nhận</span>`
+                            } else if(row["status_id"] === 2){
+                                return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                            <span class="badge bg-success">Đã xác nhận</span>`
+                            } else if(row["status_id"] === 3){
+                                return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                           <span class="badge bg-warning">Đang giao hàng</span>`
+                            } else if(row["status_id"] === 4){
+                                return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                           <span class="badge bg-info text-dark">Giao hàng thành công</span>`
+                            } else {
+                                return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                           <span class="badge bg-danger">Đã hủy</span>`
+                            }
+                        }
+                     },
+                     {
+                         data: 'payment_id',
+                        "render": function(data, type, row, meta) {
+                            if (row["payment_id"] === 1) {
+                                return `<span class="badge bg-success">Trả khi nhận hàng</span>`
+                            } else if(row["payment_id"] === 3){
+                                return ` <span class="badge bg-warning">Thanh toán Momo</span>`
+                            } else {
+                                return `<span class="badge bg-danger">Thanh toán Stripe</span>`
+                            }
+                        }
+                     },
+                     {
+                         data: 'created_at',
+
+                     },
+                     {
+                         data: 'action',
+
+                     },
+                 ],
+
+             });
+         });
+     </script>
+      <script>
+         function deleteOrder(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn xóa đơn hàng này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
 @endsection

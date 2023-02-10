@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Yajra\Datatables\Datatables;
 
 class MainController extends Controller
 {
@@ -155,6 +156,23 @@ class MainController extends Controller
             'orders' => $results
         ]);
     }
+
+    public function getData()
+     {
+         $orders = Order::select(['id','user_id','total','status_id', 'payment_id','created_at']);
+
+         return Datatables::of($orders)->addColumn('action', function ($order) {
+             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/order/detail/'.$order->id.'"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/order/delete/'.$order->id.'" onclick="return deleteOrder(event);"<i type="submit" style="color: red;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
+         })->editColumn('user_id', function ($order) {
+             return  '<span style="font-weight: bold;">'.$order->user->name.'</span>';
+         })->editColumn('created_at', function ($order) {
+             return  '<span style="font-weight: bold;">'.$order->created_at->format('d.m.Y').'</span>';
+         })->editColumn('total', function ($order) {
+             return  '<span style="color:red;font-weight: bold;"> '.number_format($order->total).' <span style="text-decoration: underline;">đ</span></span>';
+         })->rawColumns(['action', 'user_id', 'total', 'created_at'])->make();
+     }
 
     public function show(Order $order)
     {

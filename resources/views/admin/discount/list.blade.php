@@ -14,11 +14,8 @@
                      <div class="card">
                          <div class="card-body h-100">
                              <div class="container ">
-
-                                 <table id="example" class="display" width="100%"></table>
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless table-striped"
-                                         id="discount-table">
+                                     <table  id="discount-table" class="table table-responsive table-borderless table-striped" >
 
                                          <thead>
                                              <tr class="bg-warning text-dark" style="text-align: center;margin-top: 15px;">
