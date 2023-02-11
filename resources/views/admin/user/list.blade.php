@@ -14,21 +14,21 @@
 
 
                                  <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless table-striped">
+                                     <table class="table table-responsive table-borderless table-striped" id="user-table" style="padding-top: 20px;">
 
                                          <thead style="text-align: center;">
                                              <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="7%"># &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                 <th scope="col" width="20%" style="text-align: left;">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                 <th scope="col" width="20%" style="text-align: left;">Email &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                 <th scope="col" width="12%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                 <th scope="col" width="7%">#</th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Tên khách hàng</th>
+                                                 <th scope="col" width="20%" style="text-align: left;">Email</th>
+                                                 <th scope="col" width="12%">Trạng thái</th>
                                                  <th scope="col" width="13%">Hình ảnh</th>
-                                                 <th scope="col" width="13%">Số điện thoại &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                 <th scope="col" class="text-end" width="15%"><span>Thao tác</span>
+                                                 <th scope="col" width="13%">Số điện thoại</th>
+                                                 <th scope="col"  width="15%"><span>Thao tác</span>
                                                  </th>
                                              </tr>
                                          </thead>
-                                         <tbody >
+                                         {{-- <tbody >
                                              @foreach ($users as $user)
                                                  <tr style="text-align: center;" >
                                                      <td>{{ $user->id }}</td>
@@ -67,7 +67,7 @@
                                                  </tr>
                                              @endforeach
 
-                                         </tbody>
+                                         </tbody> --}}
                                      </table>
 
                                  </div>
@@ -76,7 +76,7 @@
                          </div>
                      </div>
                  </div>
-                  {{ $users->links('custom') }}
+                  {{-- {{ $users->links('custom') }} --}}
              </div>
          </div>
      </main>
@@ -136,6 +136,94 @@
                  }
              });
          });
+     </script>
+           <script>
+         $(document).ready(function() {
+             $('#user-table').DataTable({
+                 processing: true,
+                 serverSide: true,
+                  "language": {
+                     "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
+                      "zeroRecords": "Không tìm thấy kết quả",
+                      "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ kết quả",
+                      "infoEmpty": "Hiển thị 0 tới 0 của 0 kết quả",
+                      "infoFiltered": "(Lọc từ _MAX_ kết quả)",
+                      "search": "Tìm kiếm:",
+                      "paginate": {
+                         "first": "Đầu tiên",
+                          "last": "Cuối cùng",
+                          "next": "Sau",
+                         "previous": "Trước"
+                    },
+                 },
+                 ajax: '{!! route('user_data') !!}',
+                 columns: [{
+                         data: 'id',
+
+                     },
+                     {
+                         data: 'name',
+
+                     },
+                     {
+                         data: 'email',
+
+                     },
+                      {
+                         data: 'active',
+
+                     },
+                     {
+                         data: 'avatar',
+                     },
+                     {
+                         data: 'phone',
+                     },
+                     {
+                         data: 'action',
+                     },
+                 ],
+
+             });
+         });
+     </script>
+      <script>
+         function activeUser(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn kích hoạt tài khoản này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
+      <script>
+         function blockUser(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn khóa tài khoản này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã khóa!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
      </script>
  @endsection
 

@@ -59,8 +59,9 @@ Route::prefix('admin')
 
         #users
         Route::get('/users', [AdminController::class, 'getAllUsers']);
-        Route::post('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+        Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
 
+        Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
         #Brands
         Route::get('/brand/add', [BrandController::class, 'index']);
         Route::post('/brand/add', [BrandController::class, 'storeBrand']);
@@ -68,7 +69,8 @@ Route::prefix('admin')
         Route::get('/brand/edit/{brand}', [BrandController::class, 'showEdit']);
         Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
         Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
-        Route::post('/brand/delete/{brand}', [BrandController::class, 'delete']);
+        Route::get('/brand/delete/{brand}', [BrandController::class, 'delete']);
+        Route::get('/brand/list/data', [BrandController::class, 'getData'])->name('brand_data');
 
        #Orders
        Route::get('/order/lists', [MainController::class, 'orders']);

@@ -13,7 +13,7 @@
                         <div class="card-body h-100">
                             <div class="container ">
                                 <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless table-striped" id="order-table">
+                                    <table class="table table-responsive table-borderless table-striped" id="order-table" style="padding-top:20px;" >
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">ID</th>
@@ -118,6 +118,20 @@
              $('#order-table').DataTable({
                  processing: true,
                  serverSide: true,
+                 "language": {
+                     "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
+                      "zeroRecords": "Không tìm thấy kết quả",
+                      "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ kết quả",
+                      "infoEmpty": "Hiển thị 0 tới 0 của 0 kết quả",
+                      "infoFiltered": "(Lọc từ _MAX_ kết quả)",
+                      "search": "Tìm kiếm:",
+                      "paginate": {
+                         "first": "Đầu tiên",
+                          "last": "Cuối cùng",
+                          "next": "Sau",
+                         "previous": "Trước"
+                    },
+                 },
                  ajax: '{!! route('order_data') !!}',
                  columns: [{
                          data: 'id',
