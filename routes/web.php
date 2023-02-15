@@ -50,12 +50,14 @@ Route::prefix('admin')
         Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
 
         #Banner
+
         Route::get('/banner/add', [BannerController::class, 'index']);
         Route::post('/banner/add', [BannerController::class, 'storeBanner']);
         Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
         Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
         Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
         Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+        Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
 
         #users
         Route::get('/users', [AdminController::class, 'getAllUsers']);
