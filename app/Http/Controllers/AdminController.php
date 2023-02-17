@@ -17,10 +17,86 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+       //prepare data label for chartjs
+    public function prepareDataForChart($data)
+    {
+        $labels = [];
+        $chartData = [];
+        foreach ($data as $item) {
+            $labels[] = $item->status;
+            $chartData[] = $item->total;
+
+        }
+        return [
+            'labels' => $labels,
+            'data' => $chartData,
+        ];
+    }
+
+     public function prepareDataForRowChart($data)
+    {
+        $labels = [];
+        $chartData = [];
+        foreach ($data as $item) {
+            $labels[] = $item['date'];
+            $chartData[] = $item['total'];
+
+        }
+        return [
+            'labels' => $labels,
+            'data' => $chartData,
+        ];
+    }
+
+    public function mapDataWith12DayAgo($data)
+    {
+        $dataMap = [];
+        $date = now()->subDays(12);
+        for ($i = 0; $i < 12; $i++) {
+            $dataMap[$i]['date'] = $date->format('d-m');
+            $dataMap[$i]['total'] = 0;
+            foreach ($data as $item) {
+                if ($item->date == $date->format('Y-m-d')) {
+                    $dataMap[$i]['total'] = $item->total;
+                }
+            }
+            $date->addDay();
+        }
+        //convert array to object and return
+        return $dataMap;
+    }
+
     public function index()
     {
         $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
         $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
+        $paymentMethods = DB::table('orders')
+            ->join('payments', 'orders.payment_id', '=', 'payments.id')
+            ->select('payments.name as status', DB::raw('count(*) as total'))
+            ->groupBy('payments.name')
+            ->get();
+
+        // group total_price in table order_details with table orders within 12 days
+        $totalPrices = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
+            ->where('orders.created_at', '>=', now()->subDays(12))
+            ->groupBy('date')
+            ->get();
+        // group total order within 12 days
+        $totalOrders = DB::table('orders')
+            ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
+            ->where('created_at', '>=', now()->subDays(12))
+            ->groupBy('date')
+            ->get();
+
+
+        $pieChartData = $this->prepareDataForChart($paymentMethods);
+        $rowChartData = $this->mapDataWith12DayAgo($totalPrices);
+        $formatRowChartData = $this->prepareDataForRowChart($rowChartData);
+        $totalOrderData = $this->mapDataWith12DayAgo($totalOrders);
+        $formatTotalOrderData = $this->prepareDataForRowChart($totalOrderData);
+
         $products = Product::get();
         $users = count(User::get());
 
@@ -29,7 +105,10 @@ class AdminController extends Controller
             'users' => $users,
             'orderNews' => $orderNews,
             'orders' => $orders,
-            'products' => $products
+            'products' => $products,
+            'pieChartData' => $pieChartData,
+            'rowChartData' => $formatRowChartData,
+            'totalOrderData' => $formatTotalOrderData,
         ]);
     }
 
