@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Yajra\Datatables\Datatables;
@@ -48,11 +47,11 @@ class AdminController extends Controller
         ];
     }
 
-    public function mapDataWith12DayAgo($data)
+    public function mapDataWith14DayAgo($data)
     {
         $dataMap = [];
-        $date = now()->subDays(12);
-        for ($i = 0; $i < 12; $i++) {
+        $date = now()->subDays(14);
+        for ($i = 0; $i < 14; $i++) {
             $dataMap[$i]['date'] = $date->format('d-m');
             $dataMap[$i]['total'] = 0;
             foreach ($data as $item) {
@@ -68,6 +67,7 @@ class AdminController extends Controller
 
     public function index()
     {
+
         $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
         $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
         $paymentMethods = DB::table('orders')
@@ -75,26 +75,52 @@ class AdminController extends Controller
             ->select('payments.name as status', DB::raw('count(*) as total'))
             ->groupBy('payments.name')
             ->get();
+        //caculate total price in table order_details with table orders with status in table statues is 4 in total 14 days ago to 7 days ago
+        $totalAvanue2WeeksAgo = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select(DB::raw('sum(order_details.total_price) as total'))
+            ->where('orders.status_id',4)
+            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.created_at', '>=', now()->subDays(14))
+            ->where('orders.created_at', '<', now()->subDays(7))
+            ->get();
+        $totalAvanue2WeeksAgo = $totalAvanue2WeeksAgo[0]->total;
+
+        //caculate total price in table order_details with table orders with status in table statues is 4 in total 7 days
+        $totalAvanue = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select(DB::raw('sum(order_details.total_price) as total'))
+            ->where('orders.status_id',4)
+            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.created_at', '>=', now()->subDays(7))
+            ->get();
+        $totalAvanue =  $totalAvanue[0]->total;
+
+        $increaseTotalAvanue = $this->caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo);
 
         // group total_price in table order_details with table orders within 12 days
         $totalPrices = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
-            ->where('orders.created_at', '>=', now()->subDays(12))
+            ->where('orders.status_id',4)
+            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
+
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->where('created_at', '>=', now()->subDays(12))
+            ->where('created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
 
-
         $pieChartData = $this->prepareDataForChart($paymentMethods);
-        $rowChartData = $this->mapDataWith12DayAgo($totalPrices);
+        $rowChartData = $this->mapDataWith14DayAgo($totalPrices);
         $formatRowChartData = $this->prepareDataForRowChart($rowChartData);
-        $totalOrderData = $this->mapDataWith12DayAgo($totalOrders);
+        $totalOrderData = $this->mapDataWith14DayAgo($totalOrders);
         $formatTotalOrderData = $this->prepareDataForRowChart($totalOrderData);
 
         $products = Product::get();
@@ -109,7 +135,21 @@ class AdminController extends Controller
             'pieChartData' => $pieChartData,
             'rowChartData' => $formatRowChartData,
             'totalOrderData' => $formatTotalOrderData,
+            'increaseTotalAvanue' => $increaseTotalAvanue,
+            'summary' => $totalAvanue,
         ]);
+    }
+
+    //function caculate increase in total price in 7 days ago
+    public function caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo)
+    {
+        $increase = 0;
+        if ($totalAvanue2WeeksAgo == 0) {
+            $increase = 0;
+        } else {
+            $increase = ($totalAvanue - $totalAvanue2WeeksAgo) / $totalAvanue2WeeksAgo * 100;
+        }
+        return $increase;
     }
 
     public function getAllUsers()
@@ -141,6 +181,7 @@ class AdminController extends Controller
              return  '<span style="font-weight: bold;">'.$user->phone.'</span>';
          })->rawColumns(['name', 'avatar', 'active', 'email','phone','action'])->make();
      }
+
 
     public function changeActive(Request $request, User $user)
     {

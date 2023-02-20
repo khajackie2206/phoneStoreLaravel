@@ -138,6 +138,7 @@ Route::prefix('products')->group(function () {
 
     //Payment
     Route::post('/checkout-product', [CardController::class, 'payment']);
+    Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
 
     //Order
     Route::get('/order/update-status/{order}',[MainController::class, 'customerUpdateStatus']);

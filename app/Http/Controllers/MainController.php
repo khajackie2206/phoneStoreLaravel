@@ -168,7 +168,7 @@ class MainController extends Controller
          })->editColumn('user_id', function ($order) {
              return  '<span style="font-weight: bold;">'.$order->user->name.'</span>';
          })->editColumn('created_at', function ($order) {
-             return  '<span style="font-weight: bold;">'.$order->created_at->format('d.m.Y').'</span>';
+             return  '<span style="font-weight: bold;">'.$order->created_at->format('d.m.Y H:i:s').'</span>';
          })->editColumn('total', function ($order) {
              return  '<span style="color:red;font-weight: bold;"> '.number_format($order->total).' <span style="text-decoration: underline;">đ</span></span>';
          })->rawColumns(['action', 'user_id', 'total', 'created_at'])->make();

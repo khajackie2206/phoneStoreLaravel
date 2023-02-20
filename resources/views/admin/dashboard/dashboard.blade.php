@@ -3,10 +3,6 @@
     <main class="content">
         <div class="container-fluid p-0">
             <h1 class="h3 mb-3"><strong>Dữ liệu</strong> Phân tích</h1>
-            <?php $summary = 0; ?>
-            @foreach ($orders as $item)
-                <?php $summary += $item->total; ?>
-            @endforeach
             <div class="row">
                 <div class="col-xl-6 col-xxl-5 d-flex">
                     <div class="w-100">
@@ -70,9 +66,15 @@
                                         <h3 class="mt-1 mb-3" style="padding: 5px 0px 5px 0px;">
                                             {{ number_format($summary, 0, ',', '.') }} đ</h3>
                                         <div class="mb-0">
-                                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +6.65%
-                                            </span>
-                                            <span class="text-muted">So với tháng trước</span>
+                                            @if($increaseTotalAvanue > 0)
+                                                <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +{{ round($increaseTotalAvanue,2) }} %
+                                                </span>
+                                            @else
+                                                <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -{{ round($increaseTotalAvanue,2) }} %
+                                                </span>
+                                            @endif
+
+                                            <span class="text-muted">Tuần trước</span>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +257,7 @@
                             labels: labelRowChart,
                             datasets: [{
                                 label: "Doanh thu hàng ngày",
-                                backgroundColor: ["#F5B041", "#F5B041", "green", "blue", "red", "blue"],
+                                backgroundColor: "#F5B041",
                                 borderColor: window.theme.primary,
                                 hoverBackgroundColor: window.theme.primary,
                                 hoverBorderColor: window.theme.primary,
@@ -265,8 +267,8 @@
                             }]
                         },
                         options: {
-                              plugins: {
-                        datalabels: {
+                         plugins: {
+                           datalabels: {
                             display: true,
                             color: 'white',
                             font: {
@@ -280,11 +282,20 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
-                            }
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                if (parseInt(value) >= 1000) {
+                                return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                } else {
+                                return value;
+                                }
+                                }
+                            },
+
                         }]
-                    }
-                        }
+                    },
+                        },
+
                     });
                 });
     </script>
@@ -305,7 +316,7 @@
                 data: {
                     labels: labelRowChart,
                     datasets: [{
-                        label: "Sales ($)",
+                        label: "Số đơn ($)",
                         fill: true,
                         backgroundColor: gradient,
                         borderColor: window.theme.primary,

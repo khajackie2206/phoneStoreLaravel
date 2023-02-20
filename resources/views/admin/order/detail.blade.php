@@ -36,7 +36,7 @@
             <div class="col-sm-3 invoice-col">
                 <b>Đơn hàng: </b>#0000{{ $order->id }}<br>
                 <b>Tổng đơn: </b>{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span><br>
-                <b>Ngày đặt:</b> {{ $order->created_at->format('d/m/Y') }}<br>
+                <b>Ngày đặt:</b> {{ $order->created_at->format('d/m/Y H:i:s') }}<br>
             </div>
             <!-- /.col -->
         </div>
@@ -107,7 +107,7 @@
                         <input name="_method" type="hidden" value="POST">
                         <select class="custom-select" name="status"
                         {{
-                           ($order->status->id == 3 || $order->status->id == 4) ? 'disabled' : ''
+                           ($order->status->id == 4) ? 'disabled' : ''
                         }}>
                             @if ($order->status->id == 1)
                                 <option value="1" {{ $order->status->id == 1 ? 'selected' : '' }}>Chờ xác nhận
@@ -185,7 +185,9 @@
                             class="fas fa-print"></i> Xuất PDF</a>
                 </button>
 
-                <button type="button" class="btn btn-info show-alert-change-status">Lưu thay đổi</button>
+                <button type="button" class="btn btn-info show-alert-change-status" {{
+                           ($order->status->id == 4) ? 'disabled' : ''
+                        }}>Lưu thay đổi</button>
 
             </div>
         </div>
