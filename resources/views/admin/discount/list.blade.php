@@ -33,55 +33,13 @@
                                                  </th>
                                              </tr>
                                          </thead>
-                                         <tbody>
-                                             @foreach ($vouchers as $voucher)
-                                                 <tr  style="text-align: center;">
-                                                     <td>{{ $voucher->id }}</td>
-                                                     <td style="font-weight: bold;">{{ $voucher->code }}</td>
-                                                     <td>{{$voucher->quantity}}</td>
-                                                     <td>
-                                                          @if ($voucher->type_discount =='money')
-                                                             <span class="badge bg-success">Giảm theo tiền</span>
-                                                        @else
-                                                             <span class="badge bg-warning">giảm theo phần trăm</span>
-                                                        @endif
-                                                     </td>
-                                                     <td style="color: red;">
-                                                        @if ($voucher->type_discount =='money')
-                                                            {{ number_format($voucher->amount)}} <span style="text-decoration: underline;">đ</span>
-                                                        @else
-                                                            {{ number_format($voucher->amount)}} <span>%</span>
-                                                        @endif
 
-                                                    </td>
-                                                     <td style="font-weight: bold;">{{ date('Y-m-d', strtotime($voucher->start_date)) }}</td>
-                                                     <td style="font-weight: bold;"><span
-                                                             style="margin-left: 15px;">{{ date('Y-m-d', strtotime($voucher->end_date)) }}</span></td>
-
-                                                     <td class="text-center">
-                                                   <a
-                                                            href="/admin/order/detail/{{$voucher->id}}">
-                                                            <i class="fas fa-edit fa-xl"></i>
-                                                        </a>
-
-                                                        <form method="delete" style=" display:inline!important;"
-                                                            action="/admin/product/delete/{{ $voucher->id }}">
-                                                            @csrf
-                                                            <input name="_method" type="hidden" value="DELETE">
-                                                        <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
-                                                        </form>
-
-                                                     </td>
-                                                 </tr>
-                                             @endforeach
-                                         </tbody>
                                      </table>
                                  </div>
                              </div>
                          </div>
                      </div>
                  </div>
-                 {{ $vouchers->links('custom') }}
              </div>
          </div>
      </main>
@@ -168,14 +126,16 @@
                  }
              });
          });
-   //test datatable
-   var dataSet = [
-       ["id":1,"name":"srping","code":"JACK","quantity":84,"amount":500000,"start_date":"2022-11-02 00:00:00","end_date":"2022-11-10 00:00:00","type_discount":"money","created_at":"2022-10-23T00:00:00.000000Z","updated_at":"2023-02-06T16:33:34.000000Z"},
-       {"id":2,"name":"sprint","code":"KHA","quantity":96,"amount":10,"start_date":"2022-11-02 00:00:00","end_date":"2022-11-10 00:00:00","type_discount":"percent","created_at":"2022-11-10T00:00:00.000000Z","updated_at":"2022-11-08T14:07:22.000000Z"}]
-    // ['Tiger Nixon', 'System Architect', '<span class="badge bg-success">Giảm theo tiền</span>', '5421', '2011/04/25', '$320,800', ['thao tac']],
-];
+     </script>
+     <script>
 
-$(document).ready(function () {
+    var dataSet = '{{$vouchers}}';
+    dataSet = dataSet.replace(/&quot;/g, '"');
+    //console.log JSON.stringify(dataSet);
+    // var dataSet = [["1","srping","JACK","85","500000","2022-11-02 00:00:00","2022-11-10 00:00:00","money","2022-10-23T00:00:00.000000Z","2022-10-24T17:30:51.000000Z"],["2","sprint","KHA","96","10","2022-11-02 00:00:00","2022-11-10 00:00:00","percent","2022-11-10T00:00:00.000000Z","2022-11-08T14:07:22.000000Z"]]
+    dataSet = '['+dataSet+']';
+    //convert dataSet to array
+    dataSet = JSON.parse(dataSet);
     $('#example').DataTable({
         data: dataSet,
         columns: [
@@ -186,9 +146,11 @@ $(document).ready(function () {
             { title: 'Ngày bắt đầu' },
             { title: 'Ngày kết thúc' },
             { title: 'Thao tác' },
+            { title: 'Thao tác' },
+            { title: 'Thao tác' },
+            { title: 'Thao tác' },
         ],
 
     });
-});
      </script>
  @endsection

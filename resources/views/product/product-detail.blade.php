@@ -214,9 +214,9 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6"
-                                    style="margin-right: 65px;margin-left: 15px;; background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
+                                    style="margin-right: 15px;margin-left: 15px;; background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
     box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding: 30px;">
-                                    <span style="color: black !important;font-family: inherit !important">
+                                    <span class="product-desc" style="color: black !important;font-family: inherit !important">
 
                                         {!! $product->description !!}
 
@@ -334,7 +334,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container rating-area" style="margin-top: 30px;" id="foo">
+            <div class="container rating-area" style="margin-top: 5px;" id="foo">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-center">
