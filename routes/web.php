@@ -43,22 +43,27 @@ Route::prefix('admin')
         Route::post('/product/edit/{product}', [ProductController::class, 'update']);
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
+        Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
+
         #Upload
         Route::post('/upload/services', [UploadController::class, 'store']);
         Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
 
         #Banner
+
         Route::get('/banner/add', [BannerController::class, 'index']);
         Route::post('/banner/add', [BannerController::class, 'storeBanner']);
         Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
         Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
         Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
         Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+        Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
 
         #users
         Route::get('/users', [AdminController::class, 'getAllUsers']);
-        Route::post('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+        Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
 
+        Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
         #Brands
         Route::get('/brand/add', [BrandController::class, 'index']);
         Route::post('/brand/add', [BrandController::class, 'storeBrand']);
@@ -66,14 +71,16 @@ Route::prefix('admin')
         Route::get('/brand/edit/{brand}', [BrandController::class, 'showEdit']);
         Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
         Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
-        Route::post('/brand/delete/{brand}', [BrandController::class, 'delete']);
+        Route::get('/brand/delete/{brand}', [BrandController::class, 'delete']);
+        Route::get('/brand/list/data', [BrandController::class, 'getData'])->name('brand_data');
 
        #Orders
        Route::get('/order/lists', [MainController::class, 'orders']);
+       Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
-       Route::post('/order/delete/{order}', [MainController::class, 'delete']);
+       Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
        #Discount
        Route::get('/discount/lists', [DiscountController::class, 'index']);
@@ -83,10 +90,13 @@ Route::prefix('admin')
        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
        Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
+      Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+
        #Comments
        Route::get('/comments/lists', [RatingController::class, 'comments']);
-       Route::post('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
+       Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
        Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
+       Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
@@ -128,6 +138,7 @@ Route::prefix('products')->group(function () {
 
     //Payment
     Route::post('/checkout-product', [CardController::class, 'payment']);
+    Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
 
     //Order
     Route::get('/order/update-status/{order}',[MainController::class, 'customerUpdateStatus']);

@@ -8,6 +8,8 @@ use App\Models\Banner;
 use App\Services\BannerService;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
+use Spatie\QueryBuilder\QueryBuilder;
+use Yajra\Datatables\Datatables;
 
 class BannerController extends Controller
 {
@@ -46,6 +48,27 @@ class BannerController extends Controller
             'banners' => $banners,
         ]);
     }
+
+       public function getData()
+     {
+         $banners = Banner::select(['id','header','product_name','active', 'thumb','type_banner']);
+
+         return Datatables::of($banners)->addColumn('action', function ($banner) {
+             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/banner/edit/'.$banner->id.'"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/banner/delete/'.$banner->id.'" onclick="return deleteBanner(event);"<i type="submit" style="color: red;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
+         })->editColumn('header', function ($banner) {
+             return '<span style="font-weight: bold;">'.$banner->header.'</span>';
+         })->editColumn('product_name', function ($banner) {
+             return '<span style="font-weight: bold;">'.$banner->product_name.'</span>';
+         })->editColumn('thumb', function ($banner) {
+             return  ' <img src="'.$banner->thumb.'" width="100">';
+         })->editColumn('active', function ($banner) {
+             return  $banner->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+         })->editColumn('type_banner', function ($banner) {
+             return  '<span style="font-weight: bold;">'.$banner->type_banner.'</span>';
+         })->rawColumns(['action', 'header', 'product_name', 'thumb','active','type_banner'])->make();
+     }
 
       public function showEdit(Banner $banner)
     {

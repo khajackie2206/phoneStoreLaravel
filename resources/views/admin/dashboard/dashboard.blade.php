@@ -3,10 +3,6 @@
     <main class="content">
         <div class="container-fluid p-0">
             <h1 class="h3 mb-3"><strong>Dữ liệu</strong> Phân tích</h1>
-            <?php $summary = 0; ?>
-            @foreach ($orders as $item)
-                <?php $summary += $item->total; ?>
-            @endforeach
             <div class="row">
                 <div class="col-xl-6 col-xxl-5 d-flex">
                     <div class="w-100">
@@ -70,9 +66,15 @@
                                         <h3 class="mt-1 mb-3" style="padding: 5px 0px 5px 0px;">
                                             {{ number_format($summary, 0, ',', '.') }} đ</h3>
                                         <div class="mb-0">
-                                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +6.65%
-                                            </span>
-                                            <span class="text-muted">So với tháng trước</span>
+                                            @if($increaseTotalAvanue > 0)
+                                                <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +{{ round($increaseTotalAvanue,2) }} %
+                                                </span>
+                                            @else
+                                                <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -{{ round($increaseTotalAvanue,2) }} %
+                                                </span>
+                                            @endif
+
+                                            <span class="text-muted">Tuần trước</span>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +108,7 @@
                     <div class="card flex-fill w-100">
                         <div class="card-header">
 
-                            <h5 class="card-title mb-0">Biểu đồ doanh thu</h5>
+                            <h5 class="card-title mb-0">Biểu đồ đơn hàng theo ngày</h5>
                         </div>
                         <div class="card-body py-3">
                             <div class="chart chart-sm">
@@ -122,7 +124,7 @@
                     <div class="card flex-fill">
                         <div class="card-header">
 
-                            <h5 class="card-title mb-0">Đơn hàng mới nhất</h5>
+                            <h5 class="card-title mb-0">Biểu đồ doanh thu</h5>
                         </div>
                         {{-- <table class="table table-hover my-0">
                             <thead>
@@ -180,7 +182,7 @@
                     <div class="card flex-fill w-100">
                         <div class="card-header">
 
-                            <h5 class="card-title mb-0">Đơn hàng mỗi tháng</h5>
+                            <h5 class="card-title mb-0">Phương thức thanh toán</h5>
                         </div>
                         <div class="card-body d-flex">
 									<div class="align-self-center w-100">
@@ -189,21 +191,14 @@
 												<canvas id="chartjs-dashboard-pie"></canvas>
 											</div>
 										</div>
-
 										<table class="table mb-0">
 											<tbody>
-												<tr>
-													<td>Chrome</td>
-													<td class="text-end">4306</td>
+                                               @foreach ($pieChartData['labels'] as $paymentMethod)
+                                                <tr>
+													<td>{{$paymentMethod}}</td>
+													<td class="text-end">{{$pieChartData['data'][$loop->index]}}</td>
 												</tr>
-												<tr>
-													<td>Firefox</td>
-													<td class="text-end">3801</td>
-												</tr>
-												<tr>
-													<td>IE</td>
-													<td class="text-end">1689</td>
-												</tr>
+                                               @endforeach
 											</tbody>
 										</table>
 									</div>
@@ -214,4 +209,156 @@
 
         </div>
     </main>
+
+
 @endsection
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+             var labelPieChart = '{!! json_encode($pieChartData['labels']) !!}';
+            labelPieChart = JSON.parse(labelPieChart);
+               var dataPieChart = '{!! json_encode($pieChartData['data']) !!}';
+            dataPieChart = JSON.parse(dataPieChart);
+            // Pie chart
+            new Chart(document.getElementById("chartjs-dashboard-pie"), {
+                type: "pie",
+                data: {
+                    labels: labelPieChart,
+                    datasets: [{
+                        data: dataPieChart,
+                        backgroundColor: [
+                            window.theme.primary,
+                            window.theme.warning,
+                            window.theme.danger
+                        ],
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: !window.MSInputMethodContext,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 75
+                }
+            });
+        });
+    </script>
+
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var labelRowChart = '{!! json_encode($rowChartData['labels']) !!}';
+            labelRowChart = JSON.parse(labelRowChart);
+               var dataRowChart = '{!! json_encode($rowChartData['data']) !!}';
+            dataRowChart = JSON.parse(dataRowChart);
+                    new Chart(document.getElementById("chartjs-bar"), {
+                        type: "bar",
+                        data: {
+                            labels: labelRowChart,
+                            datasets: [{
+                                label: "Doanh thu hàng ngày",
+                                backgroundColor: "#F5B041",
+                                borderColor: window.theme.primary,
+                                hoverBackgroundColor: window.theme.primary,
+                                hoverBorderColor: window.theme.primary,
+                                data: dataRowChart,
+                                barPercentage: .75,
+                                categoryPercentage: .5
+                            }]
+                        },
+                        options: {
+                         plugins: {
+                           datalabels: {
+                            display: true,
+                            color: 'white',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                if (parseInt(value) >= 1000) {
+                                return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                } else {
+                                return value;
+                                }
+                                }
+                            },
+
+                        }]
+                    },
+                        },
+
+                    });
+                });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+             var labelRowChart = '{!! json_encode($totalOrderData['labels']) !!}';
+            labelRowChart = JSON.parse(labelRowChart);
+               var dataRowChart = '{!! json_encode($totalOrderData['data']) !!}';
+            dataRowChart = JSON.parse(dataRowChart);
+            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+            // Line chart
+            new Chart(document.getElementById("chartjs-dashboard-line"), {
+                type: "line",
+                data: {
+                    labels: labelRowChart,
+                    datasets: [{
+                        label: "Số đơn ($)",
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: window.theme.primary,
+                        data: dataRowChart
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        intersect: false
+                    },
+                    hover: {
+                        intersect: true
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            reverse: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 1000
+                            },
+                            display: true,
+                            borderDash: [3, 3],
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+

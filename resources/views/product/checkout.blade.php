@@ -25,7 +25,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Họ và tên <span class="required">*</span></label>
-                                        <input value="{{ $user->name }}" type="text">
+                                        <input value="{{ $user->name }}" type="text" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -33,7 +33,7 @@
                                         <label>Địa chỉ giao hàng <span class="required">*</span></label>
                                         @if (isset($addresses) && count($addresses) > 0)
                                             <select class="form-select" style="background-color: white;"
-                                                aria-label="Default select example" name="delivery_address">
+                                                aria-label="Default select example" name="delivery_address"  id="delivery_address">
                                                 @foreach ($addresses as $address)
                                                     <option value="{{ $address->address }}">{{ $address->address }}</option>
                                                 @endforeach
@@ -41,7 +41,7 @@
                                             </select>
                                         @else
                                             <input placeholder="Địa chỉ giao hàng" name="delivery_address"
-                                                type="text">
+                                                type="text" id="delivery_address" value="{{ $user->address}}" onchange="saveValue(this);">
                                         @endif
 
                                     </div>
@@ -59,15 +59,15 @@
                                         <label>Số điện thoại giao hàng <span class="required">*</span></label>
                                         @if (isset($user->phone))
                                             <input type="text" value="{{ $user->phone }}" name="phone_number"
-                                                placeholder="Số điện thoại" style="background-color: #f2f2f2;" disabled>
+                                                placeholder="Số điện thoại" style="background-color: #f2f2f2;" id="phone_number"  disabled>
                                         @else
-                                            <input type="text" placeholder="Số điện thoại" name="phone_number">
+                                            <input type="text" placeholder="Số điện thoại" name="phone_number" id="phone_number" onchange="saveValue(this);">
                                         @endif
 
                                     </div>
                                 </div>
                             </div>
-                            @if (isset($addresses) && count($addresses) > 0)
+                            {{-- @if (isset($addresses) && count($addresses) > 0)
                                 <div class="different-address">
                                     <div class="ship-different-title">
                                         <h3>
@@ -80,17 +80,17 @@
                                             <div class="checkout-form-list">
                                                 <label>Địa chỉ giao hàng mới </label>
                                                 <input placeholder="Địa chỉ giao hàng mới" name="new_address"
-                                                    type="text">
+                                                    type="text" id="new_address" onchange="saveValue(this);">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="order-notes">
                                 <div class="checkout-form-list">
                                     <label>Ghi chú giao hàng</label>
                                     <textarea id="checkout-mess" name="note" cols="30" rows="10"
-                                        placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
+                                        placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..." onchange="saveValue(this);"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -247,21 +247,16 @@
                                                         style="font-weight: bold;">Thanh toán khi nhận
                                                         hàng</span></label><br>
                                                 <input type="radio" id="html" name="payment_method"
-                                                    value="2" style="height: 20px; width: 18%;">
+                                                    value="2" style="height: 20px; width: 18%;" id="vnpay">
                                                 <label for="html"><img
-                                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
+                                                        src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd2w2SHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3c10eafdffd111f6ec8ef44d76353152683cf2b2/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFJc0FXa0NMQUU9IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--492f60b9aac6e8159e50e72bb289c5feb47a79d4/logo%20VNPAY-02.png"
                                                         width="50px;"></label><br>
-                                                <input type="radio" id="html" name="payment_method"
-                                                    value="3" style="height: 20px; width: 18%;">
-                                                <label for="html"><img
-                                                        src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1458245625/pwegh6kadcb37kuz0woj.png"
-                                                        width="25px;"></label><br>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="order-button-payment">
-                                        <input value="Thanh toán" type="submit">
+                                        <input value="Thanh toán" type="submit" name="redirect">
                                     </div>
                                 </div>
                             </div>
@@ -273,4 +268,46 @@
         </div>
     </div>
     <!--Checkout Area End-->
+    <script type="text/javascript">
+        var shipbox = document.getElementById('ship-box');
+         document.getElementById("phone_number").value = getSavedValue("phone_number");    // set the value to this input
+         document.getElementById("checkout-mess").value = getSavedValue("checkout-mess");
+        //  document.getElementById("delivery_address").value = getSavedValue("delivery_address");
+        //  if(shipbox){
+        //    $('#ship-box-info').slideToggle(1000);
+        //   document.getElementById("new_address").value = getSavedValue("new_address");
+        //   document.getElementById("ship-box").checked = true;
+        //    }  // set the value to this input
+        /* Here you can add more inputs to set value. if it's saved */
+
+        //Save the value function - save it to localStorage as (ID, VALUE)
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it .
+            var val = e.value; // get the value.
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override .
+        }
+
+        //get the saved value function - return the value of "v" from localStorage.
+        function getSavedValue (v){
+            if (!localStorage.getItem(v)) {
+                return "";// You can change this to your defualt value.
+            }
+            return localStorage.getItem(v);
+        }
+</script>
+<script>
+    //ready function change action of form-discount based on checked of radio button with name payment_method
+
+    $(document).ready(function() {
+        $('input[type=radio][name=payment_method]').change(function() {
+            if (this.value == '2') {
+                $('#form-discount').attr('action', '/products/checkout-product/vnpay');
+            } else if (this.value == '1') {
+                $('#form-discount').attr('action', '/products/checkout-product');
+            }
+        });
+    });
+
+</script>
 @endsection
+

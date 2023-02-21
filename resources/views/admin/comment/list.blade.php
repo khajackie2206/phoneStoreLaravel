@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-body h-100">
                             <div class="container ">
-                                <div class="mb-2 d-flex justify-content-between align-items-center">
+                                {{-- <div class="mb-2 d-flex justify-content-between align-items-center">
                                     <div class="position-relative" style="margin-bottom: 20px;">
                                         <span class="position-absolute" style="top: 6px; left: 10px;"><i
                                                 class="fa fa-search"></i></span>
@@ -21,25 +21,24 @@
                                     </div>
 
 
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-responsive table-borderless table-striped">
+                                </div> --}}
+                                    <table class="table table-responsive table-borderless table-striped" id="comment-table" style="padding-top: 20px;">
 
                                         <thead>
                                             <tr class="bg-warning text-dark" style="text-align: center;">
-                                                <th scope="col" width="6%">ID &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="17%">Tên khách hàng &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="17%">Sản phẩm đánh giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="6%">ID </th>
+                                                <th scope="col" width="14%">Tên khách hàng </th>
+                                                <th scope="col" width="20%">Sản phẩm đánh giá</th>
 
-                                                <th scope="col" width="15%">Số sao &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="22%">Nội dung đánh giá &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
-                                                <th scope="col" width="13%">Trạng thái &nbsp;<span><img src="https://cdn-icons-png.flaticon.com/512/6687/6687601.png" width="15px"></th>
+                                                <th scope="col" width="15%" >Số sao </th>
+                                                <th scope="col" width="22%">Nội dung đánh giá</th>
+                                                <th scope="col" width="13%">Trạng thái</th>
                                                 <th scope="col" width="10%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($comments as $comment)
+                                            {{-- @foreach ($comments as $comment)
                                                 <tr style="text-align: center;">
                                                     <td>{{ $comment->id }}</td>
                                                     <td>{{ $comment->user->name }}</td>
@@ -101,15 +100,14 @@
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{ $comments->links('custom') }}
+                {{-- {{ $comments->links('custom') }} --}}
             </div>
         </div>
     </main>
@@ -182,4 +180,179 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#comment-table').DataTable({
+                processing: true,
+                serverSide: true,
+                "language": {
+                     "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
+                      "zeroRecords": "Không tìm thấy kết quả",
+                      "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ kết quả",
+                      "infoEmpty": "Hiển thị 0 tới 0 của 0 kết quả",
+                      "infoFiltered": "(Lọc từ _MAX_ kết quả)",
+                      "search": "Tìm kiếm:",
+                      "paginate": {
+                         "first": "Đầu tiên",
+                          "last": "Cuối cùng",
+                          "next": "Sau",
+                         "previous": "Trước"
+                    },
+                 },
+                ajax: '{!! route('rating_data') !!}',
+                columns: [{
+                        data: 'id',
+
+                    },
+                    {
+                        data: 'user_id',
+
+                    },
+                    {
+                        data: 'product_id',
+
+                    },
+                    {
+                        data: 'rating',
+                        "orderable": true,
+                        "render": function(data, type, row, meta) {
+                            if (row["rating"] === 1) {
+                                return `<span class="g-color-gray-dark-v4 g-font-size-12">
+                                                            <div class="small-ratings">
+                                                          <i class="fa fa-star></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </span>`
+                            }  else if(row["rating"] === 2) {
+                             return `<span class="g-color-gray-dark-v4 g-font-size-12">
+                                                            <div class="small-ratings">
+                                                               <i class="fa fa-star></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </span>`
+                            }  else if(row["rating"] === 3) {
+                             return `<span class="g-color-gray-dark-v4 g-font-size-12">
+                                                            <div class="small-ratings">
+                                                                <i class="fa fa-star></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star "></i>
+                                                                <i class="fa fa-star "></i>
+                                                            </div>
+                                                        </span>`
+                            }  else if(row["rating"] === 4) {
+                             return `<span class="g-color-gray-dark-v4 g-font-size-12">
+                                            <div class="small-ratings">
+                                                                <i class="fa fa-star></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star "></i>
+
+                                                            </div>
+                                                        </span>`
+                            } else {
+                             return `<span class="g-color-gray-dark-v4 g-font-size-12">
+                                                            <div class="small-ratings">
+                                                                <i class="fa fa-star></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                                <i class="fa fa-star rating-color"></i>
+                                                            </div>
+                                                        </span>`
+                            }
+                        }
+
+                    },
+                    {
+                        data: 'comment',
+
+                    },
+                    {
+                        data: 'status',
+                    },
+                    {
+                        data: 'action',
+                    },
+                ],
+
+            });
+        });
+    </script>
+
+    <script>
+         function approve(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn duyệt bình luận này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
+      <script>
+         function reject(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn từ chối bình luận này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
+      <script>
+         function deleteComment(ev) {
+             var urlToRedirect = ev.currentTarget.getAttribute('href');
+             event.preventDefault();
+             swal({
+                 title: "Bạn có chắc muốn xóa bình luận này không?",
+                 icon: "warning",
+                 type: "warning",
+                 buttons: ["Cancel", "Yes!"],
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Đã kích hoạt!'
+             }).then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+         }
+     </script>
 @endsection

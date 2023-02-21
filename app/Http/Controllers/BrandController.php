@@ -9,6 +9,7 @@ use App\Models\Brand;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Carbon;
 use App\Models\Product;
+use Yajra\Datatables\Datatables;
 
 class BrandController extends Controller
 {
@@ -47,6 +48,25 @@ class BrandController extends Controller
             'brands' => $brands,
         ]);
     }
+
+     public function getData()
+     {
+         $brands = Brand::where('delete_at', null)->select(['id','name','country','image', 'active','description']);
+
+         return Datatables::of($brands)->addColumn('action', function ($brand) {
+             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/brand/edit/'.$brand->id.'"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/brand/delete/'.$brand->id.'" onclick="return deleteBrand(event);"<i type="submit" style="color: red;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
+         })->editColumn('name', function ($brand) {
+             return ' <span style="font-weight: bold;">'.$brand->name.'</span>';
+         })->editColumn('image', function ($brand) {
+             return  '<img src="'.$brand->image.'" width="50" >';
+         })->editColumn('active', function ($brand) {
+             return  $brand->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+         })->editColumn('country', function ($brand) {
+             return  '<span style="font-weight: bold;">'.$brand->country.'</span>';
+         })->rawColumns(['name', 'image', 'action', 'active','country'])->make();
+     }
 
     public function showEdit(Brand $brand)
     {

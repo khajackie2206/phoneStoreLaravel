@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Comment;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 
 class RatingController extends Controller
 {
@@ -29,8 +31,7 @@ class RatingController extends Controller
         $input['user_id'] = $user->id;
         $result = $this->ratingService->add($input);
 
-        if (!$result)
-        {
+        if (!$result) {
             Alert::error('Thêm bình luận thất bại do lỗi');
             return redirect()->back();
         }
@@ -46,7 +47,6 @@ class RatingController extends Controller
             'title' => 'Danh sách bình luận',
             'comments' => $comments,
         ]);
-
     }
 
     public function delete(Comment $comment)
@@ -63,4 +63,27 @@ class RatingController extends Controller
 
         return redirect()->back();
     }
+
+     public function getData()
+     {
+         $comments = Comment::select(['id','comment','product_id','rating', 'user_id','status']);
+
+         return Datatables::of($comments)->addColumn('action', function ($comment) {
+             return $comment->status == 0 ? '<a href="/admin/comments/censorship/'.$comment->id.'?status=1" onclick="return approve(event);"><i  class="fa fa-check-square fa-xl show-alert-approve-comment"
+                                                                    style="color: rgb(53, 112, 240);" aria-hidden="true"></i></a>
+                                                                     <a href="/admin/comments/delete/'.$comment->id.'" onclick="return deleteComment(event);"
+                                                                    <i type="submit" style="color: red;"
+                                                                class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
+                                                         &nbsp; &nbsp;  <a href="/admin/comments/delete/'.$comment->id.'" onclick="return deleteComment(event);">
+                                                        <i type="submit" style="color: red;"
+                                                                class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
+         })->editColumn('product_id', function ($comment) {
+             return  '<span style="font-weight: bold;">'.$comment->product->name.'
+                                                        '.$comment->product->rom.'</span>';
+         })->editColumn('user_id', function ($comment) {
+             return $comment->user->name;
+         })->editColumn('status', function ($comment) {
+             return $comment->status == 0 ? '<span class="badge bg-danger">Chờ duyệt</span>' : '<span class="badge bg-success">Đã duyệt</span>';
+         })->rawColumns(['action', 'product_id', 'user_id', 'status'])->make();
+     }
 }
