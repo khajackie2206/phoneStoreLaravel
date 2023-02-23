@@ -13,7 +13,7 @@
     @include('sweetalert::alert')
     <div class="wrapper">
         @include('admin.sidebar')
-        <div class="main">
+        <div class="main" style="background-color: white">
             @include('admin.header')
             @yield('content')
             @include('admin.footer')

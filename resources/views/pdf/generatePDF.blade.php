@@ -173,11 +173,12 @@
     <div class="logo-container">
         <img style="height: 18px" src="images/allo.png" style="width: 250x; height: 80px;">
         <span class="col-12 footer-thanks" style="text-align: center; margin-bottom: 50px;">
-            <h2>
-                HÓA ĐƠN MUA BÁN
-            </h2>
+            <h1>
+                Hóa đơn mua hàng
+            </h1>
             <!-- /.col -->
         </span>
+        <div style="text-align: center; margin-top: -20px;font-size:9pt; "><span> Vui lòng kiểm tra thông tin hóa đơn</span></div>
     </div>
     <?php $sub = 0; ?>
     <table class="invoice-info-container">

@@ -5,7 +5,7 @@
         <!-- title row -->
         <div class="row">
             <div class="col-12" style="text-align: center; margin-bottom: 50px;">
-                <h2>
+                <h2 class="mt-2" style="font-weight: 700">
                     KIỂM TRA THÔNG TIN ĐƠN HÀNG
                 </h2>
             </div>
@@ -14,36 +14,51 @@
         <?php $sub = 0; ?>
         <!-- info row -->
         <div class="row invoice-info">
-            <div class="col-sm-2 invoice-col">
-                <address>
-                    <strong>Tên khách hàng: </strong><br>
-                    <strong>Số điện thoại: </strong><br>
-                    <strong>Địa chỉ giao hàng: </strong><br>
-                    <strong>Email khách hàng: </strong>
-                </address>
-            </div>
-            <!-- /.col -->
-            <div class="col-sm-7 invoice-col">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row d-flex align-items-center mb-3">
+                            <div class="col-3" ><b>Tên khách hàng: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->user->name }}</div>
+                        </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Số điện thoại: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->user->phone }}</div>
+                        </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Email: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->user->email }}</div>
+                        </div>
+                    </div>
 
-                <address>
-                    {{ $order->user->name }}<br>
-                    {{ $order->user->phone }}<br>
-                    {{ $order->delivery_address }}<br>
-                    {{ $order->user->email }}<br>
-                </address>
+                    <div class="col-md-6">
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Đơn hàng: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">#0000{{ $order->id }}</div>
+                        </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Tổng đơn: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span></div>
+                        </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Ngày đặt: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->created_at->format('d/m/Y H:i:s') }}</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <!-- /.col -->
-            <div class="col-sm-3 invoice-col">
-                <b>Đơn hàng: </b>#0000{{ $order->id }}<br>
-                <b>Tổng đơn: </b>{{ number_format($order->total) }} <span style="text-decoration: underline;">đ</span><br>
-                <b>Ngày đặt:</b> {{ $order->created_at->format('d/m/Y H:i:s') }}<br>
+            <div class="pt-3 d-flex flex-row align-items-center">
+                      <b style="margin-right: 24px">Địa chỉ giao hàng: <span style="color: red;">*</span></b>
+                    <span class="p-2" style="background-color: rgb(237, 249, 255)">{{ $order->delivery_address }}</span>
             </div>
-            <!-- /.col -->
+
+
         </div>
         <!-- /.row -->
 
         <!-- Table row -->
-        <div class="row" style="margin-top: 30px;">
+        <div class="row" style="margin-top: 30px; margin-bottom: 50px">
             <div class="col-12 table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -56,9 +71,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1; ?>
                         @foreach ($order->orderDetails as $orderDetail)
                             <tr style="text-align: center;">
-                                <td style="text-align: left;">1</td>
+                                <td style="text-align: left;"> {{ $i }}</td>
                                 <td style="text-align: left;">{{ $orderDetail->product->name }}
                                     {{ $orderDetail->product->rom }} - {{ $orderDetail->product->color }}</td>
                                 <td><img src="{{ $orderDetail->product->images->where('type', 'cover')->first()['url'] }}"
@@ -70,6 +86,7 @@
                                 </td>
                             </tr>
                             <?php
+                            $i++;
                             $sub += ($orderDetail->product->discount > 0 ? $orderDetail->product->price - $orderDetail->product->discount : $orderDetail->product->price) * $orderDetail->quantity;
                             ?>
                         @endforeach
@@ -178,7 +195,7 @@
 
         <!-- this row will not appear when printing -->
         <div class="row no-print">
-            <div class="col-8">
+            <div class="col-9 ">
 
                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <a href="/admin/order/generate-pdf/{{ $order->id }}" style="color: white;"> <i

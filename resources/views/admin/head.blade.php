@@ -27,7 +27,7 @@
 {{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.13.2/i18n/vi.json"></script>
-
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
 <script type="text/javascript">

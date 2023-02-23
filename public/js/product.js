@@ -266,6 +266,7 @@ $(document).ready(function () {
        });
 }*/
 
+//function to get current url
 //load more
 //pagination = 6
 function loadMore() {
@@ -275,11 +276,13 @@ function loadMore() {
     }
     const url = window.location.href;
     let newUrl = url.replace("products/filter", "products/load-more");
-    if(newUrl === 'http://127.0.0.1:8000/products/load-more' || newUrl === 'http://localhost:8000/products/load-more'){
-        newUrl += "?page=" + page;
-    }else{
-        newUrl += "&page=" + page;
-    }
+    // if (
+    //     newUrl === "http://127.0.0.1:8000/products/load-more" || newUrl === "http://allo-store.vn/products/load-more"
+    // ) {
+    //     newUrl += "?page=" + page;
+    // } else {
+    //     newUrl += "&page=" + page;
+    // }
     $.ajax({
         type: "get",
         dataType: "JSON",

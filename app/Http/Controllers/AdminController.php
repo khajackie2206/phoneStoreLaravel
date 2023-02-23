@@ -16,7 +16,7 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-       //prepare data label for chartjs
+    //prepare data label for chartjs
     public function prepareDataForChart($data)
     {
         $labels = [];
@@ -24,7 +24,6 @@ class AdminController extends Controller
         foreach ($data as $item) {
             $labels[] = $item->status;
             $chartData[] = $item->total;
-
         }
         return [
             'labels' => $labels,
@@ -32,14 +31,27 @@ class AdminController extends Controller
         ];
     }
 
-     public function prepareDataForRowChart($data)
+     public function prepareDataForChartWithName($data)
+    {
+        $labels = [];
+        $chartData = [];
+        foreach ($data as $item) {
+            $labels[] = $item->name;
+            $chartData[] = $item->total;
+        }
+        return [
+            'labels' => $labels,
+            'data' => $chartData,
+        ];
+    }
+
+    public function prepareDataForRowChart($data)
     {
         $labels = [];
         $chartData = [];
         foreach ($data as $item) {
             $labels[] = $item['date'];
             $chartData[] = $item['total'];
-
         }
         return [
             'labels' => $labels,
@@ -80,8 +92,8 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
-            ->where('orders.status_id',4)
-            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.status_id', 4)
+            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
             ->get();
@@ -92,20 +104,42 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
-            ->where('orders.status_id',4)
-            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.status_id', 4)
+            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;
 
         $increaseTotalAvanue = $this->caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo);
 
+        //caculate total order in table orders with status is 4 in total 14 days ago to 7 days ago
+        $totalOrder2WeeksAgo = DB::table('orders')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select(DB::raw('count(*) as total'))
+            ->where('orders.status_id', 4)
+            ->orWhere('orders.payment_id', '<>', 1)
+            ->where('orders.created_at', '>=', now()->subDays(14))
+            ->where('orders.created_at', '<', now()->subDays(7))
+            ->get();
+
+        $totalOrder2WeeksAgo = $totalOrder2WeeksAgo[0]->total;
+        //caculate total order in table orders with status is 4 in total 7 days ago
+        $totalOrder = DB::table('orders')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select(DB::raw('count(*) as total'))
+            ->where('orders.status_id', 4)
+            ->orWhere('orders.payment_id', '<>', 1)
+            ->where('orders.created_at', '>=', now()->subDays(7))
+            ->get();
+        $totalOrder = $totalOrder[0]->total;
+        $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrder2WeeksAgo);
+
         // group total_price in table order_details with table orders within 12 days
         $totalPrices = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
-            ->where('orders.status_id',4)
-            ->orWhere('orders.payment_id','<>',1)
+            ->where('orders.status_id', 4)
+            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
@@ -116,7 +150,28 @@ class AdminController extends Controller
             ->where('created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
+        // caculate increase total user create account in 14 days ago to 7 days ago
+        $totalUser2WeeksAgo = DB::table('users')
+            ->select(DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(14))
+            ->where('created_at', '<', now()->subDays(7))
+            ->get();
+        // caculate increase total user create account 7 days ago
+        $totalUser = DB::table('users')
+            ->select(DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->subDays(7))
+            ->get();
+        $increaseTotalUser = $this->caculateIncrease($totalUser[0]->total, $totalUser2WeeksAgo[0]->total);
 
+        //caculate 7 product have highest quantity
+        $topProducts = DB::table('order_details')
+            ->join('products', 'order_details.product_id', '=', 'products.id')
+            ->select('products.name as name', DB::raw('sum(order_details.quantity) as total'))
+            ->groupBy('products.name')
+            ->orderBy('total', 'desc')
+            ->limit(7)
+            ->get();
+        $top7Product = $this->prepareDataForChartWithName($topProducts);
         $pieChartData = $this->prepareDataForChart($paymentMethods);
         $rowChartData = $this->mapDataWith14DayAgo($totalPrices);
         $formatRowChartData = $this->prepareDataForRowChart($rowChartData);
@@ -136,25 +191,28 @@ class AdminController extends Controller
             'rowChartData' => $formatRowChartData,
             'totalOrderData' => $formatTotalOrderData,
             'increaseTotalAvanue' => $increaseTotalAvanue,
+            'increaseTotalOrder' => $increaseTotalOrder,
+            'increaseTotalUser' => $increaseTotalUser,
             'summary' => $totalAvanue,
+            'top7Product' => $top7Product,
         ]);
     }
 
     //function caculate increase in total price in 7 days ago
-    public function caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo)
+    public function caculateIncrease($totalNow, $total2WeeksAgo)
     {
         $increase = 0;
-        if ($totalAvanue2WeeksAgo == 0) {
+        if ($total2WeeksAgo == 0) {
             $increase = 0;
         } else {
-            $increase = ($totalAvanue - $totalAvanue2WeeksAgo) / $totalAvanue2WeeksAgo * 100;
+            $increase = ($totalNow - $total2WeeksAgo) / $total2WeeksAgo * 100;
         }
         return $increase;
     }
 
     public function getAllUsers()
     {
-        $users = DB::table('users')->where('role' ,0)->paginate(6);
+        $users = DB::table('users')->where('role', 0)->paginate(6);
         return view('admin.user.list', [
             'title' => 'Danh sách người dùng',
             'users' => $users
@@ -162,25 +220,25 @@ class AdminController extends Controller
     }
 
     public function getData()
-     {
-         $users = User::where('role', 0)->select(['id','name','email','active', 'avatar','phone']);
+    {
+        $users = User::where('role', 0)->select(['id', 'name', 'email', 'active', 'avatar', 'phone']);
 
-         return Datatables::of($users)->addColumn('action', function ($user) {
-             return $user->active ==0 ?'<a style="margin-left: 20px;" onclick="return activeUser(event);" href="/admin/users/change-active/'.$user->id.'?active=1"><i class="fa fa-unlock fa-xl"></i></a>'
-              : '<a style="margin-left: 20px;" href="/admin/users/change-active/'.$user->id.'?active=0" onclick="return blockUser(event);"><i type="submit" style="color: red;"
-                    class="fa fa-lock fa-xl"></i></a>' ;
-         })->editColumn('name', function ($user) {
-             return ' <span style="font-weight: bold;">'.$user->name.'</span>';
-         })->editColumn('avatar', function ($user) {
-             return  '<img src="'.$user->avatar.'" width="40" style="border-radius: 50%;" >';
-         })->editColumn('active', function ($user) {
-             return  $user->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Bị khóa</span>';
-         })->editColumn('email', function ($user) {
-             return  '<span style="font-weight: bold;">'.$user->email.'</span>';
-         })->editColumn('phone', function ($user) {
-             return  '<span style="font-weight: bold;">'.$user->phone.'</span>';
-         })->rawColumns(['name', 'avatar', 'active', 'email','phone','action'])->make();
-     }
+        return Datatables::of($users)->addColumn('action', function ($user) {
+            return $user->active == 0 ? '<a style="margin-left: 20px;" onclick="return activeUser(event);" href="/admin/users/change-active/' . $user->id . '?active=1"><i class="fa fa-unlock fa-xl"></i></a>'
+                : '<a style="margin-left: 20px;" href="/admin/users/change-active/' . $user->id . '?active=0" onclick="return blockUser(event);"><i type="submit" style="color: red;"
+                    class="fa fa-lock fa-xl"></i></a>';
+        })->editColumn('name', function ($user) {
+            return ' <span style="font-weight: bold;">' . $user->name . '</span>';
+        })->editColumn('avatar', function ($user) {
+            return  '<img src="' . $user->avatar . '" width="40" style="border-radius: 50%;" >';
+        })->editColumn('active', function ($user) {
+            return  $user->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Bị khóa</span>';
+        })->editColumn('email', function ($user) {
+            return  '<span style="font-weight: bold;">' . $user->email . '</span>';
+        })->editColumn('phone', function ($user) {
+            return  '<span style="font-weight: bold;">' . $user->phone . '</span>';
+        })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
+    }
 
 
     public function changeActive(Request $request, User $user)
