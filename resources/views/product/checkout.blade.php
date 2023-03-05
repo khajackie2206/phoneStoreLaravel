@@ -250,10 +250,13 @@
                                                     value="2" style="height: 20px; width: 18%;" id="vnpay">
                                                 <label for="html"><img
                                                         src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd2w2SHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3c10eafdffd111f6ec8ef44d76353152683cf2b2/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFJc0FXa0NMQUU9IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--492f60b9aac6e8159e50e72bb289c5feb47a79d4/logo%20VNPAY-02.png"
-                                                        width="50px;"></label><br>
+                                                        width="60px;"></label><br>
+                                                <input type="radio" id="html" name="payment_method" value="3" style="height: 20px; width: 18%;" id="momo">
+                                                <label for="html"><img
+                                                        src="https://logos-world.net/wp-content/uploads/2020/07/PayPal-Logo.png"
+                                                        width="60px;"></label><br>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="order-button-payment">
                                         <input value="Thanh toán" type="submit" name="redirect">
@@ -266,6 +269,7 @@
                 @csrf
             </form>
         </div>
+
     </div>
     <!--Checkout Area End-->
     <script type="text/javascript">
@@ -302,12 +306,16 @@
         $('input[type=radio][name=payment_method]').change(function() {
             if (this.value == '2') {
                 $('#form-discount').attr('action', '/products/checkout-product/vnpay');
-            } else if (this.value == '1') {
+            } else if (this.value == '3') {
+                $('#form-discount').attr('action', '/products/checkout-product/momo');
+            } else{
                 $('#form-discount').attr('action', '/products/checkout-product');
             }
         });
     });
 
 </script>
+
+{{-- <script src="https://www.paypal.com/sdk/js?client-id=AY6IQ3AGihK-BMsx0FtdJptKJh7FPUycSn7ZkRyox7K2c2nW8Gza04GDkOZZYQXfmJPVkIyA-Lk0v5pQ"></script> --}}
 @endsection
 

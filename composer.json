@@ -17,9 +17,14 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
+        "league/omnipay": "^3.2",
         "livewire/livewire": "^2.5",
+        "maatwebsite/excel": "^3.1",
+        "mservice/payment": "dev-master",
+        "omnipay/paypal": "^3.0",
         "realrashid/sweet-alert": "^5.1",
         "spatie/laravel-query-builder": "^5.1",
+        "srmklive/paypal": "^3.0",
         "timwassenburg/laravel-service-generator": "^1.0",
         "yajra/laravel-datatables": "9.0"
     },
@@ -72,7 +77,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",

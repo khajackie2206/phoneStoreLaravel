@@ -42,12 +42,14 @@ class MainController extends Controller
     {
         $productsNewly = $this->productService->getProductsNewly();
         $productsDiscount = $this->productService->getProductsDiscount();
+        $bestSellers = $this->productService->getBestSellers();
         $goodProducts = $this->productService->getAllProducts();
         $sessionProducts = $this->cardService->getProduct();
         $bannerHeaders = $this->bannerService->getHeaderBanners();
         $staticHeaders = $this->bannerService->getStaticBanners();
         $broadcastBanner = $this->bannerService->getBroadcastBanner();
         $centerBanners = $this->bannerService->getCenterBanners();
+        $topRatings= $this->productService->getTopRatings();
 
         return view('home', [
             'title' => 'Trang chủ',
@@ -60,6 +62,8 @@ class MainController extends Controller
             'staticHeaders' => $staticHeaders,
             'broadcastBanner' => $broadcastBanner,
             'centerBanners' => $centerBanners,
+            'bestSellers' => $bestSellers,
+            'topRatings' => $topRatings,
         ]);
     }
 
@@ -76,7 +80,7 @@ class MainController extends Controller
         ]);
     }
 
-    public function changePasswordPage(Request $request, User $user)
+    public function changePasswordPage(User $user)
     {
         $user = User::where('email', session()->get('user')['email'])->first();
         $sessionProducts = $this->cardService->getProduct();

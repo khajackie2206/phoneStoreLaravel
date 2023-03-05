@@ -48,7 +48,7 @@
                                                 round($increaseTotalUser,0) }} %
                                             </span>
                                             @else
-                                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -{{
+                                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> {{
                                                 round($increaseTotalUser,0) }} %
                                             </span>
                                             @endif
@@ -81,7 +81,7 @@
                                             round($increaseTotalAvanue,0) }} %
                                         </span>
                                         @else
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -{{
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> {{
                                             round($increaseTotalAvanue,0) }} %
                                         </span>
                                         @endif
@@ -111,7 +111,7 @@
                                                 round($increaseTotalOrder,0) }} %
                                             </span>
                                             @else
-                                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -{{
+                                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> {{
                                                 round($increaseTotalOrder,0) }} %
                                             </span>
                                             @endif

@@ -13,6 +13,8 @@ use App\Repositories\ProductRepository;
 use Exception;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\DB;
+
 
 /**
  * Class ProductService.
@@ -120,6 +122,45 @@ class ProductService
 
         return $products;
     }
+
+    public function getBestSellers()
+    {
+        $bestSellers = DB::table('order_details')
+            ->select('product_id', DB::raw('sum(quantity) as total'))
+            ->groupBy('product_id')
+            ->orderBy('total', 'desc')
+            ->limit(self::LIMIT)
+            ->get();
+        $products = [];
+        foreach ($bestSellers as $bestSeller) {
+            $product = Product::where('id', $bestSeller->product_id)
+                ->first();
+            array_push($products, $product);
+        }
+
+        return $products;
+    }
+
+    //get top products have highest rating in table comments
+    public function getTopRatings()
+    {
+        $topProducts = DB::table('comments')
+            ->select('product_id', DB::raw('avg(rating) as total'))
+            ->groupBy('product_id')
+            ->orderBy('total', 'desc')
+            ->limit(self::LIMIT)
+            ->get();
+        $products = [];
+        foreach ($topProducts as $topProduct) {
+            $product = Product::where('id', $topProduct->product_id)
+                ->first();
+            array_push($products, $product);
+        }
+
+        return $products;
+    }
+
+
 
     public function filterProduct($params){
         $products = QueryBuilder::for(Product::class)
