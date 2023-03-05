@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -20,6 +21,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Yajra\Datatables\Datatables;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class MainController extends Controller
 {
@@ -207,6 +210,19 @@ class MainController extends Controller
 
         return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
         ;
+    }
+    public function exportCSV()
+    {
+        $file_name = 'orders_'.date('Y_m_d_H_i_s').'.csv';
+
+         return Excel::download(new OrderExport, $file_name);
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'orders_'.date('Y_m_d_H_i_s').'.xlsx';
+
+         return Excel::download(new OrderExport, $file_name);
     }
 
     public function updateOrderStatus(Request $request, Order $order)

@@ -12,8 +12,15 @@
                     <div class="card">
                         <div class="card-body h-100">
                             <div class="container ">
+                                <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px;">
+                                    <a href="/admin/order/export-csv"><button type="button" class="btn btn-outline-info">Xuất CSV</button></a>
+                                    <a href="/admin/order/export-excel"><button type="button" class="btn btn-outline-info">Xuất Excel</button></a>
+                                    <button type="button" class="btn btn-outline-info">Xuất PDF</button>
+                                </div>
                                 <div class="table-responsive">
+
                                     <table class="table table-responsive table-borderless table-striped" id="order-table" style="padding-top:20px;" >
+
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">ID</th>

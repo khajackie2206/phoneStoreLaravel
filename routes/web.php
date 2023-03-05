@@ -79,6 +79,8 @@ Route::prefix('admin')
        Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
+       Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
+       Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
        Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
