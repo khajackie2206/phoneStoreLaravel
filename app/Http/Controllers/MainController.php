@@ -195,13 +195,21 @@ class MainController extends Controller
 
     public function generatePDF(Order $order)
     {
+
+ $user = session()->get('user');
+ // get time now with format Y-m-d H:i:s
+ $time = Carbon::now()->format('Y-m-d H:i:s');
+
         if ($order->voucher_id != null) {
             $discount = Voucher::where('id', $order->voucher_id)->first();
         }
+
         $data = [
             'title' => 'Chi tiết đơn hàng',
             'order' => $order,
-            'discount' => $discount ?? null
+            'discount' => $discount ?? null,
+            'user' => $user,
+            'time' => $time
         ];
 
         $pdf = Pdf::loadView('pdf.generatePDF', $data);
@@ -211,6 +219,29 @@ class MainController extends Controller
         return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
         ;
     }
+
+    public function generateOrderPDF() {
+
+        $orders = Order::all();
+         //get user data from session
+        $user = session()->get('user');
+        // get time now with format Y-m-d H:i:s
+        $time = Carbon::now()->format('Y-m-d H:i:s');
+        $data = [
+            'title' => 'Danh sách đơn hàng',
+            'orders' => $orders,
+            'user' => $user,
+            'time' => $time
+        ];
+
+        $pdf = Pdf::loadView('pdf.generateOrderPDF', $data);
+        $pdf->set_option('isRemoteEnabled', true);
+        $pdf->render();
+
+        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
+        ;
+    }
+
     public function exportCSV()
     {
         $file_name = 'orders_'.date('Y_m_d_H_i_s').'.csv';

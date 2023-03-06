@@ -15,7 +15,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px;">
                                     <a href="/admin/order/export-csv"><button type="button" class="btn btn-outline-info">Xuất CSV</button></a>
                                     <a href="/admin/order/export-excel"><button type="button" class="btn btn-outline-info">Xuất Excel</button></a>
-                                    <button type="button" class="btn btn-outline-info">Xuất PDF</button>
+                                    <a href="/admin/order/generate-order-pdf"><button type="button" class="btn btn-outline-info">Xuất PDF</button></a>
                                 </div>
                                 <div class="table-responsive">
 

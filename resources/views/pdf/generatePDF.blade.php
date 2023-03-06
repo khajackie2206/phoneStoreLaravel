@@ -181,9 +181,9 @@
         <div style="text-align: center; margin-top: -20px;font-size:9pt; "><span> Vui lòng kiểm tra thông tin hóa đơn</span></div>
     </div>
     <?php $sub = 0; ?>
-    <table class="invoice-info-container">
+    <table class="invoice-info-container" style="font-size: 13px;">
         <tr>
-            <td style="font-size: 15px;">
+            <td >
                 Tên khách hàng: <strong>{{ $order->user->name }}</strong>
             </td>
             <td>
@@ -200,7 +200,7 @@
         </tr>
         <tr>
             <td>
-                Ngày đặt hàng: <strong>{{ $order->created_at->format('d/m/Y') }}</strong>
+                Ngày đặt hàng: <strong>{{ $order->created_at->format('d-m-Y H:i:s') }}</strong>
             <td>
 
             </td>
@@ -212,10 +212,24 @@
             <td>
             </td>
         </tr>
+        <tr>
+            <td>
+                Người lập hóa đơn: <strong>{{ $user->name }}</strong>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Thời gian lập hóa đơn: <strong>{{ $time }}</strong>
+            </td>
+            <td>
+            </td>
+        </tr>
     </table>
 
 
-    <table class="line-items-container">
+    <table class="line-items-container" >
         <thead>
             <tr>
                 <th class="heading-description">Sản phẩm</th>

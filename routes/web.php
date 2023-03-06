@@ -64,6 +64,7 @@ Route::prefix('admin')
         Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
 
         Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
+
         #Brands
         Route::get('/brand/add', [BrandController::class, 'index']);
         Route::post('/brand/add', [BrandController::class, 'storeBrand']);
@@ -79,6 +80,7 @@ Route::prefix('admin')
        Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
        Route::get('/order/detail/{order}',[MainController::class, 'show']);
        Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
+       Route::get('/order/generate-order-pdf', [MainController::class, 'generateOrderPDF']);
        Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
        Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
        Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
