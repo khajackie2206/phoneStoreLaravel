@@ -179,9 +179,9 @@
                             if (row["payment_id"] === 1) {
                                 return `<span class="badge bg-success">Trả khi nhận hàng</span>`
                             } else if(row["payment_id"] === 3){
-                                return ` <span class="badge bg-warning">Thanh toán Momo</span>`
+                                return ` <span class="badge bg-warning">Thanh toán Paypal</span>`
                             } else {
-                                return `<span class="badge bg-danger">Thanh toán Stripe</span>`
+                                return `<span class="badge bg-danger">Thanh toán VNPay</span>`
                             }
                         }
                      },

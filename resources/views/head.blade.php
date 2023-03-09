@@ -43,6 +43,9 @@
         {{-- <script src="{{ asset('https://kit.fontawesome.com/a076d05399.js') }}" crossorigin='anonymous'></script> --}}
 
 
+        {{-- <link rel="stylesheet" type="text/css"
+            href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
+
         <!-- Modernizr js -->
         <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
 

@@ -307,7 +307,7 @@
             if (this.value == '2') {
                 $('#form-discount').attr('action', '/products/checkout-product/vnpay');
             } else if (this.value == '3') {
-                $('#form-discount').attr('action', '/products/checkout-product/momo');
+                $('#form-discount').attr('action', '/products/process-transaction');
             } else{
                 $('#form-discount').attr('action', '/products/checkout-product');
             }

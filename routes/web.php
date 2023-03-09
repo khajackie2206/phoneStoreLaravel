@@ -16,6 +16,8 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UploadUserController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\BotManController;
+use App\Http\Controllers\PaypalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,32 +77,32 @@ Route::prefix('admin')
         Route::get('/brand/delete/{brand}', [BrandController::class, 'delete']);
         Route::get('/brand/list/data', [BrandController::class, 'getData'])->name('brand_data');
 
-       #Orders
-       Route::get('/order/lists', [MainController::class, 'orders']);
-       Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
-       Route::get('/order/detail/{order}',[MainController::class, 'show']);
-       Route::get('/order/generate-pdf/{order}',[MainController::class, 'generatePDF']);
-       Route::get('/order/generate-order-pdf', [MainController::class, 'generateOrderPDF']);
-       Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
-       Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
-       Route::post('/order/update/{order}',[MainController::class, 'updateOrderStatus']);
-       Route::get('/order/delete/{order}', [MainController::class, 'delete']);
+        #Orders
+        Route::get('/order/lists', [MainController::class, 'orders']);
+        Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
+        Route::get('/order/detail/{order}', [MainController::class, 'show']);
+        Route::get('/order/generate-pdf/{order}', [MainController::class, 'generatePDF']);
+        Route::get('/order/generate-order-pdf', [MainController::class, 'generateOrderPDF']);
+        Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
+        Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
+        Route::post('/order/update/{order}', [MainController::class, 'updateOrderStatus']);
+        Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
-       #Discount
-       Route::get('/discount/lists', [DiscountController::class, 'index']);
-       Route::get('/discount/add', [DiscountController::class, 'add']);
-       Route::post('/discount/add', [DiscountController::class, 'store']);
-       Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
-       Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
-       Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
+        #Discount
+        Route::get('/discount/lists', [DiscountController::class, 'index']);
+        Route::get('/discount/add', [DiscountController::class, 'add']);
+        Route::post('/discount/add', [DiscountController::class, 'store']);
+        Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
+        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
+        Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
-      Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+        Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
 
-       #Comments
-       Route::get('/comments/lists', [RatingController::class, 'comments']);
-       Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
-       Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
-       Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
+        #Comments
+        Route::get('/comments/lists', [RatingController::class, 'comments']);
+        Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
+        Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
+        Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
     });
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
@@ -143,11 +145,17 @@ Route::prefix('products')->group(function () {
     //Payment
     Route::post('/checkout-product', [CardController::class, 'payment']);
     Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
-    Route::post('/checkout-product/momo', [CardController::class, 'paymentWithMomo']);
-     Route::get('/payment-success', [CardController::class, 'PaymentSuccess'])->name('paymentsuccess');
-     Route::get('/payment-cancel', [CardController::class, 'PaymentCancel'])->name('paymentCancel');
+    // Route::post('/checkout-product/paypal', [PaypalController::class, 'pay']);
+    Route::get('/payment-success', [CardController::class, 'PaymentSuccess'])->name('paymentsuccess');
+    Route::get('/payment-cancel', [CardController::class, 'PaymentCancel'])->name('paymentCancel');
     Route::get('/handle-vnpay', [CardController::class, 'payment']);
-    Route::get('/handle-momo', [CardController::class, 'payment']);
+    // Route::get('/handle-momo', [CardController::class, 'payment']);
+
+    // Checkout Sevive
+    Route::post('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+    Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+    Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+
 
     Route::get('/thank-you', [CardController::class, 'thankYou'])->name('thank-you');;
 
@@ -156,11 +164,10 @@ Route::prefix('products')->group(function () {
 
 
     //Order
-    Route::get('/order/update-status/{order}',[MainController::class, 'customerUpdateStatus']);
+    Route::get('/order/update-status/{order}', [MainController::class, 'customerUpdateStatus']);
 
     //Comment
     Route::post('/comment', [RatingController::class, 'add']);
-
 });
 
 Route::prefix('users')->group(function () {
@@ -168,9 +175,11 @@ Route::prefix('users')->group(function () {
     Route::put('/update/{user}', [MainController::class, 'update']);
     Route::get('/order-tracking', [MainController::class, 'trackOrder']);
 
-       //Change password
+    //Change password
     Route::get('/change-password', [MainController::class, 'changePasswordPage']);
     Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
+
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);

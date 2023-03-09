@@ -17,7 +17,6 @@ class CardController extends Controller
 {
     protected $productService;
     protected $cardService;
-    private $gateway;
 
     public function __construct(ProductService $productService, CardService $cardService)
     {
@@ -28,92 +27,6 @@ class CardController extends Controller
     public function Index()
     {
         return view('paypal.index');
-    }
-
-    public function paymentWithOnepay(Request $request)
-    {
-        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
-        $input = $request->all();
-
-        // add the start of the vpcURL querystring parameters
-        // *****************************Lấy giá trị url cổng thanh toán*****************************
-        $vpcURL = 'https://mtf.onepay.vn/onecomm-pay/vpc.op'. "?";
-        $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
-        $code = isset($input['code']) ? "&code=" . $input['code'] . "" : '';
-
-        // Remove the Virtual Payment Client URL from the parameter hash as we
-        // do not want to send these fields to the Virtual Payment Client.
-        // bỏ giá trị url và nút submit ra khỏi mảng dữ liệu
-        // unset($_POST["virtualPaymentClientURL"]);
-        // unset($_POST["SubButL"]);
-        $vpc_Merchant = 'ONEPAY';
-        $vpc_AccessCode = 'D67342C2';
-        $vpc_MerchTxnRef = time();
-        $vpc_OrderInfo = 'JSECURETEST01';
-        $vpc_Amount = '1000000';
-
-        $vnc_Returnurl = "http://allo-store.vn/products/handle-onepay";
-        $vpc_Version = '2';
-        $vpc_Command = 'pay';
-        $vpc_Locale = 'vn';
-        $vpc_Currency = 'VND';
-
-        $data = array(
-            'vpc_Merchant' => $vpc_Merchant,
-            'vpc_AccessCode' => $vpc_AccessCode,
-            'vpc_MerchTxnRef' => $vpc_MerchTxnRef,
-            'vpc_OrderInfo' => $vpc_OrderInfo,
-            'vpc_Amount' => $vpc_Amount,
-            'vpc_ReturnURL' => $vnc_Returnurl,
-            'vpc_Version' => $vpc_Version,
-            'vpc_Command' => $vpc_Command,
-            'vpc_Locale' => $vpc_Locale,
-            'vpc_Currency' => $vpc_Currency,
-        );
-
-        //$stringHashData = $SECURE_SECRET; *****************************Khởi tạo chuỗi dữ liệu mã hóa trống*****************************
-        $stringHashData = "";
-        // sắp xếp dữ liệu theo thứ tự a-z trước khi nối lại
-        // arrange array data a-z before make a hash
-        ksort($data);
-
-        // set a parameter to show the first pair in the URL
-        // đặt tham số đếm = 0
-        $appendAmp = 0;
-
-        foreach ($data as $key => $value) {
-            // create the md5 input and URL leaving out any fields that have no value
-            // tạo chuỗi đầu dữ liệu những tham số có dữ liệu
-            if (strlen($value) > 0) {
-                // this ensures the first paramter of the URL is preceded by the '?' char
-                if ($appendAmp == 0) {
-                    $vpcURL .= urlencode($key) . '=' . urlencode($value);
-                    $appendAmp = 1;
-                } else {
-                    $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
-                }
-                //$stringHashData .= $value; *****************************sử dụng cả tên và giá trị tham số để mã hóa*****************************
-                if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
-                    $stringHashData .= $key . "=" . $value . "&";
-                }
-            }
-        }
-        //*****************************xóa ký tự & ở thừa ở cuối chuỗi dữ liệu mã hóa*****************************
-        $stringHashData = rtrim($stringHashData, "&");
-        // Create the secure hash and append it to the Virtual Payment Client Data if
-        // the merchant secret has been provided.
-        // thêm giá trị chuỗi mã hóa dữ liệu được tạo ra ở trên vào cuối url
-        if (strlen($SECURE_SECRET) > 0) {
-            //$vpcURL .= "&vpc_SecureHash=" . strtoupper(md5($stringHashData));
-            // *****************************Thay hàm mã hóa dữ liệu*****************************
-            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
-        }
-
-        // FINISH TRANSACTION - Redirect the customers using the Digital Order
-        // ===================================================================
-        // chuyển trình duyệt sang cổng thanh toán theo URL được tạo ra
-    //    header("Location: ".$vpcURL);
-       return redirect()->to($vpcURL);
     }
 
     public function PaymentSuccess(Request $request)
@@ -307,50 +220,50 @@ class CardController extends Controller
         return redirect()->route('thank-you');
     }
 
-    public function paymentWithMomo(Request $request)
-    {
-        $input = $request->all();
-        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-        $code = isset($input['code']) ? "&code=" . $input['code'] . "" : '';
-        $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
-        $partnerCode = 'MOMOBKUN20180529';
-        $accessKey = 'klm05TvNBzhg7h7j';
-        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-        $orderInfo = "Thanh toán qua ATM MoMo";
-        // $amount =  $input['summary'];
-        $amount = '1000000';
+    // public function paymentWithMomo(Request $request)
+    // {
+    //     $input = $request->all();
+    //     $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+    //     $code = isset($input['code']) ? "&code=" . $input['code'] . "" : '';
+    //     $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
+    //     $partnerCode = 'MOMOBKUN20180529';
+    //     $accessKey = 'klm05TvNBzhg7h7j';
+    //     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+    //     $orderInfo = "Thanh toán qua ATM MoMo";
+    //     // $amount =  $input['summary'];
+    //     $amount = '1000000';
 
-        $orderId = time() . "";
-        $redirectUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
-        $ipnUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
-        $extraData = "";
+    //     $orderId = time() . "";
+    //     $redirectUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
+    //     $ipnUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
+    //     $extraData = "";
 
-        $requestId = time() . "";
-        $requestType = "payWithATM";
-        //before sign HMAC SHA256 signature
-        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-        $signature = hash_hmac("sha256", $rawHash, $secretKey);
-        $data = array(
-            'partnerCode' => $partnerCode,
-            'partnerName' => "Test",
-            "storeId" => "MomoTestStore",
-            'requestId' => $requestId,
-            'amount' => $amount,
-            'orderId' => $orderId,
-            'orderInfo' => $orderInfo,
-            'redirectUrl' => $redirectUrl,
-            'ipnUrl' => $ipnUrl,
-            'lang' => 'vi',
-            'extraData' => $extraData,
-            'requestType' => $requestType,
-            'signature' => $signature
-        );
-        $result = $this->execPostRequest($endpoint, json_encode($data));
-        $jsonResult = json_decode($result, true);  // decode json
+    //     $requestId = time() . "";
+    //     $requestType = "payWithATM";
+    //     //before sign HMAC SHA256 signature
+    //     $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+    //     $signature = hash_hmac("sha256", $rawHash, $secretKey);
+    //     $data = array(
+    //         'partnerCode' => $partnerCode,
+    //         'partnerName' => "Test",
+    //         "storeId" => "MomoTestStore",
+    //         'requestId' => $requestId,
+    //         'amount' => $amount,
+    //         'orderId' => $orderId,
+    //         'orderInfo' => $orderInfo,
+    //         'redirectUrl' => $redirectUrl,
+    //         'ipnUrl' => $ipnUrl,
+    //         'lang' => 'vi',
+    //         'extraData' => $extraData,
+    //         'requestType' => $requestType,
+    //         'signature' => $signature
+    //     );
+    //     $result = $this->execPostRequest($endpoint, json_encode($data));
+    //     $jsonResult = json_decode($result, true);  // decode json
 
-        //Just an example, please check more in there
-        return redirect()->to($jsonResult['payUrl']);
-    }
+    //     //Just an example, please check more in there
+    //     return redirect()->to($jsonResult['payUrl']);
+    // }
 
 
     public function execPostRequest($url, $data)

@@ -101,17 +101,17 @@
             <!-- accepted payments column -->
             <div class="col-3">
                 <p class="lead">Phương thức thanh toán:</p>
-                <i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                <i class="fa fa-check-circle-o green" style="margin-left: -7px;"></i><span class="ms-1">
                     @if ($order->payment_id == 1)
-                        <span class="badge bg-success" style="font-size: 18px;">Trả khi nhận hàng</span>
+                        <span class="badge bg-success" style="font-size: 16px;">Trả khi nhận hàng</span>
                     @elseif ($order->payment_id == 3)
-                        <span class="badge bg-warning" style="font-size: 18px;"><img
-                                src="https://images.careerbuilder.vn/employer_folders/lot9/221789/103316momopink-logo.png"
-                                style="margin-right: 10px;" width="30px">Thanh toán Momo</span>
+                        <span class="badge bg-warning" style="font-size: 16px;"><img
+                                src="https://logos-world.net/wp-content/uploads/2020/07/PayPal-Logo.png"
+                                style="margin-right: 10px;" width="50px">Thanh toán Paypal</span>
                     @elseif ($order->payment_id == 2)
-                        <span class="badge bg-warning" style="font-size: 18px;"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
-                                style="margin-right: 10px;" width="50px">Thanh toán Stripe</span>
+                        <span class="badge bg-warning" style="font-size: 16px; padding: 10px;" ><img
+                                src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR.png"
+                                style="margin-right: 10px;" width="50px">Thanh toán VNPay</span>
                     @endif
                 </span>
             </div>
