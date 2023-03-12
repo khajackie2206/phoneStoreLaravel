@@ -18,6 +18,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\ForgetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,8 +173,18 @@ Route::prefix('users')->group(function () {
     //Change password
     Route::get('/change-password', [MainController::class, 'changePasswordPage']);
     Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
+
+
+    // forget password
+    Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+    Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+    Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+    Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
+
+
+

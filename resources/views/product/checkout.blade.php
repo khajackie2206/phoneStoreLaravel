@@ -68,6 +68,7 @@
                                     </div>
                                 </div>
                             </div>
+                              @if( $user->address !== null)
                                 <div class="different-address">
                                     <div class="ship-different-title">
                                         <h3>
@@ -85,6 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
+                             @endif
                             <div class="order-notes">
                                 <div class="checkout-form-list">
                                     <label>Ghi chú giao hàng</label>
@@ -93,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-lg-6 col-12">
                         @php $summary = 0; @endphp

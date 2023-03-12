@@ -49,7 +49,7 @@
                                       </div>
                                   </div>
                                   <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                      <a href="#"> Quên mật khẩu?</a>
+                                      <a href="/users/forget-password"> Quên mật khẩu?</a>
                                   </div>
 
                                   @if (isset($url))
