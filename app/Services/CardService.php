@@ -81,12 +81,12 @@ class CardService
     {
         try {
             DB::beginTransaction();
-            $discount = $input['discount_summary'] ?? null;
             $user = session()->get('user');
             $carts = session()->get('carts');
+            $discount = session()->get('discount') ?? null ;
 
-            if (isset($input['code'])) {
-                $code = Voucher::where('code', $input['code'])->first();
+            if ($discount != null) {
+                $code = Voucher::where('code', $discount['code'])->first();
                 if ($code->quantity > 0) {
                     $quantity = $code->quantity - 1;
                     $dataQuantity = [
@@ -151,6 +151,7 @@ class CardService
             SendMail::dispatch($user->email, $user, $products, $carts, $input['new_address'] ?? $input['delivery_address'], $code->amount ?? null, $input['summary'])->delay(now()->addSecond(2));
 
             session()->forget('carts');
+            session()->forget('discount');
         } catch (Exception $e) {
             DB::rollBack();
             return false;

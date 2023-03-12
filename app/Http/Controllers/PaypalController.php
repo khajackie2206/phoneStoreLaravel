@@ -28,7 +28,6 @@ class PaypalController extends Controller
         $input = $request->all();
         $dataSession = [
             'discount_summary' => $input['discount_summary'] ?? null,
-            'code' => $input['code'] ?? null,
             'new_address' => $input['new_address'] ?? null,
             'payment_method' => $input['payment_method'],
             'note' => $input['note'],

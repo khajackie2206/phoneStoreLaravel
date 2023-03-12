@@ -166,11 +166,11 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 /*----------------------------------------*/
 /* 10. Scroll Up
 /*----------------------------------------*/
-	$.scrollUp({
-		scrollText: '<i class="fa fa-angle-double-up"></i>',
-		easingType: 'linear',
-		scrollSpeed: 900
-	});
+	// $.scrollUp({
+	// 	scrollText: '<i class="fa fa-angle-double-up"></i>',
+	// 	easingType: 'linear',
+	// 	scrollSpeed: 900
+	// });
 /*----------------------------------------*/
 /* 11. Category Menu
 /*----------------------------------------*/
@@ -181,7 +181,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 	//    category heading
 	$('.category-heading').on('click', function(){
 	    $('.category-menu-list').slideToggle(300);
-	});	
+	});
 	/*-- Category Menu Toggles --*/
 	function categorySubMenuToggle() {
 	    var screenSize = $(window).width();
@@ -268,7 +268,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 	});
 /*----------------------------------------*/
 /* 14. Toggle Function Active
-/*----------------------------------------*/ 
+/*----------------------------------------*/
 	// showlogin toggle
 		$('#showlogin').on('click', function() {
 				$('#checkout-login').slideToggle(900);
@@ -288,7 +288,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 		});
 /*----------------------------------------*/
 /* 15. Li's Blog Gallery Slider
-/*----------------------------------------*/ 
+/*----------------------------------------*/
 	var gallery = $('.li-blog-gallery-slider');
 	gallery.slick({
 		arrows: false,
@@ -411,7 +411,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
  })
  /*----------------------------------------*/
  /* 21. Modal Menu Active
- /*----------------------------------------*/ 
+ /*----------------------------------------*/
 
  $(".product-details-images").each(function () {
      var $this = $(this);

@@ -89,6 +89,10 @@
             }
         }
     </style>
+{{--
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
+
 </head>
 
 <body>
@@ -101,7 +105,9 @@
         @include('header')
         <!-- Header Area End Here -->
 
+
         @yield('content')
+
 
         @include('footer')
 
@@ -153,15 +159,30 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"
+        integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         $(window).on("load", function() {
             $(".loader-wrapper").fadeOut(200);
         });
     </script>
+
+    <script>
+        var botmanWidget = {
+                                title:'Admin',
+                                introMessage: 'Chào bạn! Tôi có thể giúp gì cho bạn?',
+                                mainColor:'#c02026',
+                                aboutText:'',
+                                bubbleBackground:'#c02026',
+                                headerTextColor: '#fff',
+                                };
+    </script>
+
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     {{-- <script>
-    window.addEventListener('load', function() {
+        window.addEventListener('load', function() {
         // Do we have a #scroll in the URL hash?
         if(window.location.hash && /#scroll/.test(window.location.hash)) {
             // Scroll to the #scroll value
@@ -185,7 +206,7 @@
             }
         }
     });
-</script> --}}
+    </script> --}}
 </body>
 
 <!-- index30:23-->

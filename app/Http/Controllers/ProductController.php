@@ -178,17 +178,44 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
+    // public function applyDiscount(Request $request)
+    // {
+    //     $input = $request->all();
+    //     $amount = '';
+    //     $discount = Voucher::where('code', '=', $input['discount'])
+    //         ->where('quantity', '>', 0)
+    //         ->first();
+
+    //     if ($discount) {
+    //         $amount = $discount->amount;
+    //         $typeDiscount = $discount->type_discount;
+    //     } else {
+    //         Alert::error('Mã giảm giá không hợp lệ');
+    //         return redirect()->back();
+    //     }
+
+    //     Alert::success('Áp dụng mã giảm giá thành công');
+    //     return redirect()
+    //         ->route('checkout')
+    //         ->with(['amount' => $amount, 'code' => $discount->code, 'type_discount' => $typeDiscount ]);
+    // }
+
     public function applyDiscount(Request $request)
     {
         $input = $request->all();
-        $amount = '';
+
         $discount = Voucher::where('code', '=', $input['discount'])
             ->where('quantity', '>', 0)
             ->first();
 
         if ($discount) {
-            $amount = $discount->amount;
-            $typeDiscount = $discount->type_discount;
+            $dataSession = [
+            'code' => $discount->code,
+            'amount' => $discount->amount,
+             'type' => $discount->type_discount
+        ];
+         session()->put('discount', $dataSession);
+
         } else {
             Alert::error('Mã giảm giá không hợp lệ');
             return redirect()->back();
@@ -196,8 +223,7 @@ class ProductController extends Controller
 
         Alert::success('Áp dụng mã giảm giá thành công');
         return redirect()
-            ->route('checkout')
-            ->with(['amount' => $amount, 'code' => $discount->code, 'type_discount' => $typeDiscount ]);
+            ->route('carts');
     }
 
     public function Search(Request $request)

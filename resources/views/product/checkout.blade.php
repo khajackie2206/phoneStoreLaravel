@@ -1,7 +1,7 @@
 @extends('index')
 @section('content')
     <!-- Begin Li's Breadcrumb Area -->
-    <div class="breadcrumb-area">
+    <div class="breadcrumb-area" style="margin-top: -20px;">
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
@@ -34,6 +34,7 @@
                                         @if (isset($addresses) && count($addresses) > 0)
                                             <select class="form-select" style="background-color: white;"
                                                 aria-label="Default select example" name="delivery_address"  id="delivery_address">
+                                                <option value="{{ $user->address}}"> {{ $user->address}}</option>
                                                 @foreach ($addresses as $address)
                                                     <option value="{{ $address->address }}">{{ $address->address }}</option>
                                                 @endforeach
@@ -67,7 +68,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @if (isset($addresses) && count($addresses) > 0)
                                 <div class="different-address">
                                     <div class="ship-different-title">
                                         <h3>
@@ -85,7 +85,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif --}}
                             <div class="order-notes">
                                 <div class="checkout-form-list">
                                     <label>Ghi chú giao hàng</label>
@@ -150,69 +149,69 @@
                                                 </span></td>
 
                                         </tr>
+
                                         <tr class="cart-subtotal">
                                             <th>Giảm giá</th>
                                             <td id="#show-discount"><span class="amount">
-                                                    @if (Session::get('amount') && Session::get('type_discount') == 'money')
-                                                        <span> {{ number_format(Session::get('amount')) }} <span
+                                                    @if (Session::get('discount') && Session::get('discount')['type'] == 'money')
+                                                        <span> - {{ number_format(Session::get('discount')['amount']) }} <span
                                                                 style="text-decoration: underline;">đ</span></span>
-                                                    @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
-                                                        {{ number_format($summary * (Session::get('amount') / 100)) }}
+                                                    @elseif(Session::get('discount') && Session::get('discount')['type'] == 'percent')
+                                                        - {{ number_format($summary * (Session::get('discount')['amount'] / 100)) }}
                                                         <span style="text-decoration: underline;">đ</span>
-                                                        ({{ Session::get('amount') }} %)
+                                                        ({{ Session::get('discount')['amount'] }} %)
                                                     @else
                                                         0 <span style="text-decoration: underline;">đ</span>
                                                     @endif
                                                 </span></td>
                                             <input type="hidden" name="discount_summary"
-                                                value="@if (Session::get('amount')) {{ number_format(Session::get('amount')) }}
+                                                value="@if (Session::get('discount')) {{ number_format(Session::get('discount')['amount']) }}
                                                     @else
                                                         {{ 0 }} @endif">
                                         </tr>
                                         <tr class="order-total">
                                             <?php
-                                            if (\Illuminate\Support\Facades\Session::get('carts')) {
-                                                $summary += 30000;
-                                            }
+                                               if (\Illuminate\Support\Facades\Session::get('carts'))  $ship = 30000;
+                                               else $ship = 0;
                                             ?>
                                             <th>Tổng cộng</th>
                                             <td id="order-summary"><strong><span class="amount">
-                                                        @if (Session::get('amount') && Session::get('type_discount') == 'money')
-                                                            {{ number_format($summary - Session::get('amount')) }}
-                                                        @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
-                                                            {{ number_format($summary - $summary * (Session::get('amount') / 100)) }}
+                                                        @if (Session::get('discount') && Session::get('discount')['type'] == 'money')
+                                                            {{ number_format(($summary - Session::get('discount')['amount']) + $ship) }}
+                                                        @elseif(Session::get('discount') && Session::get('discount')['type'] == 'percent')
+                                                            {{ number_format(($summary - $summary * (Session::get('discount')['amount'] / 100)) + $ship) }}
                                                         @else
-                                                            {{ number_format($summary) }}
+                                                            {{ number_format($summary + $ship ) }}
                                                         @endif
                                                     </span><span style="text-decoration: underline;">đ</span></strong></td>
                                             <input type="hidden"
-                                                value=" @if (Session::get('amount') && Session::get('type_discount') == 'money') {{ $summary - Session::get('amount') }}
-                                                        @elseif(Session::get('amount') && Session::get('type_discount') == 'percent')
-                                                               {{ $summary - $summary * (Session::get('amount') / 100) }}
+                                                value=" @if (Session::get('discount') && Session::get('discount')['type'] == 'money') {{ ($summary - Session::get('discount')['amount']) + $ship }}
+                                                        @elseif(Session::get('discount') && Session::get('discount')['type'] == 'percent')
+                                                               {{ ($summary - $summary * (Session::get('discount')['amount'] / 100)) + $ship }}
                                                         @else
-                                                            {{ $summary }} @endif"
+                                                            {{ $summary + $ship }} @endif"
                                                 name="summary">
 
-                                            @if (Session::get('code'))
-                                                <input type="hidden" value="{{ Session::get('code') }}" name="code">
+                                            @if (Session::get('discount'))
+                                                <input type="hidden" value="{{ Session::get('discount')['code'] }}" name="code">
                                             @endif
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="payment-method" style="margin-top: 20px;">
+                            <div class="payment-method">
                                 <div class="payment-accordion">
                                     <div id="accordion">
                                         <div class="card" style="margin-bottom:40px; ">
-                                            <div class="card-header" id="#payment-1">
+                                            {{-- <div class="card-header" id="#payment-1">
                                                 <h5 class="panel-title">
                                                     <a class="" data-toggle="collapse" data-target="#collapseOne"
                                                         aria-expanded="true" aria-controls="collapseOne">
                                                         Mã giảm giá
                                                     </a>
                                                 </h5>
-                                            </div>
-                                            <div>
+                                            </div> --}}
+                                            {{-- <div>
                                                 <div class="card-body" style="margin-top: 20px;">
                                                     <div class="justify-content-center">
                                                         <div class="coupon-info">
@@ -228,18 +227,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
-                                        <div class="card" style="margin-top: 15px;">
-                                            <div>
-                                                <h5 class="panel-title">
+                                        <div class="card" style="margin-top: -25px;">
+                                            {{-- <div style="margin-bottom: 20px;">
+                                                <h5 class="panel-title" style="margin-left: 30px;">
                                                     <a class="collapsed" data-toggle="collapse"
                                                         data-target="#collapseTwo" aria-expanded="false"
                                                         aria-controls="collapseTwo">
                                                         Phương thức thanh toán
                                                     </a>
                                                 </h5>
-                                            </div>
+                                            </div> --}}
                                             <div>
                                                 <input type="radio" id="html" name="payment_method"
                                                     value="1" checked style="height: 20px; width: 18%;">

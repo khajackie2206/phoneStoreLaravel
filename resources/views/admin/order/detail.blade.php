@@ -166,8 +166,8 @@
                             <th>Mã giảm:</th>
                             <td style="font-weight: bold;">
                                 @if ($discount != null)
-                                    @if ($discount->type_discount == '%')
-                                        {{ number_format($sub * ($discount->amount / 100)) }}
+                                    @if ($discount->type_discount == "percent")
+                                        {{ number_format($sub * $discount->amount/ 100) }}
                                     @else
                                         {{ number_format($discount->amount) }}
                                     @endif

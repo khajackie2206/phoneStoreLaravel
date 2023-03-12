@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Messages\Incoming\Answer;
+
 
 class BotManController extends Controller
 {
@@ -20,7 +22,7 @@ class BotManController extends Controller
             if ($message == 'hi') {
                 $this->askName($botman);
             }else{
-                $botman->reply("write 'hi' for testing...");
+                $botman->reply("http://www.google.com");
             }
 
         });
@@ -36,4 +38,14 @@ class BotManController extends Controller
             $this->say('Nice to meet you '.$name);
         });
     }
+
+     public function askLogic($botman)
+    {
+        $botman->ask("Hoài mõm là ai?",function(Answer $answer){
+            // $name = $answer->getText();
+
+            $this->say('Hoài mõm là Tô Lê Hoài');
+        });
+    }
+
 }

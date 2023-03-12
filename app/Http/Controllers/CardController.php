@@ -12,7 +12,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
-
 class CardController extends Controller
 {
     protected $productService;
@@ -185,15 +184,18 @@ class CardController extends Controller
 
     public function checkout()
     {
-        $auth = session()->get('user');
-        $user = User::where('id', $auth->id)->first();
-        $addresses = DeliveryAddress::where('user_id', $user->id)->get();
-        if (!$user) {
-            Alert::error('Đăng nhập', 'Đăng nhập để thanh toán');
-            return view('auth.login-register', [
+        $auth = session()->get('user') ?? null;
+
+        if (!$auth) {
+            Alert::error('Vui lòng đăng nhập');
+            return view('auth.login', [
                 'title' => 'Đăng nhập',
             ]);
         }
+
+        $user = User::where('id', $auth->id)->first();
+        $addresses = DeliveryAddress::where('user_id', $user->id)->get();
+
         $products = $this->cardService->getProduct();
         $sessionProducts = $this->cardService->getProduct();
 
@@ -219,52 +221,6 @@ class CardController extends Controller
         Alert::success('Đặt hàng thành công');
         return redirect()->route('thank-you');
     }
-
-    // public function paymentWithMomo(Request $request)
-    // {
-    //     $input = $request->all();
-    //     $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-    //     $code = isset($input['code']) ? "&code=" . $input['code'] . "" : '';
-    //     $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
-    //     $partnerCode = 'MOMOBKUN20180529';
-    //     $accessKey = 'klm05TvNBzhg7h7j';
-    //     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-    //     $orderInfo = "Thanh toán qua ATM MoMo";
-    //     // $amount =  $input['summary'];
-    //     $amount = '1000000';
-
-    //     $orderId = time() . "";
-    //     $redirectUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
-    //     $ipnUrl = "http://allo-store.vn/products/handle-momo?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
-    //     $extraData = "";
-
-    //     $requestId = time() . "";
-    //     $requestType = "payWithATM";
-    //     //before sign HMAC SHA256 signature
-    //     $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-    //     $signature = hash_hmac("sha256", $rawHash, $secretKey);
-    //     $data = array(
-    //         'partnerCode' => $partnerCode,
-    //         'partnerName' => "Test",
-    //         "storeId" => "MomoTestStore",
-    //         'requestId' => $requestId,
-    //         'amount' => $amount,
-    //         'orderId' => $orderId,
-    //         'orderInfo' => $orderInfo,
-    //         'redirectUrl' => $redirectUrl,
-    //         'ipnUrl' => $ipnUrl,
-    //         'lang' => 'vi',
-    //         'extraData' => $extraData,
-    //         'requestType' => $requestType,
-    //         'signature' => $signature
-    //     );
-    //     $result = $this->execPostRequest($endpoint, json_encode($data));
-    //     $jsonResult = json_decode($result, true);  // decode json
-
-    //     //Just an example, please check more in there
-    //     return redirect()->to($jsonResult['payUrl']);
-    // }
-
 
     public function execPostRequest($url, $data)
     {
@@ -295,8 +251,7 @@ class CardController extends Controller
         $input = $request->all();
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
-        $code = isset($input['code']) ? "&code=" . $input['code'] . "" : '';
-        $vnp_Returnurl = "/products/handle-vnpay?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "" . $code . "";
+        $vnp_Returnurl = "/products/handle-vnpay?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "";
         $vnp_TmnCode = "H1YT811F"; //Mã website tại VNPAY
         $vnp_HashSecret = "WDQPUSPDNNJBDSNVELPJGNSXDUFXUHYF"; //Chuỗi bí mật
 
@@ -354,12 +309,12 @@ class CardController extends Controller
             'code' => '00', 'message' => 'success', 'data' => $vnp_Url
         );
         if (isset($input['redirect'])) {
-            $input = $request->all();
-            $result = $this->cardService->payment($input);
-            if (!$result) {
-                Alert::error('Xảy ra lỗi trong quá trình đặt hàng!');
-                return redirect()->back();
-            }
+            // $input = $request->all();
+            // $result = $this->cardService->payment($input);
+            // if (!$result) {
+            //     Alert::error('Xảy ra lỗi trong quá trình đặt hàng!');
+            //     return redirect()->back();
+            // }
 
             header('Location: ' . $vnp_Url);
             die();

@@ -145,11 +145,9 @@ Route::prefix('products')->group(function () {
     //Payment
     Route::post('/checkout-product', [CardController::class, 'payment']);
     Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
-    // Route::post('/checkout-product/paypal', [PaypalController::class, 'pay']);
     Route::get('/payment-success', [CardController::class, 'PaymentSuccess'])->name('paymentsuccess');
     Route::get('/payment-cancel', [CardController::class, 'PaymentCancel'])->name('paymentCancel');
     Route::get('/handle-vnpay', [CardController::class, 'payment']);
-    // Route::get('/handle-momo', [CardController::class, 'payment']);
 
     // Checkout Sevive
     Route::post('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
@@ -158,10 +156,6 @@ Route::prefix('products')->group(function () {
 
 
     Route::get('/thank-you', [CardController::class, 'thankYou'])->name('thank-you');;
-
-
-
-
 
     //Order
     Route::get('/order/update-status/{order}', [MainController::class, 'customerUpdateStatus']);
