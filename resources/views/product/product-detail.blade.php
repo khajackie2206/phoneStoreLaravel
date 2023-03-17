@@ -219,13 +219,13 @@
         <div class="tab-content" style="margin-top: 20px; margin-bottom: 30px;">
             <div class="container">
                 <div class="row" style="margin-left: 0px;">
-                    <div class="col-lg-6 col-md-6" style="background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
+                    <div class="col-lg-6-half col-md-6-half" style="background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;
                        box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding: 40px; margin-right: 30px;">
                         <span class="product-desc" style="color: black !important;font-family: inherit !important">
                             {!! $product->description !!}
                         </span>
                     </div>
-                    <div class="col-lg-5-half col-md-5-half"
+                    <div class="col-lg-5 col-md-5"
                         style="background-color: #fff;background-clip: border-box;-webkit-box-shadow: 0 0 3px 0 #dee2e6;box-shadow: 0 0 3px 0 #dee2e6;border-radius: 6px; padding:30px;">
                         <table class="table table-striped">
                             <tr style="background-color: #f1f1f1;">

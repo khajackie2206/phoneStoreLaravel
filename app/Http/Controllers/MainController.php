@@ -74,12 +74,16 @@ class MainController extends Controller
     {
         $user = User::where('email', session()->get('user')['email'])->first();
         $sessionProducts = $this->cardService->getProduct();
+        //get total price of order of a user
+        $totalPrice = Order::where('user_id', $user->id)->sum('total');
+        // dd($totalPrice);
 
         return view('user.detail', [
             'user' => $user,
             'title' => 'Thông tin cá nhân',
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
+            'totalPrice' => $totalPrice,
         ]);
     }
 

@@ -40,10 +40,19 @@
                         </div>
                         <div class="row mt-3">
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="labels">Địa chỉ</label>
                                 <input type="text" name="address" class="form-control" placeholder=""
                                     value="{{ $user->address }}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="labels">Tổng số tiền bạn mua</label>
+                                {{-- <input type="text" name="address" class="form-control" placeholder="" value="{{ number_format($totalPrice) }} VNĐ" style="color: red;" disabled> --}}
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" value="{{ number_format($totalPrice) }} VNĐ" style="color: red;" disabled>
+
+                                </div>
                             </div>
 
                             <div class="col-md-12 mt-20 ml-20">
@@ -51,6 +60,7 @@
                                     <label class="labels" style="margin-right: ">Giới tính</label>
                                 </div>
                                 <div class="row">
+
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
                                             value="male" {{ $user->gender == 'male' ? 'checked' : '' }}>

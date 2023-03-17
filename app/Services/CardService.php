@@ -148,7 +148,7 @@ class CardService
             DB::commit();
 
             #Queue to send mail
-            SendMail::dispatch($user->email, $user, $products, $carts, $input['new_address'] ?? $input['delivery_address'], $code->amount ?? null, $input['summary'])->delay(now()->addSecond(2));
+            SendMail::dispatch($user->email, $user, $products, $carts, $input['new_address'] ?? $input['delivery_address'], $code->amount ?? null, $input['summary'], $input['payment_method'], $code->type_discount ?? null)->delay(now()->addSecond(2));
 
             session()->forget('carts');
             session()->forget('discount');

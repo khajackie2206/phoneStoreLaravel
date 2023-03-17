@@ -54,7 +54,7 @@
             line-height: inherit !important;
         }
 
-        @media screen and (max-width: 480px) {
+        @media screen and (max-width: 680px) {
             .mobile-hide {
                 display: none !important;
             }
@@ -83,7 +83,7 @@
             <td align="center" style="background-color: #eeeeee;" bgcolor="#eeeeee">
 
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="max-width:600px;">
+                    style="max-width:800px;">
                     <tr>
                         <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#F44336">
 
@@ -123,7 +123,7 @@
                         <td align="center" style="padding: 35px 35px 20px 35px; background-color: #ffffff;"
                             bgcolor="#ffffff">
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                style="max-width:600px;">
+                                style="max-width:800px;">
                                 <tr>
                                     <td align="center"
                                         style="font-family: Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
@@ -144,6 +144,9 @@
                                         </p>
                                     </td>
                                 </tr>
+                                <?php
+                                   $sub = 0;
+                                ?>
                                 <tr>
                                     <td align="left" style="padding-top: 20px;">
                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -158,6 +161,9 @@
                                                 </td>
                                             </tr>
                                             @foreach ($products as $product)
+                                                <?php
+                                                    $sub += ($product->price - $product->discount) * $carts[$product->id];
+                                                ?>
                                                 <tr>
                                                     <td width="75%" align="left"
                                                         style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
@@ -178,13 +184,25 @@
                                                 <td width="25%" align="left"
                                                     style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
                                                     @if ($discount != null)
-                                                        - {{ number_format($discount) }}
-                                                    @else
-                                                        0
-                                                    @endif
-
-                                                    <span style="text-decoration: underline;"> đ</span>
+                                                       @if ($typeDiscount == "percent")
+                                                        -{{ number_format($sub * $discount/ 100) }}
+                                                        @else
+                                                         -{{ number_format($discount) }}
+                                                       @endif
+                                                          @else
+                                                          0
+                                                       @endif
+                                                    <span style="text-decoration: underline;">đ</span>
+                                            </tr>
+                                            <tr>
+                                                <td width="75%" align="left"
+                                                    style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                                                    Phí giao hàng
                                                 </td>
+                                                <td width="25%" align="left"
+                                                    style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                                                     30,000
+                                                    <span style="text-decoration: underline;">đ</span>
                                             </tr>
                                         </table>
                                     </td>
@@ -197,8 +215,8 @@
                                                     style="font-family: sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
                                                     Tổng cộng
                                                 </td>
-                                                <td width="30%" align="left"
-                                                    style="font-family: sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                                                <td width="30%" align="center"
+                                                    style="font-family: sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee; padding-right: 15px;">
                                                     {{ number_format($summary) }} <span
                                                         style="text-decoration: underline;"> đ</span>
                                                 </td>
@@ -246,6 +264,33 @@
                                                         style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                                         <p style="font-weight: 800;">Số điện thoại giao hàng</p>
                                                         <p>0911603179</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top" style="font-size:0;">
+                                        <div style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
+                                                <tr>
+                                                    <td align="left" valign="top"
+                                                        style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                                                        <p style="font-weight: 800;">Phương thức thanh toán</p>
+                                                        <p><span class="ms-1">
+                                                            @if ($paymentMethod == 1)
+                                                            <span class="badge bg-success" style="font-size: 16px;">Trả khi nhận hàng</span>
+                                                            @elseif ($order->paymentMethod == 3)
+                                                            <span class="badge bg-warning" style="font-size: 16px;"><img
+                                                                    src="https://logos-world.net/wp-content/uploads/2020/07/PayPal-Logo.png" style="margin-right: 10px;"
+                                                                    width="50px">Thanh toán Paypal</span>
+                                                            @elseif ($order->paymentMethod == 2)
+                                                            <span class="badge bg-warning" style="font-size: 16px; padding: 10px;"><img
+                                                                    src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR.png" style="margin-right: 10px;"
+                                                                    width="50px">Thanh toán VNPay</span>
+                                                            @endif
+                                                        </span></p>
                                                     </td>
                                                 </tr>
                                             </table>

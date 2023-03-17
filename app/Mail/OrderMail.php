@@ -14,16 +14,18 @@ class OrderMail extends Mailable
     protected $user;
     protected $products;
     protected $discount;
+    protected $typeDiscount;
     protected $summary;
     protected $carts;
     protected $address;
+    protected $paymentMethod;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $products, $carts, $address, $discount, $summary)
+    public function __construct($user, $products, $carts, $address, $discount, $summary, $paymentMethod, $typeDiscount)
     {
         $this->user = $user;
         $this->products = $products;
@@ -31,6 +33,8 @@ class OrderMail extends Mailable
         $this->summary = $summary;
         $this->carts = $carts;
         $this->address = $address;
+        $this->paymentMethod = $paymentMethod;
+        $this->typeDiscount = $typeDiscount;
     }
 
     /**
@@ -46,7 +50,9 @@ class OrderMail extends Mailable
             'discount' => $this->discount,
             'summary' => $this->summary,
             'carts' => $this->carts,
-            'address' => $this->address
+            'address' => $this->address,
+            'paymentMethod' => $this->paymentMethod,
+            'typeDiscount' => $this->typeDiscount
         ]);
     }
 }
