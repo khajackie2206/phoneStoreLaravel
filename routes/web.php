@@ -90,12 +90,12 @@ Route::prefix('admin')
         Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
         #Discount
-        Route::get('/discount/lists', [DiscountController::class, 'index']);
+        Route::get('/discount/lists', [DiscountController::class, 'index'])->name('discounts');
         Route::get('/discount/add', [DiscountController::class, 'add']);
         Route::post('/discount/add', [DiscountController::class, 'store']);
         Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
         Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
-        Route::post('/discount/delete/{discount}', [DiscountController::class, 'delete']);
+        Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
 
         Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
 

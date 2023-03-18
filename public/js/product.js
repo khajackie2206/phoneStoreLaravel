@@ -48,6 +48,18 @@ $("#uploads").change(function () {
         url: "/admin/multi-upload/services",
         success: function (results) {
             if (results.error == false) {
+                const urls = JSON.parse(results.url);
+                 let htmlString = "";
+                 urls.forEach((url) => {
+                     htmlString +=
+                         '<a href="' +
+                         url +
+                         '"><img src="' +
+                         url +
+                         '" target="_blank" width="100px" style="margin-right: 10px;"></a>';
+                 });
+
+                 $("#image_shows").html(htmlString);
                 $("#thumbs").val(results.url);
             } else {
                 alert("File không đúng định dạng!!!");

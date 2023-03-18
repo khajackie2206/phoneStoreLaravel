@@ -1,114 +1,121 @@
- @extends('admin.main')
- @section('content')
-     <main class="content">
-         <div class="container-fluid p-0">
-             <div class="mb-3">
-                 <h1 class="h3 d-inline align-middle">Cập nhật thương hiệu</h1>
-                 <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                     +
-                 </a>
-             </div>
-             <form action="/admin/brand/edit/{{$brand->id}}" method="POST">
-                 <div class="row">
-                     <div class="col-12 col-lg-6">
-                         <div class="card" style="padding-bottom: 40px;">
-                             <div class="card-header" style="padding-top: 5px;">
-                                 <h5 class="card-title mb-0">Tên</h5>
-                             </div>
-                             <div class="card-body">
-                                 <input type="text" value="{{$brand->name}}" class="form-control" placeholder="Tên thương hiệu" name="name">
+@extends('admin.main')
+@section('content')
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Cập nhật mã khuyến mãi</h1>
+        </div>
+        <form action="/admin/discount/edit/{{ $voucher->id}}" method="POST">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Tên khuyến mãi</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <input type="text" value="{{ $voucher->name }}" class="form-control" placeholder="Tên khuyến mãi" name="name">
 
-                             </div>
-                             @if ($errors->first('name') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
-                                     <li class="text-danger">{{ $errors->first('name') }}</li>
-                                 </ul>
-                             @endif
+                        </div>
+                        @if ($errors->first('name') != '')
+                        <ul style="margin-top:5px;list-style-type:none; ">
+                            <li class="text-danger">{{ $errors->first('name') }}</li>
+                        </ul>
+                        @endif
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Mã khuyến mãi</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi" value="{{ $voucher->code }}" name="code">
 
-                         </div>
-                         <div class="card">
-                             <div class="card-header" style="padding-top:30px; ">
-                                 <h5 class="card-title mb-0">Hình ảnh thương hiệu</h5>
-                             </div>
-                             <div class="card-body" style="padding-bottom: 50px;">
-                                 <input type="file" name="file" class="form-control" id="upload">
-                                 <div id="image_show" style="margin-top: 15px;">
-                                     <a href="{{ $brand->image }}"><img src="{{ $brand->image }}" width="100px"></a>
-                                </div>
-                                 <input type="hidden" value="{{$brand->image}}" name="image" id="thumb">
+                        </div>
+                        @if ($errors->first('code') != '')
+                        <ul style="margin-top:5px;list-style-type:none; ">
+                            <li class="text-danger">{{ $errors->first('code') }}</li>
+                        </ul>
+                        @endif
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Số lượng của khuyến mãi</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px; margin-bottom: 15px;">
+                            <input type="text" class="form-control" placeholder="Nhập số lượng mã khuyến mãi"
+                                name="quantity" value="{{ $voucher->quantity }}">
 
-                             </div>
-                              @if ($errors->first('image') != '')
-                                     <ul style="margin-top:5px;list-style-type:none; margin-top: -40px; ">
-                                         <li class="text-danger">{{ $errors->first('image') }}</li>
-                                     </ul>
-                                 @endif
-
-                         </div>
+                        </div>
+                        @if ($errors->first('quantity') != '')
+                        <ul style="margin-top:5px;list-style-type:none; ">
+                            <li class="text-danger">{{ $errors->first('quantity') }}</li>
+                        </ul>
+                        @endif
 
 
-                     </div>
 
-                     <div class="col-12 col-lg-6">
+                    </div>
+                </div>
 
-                         <div class="card">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <!-- select -->
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Loại giảm giá</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <select class="form-select mb-1" name="type_discount">
+                                <option value="percent" {{ $voucher->type_discount === "percent" ? 'selected' : '' }}>giảm theo phần trăm</option>
+                                <option value="money" {{ $voucher->type_discount === "money" ? 'selected' : '' }}>giảm tiền mặt</option>
+                            </select>
+                        </div>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Giá trị của khuyến mãi</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <input type="text" name="amount" class="form-control"
+                                placeholder="Nhập giá trị của khuyến mãi" value="{{ $voucher->amount}}">
+                        </div>
 
-                             <div class="card-header">
-                                 <h5 class="card-title mb-0">Mô tả</h5>
-                             </div>
-                             <div class="card-body" style="margin-top: -22px;">
-                                 <input type="text" value="{{$brand->description}}" name="description" class="form-control"
-                                     placeholder="Thêm mô tả ngắn">
-                             </div>
-                             @if ($errors->first('description') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
-                                     <li class="text-danger">{{ $errors->first('description') }}</li>
-                                 </ul>
-                             @endif
 
-                             <div class="card-header">
-                                 <h5 class="card-title mb-0">Quốc gia</h5>
-                             </div>
-                             <div class="card-body" style="margin-top: -22px;">
-                                 <input type="text" value="{{$brand->country}}" name="country" class="form-control"
-                                     placeholder="Tên quốc gia của thương hiệu">
-                             </div>
-                             @if ($errors->first('country') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
-                                     <li class="text-danger">{{ $errors->first('country') }}</li>
-                                 </ul>
-                             @endif
-                         </div>
-                         <div class="card">
-                             <div class="card-header">
-                                 <h5 class="card-title mb-0">Kích hoạt</h5>
-                             </div>
-                             <div class="card-body">
-                               <div>
-                                     <input class="custom-control-input" value="1" type="radio" id="active"
-                                         name="active" {{$brand->active = 1 ? 'checked' : '' }}>
-                                     <label for="active" class="custom-control-label">Có</label>
-                                 </div>
-                                 <div>
-                                     <input class="custom-control-input" value="0" type="radio" id="no_active"
-                                         name="active" {{$brand->active = 0 ? 'checked' : '' }}>
-                                     <label for="no_active" class="custom-control-label">Không</label>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="card-footer" style="text-align: center;">
-                     <button type="submit" class="btn btn-primary">Cập nhật thương hiệu</button>
-                 </div>
-                 @csrf
-             </form>
-         </div>
-     </main>
- @endsection
+                        @if ($errors->first('amount') != '')
+                        <ul style="margin-top:5px;list-style-type:none; ">
+                            <li class="text-danger">{{ $errors->first('amount') }}</li>
+                        </ul>
+                        @endif
 
- @section('footer')
-     <script>
-         CKEDITOR.replace('content');
-     </script>
- @endsection
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Kích hoạt</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <div>
+                                <input class="custom-control-input" value="1" type="radio" id="active" name="active"
+                                    checked="true">
+                                <label for="active" class="custom-control-label">Có</label>
+                            </div>
+                            <div>
+                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
+                                <label for="no_active" class="custom-control-label">Không</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-footer" style="text-align: center;">
+                <button type="submit" class="btn btn-primary">Thêm mã</button>
+            </div>
+            @csrf
+        </form>
+    </div>
+</main>
+@endsection
+
+@section('footer')
+<script>
+    CKEDITOR.replace('content');
+         alert(2);
+</script>
+<script type="text/javascript">
+    $(function() {
+            $('#datetimepicker1').datetimepicker();
+        });
+</script>
+
+@endsection

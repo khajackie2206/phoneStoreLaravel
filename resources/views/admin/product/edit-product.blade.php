@@ -91,7 +91,13 @@
                             <div class="card-body">
                                 <label class="form-label">Gallery</label>
                                 <input type="file" name="files[]" class="form-control" id="uploads" multiple>
-                                <div id="images_shows"> </div>
+                                <div id="image_shows" style="margin-top: 15px;">
+                                    @foreach ($product->images->where('type', 'gallery') as $image )
+                                    <img src="{{$image->url}}" width="100px" alt="" style="margin-right: 5px;">
+                                    @endforeach
+                                </div>
+                                {{-- {{ dd(json_decode($arrayPath))}} --}}
+
                                 <input type="hidden" name="thumbs" id="thumbs" value="{{ $arrayPath }}">
                             </div>
                         </div>
@@ -103,12 +109,12 @@
                             <div class="card-body">
                                 <div>
                                     <input class="custom-control-input" value="1" type="radio" id="active"
-                                        name="active" {{ $product->active = 1 ? 'checked="true"' : '' }}>
+                                        name="active" {{ $product->active === 1 ? 'checked="true"' : '' }}>
                                     <label for="active" class="custom-control-label">Có</label>
                                 </div>
                                 <div>
                                     <input class="custom-control-input" value="0" type="radio" id="no_active"
-                                        name="active" {{ $product->active = 0 ? 'checked="true"' : '' }}>
+                                        name="active" {{ $product->active === 0 ? 'checked="true"' : '' }}>
                                     <label for="no_active" class="custom-control-label">Không</label>
                                 </div>
                             </div>

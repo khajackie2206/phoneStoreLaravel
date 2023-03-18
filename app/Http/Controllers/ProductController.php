@@ -178,34 +178,13 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    // public function applyDiscount(Request $request)
-    // {
-    //     $input = $request->all();
-    //     $amount = '';
-    //     $discount = Voucher::where('code', '=', $input['discount'])
-    //         ->where('quantity', '>', 0)
-    //         ->first();
-
-    //     if ($discount) {
-    //         $amount = $discount->amount;
-    //         $typeDiscount = $discount->type_discount;
-    //     } else {
-    //         Alert::error('Mã giảm giá không hợp lệ');
-    //         return redirect()->back();
-    //     }
-
-    //     Alert::success('Áp dụng mã giảm giá thành công');
-    //     return redirect()
-    //         ->route('checkout')
-    //         ->with(['amount' => $amount, 'code' => $discount->code, 'type_discount' => $typeDiscount ]);
-    // }
-
     public function applyDiscount(Request $request)
     {
         $input = $request->all();
 
         $discount = Voucher::where('code', '=', $input['discount'])
             ->where('quantity', '>', 0)
+            ->where('deleted_at', null)
             ->first();
 
         if ($discount) {

@@ -22,10 +22,9 @@
                                                  <th scope="col" width="5%">#</th>
                                                  <th scope="col" width="12%">Mã giảm giá</th>
                                                  <th scope="col" width="10%">Số lượng</th>
-                                                 <th scope="col" width="15%">Loại giảm giá</th>
-                                                 <th scope="col" width="13%">Giá trị</th>
-                                                 <th scope="col" width="15%">Ngày bắt đầu</th>
-                                                 <th scope="col" width="15%">Ngày kết thúc </th>
+                                                 <th scope="col" width="23%">Loại giảm giá</th>
+                                                 <th scope="col" width="20%">Giá trị</th>
+                                                 <th scope="col" width="15%">Trạng thái</th>
                                                  <th scope="col" width="10%">Thao tác </th>
                                              </tr>
                                          </thead>
@@ -81,90 +80,6 @@
              </div>
          </div>
      </main>
-     <script type="text/javascript">
-         $('.show-alert-delete-brand').click(function(event) {
-             var form = $(this).closest("form");
-             var name = $(this).data("name");
-             event.preventDefault();
-             swal({
-                 title: "Bạn có chắc muốn xóa thương hiệu này không?",
-                 icon: "warning",
-                 type: "warning",
-                 buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã xóa!'
-             }).then((willDelete) => {
-                 if (willDelete) {
-                     swal({
-                         title: 'Thành công!',
-                         icon: 'success',
-                         text: 'Đã xóa thương hiệu!',
-                         type: 'success'
-                     }).then(function() {
-                         form.submit();
-                     });
-                 }
-             });
-         });
-     </script>
-     <script type="text/javascript">
-         $('.show-alert-deactive-brand').click(function(event) {
-             var form = $(this).closest("form");
-             var name = $(this).data("name");
-             event.preventDefault();
-             swal({
-                 title: "Bạn có chắc muốn hủy kích hoạt thương hiệu này không?",
-                 icon: "warning",
-                 type: "warning",
-                 buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã hủy kích hoạt!'
-             }).then((willDelete) => {
-                 if (willDelete) {
-                     swal({
-                         title: 'Thành công!',
-                         icon: 'success',
-                         text: 'Đã hủy kích hoạt!',
-                         type: 'success'
-                     }).then(function() {
-                         form.submit();
-                     });
-                 }
-             });
-         });
-     </script>
-
-     <script type="text/javascript">
-         $('.show-alert-active-brand').click(function(event) {
-             var form = $(this).closest("form");
-             var name = $(this).data("name");
-             event.preventDefault();
-             //const swal = new SweetAlert2();
-             swal({
-                 title: "Bạn có chắc muốn kích hoạt thương hiệu này không?",
-                 icon: "warning",
-                 type: "warning",
-                 buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã kích hoạt!'
-             }).then((willDelete) => {
-                 if (willDelete) {
-                     swal({
-                         title: 'Thành công!',
-                         icon: 'success',
-                         text: 'Đã kích hoạt thương hiệu!',
-                         type: 'success'
-                     }).then(function() {
-                         form.submit();
-                     });
-
-                 }
-             });
-         });
-     </script>
 
      <script>
          $(document).ready(function() {
@@ -207,11 +122,7 @@
 
                      },
                      {
-                         data: 'start_date',
-
-                     },
-                     {
-                         data: 'end_date',
+                         data: 'active',
 
                      },
                      {
@@ -223,7 +134,7 @@
          });
      </script>
      <script>
-         function myFunction(ev) {
+         function deleteDiscount(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
              swal({
@@ -233,10 +144,10 @@
                  buttons: ["Cancel", "Yes!"],
                  confirmButtonColor: '#3085d6',
                  cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã kích hoạt!'
+                 confirmButtonText: 'Đã xóa!'
              }).then((willDelete) => {
                 if (willDelete) {
-                    window.location.href='url';
+                    window.location.href= urlToRedirect;
                 }
             });
          }
