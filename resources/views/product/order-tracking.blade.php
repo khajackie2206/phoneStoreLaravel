@@ -12,6 +12,7 @@
                 </div>
             @endif
             @foreach ($orders as $order)
+            <?php $sub = 0; ?>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -53,7 +54,7 @@
                             <div class="col"> <strong>Số điện thoại giao hàng:</strong> <br> <i
                                     class="fa fa-phone"></i> {{ $user->phone }}</div>
                             <div class="col"> <strong>Trạng thái:</strong> <br> {{ $order->status->name }} </div>
-                            <div class="col"> <strong>Theo dõi #:</strong> <br> A0000{{ $order->id }} </div>
+                            <div class="col"> <strong>Địa chỉ giao hàng:</strong> <br> {{ $order->delivery_address }} </div>
                         </div>
                     </article>
                     <div class="track">
@@ -86,11 +87,44 @@
                                     </figcaption>
                                 </figure>
                             </li>
+                            <?php
+                                $sub += ($orderDetail->product->discount > 0 ? $orderDetail->product->price - $orderDetail->product->discount : $orderDetail->product->price) * $orderDetail->quantity;
+                            ?>
                         @endforeach
                     </ul>
                     <div class="row justify-content-end" style="margin: 20px 30px 10px 10px;">
+                        <div class="col-md-4">
+                            @if($order->status_id == 2 || $order->status_id == 3 )
+                            <p style="font-weight: bold;">Đã xác nhận: <span class="text" style="font-weight: normal;"> {{
+                                    $order->updated_at}}</span> </p>
+                            @elseif($order->status_id == 4)
+                            <p style="font-weight: bold;">Nhận hàng: <span class="text" style="font-weight: normal;"> {{ $order->updated_at}}</span>
+                            </p>
+                            @elseif($order->status_id == 5)
+                            <p style="font-weight: bold;">Huỷ đơn hàng: <span class="text" style="font-weight: normal;"> {{
+                                    $order->updated_at}}</span> </p>
+                            @endif
+                            <p style="font-weight: bold;">Ghi chú: <span class="text" style="font-weight: normal;"> {{ $order->note}}</span> </p>
+
+                        </div>
+                        <div class="col-md-8" style="text-align: end;">
+                        <h6>Tạm tính: {{ number_format($sub) }} <span style="text-decoration: underline;">đ</span></td></h6>
+                        <h6>Mã giảm:
+                            @if($order->voucher_id != null)
+                               @if ($order->voucher->type_discount == "percent")
+                                {{ number_format($sub * $order->voucher->amount/ 100) }} ({{ $order->voucher->amount }}%)
+                               @else
+                               {{ number_format($order->voucher->amount) }}
+                               @endif
+                            @else
+                                0
+                            @endif
+                            <span style="text-decoration: underline;">đ</span>
+                            </h6>
+                        <h6>Giao hàng: 30,000 <span style="text-decoration: underline;">đ</span></h6>
                         <h5 style="color: red;">Tổng cộng: {{ number_format($order->total) }} <span
-                                style="text-decoration: underline;">đ</span></h4>
+                                style="text-decoration: underline;">đ</span></h5>
+                        </div>
                     </div>
                     <hr style="margin: 15px 0px 0px 0px;">
                 </div>

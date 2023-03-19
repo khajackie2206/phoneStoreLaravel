@@ -85,14 +85,17 @@ class AdminController extends Controller
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
+            ->where('orders.status_id','<>', 5)
             ->groupBy('payments.name')
             ->get();
+
         //caculate total price in table order_details with table orders with status in table statues is 4 in total 14 days ago to 7 days ago
         $totalAvanue2WeeksAgo = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -105,6 +108,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -117,6 +121,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -128,6 +133,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -139,6 +145,7 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
             ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
@@ -150,12 +157,14 @@ class AdminController extends Controller
             ->where('created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
+
         // caculate increase total user create account in 14 days ago to 7 days ago
         $totalUser2WeeksAgo = DB::table('users')
             ->select(DB::raw('count(*) as total'))
             ->where('created_at', '>=', now()->subDays(14))
             ->where('created_at', '<', now()->subDays(7))
             ->get();
+
         // caculate increase total user create account 7 days ago
         $totalUser = DB::table('users')
             ->select(DB::raw('count(*) as total'))
@@ -163,14 +172,19 @@ class AdminController extends Controller
             ->get();
         $increaseTotalUser = $this->caculateIncrease($totalUser[0]->total, $totalUser2WeeksAgo[0]->total);
 
-        //caculate 7 product have highest quantity
+        //caculate top 7 products with status is 4 in table order_details with table orders
         $topProducts = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
-            ->select('products.name as name', DB::raw('sum(order_details.quantity) as total'))
+            ->select(DB::raw('sum(order_details.quantity) as total'), 'products.name')
+            ->where('orders.status_id', 4)
+            ->where('orders.status_id','<>', 5)
+            ->orWhere('orders.payment_id', '<>', 1)
             ->groupBy('products.name')
             ->orderBy('total', 'desc')
             ->limit(7)
             ->get();
+
         $top7Product = $this->prepareDataForChartWithName($topProducts);
         $pieChartData = $this->prepareDataForChart($paymentMethods);
         $rowChartData = $this->mapDataWith14DayAgo($totalPrices);

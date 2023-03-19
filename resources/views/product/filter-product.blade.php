@@ -59,6 +59,18 @@
                                 <div class="product-area shop-product-area">
                                     <div class="row" id="filterArea">
                                         @foreach ($products as $product)
+
+                                             <?php
+                                                $countRating = count($product->comments->where('status', 1));
+                                                $avgRating = 0;
+                                                $sumRating = 0;
+                                                    if ($countRating > 0) {
+                                                        foreach ($product->comments->where('status', 1) as $comment) {
+                                                            $sumRating += $comment->rating;
+                                                        }
+                                                    $avgRating = $sumRating / $countRating;
+                                                }
+                                            ?>
                                             <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                                 <!-- single-product-wrap start -->
                                                 <div class="single-product-wrap">
@@ -77,13 +89,11 @@
                                                                 </h5>
                                                                 <div class="rating-box">
                                                                     <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
+                                                                    <li class="{{ $avgRating >= 0.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                    <li class="{{ $avgRating >= 1.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                    <li class="{{ $avgRating >= 2.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                    <li class="{{ $avgRating >= 3.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                    <li class="{{ $avgRating >= 4.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -140,6 +150,17 @@
                                 <div class="row">
                                     <div class="col" id="flexProduct">
                                         @foreach ($products as $product)
+                                        <?php
+                                                                                        $countRating = count($product->comments->where('status', 1));
+                                                                                        $avgRating = 0;
+                                                                                        $sumRating = 0;
+                                                                                            if ($countRating > 0) {
+                                                                                                foreach ($product->comments->where('status', 1) as $comment) {
+                                                                                                    $sumRating += $comment->rating;
+                                                                                                }
+                                                                                            $avgRating = $sumRating / $countRating;
+                                                                                        }
+                                                                                    ?>
                                             <div class="row product-layout-list">
                                                 <div class="col-lg-3 col-md-5 ">
                                                     <div class="product-image">
@@ -159,13 +180,11 @@
                                                                 </h5>
                                                                 <div class="rating-box">
                                                                     <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
+                                                                      <li class="{{ $avgRating >= 0.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                        <li class="{{ $avgRating >= 1.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                        <li class="{{ $avgRating >= 2.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                        <li class="{{ $avgRating >= 3.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                                        <li class="{{ $avgRating >= 4.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

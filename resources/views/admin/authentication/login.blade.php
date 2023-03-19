@@ -67,19 +67,9 @@
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="password"
                                                 placeholder="Nhập password" />
-                                            <small>
-                                                <a href="index.html">Quên mật khẩu?</a>
-                                            </small>
+
                                         </div>
-                                        <div>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="remember-me"
-                                                    name="remember-me" checked>
-                                                <span class="form-check-label">
-                                                    Nhớ tôi vào lần tới
-                                                </span>
-                                            </label>
-                                        </div>
+
                                         <div class="text-center mt-3">
 
                                             <button type="submit" class="btn btn-lg btn-primary">Đăng nhập</button>

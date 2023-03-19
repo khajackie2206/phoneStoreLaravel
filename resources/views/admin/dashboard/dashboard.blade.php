@@ -17,7 +17,7 @@
 
                                         <div class="col-auto">
                                             <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="monitor"></i>
+                                                <a href="/admin/product/list"><i class="align-middle" data-feather="monitor"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
 
                                         <div class="col-auto">
                                             <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="users"></i>
+                                                <a href="/admin/users"><i class="align-middle" data-feather="users"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
 
                                         <div class="col-auto">
                                             <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="shopping-cart"></i>
+                                               <a href="/admin/order/lists"> <i class="align-middle" data-feather="shopping-cart"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -321,7 +321,7 @@
                 data: {
                     labels: labelRowChart,
                     datasets: [{
-                        label: "Số đơn ($)",
+                        label: "Số đơn: ",
                         fill: true,
                         backgroundColor: gradient,
                         borderColor: window.theme.primary,
@@ -353,7 +353,7 @@
                         }],
                         yAxes: [{
                             ticks: {
-                                stepSize: 1000
+                                stepSize: 5
                             },
                             display: true,
                             borderDash: [3, 3],
@@ -416,7 +416,8 @@
                 title: {
                     display: true,
                     text: 'Top 7 sản phẩm bán chạy nhất (theo số lượng)'
-                }
+                },
+
             }
         });
     });

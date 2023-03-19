@@ -128,7 +128,7 @@ $(document).on("click", ".quick-view-btn", function(){
              $("#star-3").removeClass("no-star");
              $("#star-4").removeClass("no-star");
              $("#star-5").removeClass("no-star");
-            if (results.rating < 1)
+            if (results.rating < 0.75)
             {
                 $("#star-1").toggleClass("no-star");
                 $("#star-2").toggleClass("no-star");
@@ -136,27 +136,28 @@ $(document).on("click", ".quick-view-btn", function(){
                 $("#star-4").toggleClass("no-star");
                 $("#star-5").toggleClass("no-star");
             }
-             if (results.rating >= 1 && results.rating < 2) {
+             if (results.rating >= 0.75 && results.rating < 1.75) {
                $("#star-2").toggleClass("no-star");
                $("#star-3").toggleClass("no-star");
                $("#star-4").toggleClass("no-star");
                $("#star-5").toggleClass("no-star");
              }
-             if (results.rating >= 2 && results.rating < 3) {
+             if (results.rating >= 1.75 && results.rating < 2.75) {
                $("#star-3").toggleClass("no-star");
                $("#star-4").toggleClass("no-star");
                $("#star-5").toggleClass("no-star");
              }
-              if (results.rating >= 3 && results.rating < 4) {
+              if (results.rating >= 2.75 && results.rating < 3.75) {
                 $("#star-4").toggleClass("no-star");
                 $("#star-5").toggleClass("no-star");
               }
-              if (results.rating >= 4 && results.rating < 5) {
+              if (results.rating >= 3.75 && results.rating < 4.75) {
                   $("#star-5").toggleClass("no-star");
               }
-              if (results.rating >= 5) {
+            //   if (results.rating >= 4.75) {
 
-              }
+            //   }
+
             $("#modelProductMemory").html(
                 results.ram + " GB" + " - " + results.memory
             );

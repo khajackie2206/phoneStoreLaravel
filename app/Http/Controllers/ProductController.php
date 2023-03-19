@@ -58,26 +58,26 @@ class ProductController extends Controller
         ]);
     }
 
-     public function getData()
-     {
-         $products = Product::select(['id','name','quantity','brand_id', 'active','ram','rom']);
+    public function getData()
+    {
+        $products = Product::select(['id', 'name', 'quantity', 'brand_id', 'active', 'ram', 'rom']);
 
-         return Datatables::of($products)->addColumn('action', function ($product) {
-             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/product/edit/'.$product->id.'"><i class="fas fa-edit fa-xl"></i></a>
-                    <a href="/admin/product/delete/'.$product->id.'" onclick="return deleteProduct(event);"<i type="submit" style="color: red;"
-                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
-         })->addColumn('size_memory', function ($product) {
-             return ' <span style="font-weight: bold;">'.$product->ram.' GB - '.$product->rom.'</span>';
-         })->addColumn('image', function ($product) {
-             return  ' <img src="'.$product->images->where('type', 'cover')->first()['url'].'" width="100">';
-         })->editColumn('active', function ($product) {
-             return  $product->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
-         })->editColumn('brand_id', function ($product) {
-             return  $product->brand->name;
-         })->editColumn('name', function ($product) {
-             return  '<span style="font-weight: bold;">'.$product->name.'</span>';
-         })->rawColumns(['action', 'size_memory', 'image', 'active','brand_id','name'])->make();
-     }
+        return Datatables::of($products)->addColumn('action', function ($product) {
+            return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/product/edit/' . $product->id . '"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/product/delete/' . $product->id . '" onclick="return deleteProduct(event);"<i type="submit" style="color: red;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
+        })->addColumn('size_memory', function ($product) {
+            return ' <span style="font-weight: bold;">' . $product->ram . ' GB - ' . $product->rom . '</span>';
+        })->addColumn('image', function ($product) {
+            return  ' <img src="' . $product->images->where('type', 'cover')->first()['url'] . '" width="100">';
+        })->editColumn('active', function ($product) {
+            return  $product->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+        })->editColumn('brand_id', function ($product) {
+            return  $product->brand->name;
+        })->editColumn('name', function ($product) {
+            return  '<span style="font-weight: bold;">' . $product->name . '</span>';
+        })->rawColumns(['action', 'size_memory', 'image', 'active', 'brand_id', 'name'])->make();
+    }
 
     public function storeProduct(ValidateAddProduct $request)
     {
@@ -129,6 +129,7 @@ class ProductController extends Controller
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
         $comments = $product->comments()->where('status', 1)->paginate(4);
+        $allComments = $product->comments()->where('status', 1)->get();
         $user = session()->get('user');
 
         return view('product.product-detail', [
@@ -139,7 +140,8 @@ class ProductController extends Controller
             'groupProduct' => $groupProduct,
             'carts' => session()->get('carts'),
             'user' => $user,
-            'comments' => $comments
+            'comments' => $comments,
+            'allComments' => $allComments,
         ]);
     }
 
@@ -189,12 +191,11 @@ class ProductController extends Controller
 
         if ($discount) {
             $dataSession = [
-            'code' => $discount->code,
-            'amount' => $discount->amount,
-             'type' => $discount->type_discount
-        ];
-         session()->put('discount', $dataSession);
-
+                'code' => $discount->code,
+                'amount' => $discount->amount,
+                'type' => $discount->type_discount
+            ];
+            session()->put('discount', $dataSession);
         } else {
             Alert::error('Mã giảm giá không hợp lệ');
             return redirect()->back();
@@ -246,13 +247,13 @@ class ProductController extends Controller
         //get value of param with name is filter[brand]
         $brandFilter = request()->input('filter.brand');
         $priceFilter = request()->input('filter.price');
-        $priceFilter = $priceFilter ? explode('-', $priceFilter): [];
+        $priceFilter = $priceFilter ? explode('-', $priceFilter) : [];
         //convert $brandFilter to array by - if not null
         $brandFilter = $brandFilter ? explode('-', $brandFilter) : [];
         $romFilter = request()->input('filter.rom');
-        $romFilter = $romFilter ? explode('-', $romFilter): [];
+        $romFilter = $romFilter ? explode('-', $romFilter) : [];
         $osFilter = request()->input('filter.os');
-        $osFilter = $osFilter ? explode(',', $osFilter): [];
+        $osFilter = $osFilter ? explode(',', $osFilter) : [];
         $sortFilter = request()->input('sort');
 
         $productWithTotal = $this->productService->filterProduct(request()->input());
@@ -267,7 +268,7 @@ class ProductController extends Controller
         return view('product.filter-product', [
             'title' => 'Danh sách sản phẩm',
             'products' => $products,
-            'productQuantity'=> $productQuantity,
+            'productQuantity' => $productQuantity,
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
             'brands' => $brands,
@@ -295,6 +296,59 @@ class ProductController extends Controller
         $count = 0;
 
         foreach ($products as $product) {
+
+            $countRating = count($product->comments->where('status', 1));
+            $avgRating = 0;
+            $sumRating = 0;
+            $rating = '';
+
+            if ($countRating > 0) {
+                foreach ($product->comments->where('status', 1) as $comment) {
+                    $sumRating += $comment->rating;
+                }
+                $avgRating = $sumRating / $countRating;
+            }
+
+
+ if ($avgRating >= 0.75 && $avgRating < 1.75) {
+     $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+ } elseif ($avgRating >= 1.75 && $avgRating < 2.75) {
+     $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+ } elseif ($avgRating >= 2.75 && $avgRating < 3.75) {
+     $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+ } elseif ($avgRating >= 3.75 && $avgRating < 4.75) {
+     $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+ } elseif ($avgRating >= 4.75 && $avgRating <= 5) {
+     $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                       <li><i class="fa fa-star"></i></li>
+                       <li><i class="fa fa-star"></i></li>';
+ } else {
+     $rating = '         <li class="no-star"> <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
+ }
+
+
             $count++;
             $output .=
                 '<div class="col-lg-4 col-md-4 col-sm-6 mt-40">
@@ -322,11 +376,7 @@ class ProductController extends Controller
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                   '.$rating.'
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -387,11 +437,7 @@ class ProductController extends Controller
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                   '.$rating.'
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -445,6 +491,56 @@ class ProductController extends Controller
 
         if (count($products) != 0) {
             foreach ($products as $product) {
+
+                $countRating = count($product->comments->where('status', 1));
+                $avgRating = 0;
+                $sumRating = 0;
+                $rating = '';
+
+                if ($countRating > 0) {
+                    foreach ($product->comments->where('status', 1) as $comment) {
+                        $sumRating += $comment->rating;
+                    }
+                    $avgRating = $sumRating / $countRating;
+                }
+
+                if ($avgRating >= 0.75 && $avgRating < 1.75) {
+                    $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+                } elseif ($avgRating >= 1.75 && $avgRating < 2.75) {
+                    $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+                } elseif ($avgRating >= 2.75 && $avgRating < 3.75) {
+                    $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+                } elseif ($avgRating >= 3.75 && $avgRating < 4.75) {
+                    $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>';
+                } elseif ($avgRating >= 4.75 && $avgRating <= 5) {
+                    $rating = ' <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                       <li><i class="fa fa-star"></i></li>
+                       <li><i class="fa fa-star"></i></li>';
+                } else {
+                    $rating = '         <li class="no-star"> <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
+                }
                 $flex .=
                     ' <div class="row product-layout-list">
                                                 <div class="col-lg-3 col-md-5 ">
@@ -470,13 +566,7 @@ class ProductController extends Controller
                                                                 </h5>
                                                                 <div class="rating-box">
                                                                     <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i>
-                                                                        </li>
+                                                                        ' . $rating . '
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -544,11 +634,7 @@ class ProductController extends Controller
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                   ' . $rating . '
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -584,10 +670,10 @@ class ProductController extends Controller
                                             <!-- single-product-wrap end -->
                                         </div>';
             }
-        $numberOfProduct = $productWithTotal['total'];
-            return response()->json(['data' => $output, 'flex' => $flex, 'numberOfProduct'=>$numberOfProduct]);
+            $numberOfProduct = $productWithTotal['total'];
+            return response()->json(['data' => $output, 'flex' => $flex, 'numberOfProduct' => $numberOfProduct]);
         }
-        return response()->json(['data' => '', 'flex' => '', 'numberOfProduct'=>0]);
+        return response()->json(['data' => '', 'flex' => '', 'numberOfProduct' => 0]);
     }
 
     public function loadProduct(Request $request)

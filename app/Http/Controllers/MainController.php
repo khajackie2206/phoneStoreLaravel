@@ -142,6 +142,7 @@ class MainController extends Controller
     {
         $user = session()->get('user');
         $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
+
         $sessionProducts = $this->cardService->getProduct();
 
         return view('product.order-tracking', [
@@ -263,7 +264,13 @@ class MainController extends Controller
     public function updateOrderStatus(Request $request, Order $order)
     {
         $input = $request->all();
+
+        if ($input['status'] == 5) {
+            $this->cancelOrder($order);
+        }
+
         $order->update(array('status_id' => $input['status']));
+
         Alert::success('Cập nhật trạng thái đơn hàng thành công!');
 
         return redirect()->back();
@@ -279,6 +286,20 @@ class MainController extends Controller
         if ($input['status'] == 4) {
             Alert::success('Đã xác nhận!');
         }
+
+        return redirect()->back();
+    }
+
+    //function to handle after cancel order
+    public function cancelOrder(Order $order)
+    {
+        $orderDetails = $order->orderDetails;
+        foreach ($orderDetails as $orderDetail) {
+            $product = Product::where('id', $orderDetail->product_id)->first();
+            $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
+        }
+
+        Alert::success('Đã hủy đơn hàng!');
 
         return redirect()->back();
     }

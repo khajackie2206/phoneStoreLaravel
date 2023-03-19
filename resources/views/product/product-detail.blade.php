@@ -20,14 +20,14 @@
         $priceSale = $product->price - $product->discount;
     }
 
-    $countRating = count($comments);
+    $countRating = count($allComments);
     $avgRating = 0;
     $sumRating = 0;
     if ($countRating > 0) {
-        foreach ($comments as $comment) {
+        foreach ($allComments as $comment) {
             $sumRating += $comment->rating;
         }
-        $avgRating = $sumRating / count($comments);
+        $avgRating = $sumRating / count($allComments);
     }
 
     ?>
@@ -81,11 +81,11 @@
                         <span class="product-details-ref">Thương hiệu: {{ $product->brand->name }}</span>
                         <div class="rating-box pt-20">
                             <ul class="rating rating-with-review-item">
-                                <li class="{{ $avgRating >= 1 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
-                                <li class="{{ $avgRating >= 2 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
-                                <li class="{{ $avgRating >= 3 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
-                                <li class="{{ $avgRating >= 4 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
-                                <li class="{{ $avgRating >= 5 ? '' : 'no-star' }}"><i class="fa fa-star-o"></i></li>
+                                <li class="{{ $avgRating >= 0.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                <li class="{{ $avgRating >= 1.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                <li class="{{ $avgRating >= 2.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                <li class="{{ $avgRating >= 3.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                <li class="{{ $avgRating >= 4.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
                                 <li><a href="#" style="color: #2f80ed;font-size: 9pt;"> &nbsp; ({{ $countRating }})
                                         Đánh
                                         giá</a></li>
@@ -343,13 +343,13 @@
                     <div class="d-flex justify-content-center">
                         <div class="content text-center">
                             <div class="ratings">
-                                <span class="product-rating">{{ $avgRating }}</span><span>/5</span>
+                                <span class="product-rating">{{ number_format($avgRating, 1, '.', '') }}</span><span>/5</span>
                                 <div class="stars">
-                                    <i class="{{ $avgRating >= 1 ? 'fa fa-star' : '' }}"></i>
-                                    <i class="{{ $avgRating >= 2 ? 'fa fa-star' : '' }}"></i>
-                                    <i class="{{ $avgRating >= 3 ? 'fa fa-star' : '' }}"></i>
-                                    <i class="{{ $avgRating >= 4 ? 'fa fa-star' : '' }}"></i>
-                                    <i class="{{ $avgRating >= 5 ? 'fa fa-star' : '' }}"></i>
+                                    <i class="{{ $avgRating >= 0.5 ? 'fa fa-star' : '' }}"></i>
+                                    <i class="{{ $avgRating >= 1.5 ? 'fa fa-star' : '' }}"></i>
+                                    <i class="{{ $avgRating >= 2.5 ? 'fa fa-star' : '' }}"></i>
+                                    <i class="{{ $avgRating >= 3.5 ? 'fa fa-star' : '' }}"></i>
+                                    <i class="{{ $avgRating >= 4.5 ? 'fa fa-star' : '' }}"></i>
                                 </div>
                                 <div class="rating-text">
                                     <span>{{ $countRating }} đánh giá</span>
@@ -367,55 +367,55 @@
                                 <td class="rating-bar">
                                     <div class="bar-container">
                                         <div class="bar-5"
-                                            style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 5))/$countRating)*100 : 0 }}%">
+                                            style="width: {{ ($countRating > 0) ? (count($allComments->where('rating', 5))/$countRating)*100 : 0 }}%">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-right">{{ count($comments->where('rating', 5)) }}</td>
+                                <td class="text-right">{{ count($allComments->where('rating', 5)) }}</td>
                             </tr>
                             <tr>
                                 <td class="rating-label">4 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                 <td class="rating-bar">
                                     <div class="bar-container">
                                         <div class="bar-4"
-                                            style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 4))/$countRating)*100 : 0 }}%">
+                                            style="width: {{ ($countRating > 0) ? (count($allComments->where('rating', 4))/$countRating)*100 : 0 }}%">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-right">{{ count($comments->where('rating', 4)) }}</td>
+                                <td class="text-right">{{ count($allComments->where('rating', 4)) }}</td>
                             </tr>
                             <tr>
                                 <td class="rating-label">3 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                 <td class="rating-bar">
                                     <div class="bar-container">
                                         <div class="bar-3"
-                                            style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 3))/$countRating)*100 : 0 }}%">
+                                            style="width: {{ ($countRating > 0) ? (count($allComments->where('rating', 3))/$countRating)*100 : 0 }}%">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-right">{{ count($comments->where('rating', 3)) }}</td>
+                                <td class="text-right">{{ count($allComments->where('rating', 3)) }}</td>
                             </tr>
                             <tr>
                                 <td class="rating-label">2 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                 <td class="rating-bar">
                                     <div class="bar-container">
                                         <div class="bar-2"
-                                            style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 2))/$countRating)*100 : 0 }}%">
+                                            style="width: {{ ($countRating > 0) ? (count($allComments->where('rating', 2))/$countRating)*100 : 0 }}%">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-right">{{ count($comments->where('rating', 2)) }}</td>
+                                <td class="text-right">{{ count($allComments->where('rating', 2)) }}</td>
                             </tr>
                             <tr>
                                 <td class="rating-label">1 <i class="fa fa-star" style="color: #fbc634;"></i></td>
                                 <td class="rating-bar">
                                     <div class="bar-container">
                                         <div class="bar-1"
-                                            style="width: {{ ($countRating > 0) ? (count($comments->where('rating', 1))/$countRating)*100 : 0 }}%">
+                                            style="width: {{ ($countRating > 0) ? (count($allComments->where('rating', 1))/$countRating)*100 : 0 }}%">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-right">{{ count($comments->where('rating', 1)) }}</td>
+                                <td class="text-right">{{ count($allComments->where('rating', 1)) }}</td>
                             </tr>
                         </table>
                         {{--
@@ -519,7 +519,7 @@
                             <div class="col-lg-6">
                                 <div class="li-review-content">
                                     <!-- Begin Feedback Area -->
-                                    <div class="feedback-area">
+                                    <div class="feedback-area" style="padding: 30px;">
                                         <div class="feedback">
                                             <h3 class="feedback-title">Đánh giá</h3>
                                             <form action="/products/comment" method="post">
@@ -543,36 +543,36 @@
                                                         aria-required="true"></textarea>
                                                 </p>
                                                 <div class="feedback-input">
-                                                    <p class="feedback-form-author">
+                                                    {{-- <p class="feedback-form-author">
                                                         <label for="author">Họ và tên<span class="required">*</span>
-                                                        </label>
+                                                        </label> --}}
                                                         @if ($user)
                                                         <input id="author" name="author" value="{{ $user->name }}"
-                                                            size="30" aria-required="true" type="text"
-                                                            style="background-color: #f1f1f1;" type="text" disabled>
+                                                            size="30" aria-required="true" type="hidden"
+                                                            style="background-color: #f1f1f1;">
                                                         @else
                                                         <input id="author" name="author" class="required" size="30"
-                                                            aria-required="true" type="text">
+                                                            aria-required="true" type="hidden">
                                                         @endif
-                                                    </p>
-                                                    <p class="feedback-form-author feedback-form-email">
+                                                    {{-- </p> --}}
+                                                    {{-- <p class="feedback-form-author feedback-form-email">
                                                         <label for="phone">Số điện thoại<span
                                                                 class="required">*</span>
-                                                        </label>
+                                                        </label> --}}
                                                         @if ($user)
                                                         <input id="phone" name="phone" value="{{ $user->phone }}"
                                                             size="30" aria-required="true"
-                                                            style="background-color: #f1f1f1;" type="text" disabled>
+                                                            style="background-color: #f1f1f1;" type="hidden">
                                                         @else
                                                         <input id="phone" name="phone" class="required" size="30"
-                                                            aria-required="true" type="text">
+                                                            aria-required="true" type="hidden">
                                                         @endif
-                                                        <span class="required"><sub>*</sub> Bắt
+                                                        {{-- <span class="required"><sub>*</sub> Bắt
                                                             buộc</span>
-                                                    </p>
-                                                    <div class="feedback-btn pb-15">
+                                                    </p> --}}
+                                                    <div class="feedback-btn pb-15 pt-20">
                                                         <a href="#" class="close" data-dismiss="modal"
-                                                            aria-label="Close">Đóng</a>
+                                                            aria-label="Close" style="margin-top: 20px;">Đóng</a>
                                                         <button type="submit"
                                                             style="background: #242424;color: #fff !important;width: 80px;font-size: 14px; height: 30px;
                                                                  line-height: 30px;text-align: center;left: 110px;right: auto; top: 0;display: block;transition: all 0.3s ease-in-out;cursor: pointer;">Gởi</button>
@@ -608,6 +608,17 @@
                 </div>
                 <div class="row">
                     @foreach ($productBrands as $productBrand)
+                    <?php
+                            $countRatingBrand = count($productBrand->comments->where('status', 1));
+                            $avgRatingBrand = 0;
+                            $sumRatingBrand = 0;
+                                if ($countRatingBrand > 0) {
+                                        foreach ($productBrand->comments->where('status', 1) as $comment) {
+                                            $sumRatingBrand += $comment->rating;
+                                                }
+                                            $avgRatingBrand = $sumRatingBrand / $countRatingBrand;
+                                            }
+                                        ?>
                     <div class="col-lg-2" style="margin-top: 20px; margin-right: 40px;">
                         <!-- single-product-wrap start -->
                         <div class="single-product-wrap">
@@ -626,11 +637,11 @@
                                         </h5>
                                         <div class="rating-box">
                                             <ul class="rating">
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                               <li class="{{ $avgRatingBrand >= 0.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                <li class="{{ $avgRatingBrand >= 1.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                <li class="{{ $avgRatingBrand >= 2.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                <li class="{{ $avgRatingBrand >= 3.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
+                                                <li class="{{ $avgRatingBrand >= 4.5 ? '' : 'no-star' }}"><i class="fa fa-star"></i></li>
                                             </ul>
                                         </div>
                                     </div>

@@ -12,10 +12,10 @@
                  <div class="row">
                      <div class="col-12 col-lg-6">
                          <div class="card" style="padding-bottom: 40px;">
-                             <div class="card-header" style="padding-top: 5px;">
+                             <div class="card-header">
                                  <h5 class="card-title mb-0">Tên</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <input type="text" value="{{$brand->name}}" class="form-control" placeholder="Tên thương hiệu" name="name">
 
                              </div>
@@ -27,12 +27,12 @@
 
                          </div>
                          <div class="card">
-                             <div class="card-header" style="padding-top:30px; ">
+                             <div class="card-header">
                                  <h5 class="card-title mb-0">Hình ảnh thương hiệu</h5>
                              </div>
-                             <div class="card-body" style="padding-bottom: 50px;">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <input type="file" name="file" class="form-control" id="upload">
-                                 <div id="image_show" style="margin-top: 15px;">
+                                 <div id="image_show" style="margin-top: 15px; margin-bottom: 20px;">
                                      <a href="{{ $brand->image }}"><img src="{{ $brand->image }}" width="100px"></a>
                                 </div>
                                  <input type="hidden" value="{{$brand->image}}" name="image" id="thumb">

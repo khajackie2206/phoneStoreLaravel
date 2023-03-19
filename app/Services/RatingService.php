@@ -27,7 +27,7 @@ class RatingService
             $data = [
                 'user_id' => $params['user_id'],
                 'product_id' => $params['product_id'],
-                'comment' => $params['comment'],
+                'comment' => $params['comment'] ?? null,
                 'rating' => $params['star-rating'],
                 'status' => 0
             ];
