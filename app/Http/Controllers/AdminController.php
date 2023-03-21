@@ -11,10 +11,6 @@ use Yajra\Datatables\Datatables;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     //prepare data label for chartjs
     public function prepareDataForChart($data)

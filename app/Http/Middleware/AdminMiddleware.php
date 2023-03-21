@@ -17,17 +17,21 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-      if(Auth::check()){
-          if(Auth::user()->role==1) {
-              return $next($request);
-          } 
-          else {
-              return redirect('/admin/login')->with('message', 'Access denied!!!');
-          }
-      } else {
-        return redirect('/home')->with('message', 'Login to access website!!!');
-      }
-
-        return $next($request);
+        //   if(Auth::check()){
+        //       if(Auth::user()->role==1) {
+        //           return $next($request);
+        //       }
+        //       else {
+        //           return redirect('/admin/login')->with('message', 'Access denied!!!');
+        //       }
+        //   } else {
+        //     return redirect('/home')->with('message', 'Login to access website!!!');
+        //   }
+        // return $next($request);
+        if (Auth::guard('admin')->check()) {
+            return $next($request);
+        } else {
+           return redirect('/admin/login')->with('message', 'Access denied!!!');
+        }
     }
 }

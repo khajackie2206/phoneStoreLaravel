@@ -31,52 +31,13 @@ use App\Http\Controllers\ForgetPasswordController;
 |
 */
 
-Auth::routes();
-
 Route::prefix('admin')
-    ->middleware(['auth', 'isAdmin'])
+    ->middleware(['admin'])
     ->group(function () {
         Route::get('/home', [AdminController::class, 'index']);
 
-        #Product
-        Route::get('/product/add', [ProductController::class, 'index']);
-        Route::post('/product/add', [ProductController::class, 'storeProduct']);
-        Route::get('/product/list', [ProductController::class, 'getAllProducts']);
-        Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
-        Route::post('/product/edit/{product}', [ProductController::class, 'update']);
-        Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
 
-        Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
 
-        #Upload
-        Route::post('/upload/services', [UploadController::class, 'store']);
-        Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
-
-        #Banner
-
-        Route::get('/banner/add', [BannerController::class, 'index']);
-        Route::post('/banner/add', [BannerController::class, 'storeBanner']);
-        Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
-        Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
-        Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
-        Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
-        Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
-
-        #users
-        Route::get('/users', [AdminController::class, 'getAllUsers']);
-        Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
-
-        Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
-
-        #Brands
-        Route::get('/brand/add', [BrandController::class, 'index']);
-        Route::post('/brand/add', [BrandController::class, 'storeBrand']);
-        Route::get('/brand/list', [BrandController::class, 'getAllBrands'])->name('brands');
-        Route::get('/brand/edit/{brand}', [BrandController::class, 'showEdit']);
-        Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
-        Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
-        Route::get('/brand/delete/{brand}', [BrandController::class, 'delete']);
-        Route::get('/brand/list/data', [BrandController::class, 'getData'])->name('brand_data');
 
         #Orders
         Route::get('/order/lists', [MainController::class, 'orders']);
@@ -89,22 +50,62 @@ Route::prefix('admin')
         Route::post('/order/update/{order}', [MainController::class, 'updateOrderStatus']);
         Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
-        #Discount
-        Route::get('/discount/lists', [DiscountController::class, 'index'])->name('discounts');
-        Route::get('/discount/add', [DiscountController::class, 'add']);
-        Route::post('/discount/add', [DiscountController::class, 'store']);
-        Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
-        Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
-        Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
-
-        Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
-
         #Comments
         Route::get('/comments/lists', [RatingController::class, 'comments']);
         Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
         Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
         Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
+
+        #Product
+        Route::get('/product/add', [ProductController::class, 'index']);
+        Route::post('/product/add', [ProductController::class, 'storeProduct']);
+        Route::get('/product/list', [ProductController::class, 'getAllProducts']);
+        Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
+        Route::post('/product/edit/{product}', [ProductController::class, 'update']);
+        Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
+        Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
+
+        Route::middleware(['role'])->group(function () {
+
+            #Upload
+            Route::post('/upload/services', [UploadController::class, 'store']);
+            Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
+
+            #Banner
+            Route::get('/banner/add', [BannerController::class, 'index']);
+            Route::post('/banner/add', [BannerController::class, 'storeBanner']);
+            Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
+            Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
+            Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
+            Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+            Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
+
+            #users
+            Route::get('/users', [AdminController::class, 'getAllUsers']);
+            Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+            Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
+
+            #Brands
+            Route::get('/brand/add', [BrandController::class, 'index']);
+            Route::post('/brand/add', [BrandController::class, 'storeBrand']);
+            Route::get('/brand/list', [BrandController::class, 'getAllBrands'])->name('brands');
+            Route::get('/brand/edit/{brand}', [BrandController::class, 'showEdit']);
+            Route::post('/brand/edit/{brand}', [BrandController::class, 'update']);
+            Route::post('/brand/change-status/{brand}', [BrandController::class, 'changeStatus']);
+            Route::get('/brand/delete/{brand}', [BrandController::class, 'delete']);
+            Route::get('/brand/list/data', [BrandController::class, 'getData'])->name('brand_data');
+
+            #Discount
+            Route::get('/discount/lists', [DiscountController::class, 'index'])->name('discounts');
+            Route::get('/discount/add', [DiscountController::class, 'add']);
+            Route::post('/discount/add', [DiscountController::class, 'store']);
+            Route::get('/discount/edit/{discount}', [DiscountController::class, 'showEdit']);
+            Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
+            Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
+            Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+        });
     });
+
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
 Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
 Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
@@ -117,7 +118,6 @@ Route::get('/login', [LoginController::class, 'index']);
 
 #Login with google
 Route::get('google', [LoginController::class, 'redirectToProvider']);
-
 Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
@@ -154,8 +154,6 @@ Route::prefix('products')->group(function () {
     Route::post('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
     Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
-
-
     Route::get('/thank-you', [CardController::class, 'thankYou'])->name('thank-you');;
 
     //Order
@@ -174,7 +172,6 @@ Route::prefix('users')->group(function () {
     Route::get('/change-password', [MainController::class, 'changePasswordPage']);
     Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
 
-
     // forget password
     Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
     Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
@@ -183,8 +180,4 @@ Route::prefix('users')->group(function () {
 });
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
-
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-
-
-

@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdminLoginController extends Controller
 {
     public function index()
     {
-        $user = Auth::User();
+        $user = Auth::guard('admin')->user();
+
         if ($user) {
             return redirect('admin/home');
         }
@@ -24,12 +27,16 @@ class AdminLoginController extends Controller
         $login = [
             'email' => $request->email,
             'password' => $request->password,
-            'role' => 1,
         ];
-        if (Auth::attempt($login)) {
-            $user = Auth::User();
+
+        if (Auth::guard('admin')->attempt($login)) {
+            $user = Auth::guard('admin')->user();
+
             Session::put('user', $user);
             $user = Session::get('user');
+
+             Alert::success('Đăng nhập thành công');
+
             return redirect('admin/home');
         } else {
             return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
