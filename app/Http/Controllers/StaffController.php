@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Yajra\Datatables\Datatables;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class AdminController extends Controller
+
+class StaffController extends Controller
 {
-
-    //prepare data label for chartjs
+     //prepare data label for chartjs
     public function prepareDataForChart($data)
     {
         $labels = [];
@@ -80,6 +78,8 @@ class AdminController extends Controller
 
         $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
         $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
+        //caculate total comment in table comments
+        $totalComment = DB::table('comments')->count();
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
@@ -193,7 +193,7 @@ class AdminController extends Controller
         $products = Product::get();
         $users = count(User::get());
 
-        return view('admin.dashboard.dashboard', [
+        return view('admin.dashboard.dashboard-staff', [
             'title' => 'Admin Dashboard',
             'users' => $users,
             'orderNews' => $orderNews,
@@ -207,6 +207,7 @@ class AdminController extends Controller
             'increaseTotalUser' => $increaseTotalUser,
             'summary' => $totalAvanue,
             'top7Product' => $top7Product,
+            'comments' => $totalComment,
         ]);
     }
 
@@ -250,66 +251,5 @@ class AdminController extends Controller
         })->editColumn('phone', function ($user) {
             return  '<span style="font-weight: bold;">' . $user->phone . '</span>';
         })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
-    }
-
-   //list staff
-    public function getAllStaff()
-    {
-        $staffs = DB::table('users')->where('role', 1)->paginate(6);
-
-        return view('admin.staff.list', [
-            'title' => 'Danh sách nhân viên',
-            'staffs' => $staffs
-        ]);
-    }
-
-    public function getStaffData()
-    {
-        $admins = Admin::where('role', 0)->select(['id', 'name', 'email', 'active', 'avatar', 'phone']);
-
-        return Datatables::of($admins)->addColumn('action', function ($admin) {
-            return $admin->active == 0 ? '<a style="margin-left: 5px;margin-right: 5px;" onclick="return activeStaff(event);" href="/admin/staffs/change-active/' . $admin->id . '?active=1"><i class="fa fa-unlock fa-xl"></i></a>
-            <a style="margin-left: 5px;" href="/admin/staffs/delete/' . $admin->id . '" onclick="return deleteStaff(event);"<i type="submit" style="color: red;"
-                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>'
-                : '<a style="margin-left: 5px;margin-right: 5px;" href="/admin/staffs/change-active/' . $admin->id . '?active=0" onclick="return blockStaff(event);"><i type="submit" style="color: red;"
-                    class="fa fa-lock fa-xl"></i></a>
-                    <a style="margin-left: 5px;" href="/admin/staffs/delete/' . $admin->id . '" onclick="return deleteStaff(event);"<i type="submit" style="color: red;"
-                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
-        })->editColumn('name', function ($admin) {
-            return ' <span style="font-weight: bold;">' . $admin->name . '</span>';
-        })->editColumn('avatar', function ($admin) {
-            return  '<img src="' . $admin->avatar . '" width="40" style="border-radius: 50%;" >';
-        })->editColumn('active', function ($admin) {
-            return  $admin->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Bị khóa</span>';
-        })->editColumn('email', function ($admin) {
-            return  '<span style="font-weight: bold;">' . $admin->email . '</span>';
-        })->editColumn('phone', function ($admin) {
-            return  '<span style="font-weight: bold;">' . $admin->phone . '</span>';
-        })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
-    }
-
-
-    public function changeActive(Request $request, User $user)
-    {
-        $input = $request->all();
-        $user->update(array('active' => $input['active']));
-
-        return redirect()->back();
-    }
-
-    public function changeStaffActive(Request $request, Admin $admin)
-    {
-        $input = $request->all();
-        $admin->update(array('active' => $input['active']));
-
-        return redirect()->back();
-    }
-
-    public function deleteStaff(Admin $admin)
-    {
-        $admin->delete();
-
-         Alert::success('Đã xóa tài khoản');
-        return redirect()->back();
     }
 }

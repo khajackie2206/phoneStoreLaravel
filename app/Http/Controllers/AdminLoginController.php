@@ -13,7 +13,7 @@ class AdminLoginController extends Controller
 {
     public function index()
     {
-        $user = Auth::guard('admin')->user();
+        $user = Session::get('user');
 
         if ($user) {
             return redirect('admin/home');
@@ -35,9 +35,20 @@ class AdminLoginController extends Controller
             Session::put('user', $user);
             $user = Session::get('user');
 
-             Alert::success('Đăng nhập thành công');
+            if ($user->active == 0) {
+                Session::flush();
+                Alert::error('Tài khoản đã bị vô hiệu hóa!');
+               return redirect()->back()->with('status', 'Tài khoản đã bị vô hiệu hóa');
 
-            return redirect('admin/home');
+            }
+
+            if ($user->role == 1) {
+                Alert::success('Đăng nhập thành công');
+                return redirect('/admin/home');
+            } else {
+                Alert::success('Đăng nhập thành công');
+                return redirect('/admin/dashboard-staff');
+            }
         } else {
             return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
         }

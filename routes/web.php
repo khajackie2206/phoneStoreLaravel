@@ -19,6 +19,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +36,7 @@ Route::prefix('admin')
     ->middleware(['admin'])
     ->group(function () {
         Route::get('/home', [AdminController::class, 'index']);
-
-
-
+        Route::get('/dashboard-staff', [StaffController::class, 'index']);
 
         #Orders
         Route::get('/order/lists', [MainController::class, 'orders']);
@@ -65,26 +64,30 @@ Route::prefix('admin')
         Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
         Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
 
+
+        #Upload
+        Route::post('/upload/services', [UploadController::class, 'store']);
+        Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
+
+
+        #Banner
+        Route::get('/banner/add', [BannerController::class, 'index']);
+        Route::post('/banner/add', [BannerController::class, 'storeBanner']);
+        Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
+        Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
+        Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
+        Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+        Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
+
+
+        #users
+        Route::get('/users', [AdminController::class, 'getAllUsers']);
+        Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+        Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
+
+
+
         Route::middleware(['role'])->group(function () {
-
-            #Upload
-            Route::post('/upload/services', [UploadController::class, 'store']);
-            Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
-
-            #Banner
-            Route::get('/banner/add', [BannerController::class, 'index']);
-            Route::post('/banner/add', [BannerController::class, 'storeBanner']);
-            Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
-            Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
-            Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
-            Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
-            Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
-
-            #users
-            Route::get('/users', [AdminController::class, 'getAllUsers']);
-            Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
-            Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
-
             #Brands
             Route::get('/brand/add', [BrandController::class, 'index']);
             Route::post('/brand/add', [BrandController::class, 'storeBrand']);
@@ -103,6 +106,13 @@ Route::prefix('admin')
             Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
             Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
             Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+
+            #staffs
+            Route::get('/staffs', [AdminController::class, 'getAllStaff']);
+            Route::get('/staffs/change-active/{admin}', [AdminController::class, 'changeStaffActive']);
+            Route::get('/staffs/staff-data', [AdminController::class, 'getstaffData'])->name('staff_data');
+            Route::get('/staffs/delete/{admin}', [AdminController::class, 'deleteStaff']);
+
         });
     });
 

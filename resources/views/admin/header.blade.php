@@ -62,19 +62,17 @@
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
     <i class="align-middle" data-feather="settings"></i>
   </a>
-
              @if (session('user'))
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                      <img src="{{ session('user')->avatar; }}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">{{ session('user')->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Thông tin cá nhân</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Phân tích</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Cài đặt</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Trợ giúp</a>
+                    <a class="dropdown-item" href="/users/change-password"><img style="height: 18px;"
+                            src="https://img.icons8.com/ios/50/null/re-enter-pincode.png" />&nbsp; Đổi mật khẩu</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/admin/logout">Đăng xuất</a>
+                    <a class="dropdown-item" href="/admin/logout" style="text-align: center;">Đăng xuất</a>
                 </div>
                 @endif
             </li>

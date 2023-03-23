@@ -1,9 +1,10 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="/admin/home">
-            <span class="align-middle">Bảng điều khiển</span>
-        </a>
 
+        @if(session('user')->role == 1)
+        <a class="sidebar-brand" href="/admin/home">
+            <span class="align-middle">Dashboard Admin</span>
+        </a>
         <ul class="sidebar-nav">
             <li class="sidebar-header">
                 Quản lý sản phẩm
@@ -45,7 +46,7 @@
                 </a>
             </li>
 
-                <li class="sidebar-header">
+            <li class="sidebar-header">
                 Quản lý đơn hàng
             </li>
 
@@ -76,7 +77,7 @@
                 </a>
             </li>
             <li class="sidebar-header">
-                Quản lý khách hàng
+                Quản lý người dùng
             </li>
 
             <li class="sidebar-item" id="sidebar-users">
@@ -86,11 +87,70 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Nhà cung cấp</span>
+                <a class="sidebar-link" href="/admin/staffs">
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Nhân viên</span>
                 </a>
             </li>
+
         </ul>
+        @else
+        <a class="sidebar-brand" href="/admin/dashboard-staff">
+            <span class="align-middle">Dashboard nhân viên</span>
+        </a>
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Quản lý sản phẩm
+            </li>
+
+            <li class="sidebar-item active">
+                <a class="sidebar-link" href="/admin/dashboard-staff">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" id="sidebar-product">
+                <a class="sidebar-link" href="/admin/product/list">
+                    <i class="align-middle" data-feather="smartphone"></i> <span class="align-middle">Điện
+                        thoại</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" id="sidebar-banner">
+                <a class="sidebar-link" href="/admin/banner/list">
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Quản lý đơn hàng
+            </li>
+
+            <li class="sidebar-item" id="sidebar-order">
+                <a class="sidebar-link" href="/admin/order/lists">
+                    <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Đơn hàng</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" id="sidebar-comments">
+                <a class="sidebar-link" href="/admin/comments/lists">
+                    <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Bình luận &
+                        đánh giá</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Quản lý người dùng
+            </li>
+
+            <li class="sidebar-item" id="sidebar-users">
+                <a class="sidebar-link" href="/admin/users">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Khách hàng</span>
+                </a>
+            </li>
+
+
+        </ul>
+        @endif
 
     </div>
 </nav>

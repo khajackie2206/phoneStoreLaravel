@@ -4,18 +4,15 @@
          <div class="container-fluid">
 
              <div class="mb-3">
-                 <h1 class="h3 d-inline align-middle">Danh sách User</h1>
+                 <h1 class="h3 d-inline align-middle">Danh sách khách hàng</h1>
              </div>
              <div class="row">
                  <div class="col-md-12 col-xl-12">
                      <div class="card">
                          <div class="card-body h-100">
                              <div class="container ">
-
-
                                  <div class="table-responsive">
                                      <table class="table table-responsive table-borderless table-striped" id="user-table" style="padding-top: 20px;">
-
                                          <thead style="text-align: center;">
                                              <tr class="bg-warning text-dark">
                                                  <th scope="col" width="7%">#</th>
