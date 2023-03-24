@@ -17,7 +17,7 @@
 
                         </div>
                         @if ($errors->first('name') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-5px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('name') }}</li>
                         </ul>
                         @endif
@@ -29,7 +29,7 @@
 
                         </div>
                         @if ($errors->first('code') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-5px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('code') }}</li>
                         </ul>
                         @endif
@@ -42,13 +42,10 @@
 
                         </div>
                         @if ($errors->first('quantity') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-25px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('quantity') }}</li>
                         </ul>
                         @endif
-
-
-
                     </div>
                 </div>
 
@@ -74,7 +71,7 @@
 
 
                         @if ($errors->first('amount') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-5px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('amount') }}</li>
                         </ul>
                         @endif

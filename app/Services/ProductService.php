@@ -32,7 +32,7 @@ class ProductService
                 'brand_id' => $params['brands'],
                 'name' => $params['phone_name'],
                 'price' => $params['price'],
-                'discount' => $params['discount'],
+                'discount' => $params['discount'] ?? 0,
                 'active' => $params['active'],
                 'quantity' => $params['quantity'],
                 'battery' => $params['battery'],

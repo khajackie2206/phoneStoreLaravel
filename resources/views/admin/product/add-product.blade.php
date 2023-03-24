@@ -21,7 +21,7 @@
 
                              </div>
                              @if($errors->first('phone_name') != '')
-                             <ul style="margin-top:5px; list-style-type:none;">
+                             <ul style="margin-top:-5px; list-style-type:none;">
                                 <li class="text-danger">{{$errors->first('phone_name')}}</li>
                             </ul>
                             @endif
@@ -32,7 +32,7 @@
                                  <input type="text" class="form-control" placeholder="Giá bán" name="price">
                                 </div>
                                 @if($errors->first('price') != '')
-                                <ul style="margin-top:5px;list-style-type:none; ">
+                                <ul style="margin-top:-5px;list-style-type:none; ">
                                    <li class="text-danger">{{$errors->first('price')}}</li>
                                </ul>
                                @endif
@@ -43,7 +43,7 @@
                                  <input type="text" class="form-control" placeholder="Số lượng" name="quantity">
                              </div>
                              @if($errors->first('quantity') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('quantity')}}</li>
                             </ul>
                             @endif
@@ -65,11 +65,11 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Mô tả ngắn</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <textarea class="form-control" name="short_description" rows="2" placeholder="Nhập mô tả ngắn"></textarea>
                              </div>
                              @if($errors->first('short_description') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('short_description')}}</li>
                             </ul>
                             @endif
@@ -79,11 +79,11 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Mô tả chi tiết</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -10px;">
                                  <textarea class="form-control ckeditor"  name="description" rows="2" placeholder="mô tả chi tiết"></textarea>
                              </div>
                              @if($errors->first('description') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('description')}}</li>
                             </ul>
                             @endif
@@ -93,7 +93,7 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Hình ảnh</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <label class="form-label">Cover</label>
                                  <input type="file" name="file" class="form-control" id="upload">
                                  <div id="image_show" style="margin-top: 15px;"></div>
@@ -112,7 +112,7 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Kích hoạt</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <div>
                                      <input class="custom-control-input" value="1" type="radio" id="active"
                                          name="active" checked="true">
@@ -130,12 +130,12 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Khuyến mãi</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px;">
                                  <input type="text" name="discount" class="form-control"
                                      placeholder="Số tiền giảm giá - VNĐ">
                              </div>
                               @if($errors->first('discount') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('discount')}}</li>
                             </ul>
                             @endif
@@ -218,7 +218,7 @@
                                      placeholder="Kích cỡ màn hình - Inch">
                              </div>
                              @if($errors->first('size') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('size')}}</li>
                             </ul>
                             @endif
@@ -247,7 +247,7 @@
                                  @endforeach
                              </div>
                              @if($errors->first('features') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('features')}}</li>
                             </ul>
                             @endif
@@ -258,7 +258,7 @@
                                  <input type="text" name="chip" class="form-control" placeholder="Vi xử lý">
                              </div>
                              @if($errors->first('chip') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('chip')}}</li>
                             </ul>
                             @endif
@@ -270,7 +270,7 @@
                                      placeholder="Màu sắc điện thoại">
                              </div>
                              @if($errors->first('color') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('color')}}</li>
                             </ul>
                             @endif
@@ -307,7 +307,7 @@
                                      placeholder="Dung lượng pin tối đa - mAh">
                              </div>
                              @if($errors->first('battery') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('battery')}}</li>
                             </ul>
                             @endif
@@ -320,7 +320,7 @@
                                      placeholder="Độ phân giải camera trước - MP">
                              </div>
                              @if($errors->first('front') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top: 15px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('front')}}</li>
                             </ul>
                             @endif
@@ -330,7 +330,7 @@
                                      placeholder="Độ phân giải camera sau - MP">
                              </div>
                              @if($errors->first('rear') != '')
-                             <ul style="margin-top:5px;list-style-type:none; ">
+                             <ul style="margin-top:-5px;list-style-type:none; ">
                                 <li class="text-danger">{{$errors->first('rear')}}</li>
                             </ul>
                             @endif

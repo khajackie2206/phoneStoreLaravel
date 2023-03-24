@@ -86,7 +86,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="sidebar-staffs">
                 <a class="sidebar-link" href="/admin/staffs">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Nhân viên</span>
                 </a>

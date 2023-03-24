@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
@@ -29,7 +30,7 @@ class AdminController extends Controller
         ];
     }
 
-     public function prepareDataForChartWithName($data)
+    public function prepareDataForChartWithName($data)
     {
         $labels = [];
         $chartData = [];
@@ -83,7 +84,7 @@ class AdminController extends Controller
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->groupBy('payments.name')
             ->get();
 
@@ -93,7 +94,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -106,7 +107,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -119,7 +120,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -131,7 +132,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -143,7 +144,7 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
@@ -176,7 +177,7 @@ class AdminController extends Controller
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->select(DB::raw('sum(order_details.quantity) as total'), 'products.name')
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->groupBy('products.name')
             ->orderBy('total', 'desc')
@@ -252,7 +253,7 @@ class AdminController extends Controller
         })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
     }
 
-   //list staff
+    //list staff
     public function getAllStaff()
     {
         $staffs = DB::table('users')->where('role', 1)->paginate(6);
@@ -265,7 +266,7 @@ class AdminController extends Controller
 
     public function getStaffData()
     {
-        $admins = Admin::where('role', 0)->select(['id', 'name', 'email', 'active', 'avatar', 'phone']);
+        $admins = Admin::where('role', 0)->select(['id', 'name', 'email', 'active', 'phone']);
 
         return Datatables::of($admins)->addColumn('action', function ($admin) {
             return $admin->active == 0 ? '<a style="margin-left: 5px;margin-right: 5px;" onclick="return activeStaff(event);" href="/admin/staffs/change-active/' . $admin->id . '?active=1"><i class="fa fa-unlock fa-xl"></i></a>
@@ -277,15 +278,13 @@ class AdminController extends Controller
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
         })->editColumn('name', function ($admin) {
             return ' <span style="font-weight: bold;">' . $admin->name . '</span>';
-        })->editColumn('avatar', function ($admin) {
-            return  '<img src="' . $admin->avatar . '" width="40" style="border-radius: 50%;" >';
         })->editColumn('active', function ($admin) {
             return  $admin->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Bị khóa</span>';
         })->editColumn('email', function ($admin) {
             return  '<span style="font-weight: bold;">' . $admin->email . '</span>';
         })->editColumn('phone', function ($admin) {
             return  '<span style="font-weight: bold;">' . $admin->phone . '</span>';
-        })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
+        })->rawColumns(['name', 'active', 'email', 'phone', 'action'])->make();
     }
 
 
@@ -309,7 +308,49 @@ class AdminController extends Controller
     {
         $admin->delete();
 
-         Alert::success('Đã xóa tài khoản');
+        Alert::success('Đã xóa tài khoản');
         return redirect()->back();
+    }
+
+    public function createStaff(Request $request)
+    {
+        //validate data input if password confirm not match
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:admins',
+            'password' => 'required|min:6',
+            'password_confirmation' => 'same:password',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ], [
+            'name.required' => 'Bạn chưa nhập tên nhân viên',
+            'email.required' => 'Bạn chưa nhập email nhân viên',
+            'email.email' => 'Email không đúng định dạng',
+            'email.unique' => 'Email đã tồn tại',
+            'password.required' => 'Bạn chưa nhập mật khẩu',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
+            'phone.required' => 'Bạn chưa nhập số điện thoại',
+            'phone.numeric' => 'Số điện thoại phải là số',
+            'address.required' => 'Bạn chưa nhập địa chỉ',
+            'password_confirmation.same' => 'Xác nhận mật khẩu không khớp'
+        ]);
+
+        $input = $request->all();
+
+        $input['password'] = Hash::make($input['password']);
+        $input['role'] = 0;
+        $input['active'] = 1;
+
+        Admin::create($input);
+
+        Alert::success('Đã thêm nhân viên');
+        return redirect()->back();
+    }
+
+    public function createStaffPage()
+    {
+        return view('admin.staff.add', [
+            'title' => 'Thêm nhân viên'
+        ]);
     }
 }

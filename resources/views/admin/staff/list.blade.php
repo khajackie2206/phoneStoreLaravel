@@ -5,7 +5,7 @@
 
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Danh sách nhân viên</h1>
-            <a class="badge bg-info text-white ms-2" href="/admin/banner/add">
+            <a class="badge bg-info text-white ms-2" href="/admin/staffs/add">
                 Thêm +
             </a>
         </div>
@@ -23,9 +23,8 @@
                                             <th scope="col" width="7%">#</th>
                                             <th scope="col" width="20%" style="text-align: left;">Tên nhân viên</th>
                                             <th scope="col" width="20%" style="text-align: left;">Email</th>
-                                            <th scope="col" width="12%">Trạng thái</th>
-                                            <th scope="col" width="13%">Hình ảnh</th>
-                                            <th scope="col" width="13%">Số điện thoại</th>
+                                            <th scope="col" width="18%">Trạng thái</th>
+                                            <th scope="col" width="20%">Số điện thoại</th>
                                             <th scope="col" width="15%"><span>Thao tác</span>
                                             </th>
                                         </tr>
@@ -177,9 +176,6 @@
                       {
                          data: 'active',
 
-                     },
-                     {
-                         data: 'avatar',
                      },
                      {
                          data: 'phone',

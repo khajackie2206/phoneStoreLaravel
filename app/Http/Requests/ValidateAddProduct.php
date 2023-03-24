@@ -38,7 +38,7 @@ class ValidateAddProduct extends FormRequest
             'features' => 'required',
             'files' => 'required',
             'file' => 'required',
-            'discount' => 'required|integer'
+            'discount' => 'integer'
         ];
     }
 
@@ -65,7 +65,6 @@ class ValidateAddProduct extends FormRequest
             'size.required' => 'Vui lòng nhập kích thước điện thoại',
             'color.required' => 'Vui lòng nhập màu sắc',
             'features.required' => 'Vui lòng chọn tính năng của điện thoại',
-            'discount.required' => 'Vui lòng nhập thông tin giảm giá, nhập 0 nếu không giảm',
             'discount.integer' => 'Số tiền giảm giá không hợp lệ'
         ];
     }

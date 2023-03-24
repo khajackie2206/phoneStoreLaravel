@@ -21,7 +21,7 @@
 
                              </div>
                              @if ($errors->first('header') != '')
-                                 <ul style="margin-top:5px; list-style-type:none;">
+                                 <ul style="margin-top:-5px; list-style-type:none;">
                                      <li class="text-danger">{{ $errors->first('header') }}
                                     </li>
                                  </ul>
@@ -34,7 +34,7 @@
                                  <input type="text" class="form-control" placeholder="Tên sản phẩm quảng bá" name="product_name">
                              </div>
                              @if ($errors->first('product_name') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
+                                 <ul style="margin-top:-5px;list-style-type:none; ">
                                      <li class="text-danger">{{ $errors->first('product_name') }}</li>
                                  </ul>
                              @endif
@@ -45,7 +45,7 @@
                                  <input type="text" class="form-control" placeholder="Giá của sản phẩm quảng bá" name="price">
                              </div>
                              @if ($errors->first('price') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
+                                 <ul style="margin-top:-5px;list-style-type:none; ">
                                      <li class="text-danger">{{ $errors->first('price') }}</li>
                                  </ul>
                              @endif
@@ -57,14 +57,14 @@
                              <div class="card-header">
                                  <h5 class="card-title mb-0">Hình ảnh banner</h5>
                              </div>
-                             <div class="card-body">
+                             <div class="card-body" style="margin-top: -22px; margin-bottom: 25px;">
                                  <input type="file" name="file" class="form-control" id="upload">
-                                 <div id="image_show" style="margin-top: 15px;"></div>
+                                 <div id="image_show" style="margin-top: 5px;"></div>
                                  <input type="hidden" name="thumb" id="thumb">
 
                              </div>
                                @if ($errors->first('thumb') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
+                                 <ul style="margin-top:-35px;list-style-type:none; ">
                                      <li class="text-danger">{{ $errors->first('thumb') }}</li>
                                  </ul>
                              @endif
@@ -100,7 +100,7 @@
                                      placeholder="Đường dẫn đến sản phẩm quảng bá">
                              </div>
                              @if ($errors->first('url') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
+                                 <ul style="margin-top:-5px;list-style-type:none; ">
                                      <li class="text-danger">{{ $errors->first('url') }}</li>
                                  </ul>
                              @endif
@@ -113,7 +113,7 @@
                                      placeholder="Thứ tự hiển thị banner">
                              </div>
                              @if ($errors->first('order') != '')
-                                 <ul style="margin-top:5px;list-style-type:none; ">
+                                 <ul style="margin-top:-5px;list-style-type:none; ">
                                      <li class="text-danger">{{ $errors->first('order') }}</li>
                                  </ul>
                              @endif
