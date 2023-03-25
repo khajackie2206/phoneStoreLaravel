@@ -67,9 +67,9 @@
                      <img src="{{ session('user')->avatar; }}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">{{ session('user')->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Thông tin cá nhân</a>
+                    <a class="dropdown-item" href="/admin/change-info/{{ session('user')->id; }}"><i class="align-middle me-1" data-feather="user"></i> Thông tin cá nhân</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/users/change-password"><img style="height: 18px;"
+                    <a class="dropdown-item" href="/admin/change-password/{{ session('user')->id; }}"><img style="height: 18px;"
                             src="https://img.icons8.com/ios/50/null/re-enter-pincode.png" />&nbsp; Đổi mật khẩu</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/admin/logout" style="text-align: center;">Đăng xuất</a>

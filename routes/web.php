@@ -6,13 +6,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
-use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UploadUserController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\RatingController;
@@ -81,6 +79,11 @@ Route::prefix('admin')
         Route::get('/users', [AdminController::class, 'getAllUsers']);
         Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
         Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
+        Route::get('/change-info/{admin}', [AdminController::class, 'getDetail']);
+        Route::put('/change-info/{admin}', [AdminController::class, 'changeInfo']);
+        Route::get('/change-password/{admin}', [AdminController::class, 'changePasswordPage']);
+        Route::post('/change-password/{admin}', [AdminController::class, 'changePassword']);
+
 
         Route::middleware(['role'])->group(function () {
             #Brands

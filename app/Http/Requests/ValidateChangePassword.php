@@ -39,8 +39,8 @@ class ValidateChangePassword extends FormRequest
     {
         return [
             'current_password.current_password'  => 'Mật khẩu hiện tại không đúng',
-            'old-pass.required'  => 'Bạn phải nhập mật hiện tại',
-            'old-pass.min'       => 'Mật khẩu phải lớn hơn 6 kí tự',
+            'current_password.required'  => 'Bạn phải nhập mật hiện tại',
+            'current_password.min'       => 'Mật khẩu phải lớn hơn 6 kí tự',
             'new-pass.required'  => 'Mật khẩu mới là trường bắt buộc',
             'new-pass.min'       => 'Mật khẩu mới phải lớn hơn 6 kí tự',
             're-new-pass.same'   => 'Xác nhận mật khẩu mới không khớp'

@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-30 text-center">
+                        <div class="mt-3 text-center">
                             @csrf
                             <button class="btn btn-primary" style="background-color: #ee4d2d; border: none;" type="submit">Cập nhật thông tin</button>
                         </div>

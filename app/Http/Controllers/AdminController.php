@@ -12,6 +12,10 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use Illuminate\Support\Facades\Session;
+use App\Rules\MatchOldPassword;
+
+
 class AdminController extends Controller
 {
 
@@ -352,5 +356,67 @@ class AdminController extends Controller
         return view('admin.staff.add', [
             'title' => 'Thêm nhân viên'
         ]);
+    }
+
+    //get detail staff
+    public function getDetail(Admin $admin)
+    {
+        return view('admin.staff.detail', [
+            'title' => 'Chi tiết nhân viên',
+            'admin' => $admin
+        ]);
+    }
+
+    //update staff
+    public function changeInfo(Request $request, Admin $admin)
+    {
+        $input = $request->all();
+        $input['avatar'] = $input['thumb'];
+
+        $admin->update($input);
+
+        Alert::success('Đã cập nhật thông tin nhân viên');
+        return redirect()->back();
+    }
+
+    //change password page
+    public function changePasswordPage(Admin $admin)
+    {
+        return view('admin.staff.change-password', [
+            'title' => 'Đổi mật khẩu',
+            'admin' => $admin
+        ]);
+    }
+
+    //change password
+    public function changePassword(Request $request, Admin $admin)
+    {
+      $this->validate($request, [
+            'current_password' => ['required', new MatchOldPassword],
+            'new-pass'      => 'required|min:6',
+            're-new-pass'   => 'same:new-pass'
+        ], [
+            'current_password.required'  => 'Bạn phải nhập mật hiện tại',
+            'current_password.min'       => 'Mật khẩu phải lớn hơn 6 kí tự',
+            'new-pass.required'  => 'Mật khẩu mới là trường bắt buộc',
+            'new-pass.min'       => 'Mật khẩu mới phải lớn hơn 6 kí tự',
+            're-new-pass.same'   => 'Xác nhận mật khẩu mới không khớp'
+        ]);
+
+        $input = $request->all();
+        $dataUpdate = array(
+            'password' => Hash::make($input['new-pass']),
+        );
+
+        if (Hash::check($input['new-pass'], $admin->password)) {
+            Alert::error('Mật khẩu mới không được trùng với mật khẩu cũ');
+            return redirect()->back();
+        }
+
+        $admin->update($dataUpdate);
+        Session::flush();
+        Alert::success('Đổi mật khẩu thành công, mời bạn đăng nhập lại');
+
+        return redirect()->route('login');
     }
 }

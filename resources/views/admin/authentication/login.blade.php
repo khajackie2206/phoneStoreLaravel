@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <main class="d-flex w-100">
 
 
