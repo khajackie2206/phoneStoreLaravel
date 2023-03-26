@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Yajra\Datatables\Datatables;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\Activity;
 
 class MainController extends Controller
 {
@@ -52,7 +52,7 @@ class MainController extends Controller
         $staticHeaders = $this->bannerService->getStaticBanners();
         $broadcastBanner = $this->bannerService->getBroadcastBanner();
         $centerBanners = $this->bannerService->getCenterBanners();
-        $topRatings= $this->productService->getTopRatings();
+        $topRatings = $this->productService->getTopRatings();
 
         return view('home', [
             'title' => 'Trang chủ',
@@ -107,14 +107,14 @@ class MainController extends Controller
             'password' => Hash::make($input['new-pass']),
         );
 
-       if (Hash::check($input['new-pass'], $user->password)) {
-          Alert::error('Mật khẩu mới không được trùng với mật khẩu cũ');
-          return redirect()->back();
+        if (Hash::check($input['new-pass'], $user->password)) {
+            Alert::error('Mật khẩu mới không được trùng với mật khẩu cũ');
+            return redirect()->back();
         }
 
         $user->update($dataUpdate);
         Session::flush();
-        Alert::success('Thành công', 'Đổi mật khẩu thành công, mời bạn đăng nhập lại');
+        Alert::success('Đổi mật khẩu thành công, mời bạn đăng nhập lại');
 
         return redirect()->route('user-login');
     }
@@ -133,7 +133,9 @@ class MainController extends Controller
 
         $user->update($dataUpdate);
 
-        Alert::success('Thành công', 'Cập nhật thông tin thành công');
+        session()->put('user', $user);
+
+        Alert::success('Cập nhật thông tin thành công');
 
         return redirect()->back();
     }
@@ -170,21 +172,26 @@ class MainController extends Controller
     }
 
     public function getData()
-     {
-         $orders = Order::select(['id','user_id','total','status_id', 'payment_id','created_at']);
+    {
+        $orders = Order::select(['id', 'user_id', 'total', 'status_id', 'payment_id', 'created_at']);
 
-         return Datatables::of($orders)->addColumn('action', function ($order) {
-             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/order/detail/'.$order->id.'"><i class="fas fa-edit fa-xl"></i></a>
-                    <a href="/admin/order/delete/'.$order->id.'" onclick="return deleteOrder(event);"<i type="submit" style="color: red;"
-                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
-         })->editColumn('user_id', function ($order) {
-             return  '<span style="font-weight: bold;">'.$order->user->name.'</span>';
-         })->editColumn('created_at', function ($order) {
-             return  '<span style="font-weight: bold;">'.$order->created_at->format('d.m.Y H:i:s').'</span>';
-         })->editColumn('total', function ($order) {
-             return  '<span style="color:red;font-weight: bold;"> '.number_format($order->total).' <span style="text-decoration: underline;">đ</span></span>';
-         })->rawColumns(['action', 'user_id', 'total', 'created_at'])->make();
-     }
+
+        return Datatables::of($orders)->addColumn('action', function ($order) {
+            //get current user
+            $admin = session()->get('user');
+
+            return $admin->role == 1 ? '<a style="margin-left:5px; margin-right: 7px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>
+                    <a href="/admin/order/delete/' . $order->id . '" onclick="return deleteOrder(event);"<i type="submit" style="color: red;margin-right: 20px;"
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
+                    <a style="margin-left:5px; margin-right: 25px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
+        })->editColumn('user_id', function ($order) {
+            return  '<span style="font-weight: bold;">' . $order->user->name . '</span>';
+        })->editColumn('created_at', function ($order) {
+            return  '<span style="font-weight: bold;">' . $order->created_at->format('d.m.Y H:i:s') . '</span>';
+        })->editColumn('total', function ($order) {
+            return  '<span style="color:red;font-weight: bold;"> ' . number_format($order->total) . ' <span style="text-decoration: underline;">đ</span></span>';
+        })->rawColumns(['action', 'user_id', 'total', 'created_at'])->make();
+    }
 
     public function show(Order $order)
     {
@@ -201,9 +208,9 @@ class MainController extends Controller
     public function generatePDF(Order $order)
     {
 
- $user = session()->get('user');
- // get time now with format Y-m-d H:i:s
- $time = Carbon::now()->format('Y-m-d H:i:s');
+        $user = session()->get('user');
+        // get time now with format Y-m-d H:i:s
+        $time = Carbon::now()->format('Y-m-d H:i:s');
 
         if ($order->voucher_id != null) {
             $discount = Voucher::where('id', $order->voucher_id)->first();
@@ -221,14 +228,14 @@ class MainController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
-        ;
+        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
     }
 
-    public function generateOrderPDF() {
+    public function generateOrderPDF()
+    {
 
         $orders = Order::all();
-         //get user data from session
+        //get user data from session
         $user = session()->get('user');
         // get time now with format Y-m-d H:i:s
         $time = Carbon::now()->format('Y-m-d H:i:s');
@@ -243,22 +250,21 @@ class MainController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');
-        ;
+        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
     }
 
     public function exportCSV()
     {
-        $file_name = 'orders_'.date('Y_m_d_H_i_s').'.csv';
+        $file_name = 'orders_' . date('Y_m_d_H_i_s') . '.csv';
 
-         return Excel::download(new OrderExport, $file_name);
+        return Excel::download(new OrderExport, $file_name);
     }
 
     public function exportExcel()
     {
-        $file_name = 'orders_'.date('Y_m_d_H_i_s').'.xlsx';
+        $file_name = 'orders_' . date('Y_m_d_H_i_s') . '.xlsx';
 
-         return Excel::download(new OrderExport, $file_name);
+        return Excel::download(new OrderExport, $file_name);
     }
 
     public function updateOrderStatus(Request $request, Order $order)
@@ -270,6 +276,16 @@ class MainController extends Controller
         }
 
         $order->update(array('status_id' => $input['status']));
+
+        if ($input['status'] == 2) {
+            $user = session()->get('user');
+            $dataActivity = [
+                'staff_id' => $user->id,
+                'action' => 'Duyệt đơn hàng (Mã đơn hàng: #' . $order->id . ')',
+            ];
+
+            Activity::create($dataActivity);
+        }
 
         Alert::success('Cập nhật trạng thái đơn hàng thành công!');
 
@@ -298,6 +314,15 @@ class MainController extends Controller
             $product = Product::where('id', $orderDetail->product_id)->first();
             $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
         }
+
+        //insert activity
+        $user = session()->get('user');
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Hủy đơn hàng (Mã đơn hàng: #' . $order->id . ')',
+        ];
+
+        Activity::create($dataActivity);
 
         Alert::success('Đã hủy đơn hàng!');
 

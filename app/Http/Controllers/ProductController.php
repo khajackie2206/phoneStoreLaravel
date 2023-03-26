@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Illuminate\Pagination\CursorPaginator;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 
 class ProductController extends Controller
 {
@@ -176,6 +178,15 @@ class ProductController extends Controller
     public function delete(Product $product)
     {
         Product::where('id', $product->id)->update(['delete_at' => Carbon::now()]);
+        //insert activity
+
+        $user = session()->get('user');
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Xóa sản phẩm ' . $product->name .'' .'( Mã sản phẩm: #' . $product->id . ')',
+        ];
+        Activity::create($dataActivity);
+
 
         return redirect()->back();
     }
@@ -310,43 +321,43 @@ class ProductController extends Controller
             }
 
 
- if ($avgRating >= 0.75 && $avgRating < 1.75) {
-     $rating = ' <li><i class="fa fa-star"></i></li>
+            if ($avgRating >= 0.75 && $avgRating < 1.75) {
+                $rating = ' <li><i class="fa fa-star"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
- } elseif ($avgRating >= 1.75 && $avgRating < 2.75) {
-     $rating = ' <li><i class="fa fa-star"></i></li>
+            } elseif ($avgRating >= 1.75 && $avgRating < 2.75) {
+                $rating = ' <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
- } elseif ($avgRating >= 2.75 && $avgRating < 3.75) {
-     $rating = ' <li><i class="fa fa-star"></i></li>
+            } elseif ($avgRating >= 2.75 && $avgRating < 3.75) {
+                $rating = ' <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
- } elseif ($avgRating >= 3.75 && $avgRating < 4.75) {
-     $rating = ' <li><i class="fa fa-star"></i></li>
+            } elseif ($avgRating >= 3.75 && $avgRating < 4.75) {
+                $rating = ' <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>';
- } elseif ($avgRating >= 4.75 && $avgRating <= 5) {
-     $rating = ' <li><i class="fa fa-star"></i></li>
+            } elseif ($avgRating >= 4.75 && $avgRating <= 5) {
+                $rating = ' <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                        <li><i class="fa fa-star"></i></li>
                        <li><i class="fa fa-star"></i></li>';
- } else {
-     $rating = '         <li class="no-star"> <li class="no-star"><i class="fa fa-star-o"></i></li>
+            } else {
+                $rating = '         <li class="no-star"> <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                         <li class="no-star"><i class="fa fa-star-o"></i></li>
                          <li class="no-star"><i class="fa fa-star-o"></i></li>';
- }
+            }
 
 
             $count++;
@@ -376,7 +387,7 @@ class ProductController extends Controller
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
-                                                                   '.$rating.'
+                                                                   ' . $rating . '
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -437,7 +448,7 @@ class ProductController extends Controller
                                                             </h5>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
-                                                                   '.$rating.'
+                                                                   ' . $rating . '
                                                                 </ul>
                                                             </div>
                                                         </div>

@@ -6,9 +6,8 @@ use App\Services\RatingService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Comment;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
+use App\Models\Activity;
 
 class RatingController extends Controller
 {
@@ -52,7 +51,15 @@ class RatingController extends Controller
     public function delete(Comment $comment)
     {
         $comment->delete();
+        //insert activity
+        $user = session()->get('user');
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Xóa bình luận khách hàng',
+        ];
+        Activity::create($dataActivity);
 
+        Alert::success('Đã xóa bình luận!');
         return redirect()->back();
     }
 
@@ -60,6 +67,13 @@ class RatingController extends Controller
     {
         $input = $request->all();
         $comment->update(array('status' => $input['status']));
+        //insert activity
+        $user = session()->get('user');
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Duyệt bình luận khách hàng (Mã bình luận: #' . $comment->id . ')',
+        ];
+        Activity::create($dataActivity);
 
         return redirect()->back();
     }

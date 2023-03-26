@@ -272,6 +272,10 @@
         document.getElementById("sidebar-staffs").classList.add("active");
         }
 
+        if (path.includes("/admin/activities")) {
+        document.getElementById("sidebar-activity").classList.add("active");
+        }
+
 
         //Remove previous active class name
         let previousSideBarActiveItem = document.getElementsByClassName('sidebar-item active')[0].classList.remove("active")

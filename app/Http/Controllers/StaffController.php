@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
+
+use App\Models\Admin;
 
 
 class StaffController extends Controller
 {
-     //prepare data label for chartjs
+    //prepare data label for chartjs
     public function prepareDataForChart($data)
     {
         $labels = [];
@@ -27,7 +30,7 @@ class StaffController extends Controller
         ];
     }
 
-     public function prepareDataForChartWithName($data)
+    public function prepareDataForChartWithName($data)
     {
         $labels = [];
         $chartData = [];
@@ -83,7 +86,7 @@ class StaffController extends Controller
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->groupBy('payments.name')
             ->get();
 
@@ -93,7 +96,7 @@ class StaffController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -106,7 +109,7 @@ class StaffController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -119,7 +122,7 @@ class StaffController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
@@ -131,7 +134,7 @@ class StaffController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
@@ -143,7 +146,7 @@ class StaffController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
@@ -176,7 +179,7 @@ class StaffController extends Controller
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->select(DB::raw('sum(order_details.quantity) as total'), 'products.name')
             ->where('orders.status_id', 4)
-            ->where('orders.status_id','<>', 5)
+            ->where('orders.status_id', '<>', 5)
             ->orWhere('orders.payment_id', '<>', 1)
             ->groupBy('products.name')
             ->orderBy('total', 'desc')
@@ -251,5 +254,32 @@ class StaffController extends Controller
         })->editColumn('phone', function ($user) {
             return  '<span style="font-weight: bold;">' . $user->phone . '</span>';
         })->rawColumns(['name', 'avatar', 'active', 'email', 'phone', 'action'])->make();
+    }
+
+
+    //get activity data
+    public function getActivityData()
+    {
+        // $activities = Activity::with('admin')->select('*');
+        // activities join admin and select all columns in table activities and admin use eloquent
+        $activities = Activity::with('admin')->select('*');
+
+        return Datatables::eloquent($activities)->addColumn('avatar', function (Activity $activity) {
+            return '<img src="' . $activity->admin->avatar . '" width="40" style="border-radius: 50%;" >';
+        })->addColumn('email', function (Activity $activity) {
+            return $activity->admin->email;
+        })->editColumn('created_at', function ($activity) {
+            return  '<span style="font-weight: bold;">' . $activity->created_at->format('d.m.Y H:i:s') . '</span>';
+        })->rawColumns(['created_at','email','avatar', 'action'])->make();
+    }
+
+    //get all activity
+    public function getAllActivity()
+    {
+        $activities = Activity::paginate(6);
+        return view('admin.activity.list', [
+            'title' => 'Danh sách hoạt động',
+            'activities' => $activities
+        ]);
     }
 }

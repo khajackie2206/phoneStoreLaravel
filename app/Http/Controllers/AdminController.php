@@ -375,6 +375,8 @@ class AdminController extends Controller
 
         $admin->update($input);
 
+        session()->put('user', $admin);
+
         Alert::success('Đã cập nhật thông tin nhân viên');
         return redirect()->back();
     }

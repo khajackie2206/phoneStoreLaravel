@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Models\Activity;
 
 class AdminLoginController extends Controller
 {
@@ -43,9 +43,22 @@ class AdminLoginController extends Controller
             }
 
             if ($user->role == 1) {
+                $dataActivity = [
+                    'staff_id' => $user->id,
+                    'action' => 'Đăng nhập vào hệ thống',
+                ];
+                Activity::create($dataActivity);
                 Alert::success('Đăng nhập thành công');
+
                 return redirect('/admin/home');
             } else {
+                $dataActivity = [
+                    'staff_id' => $user->id,
+                    'action' => 'Đăng nhập vào hệ thống',
+                ];
+
+                Activity::create($dataActivity);
+
                 Alert::success('Đăng nhập thành công');
                 return redirect('/admin/dashboard-staff');
             }

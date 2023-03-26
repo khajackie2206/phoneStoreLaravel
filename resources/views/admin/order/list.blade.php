@@ -30,7 +30,7 @@
                                                 <th scope="col" width="18%"  style="text-align: center;">Trạng thái</th>
                                                 <th scope="col" width="15%"  style="text-align: center;">Thanh toán</th>
                                                 <th scope="col" width="20%"  style="text-align: center;">Ngày đặt hàng</th>
-                                                <th scope="col" width="10%"><span>Thao tác</span>
+                                                <th scope="col" width="15%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>

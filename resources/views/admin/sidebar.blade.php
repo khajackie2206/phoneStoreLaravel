@@ -29,11 +29,11 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Bài viết</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="sidebar-item" id="sidebar-discount">
                 <a class="sidebar-link" href="/admin/discount/lists">
                     <i class="align-middle" data-feather="gift"></i> <span class="align-middle">Khuyến mãi</span>
@@ -65,19 +65,23 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Doanh thu & lợi
-                        nhận</span>
+                    <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Quản lý nhập kho</span>
                 </a>
             </li>
-
+{{--
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Doanh số
                         bán</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="sidebar-header">
                 Quản lý người dùng
+            </li>
+            <li class="sidebar-item" id="sidebar-activity">
+                <a class="sidebar-link" href="/admin/activities">
+                    <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Quản lý truy cập</span>
+                </a>
             </li>
 
             <li class="sidebar-item" id="sidebar-users">

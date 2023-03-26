@@ -14,7 +14,7 @@ use Exception;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Activity;
 
 /**
  * Class ProductService.
@@ -80,6 +80,14 @@ class ProductService
                 );
                 Image::create($galleryImageData);
             }
+
+            //insert activity
+            $activityData = array(
+                'staff_id' => auth()->user()->id,
+                'action' => 'Thêm sản phẩm mới (Mã sản phẩm: #' . $product->id . ')'
+            );
+
+            Activity::create($activityData);
 
         } catch (Exception $err) {
             Log::info($err->getMessage());

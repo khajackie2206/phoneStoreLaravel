@@ -50,7 +50,7 @@ Route::prefix('admin')
         #Comments
         Route::get('/comments/lists', [RatingController::class, 'comments']);
         Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
-        Route::post('/comments/delete/{comment}', [RatingController::class, 'delete']);
+        Route::get('/comments/delete/{comment}', [RatingController::class, 'delete']);
         Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
 
         #Product
@@ -112,6 +112,10 @@ Route::prefix('admin')
             Route::get('/staffs/delete/{admin}', [AdminController::class, 'deleteStaff']);
             Route::post('/staffs/add', [AdminController::class, 'createStaff']);
             Route::get('/staffs/add', [AdminController::class, 'createStaffPage']);
+
+            #activities
+            Route::get('/activities', [StaffController::class, 'getAllActivity']);
+            Route::get('/activity-data', [StaffController::class, 'getActivityData'])->name('activity_data');
         });
     });
 

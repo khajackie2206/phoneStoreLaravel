@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Admin extends Authenticatable
 {
@@ -29,4 +29,9 @@ class Admin extends Authenticatable
         'password',
     ];
 
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class,'staff_id', 'id' );
+    }
 }

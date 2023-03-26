@@ -259,7 +259,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown-holder"><a href="blog-left-sidebar.html">BÀI VIẾT</a>
+                                {{-- <li class="dropdown-holder"><a href="blog-left-sidebar.html">BÀI VIẾT</a>
                                     <ul class="hb-dropdown">
                                         <li class="sub-dropdown-holder"><a href="blog-left-sidebar.html">Mới
                                                 nhất</a>
@@ -280,7 +280,7 @@
                                         <li class="sub-dropdown-holder"><a href="blog-gallery-format.html">Tư vấn</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li><a href="contact.html">LIÊN HỆ</a></li>
                             </ul>
                         </nav>
