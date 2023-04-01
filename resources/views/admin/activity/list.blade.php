@@ -3,7 +3,6 @@
 @section('content')
 <main class="content">
     <div class="container-fluid">
-
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Lịch sử hệ thống</h1>
         </div>
@@ -13,10 +12,8 @@
                     <div class="card-body h-100">
                         <div class="container ">
                             <div class="table-responsive">
-
                                 <table class="table table-responsive table-borderless table-striped" id="activity-table"
                                     style="padding-top:20px;">
-
                                     <thead>
                                         <tr class="bg-warning text-dark">
                                             <th scope="col" width="10%">ID</th>

@@ -166,7 +166,7 @@
                                      @endforeach
                                  </select>
                              </div>
-                             <div class="card-header" style="margin-bottom: -20px;">
+                             {{-- <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Nhà cung cấp</h5>
                              </div>
                              <div class="card-body">
@@ -175,7 +175,7 @@
                                          <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
                                      @endforeach
                                  </select>
-                             </div>
+                             </div> --}}
                          </div>
 
                          <div class="card">

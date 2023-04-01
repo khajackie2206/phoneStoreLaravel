@@ -63,8 +63,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+            <li class="sidebar-item" id="sidebar-warehouses">
+                <a class="sidebar-link" href="/admin/warehouses">
                     <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Quản lý nhập kho</span>
                 </a>
             </li>

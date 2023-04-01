@@ -18,6 +18,7 @@ use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\WareHouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +105,15 @@ Route::prefix('admin')
             Route::post('/discount/edit/{discount}', [DiscountController::class, 'update']);
             Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
             Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
+
+            #Warehouse
+            Route::get('/warehouses', [WareHouseController::class, 'index'])->name('warehouses');
+            Route::get('/warehouses/add', [WareHouseController::class, 'addPage']);
+            Route::post('/warehouses/add', [WareHouseController::class, 'store']);
+            Route::get('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'showEdit']);
+            Route::post('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'update']);
+            Route::get('/warehouses/delete/{warehouse_receipt}', [WareHouseController::class, 'delete']);
+            Route::get('/warehouses/getdata', [WareHouseController::class, 'getData'])->name('warehouse_data');
 
             #staffs
             Route::get('/staffs', [AdminController::class, 'getAllStaff']);

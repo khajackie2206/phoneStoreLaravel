@@ -34,4 +34,9 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Activity::class,'staff_id', 'id' );
     }
+
+    public function warehouseReceipts(): HasMany
+    {
+        return $this->hasMany(WarehouseReceipt::class,'staff_id', 'id' );
+    }
 }

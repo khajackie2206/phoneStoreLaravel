@@ -111,8 +111,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
+            ->where('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;

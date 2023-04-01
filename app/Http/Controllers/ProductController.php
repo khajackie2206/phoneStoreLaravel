@@ -22,6 +22,7 @@ use Illuminate\Pagination\CursorPaginator;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Activity;
+use App\Models\Supplier;
 
 class ProductController extends Controller
 {
@@ -38,12 +39,10 @@ class ProductController extends Controller
     public function index()
     {
         $features = Feature::get();
-        $vendors = Vendor::get();
         $brands = Brand::get();
         $categories = ProductCategory::get();
         return view('admin.product.add-product', [
             'features' => $features,
-            'vendors' => $vendors,
             'brands' => $brands,
             'categories' => $categories,
             'title' => 'Thêm sản phẩm mới',
@@ -150,7 +149,7 @@ class ProductController extends Controller
     public function showEdit(Product $product)
     {
         $features = Feature::get();
-        $vendors = Vendor::get();
+        $vendors = Supplier::get();
         $brands = Brand::get();
         $categories = ProductCategory::get();
         return view('admin.product.edit-product', [
