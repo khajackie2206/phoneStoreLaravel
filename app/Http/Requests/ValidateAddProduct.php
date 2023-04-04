@@ -26,7 +26,6 @@ class ValidateAddProduct extends FormRequest
         return [
             'phone_name' => 'required',
             'price' => 'required|integer',
-            'quantity' => 'required|integer',
             'short_description' => 'required',
             'description' => 'required',
             'chip' => 'required',
@@ -53,8 +52,6 @@ class ValidateAddProduct extends FormRequest
             'phone_name.required'  => 'Vui lòng nhập tên điện thoại',
             'price.required'  => 'Vui lòng nhập giá',
             'price.integer' => 'Giá bán không hợp lệ!',
-            'quantity.required' => 'Vui lòng nhập số lượng',
-            'quantity.integer' => 'Số lượng không hợp lệ!',
             'short_description.required' => 'Vui lòng nhập mô tả ngắn',
             'description.required' => 'Vui lòng nhập mô tả chi tiết',
             'chip.required' => 'Vui lòng nhập thông tin vi xử lý',

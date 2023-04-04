@@ -85,6 +85,19 @@ Route::prefix('admin')
         Route::get('/change-password/{admin}', [AdminController::class, 'changePasswordPage']);
         Route::post('/change-password/{admin}', [AdminController::class, 'changePassword']);
 
+        #Warehouse
+        Route::get('/warehouses', [WareHouseController::class, 'index'])->name('warehouses');
+        Route::get('/warehouses/add', [WareHouseController::class, 'addPage']);
+        Route::post('/warehouses/add', [WareHouseController::class, 'store']);
+        Route::get('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'showEdit']);
+        Route::get('/warehouses/change-status/{warehouse_receipt}', [WareHouseController::class, 'update']);
+        Route::get('/warehouses/delete/{warehouse_receipt}', [WareHouseController::class, 'delete']);
+        Route::get('/warehouses/getdata', [WareHouseController::class, 'getData'])->name('warehouse_data');
+        Route::get('/warehouses/export-pdf/{warehouse_receipt}', [WareHouseController::class, 'generateWarehousePDF']);
+        Route::get('/warehouses/export-excel', [WareHouseController::class, 'exportWarehouseReceiptExcel']);
+        Route::get('/warehouses/export-csv', [WareHouseController::class, 'exportWarehouseReceiptCSV']);
+        Route::get('/warehouses/generate-receipt-pdf', [WareHouseController::class, 'generateListWarehousePDF']);
+
 
         Route::middleware(['role'])->group(function () {
             #Brands
@@ -106,15 +119,6 @@ Route::prefix('admin')
             Route::get('/discount/delete/{discount}', [DiscountController::class, 'delete']);
             Route::get('/discount/getdata', [DiscountController::class, 'getData'])->name('discount_data');
 
-            #Warehouse
-            Route::get('/warehouses', [WareHouseController::class, 'index'])->name('warehouses');
-            Route::get('/warehouses/add', [WareHouseController::class, 'addPage']);
-            Route::post('/warehouses/add', [WareHouseController::class, 'store']);
-            Route::get('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'showEdit']);
-            Route::post('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'update']);
-            Route::get('/warehouses/delete/{warehouse_receipt}', [WareHouseController::class, 'delete']);
-            Route::get('/warehouses/getdata', [WareHouseController::class, 'getData'])->name('warehouse_data');
-
             #staffs
             Route::get('/staffs', [AdminController::class, 'getAllStaff']);
             Route::get('/staffs/change-active/{admin}', [AdminController::class, 'changeStaffActive']);
@@ -129,19 +133,19 @@ Route::prefix('admin')
         });
     });
 
-Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
-Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
-Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
-Route::get('/', [MainController::class, 'index'])->name('index');
-Route::post('/login', [LoginController::class, 'postLogin'])->name('user-login');
-Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
-Route::post('/register', [RegisterController::class, 'create']);
-Route::get('/logout', [LoginController::class, 'getLogout']);
-Route::get('/login', [LoginController::class, 'index']);
+        Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
+        Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
+        Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
+        Route::get('/', [MainController::class, 'index'])->name('index');
+        Route::post('/login', [LoginController::class, 'postLogin'])->name('user-login');
+        Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
+        Route::post('/register', [RegisterController::class, 'create']);
+        Route::get('/logout', [LoginController::class, 'getLogout']);
+        Route::get('/login', [LoginController::class, 'index']);
 
-#Login with google
-Route::get('google', [LoginController::class, 'redirectToProvider']);
-Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
+        #Login with google
+        Route::get('google', [LoginController::class, 'redirectToProvider']);
+        Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
 Route::prefix('products')->group(function () {

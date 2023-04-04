@@ -15,11 +15,11 @@
                             <div class="container ">
                                 <div class="btn-group" role="group" aria-label="Basic outlined example"
                                     style="margin-bottom: 20px;">
-                                    <a href="/admin/order/export-csv"><button type="button" class="btn btn-outline-info">Xuất
+                                    <a href="/admin/warehouses/export-csv"><button type="button" class="btn btn-outline-info">Xuất
                                             CSV</button></a>
-                                    <a href="/admin/order/export-excel"><button type="button" class="btn btn-outline-info">Xuất
+                                    <a href="/admin/warehouses/export-excel"><button type="button" class="btn btn-outline-info">Xuất
                                             Excel</button></a>
-                                    <a href="/admin/order/generate-order-pdf"><button type="button"
+                                    <a href="/admin/warehouses/generate-receipt-pdf"><button type="button"
                                             class="btn btn-outline-info">Xuất PDF</button></a>
                                 </div>
                                 <div class="table-responsive">
@@ -174,7 +174,7 @@
                                             <span class="badge bg-secondary">Chờ xác nhận</span>`
                             } else if(row["status"] == 1){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                            <span class="badge bg-success">Đã xác nhận</span>`
+                                            <span class="badge bg-success">Đã nhập kho</span>`
                             } else {
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                            <span class="badge bg-danger">Đã từ chối</span>`

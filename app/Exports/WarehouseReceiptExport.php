@@ -2,28 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\Order;
-use App\Models\User;
+use App\Models\WarehouseReceipt;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\Exportable;
 
-class OrderExport implements FromCollection, WithHeadings, WithMapping, WithEvents
-
+class WarehouseReceiptExport implements FromCollection, WithHeadings, WithMapping, WithEvents
 {
-     use Exportable;
+    use Exportable;
 
-      private $headers = [
-        'Content-Type' => 'text/csv',
+    private $headers = [
+      'Content-Type' => 'text/csv',
     ];
 
     /**
@@ -31,26 +26,25 @@ class OrderExport implements FromCollection, WithHeadings, WithMapping, WithEven
      */
     public function collection()
     {
-        return Order::select('id', 'user_id', 'payment_id', 'total', 'status_id', 'order_date', 'note', 'delivery_address')->get();
+        return WarehouseReceipt::select('id', 'staff_id', 'total', 'created_at', 'confirmed_date', 'status', 'supplier_id', 'note')->get();
     }
 
     public function headings(): array
     {
         return [
             'ID',
-            'Khách hàng',
-            'Phương thức thanh toán',
-            'Tổng hóa đơn',
-            'Trạng thái đơn hàng',
-            'Ngày đặt hàng',
-            'Ghi chú',
-            'Địa chỉ giao hàng'
+            'Nhân viên nhập kho',
+            'Tổng tiền',
+            'Ngày tạo phiếu nhập',
+            'Ngày xác nhận',
+            'Trạng thái phiếu nhập',
+            'Nhà cung cấp',
+            'Ghi chú'
         ];
     }
 
     public function registerEvents(): array
     {
-
         $styleHeader = [
             'borders' => [
                 'allBorders' => [
@@ -98,7 +92,7 @@ class OrderExport implements FromCollection, WithHeadings, WithMapping, WithEven
                 $styleHeader,
                 $styleArray
             ) {
-                $size = sizeof(Order::all()) + 1;
+                $size = sizeof(WarehouseReceipt::all()) + 1;
 
                 $event->sheet->getDelegate()->getStyle('A1:H1')->applyFromArray($styleArray, $styleHeader);
                 $event->sheet->getDelegate()->getStyle('A2:H' . $size)->applyFromArray($styleNormal);
@@ -116,17 +110,17 @@ class OrderExport implements FromCollection, WithHeadings, WithMapping, WithEven
         ];
     }
 
-    public function map($order): array
+    public function map($warehouseReceipt): array
     {
         return [
-            $order->id,
-            $order->user->name,
-            $order->payment->name,
-            number_format($order->total) . ' VNĐ',
-            $order->status->name,
-            $order->order_date,
-            $order->note,
-            $order->delivery_address,
+            $warehouseReceipt->id,
+            $warehouseReceipt->admin->name,
+            number_format($warehouseReceipt->total) . ' VNĐ',
+            $warehouseReceipt->created_at,
+            $warehouseReceipt->confirmed_date,
+            $warehouseReceipt->status == 0 ? 'Chờ xác nhận' : 'Đã nhập kho',
+            $warehouseReceipt->supplier->name,
+            $warehouseReceipt->note,
         ];
     }
 }

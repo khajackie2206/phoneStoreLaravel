@@ -28,8 +28,7 @@
                                 <h5 class="card-title mb-0">Số lượng</h5>
                             </div>
                             <div class="card-body">
-                                <input type="text" class="form-control" placeholder="Số lượng" name="quantity"
-                                    value="{{ $product->quantity }}">
+                                <input type="text" class="form-control" placeholder="Số lượng" name="quantity" disabled value="{{ $product->quantity}}">
                             </div>
                             <div class="card-header" style="margin-bottom: -20px;">
                                 <h5 class="card-title mb-0">Hãng</h5>

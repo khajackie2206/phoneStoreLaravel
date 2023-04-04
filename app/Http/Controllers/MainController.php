@@ -233,7 +233,6 @@ class MainController extends Controller
 
     public function generateOrderPDF()
     {
-
         $orders = Order::all();
         //get user data from session
         $user = session()->get('user');
@@ -250,7 +249,7 @@ class MainController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
+        return $pdf->stream('listOrder.pdf')->header('Content-Type', 'application/pdf');;
     }
 
     public function exportCSV()

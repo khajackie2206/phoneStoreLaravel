@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WarehouseReceipt extends Model
 {
@@ -27,5 +28,15 @@ class WarehouseReceipt extends Model
      public function admin(): HasOne
     {
         return $this->hasOne(Admin::class,'id', 'staff_id');
+    }
+
+    public function warehouseDetails(): HasMany
+    {
+        return $this->hasMany(WarehouseDetail::class,'receipt_id', 'id' );
+    }
+
+    public function supplier(): HasOne
+    {
+        return $this->hasOne(Supplier::class, 'id', 'supplier_id');
     }
 }

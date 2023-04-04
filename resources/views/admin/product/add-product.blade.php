@@ -37,17 +37,6 @@
                                </ul>
                                @endif
                              <div class="card-header" style="margin-bottom: -20px;">
-                                 <h5 class="card-title mb-0">Số lượng</h5>
-                             </div>
-                             <div class="card-body">
-                                 <input type="text" class="form-control" placeholder="Số lượng" name="quantity">
-                             </div>
-                             @if($errors->first('quantity') != '')
-                             <ul style="margin-top:-5px;list-style-type:none; ">
-                                <li class="text-danger">{{$errors->first('quantity')}}</li>
-                            </ul>
-                            @endif
-                             <div class="card-header" style="margin-bottom: -20px;">
                                  <h5 class="card-title mb-0">Hãng</h5>
                              </div>
                              <div class="card-body">

@@ -40,12 +40,14 @@
                         <div class="card-body" style="margin-top: -22px;">
                             <textarea class="form-control" name="note" rows="6"
                                 placeholder="Nhập mô tả ngắn"></textarea>
+                                <p class="note_alert" style="color:red;margin-top:15px;"></p>
                         </div>
                         @if ($errors->first('note') != '')
                         <ul style="margin-top:-5px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('note') }}</li>
                         </ul>
                         @endif
+
                     </div>
                 </div>
 
@@ -160,6 +162,16 @@
                 break;
             }
         }
+
+        //get element by name note
+        var note = document.getElementsByName("note")[0];
+        //if note is empty or less  than 10 characters then check is false
+        if (note.value == "" || note.value.length < 10) {
+            //innerHTML for getElementsByTagName for note
+            document.getElementsByClassName("note_alert")[0].innerHTML = "Ghi chú không được để trống và phải lớn hơn 10 ký tự";
+            check = false;
+        }
+
         return check;
         }
 </script>
