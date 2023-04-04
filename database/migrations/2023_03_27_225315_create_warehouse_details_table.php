@@ -18,10 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('receipt_id');
             $table->integer('quantity');
-            $table->float('price');
+            $table->integer('price');
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('receipt_id')->references('id')->on('warehouse_receipts');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('receipt_id')->references('id')->on('warehouse_receipts')->onDelete('cascade');
         });
     }
 

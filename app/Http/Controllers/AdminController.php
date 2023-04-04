@@ -42,6 +42,7 @@ class AdminController extends Controller
             $labels[] = $item->name;
             $chartData[] = $item->total;
         }
+
         return [
             'labels' => $labels,
             'data' => $chartData,
@@ -88,7 +89,7 @@ class AdminController extends Controller
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
-            ->where('orders.status_id', '<>', 5)
+            ->where('orders.status_id', 4)
             ->groupBy('payments.name')
             ->get();
 
@@ -98,8 +99,6 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
             ->get();
@@ -111,7 +110,6 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;
@@ -122,23 +120,18 @@ class AdminController extends Controller
         $totalOrder2WeeksAgo = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->where('orders.created_at', '<', now()->subDays(7))
             ->get();
 
         $totalOrder2WeeksAgo = $totalOrder2WeeksAgo[0]->total;
-        //caculate total order in table orders with status is 4 in total 7 days ago
+        //caculate total order in table orders with status is 4 between now and 7 days ago
         $totalOrder = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(7))
             ->get();
+
         $totalOrder = $totalOrder[0]->total;
         $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrder2WeeksAgo);
 
@@ -147,8 +140,6 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
             ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
             ->where('orders.created_at', '>=', now()->subDays(14))
             ->groupBy('date')
             ->get();
@@ -180,8 +171,6 @@ class AdminController extends Controller
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->select(DB::raw('sum(order_details.quantity) as total'), 'products.name')
             ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
             ->groupBy('products.name')
             ->orderBy('total', 'desc')
             ->limit(7)

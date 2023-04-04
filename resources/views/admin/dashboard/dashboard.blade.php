@@ -76,7 +76,7 @@
                                     <h3 class="mt-1 mb-3" style="padding: 5px 0px 5px 0px;">
                                         {{ number_format($summary, 0, ',', '.') }} đ</h3>
                                     <div class="mb-0">
-                                        @if($increaseTotalAvanue > 0)
+                                        @if($increaseTotalAvanue >= 0)
                                         <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +{{
                                             round($increaseTotalAvanue,0) }} %
                                         </span>
@@ -106,7 +106,7 @@
                                     <h1 class="mt-1 mb-3">{{ count($orders) }}</h1>
                                     <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                            @if($increaseTotalOrder > 0)
+                                            @if($increaseTotalOrder >= 0)
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +{{
                                                 round($increaseTotalOrder,0) }} %
                                             </span>
@@ -417,6 +417,24 @@
                     display: true,
                     text: 'Top 7 sản phẩm bán chạy nhất (theo số lượng)'
                 },
+                scales: {
+                xAxes: [{
+                reverse: true,
+                gridLines: {
+                color: "rgba(0,0,0,0.0)"
+                }
+                }],
+                yAxes: [{
+                ticks: {
+                stepSize: 2
+                },
+                display: true,
+                borderDash: [3, 3],
+                gridLines: {
+                color: "rgba(0,0,0,0.0)"
+                }
+                }]
+                }
 
             }
         });

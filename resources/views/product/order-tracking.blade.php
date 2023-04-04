@@ -40,8 +40,7 @@
                                     <input type="hidden" name="status" value="4">
                                     <div class="receive-order" style="padding: 0px 15px 25px 15px;">
                                         <p class="btn btn-warning back-order" data-abc="true"> <i class="fa fa-check"></i>
-                                            Đã
-                                            nhận hàng</p>
+                                            Đã nhận hàng</p>
                                     </div>
                                 </form>
                             @endif

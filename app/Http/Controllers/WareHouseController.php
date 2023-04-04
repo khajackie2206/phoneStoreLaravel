@@ -99,7 +99,7 @@ class WareHouseController extends Controller
 
             return $receipt->status != 1 && $user->role == 1  ? '
                     <a style="margin-left:5px; margin-right: 2px;" href="/admin/warehouses/edit/' . $receipt->id . '"><i class="fas fa-edit fa-xl"></i></a>
-                     <a href="/admin/warehouses/delete/' . $receipt->id . '" onclick="return deleteOrder(event);"<i type="submit" style="color: red;margin-right: 20px;"
+                     <a href="/admin/warehouses/delete/' . $receipt->id . '" onclick="return deleteWarehouse(event);"<i type="submit" style="color: red;margin-right: 20px;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '<a style="margin-left:15px; " href="/admin/warehouses/edit/' . $receipt->id . '"><i class="fas fa-edit fa-xl"></i></a>';
         })->addColumn('staff', function (WarehouseReceipt $receipt) {
             return $receipt->admin->name;
@@ -205,4 +205,13 @@ class WareHouseController extends Controller
 
         return $pdf->stream('listOrder.pdf')->header('Content-Type', 'application/pdf');;
     }
+
+    //delete warehouse receipt
+    public function delete(WarehouseReceipt $warehouseReceipt)
+    {
+    $warehouseReceipt->delete();
+    Alert::success('Đã xóa phiếu nhập kho');
+
+    return redirect()->back();
+}
 }

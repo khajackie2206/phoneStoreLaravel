@@ -223,7 +223,7 @@
                 </tr>
             </thead>
             <tbody style="font-size: 8pt;">
-                @foreach ($warehouseReceipts as $warehouseReceipt )
+                @foreach ($warehouseReceipts as $warehouseReceipt   )
 
                 <tr>
                     <td>{{ $warehouseReceipt->id}}</td>
