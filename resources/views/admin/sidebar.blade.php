@@ -5,7 +5,7 @@
         <a class="sidebar-brand" href="/admin/home">
             <span class="align-middle">Dashboard Admin</span>
         </a>
-        <ul class="sidebar-nav">
+        <ul class="sidebar-nav" style="margin-top: -15px;">
             <li class="sidebar-header">
                 Quản lý sản phẩm
             </li>
@@ -46,7 +46,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">
+            <li class="sidebar-header" style="margin-top: -10px;">
                 Quản lý đơn hàng
             </li>
 
@@ -75,7 +75,7 @@
                         bán</span>
                 </a>
             </li> --}}
-            <li class="sidebar-header">
+            <li class="sidebar-header" style="margin-top: -10px;">
                 Quản lý người dùng
             </li>
             <li class="sidebar-item" id="sidebar-activity">
@@ -93,6 +93,11 @@
             <li class="sidebar-item" id="sidebar-staffs">
                 <a class="sidebar-link" href="/admin/staffs">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Nhân viên</span>
+                </a>
+            </li>
+            <li class="sidebar-item" id="sidebar-suppliers">
+                <a class="sidebar-link" href="/admin/suppliers">
+                    <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Nhà cung cấp</span>
                 </a>
             </li>
 

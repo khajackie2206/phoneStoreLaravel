@@ -18,6 +18,7 @@ use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WareHouseController;
 
 /*
@@ -127,25 +128,33 @@ Route::prefix('admin')
             Route::post('/staffs/add', [AdminController::class, 'createStaff']);
             Route::get('/staffs/add', [AdminController::class, 'createStaffPage']);
 
+            #suppliers
+            Route::get('/suppliers', [SupplierController::class, 'index']);
+            Route::get('/suppliers/add', [SupplierController::class, 'addPage']);
+            Route::post('/suppliers/add', [SupplierController::class, 'store']);
+            Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
+            Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
+            Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
+
             #activities
             Route::get('/activities', [StaffController::class, 'getAllActivity']);
             Route::get('/activity-data', [StaffController::class, 'getActivityData'])->name('activity_data');
         });
     });
 
-        Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
-        Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
-        Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
-        Route::get('/', [MainController::class, 'index'])->name('index');
-        Route::post('/login', [LoginController::class, 'postLogin'])->name('user-login');
-        Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
-        Route::post('/register', [RegisterController::class, 'create']);
-        Route::get('/logout', [LoginController::class, 'getLogout']);
-        Route::get('/login', [LoginController::class, 'index']);
+Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('login');
+Route::get('/admin/logout', [AdminLoginController::class, 'getLogout']);
+Route::post('/admin/login', [AdminLoginController::class, 'postLogin']);
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::post('/login', [LoginController::class, 'postLogin'])->name('user-login');
+Route::get('/register', [LoginController::class, 'registerPage'])->name('register');
+Route::post('/register', [RegisterController::class, 'create']);
+Route::get('/logout', [LoginController::class, 'getLogout']);
+Route::get('/login', [LoginController::class, 'index']);
 
-        #Login with google
-        Route::get('google', [LoginController::class, 'redirectToProvider']);
-        Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
+#Login with google
+Route::get('google', [LoginController::class, 'redirectToProvider']);
+Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
 Route::prefix('products')->group(function () {

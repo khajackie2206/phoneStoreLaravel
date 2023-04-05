@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WarehouseReceiptExport;
+use App\Models\Activity;
 use Carbon\Carbon;
 
 class WareHouseController extends Controller
@@ -34,7 +35,7 @@ class WareHouseController extends Controller
         $products = Product::where('active', 1)->whereNull('delete_at')->get();
 
         //get all supplier with active = 1 and deleted_at = null
-        $suppliers = Supplier::get();
+        $suppliers = Supplier::where('status', 1)->get();
 
         return view('admin.warehouse.add', [
             'title' => 'Thêm phiếu nhập kho',
@@ -78,6 +79,15 @@ class WareHouseController extends Controller
                 $dataCreateWarehouseDetail['price'] = $value['price'];
                 WarehouseDetail::create($dataCreateWarehouseDetail);
             }
+
+            $user = session()->get('user');
+            $activityData = array(
+                'staff_id' => $user->id,
+                'action' => 'Thêm phiếu nhập mới (Mã phiếu nhập: #' . $warehouseReceipt->id . ')'
+            );
+
+            $activityData = Activity::create($activityData);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -185,7 +195,7 @@ class WareHouseController extends Controller
         return Excel::download(new WarehouseReceiptExport, $file_name);
     }
 
-       public function generateListWarehousePDF()
+    public function generateListWarehousePDF()
     {
         $warehouseReceipts = WarehouseReceipt::all();
         //get user data from session
@@ -209,9 +219,9 @@ class WareHouseController extends Controller
     //delete warehouse receipt
     public function delete(WarehouseReceipt $warehouseReceipt)
     {
-    $warehouseReceipt->delete();
-    Alert::success('Đã xóa phiếu nhập kho');
+        $warehouseReceipt->delete();
+        Alert::success('Đã xóa phiếu nhập kho');
 
-    return redirect()->back();
-}
+        return redirect()->back();
+    }
 }

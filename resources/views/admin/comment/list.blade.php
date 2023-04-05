@@ -186,6 +186,7 @@
             $('#comment-table').DataTable({
                 processing: true,
                 serverSide: true,
+                order: [[ 6, 'desc' ]],
                 "language": {
                      "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
                       "zeroRecords": "Không tìm thấy kết quả",

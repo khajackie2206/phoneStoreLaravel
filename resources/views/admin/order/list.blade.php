@@ -125,6 +125,7 @@
              $('#order-table').DataTable({
                  processing: true,
                  serverSide: true,
+                 order: [[ 5, 'desc' ]],
                  "language": {
                      "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
                       "zeroRecords": "Không tìm thấy kết quả",
@@ -145,7 +146,7 @@
 
                      },
                      {
-                         data: 'user_id',
+                         data: 'user.name',
 
                      },
                      {
@@ -153,18 +154,18 @@
 
                      },
                      {
-                         data: 'status_id',
+                         data: 'status.name',
                          "render": function(data, type, row, meta) {
-                            if (row["status_id"] === 1) {
+                            if (data === "Chờ xác nhận") {
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                             <span class="badge bg-secondary">Chờ xác nhận</span>`
-                            } else if(row["status_id"] === 2){
+                            } else if(data === "Đã xác nhận"){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                             <span class="badge bg-success">Đã xác nhận</span>`
-                            } else if(row["status_id"] === 3){
+                            } else if(data === "Đang giao hàng"){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                            <span class="badge bg-warning">Đang giao hàng</span>`
-                            } else if(row["status_id"] === 4){
+                            } else if(data === "Giao hàng thành công"){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                            <span class="badge bg-info text-dark">Giao hàng thành công</span>`
                             } else {

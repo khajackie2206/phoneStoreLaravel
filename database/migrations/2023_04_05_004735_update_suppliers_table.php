@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order_details', function (Blueprint $table) {
-            $table->integer('total_price')->change();
+        Schema::table('suppliers', function (Blueprint $table) {
+            $table->string('status')->default('0')->after('phone');
+            $table->dateTime('delete_at')->nullable();
+
+
         });
     }
 
@@ -25,6 +28,9 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('suppliers', function (Blueprint $table) {
+            $table->dropColumn('status');
+            $table->dropColumn('deleted_at');
+        });
     }
 };

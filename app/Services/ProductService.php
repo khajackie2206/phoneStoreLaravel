@@ -28,7 +28,6 @@ class ProductService
         try {
             $productData = array(
                 'category_id' => $params['category'],
-                'vendor_id' => $params['vendor'],
                 'brand_id' => $params['brands'],
                 'name' => $params['phone_name'],
                 'price' => $params['price'],
@@ -51,6 +50,7 @@ class ProductService
                 'color' => $params['color'],
                 'rom' => $params['rom']
             );
+
             $product = Product::create($productData);
 
             foreach ($params['features'] as $feature) {
@@ -82,12 +82,13 @@ class ProductService
             }
 
             //insert activity
+            $user = session()->get('user');
             $activityData = array(
-                'staff_id' => auth()->user()->id,
+                'staff_id' => $user->id,
                 'action' => 'Thêm sản phẩm mới (Mã sản phẩm: #' . $product->id . ')'
             );
 
-            Activity::create($activityData);
+           $activityData = Activity::create($activityData);
 
         } catch (Exception $err) {
             Log::info($err->getMessage());

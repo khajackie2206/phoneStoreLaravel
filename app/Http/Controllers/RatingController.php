@@ -80,7 +80,7 @@ class RatingController extends Controller
 
      public function getData()
      {
-         $comments = Comment::select(['id','comment','product_id','rating', 'user_id','status']);
+         $comments = Comment::select(['id','comment','product_id','rating', 'user_id','status', 'created_at']);
 
          return Datatables::of($comments)->addColumn('action', function ($comment) {
              return $comment->status == 0 ? '<a href="/admin/comments/censorship/'.$comment->id.'?status=1" onclick="return approve(event);"><i  class="fa fa-check-square fa-xl show-alert-approve-comment"

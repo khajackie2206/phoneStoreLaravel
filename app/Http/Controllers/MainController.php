@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Activity;
 
@@ -173,10 +173,9 @@ class MainController extends Controller
 
     public function getData()
     {
-        $orders = Order::select(['id', 'user_id', 'total', 'status_id', 'payment_id', 'created_at']);
+        $orders = Order::with(['user', 'status', 'payment'])->select('*');
 
-
-        return Datatables::of($orders)->addColumn('action', function ($order) {
+        return Datatables::eloquent($orders)->addColumn('action', function ($order) {
             //get current user
             $admin = session()->get('user');
 
@@ -184,13 +183,11 @@ class MainController extends Controller
                     <a href="/admin/order/delete/' . $order->id . '" onclick="return deleteOrder(event);"<i type="submit" style="color: red;margin-right: 20px;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
                     <a style="margin-left:5px; margin-right: 25px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
-        })->editColumn('user_id', function ($order) {
-            return  '<span style="font-weight: bold;">' . $order->user->name . '</span>';
         })->editColumn('created_at', function ($order) {
             return  '<span style="font-weight: bold;">' . $order->created_at->format('d.m.Y H:i:s') . '</span>';
         })->editColumn('total', function ($order) {
             return  '<span style="color:red;font-weight: bold;"> ' . number_format($order->total) . ' <span style="text-decoration: underline;">đ</span></span>';
-        })->rawColumns(['action', 'user_id', 'total', 'created_at'])->make();
+        })->rawColumns(['action', 'total', 'created_at'])->make();
     }
 
     public function show(Order $order)

@@ -280,6 +280,10 @@
         document.getElementById("sidebar-warehouses").classList.add("active");
         }
 
+        if (path.includes("/admin/suppliers")) {
+        document.getElementById("sidebar-suppliers").classList.add("active");
+        }
+
 
         //Remove previous active class name
         let previousSideBarActiveItem = document.getElementsByClassName('sidebar-item active')[0].classList.remove("active")

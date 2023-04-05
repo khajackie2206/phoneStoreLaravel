@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('code');
             $table->integer('quantity')->nullable();
-            $table->float('amount');
+            $table->integer('amount');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('type_discount');

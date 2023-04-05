@@ -1,83 +1,85 @@
- @extends('admin.main')
- @section('content')
-     <main class="content">
-         <div class="container-fluid">
+@extends('admin.main')
+@section('content')
+<main class="content">
+    <div class="container-fluid">
 
-             <div class="mb-3">
-                 <h1 class="h3 d-inline align-middle">Danh sách banner</h1>
-                 <a class="badge bg-info text-white ms-2" href="/admin/banner/add">
-                     Thêm +
-                 </a>
-             </div>
-             <div class="row">
-                 <div class="col-md-12 col-xl-12">
-                     <div class="card">
-                         <div class="card-body h-100">
-                             <div class="container ">
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Danh sách banner</h1>
+            <a class="badge bg-info text-white ms-2" href="/admin/banner/add">
+                Thêm +
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body h-100">
+                        <div class="container ">
 
 
-                                 <div class="table-responsive">
-                                     <table class="table table-responsive table-borderless table-striped" id="banner-data" style="padding-top:20px;">
+                            <div class="table-responsive">
+                                <table class="table table-responsive table-borderless table-striped" id="banner-data"
+                                    style="padding-top:20px;">
 
-                                         <thead>
-                                             <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="5%">#</th>
-                                                 <th scope="col" width="15%">Tên banner</th>
-                                                 <th scope="col" width="19%">Sản phẩm quảng bá</th>
-                                                 <th scope="col" width="13%">Trạng thái</th>
-                                                 <th scope="col" width="15%">Hình ảnh</th>
-                                                 <th scope="col" width="12%">Loại banner</th>
-                                                 <th scope="col" width="11%"><span>Thao tác</span></th>
-                                             </tr>
-                                         </thead>
-                                         <tbody>
-                                             {{-- @foreach ($banners as $banner)
-                                                 <tr>
-                                                     <td>{{ $banner->id }}</td>
-                                                     <td style="font-weight: bold;">{{ $banner->header }}</td>
-                                                     <td style="font-weight: bold;">{{ $banner->product_name }} GB</td>
-                                                     <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                                             @if ($banner->active == 1)
-                                                                 <span class="badge bg-success">Kích hoạt</span>
-                                                             @else
-                                                                 <span class="badge bg-danger">Hủy kích hoạt</span>
-                                                             @endif
-                                                         </span></td>
-                                                     <td><img src="{{ $banner->thumb }}" width="100">
-                                                     </td>
-                                                     <td style="font-weight: bold;">{{ $banner->type_banner }}</td>
-                                                     <td style="font-weight: bold;"><span style="margin-left: 15px;">{{ $banner->sort_by }}</span></td>
+                                    <thead>
+                                        <tr class="bg-warning text-dark">
+                                            <th scope="col" width="5%">#</th>
+                                            <th scope="col" width="15%">Tên banner</th>
+                                            <th scope="col" width="19%">Sản phẩm quảng bá</th>
+                                            <th scope="col" width="13%">Trạng thái</th>
+                                            <th scope="col" width="15%">Hình ảnh</th>
+                                            <th scope="col" width="12%">Loại banner</th>
+                                            <th scope="col" width="11%"><span>Thao tác</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($banners as $banner)
+                                        <tr>
+                                            <td>{{ $banner->id }}</td>
+                                            <td style="font-weight: bold;">{{ $banner->header }}</td>
+                                            <td style="font-weight: bold;">{{ $banner->product_name }} GB</td>
+                                            <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                                    @if ($banner->active == 1)
+                                                    <span class="badge bg-success">Kích hoạt</span>
+                                                    @else
+                                                    <span class="badge bg-danger">Hủy kích hoạt</span>
+                                                    @endif
+                                                </span></td>
+                                            <td><img src="{{ $banner->thumb }}" width="100">
+                                            </td>
+                                            <td style="font-weight: bold;">{{ $banner->type_banner }}</td>
+                                            <td style="font-weight: bold;"><span style="margin-left: 15px;">{{
+                                                    $banner->sort_by }}</span></td>
 
-                                                     <td >
-                                                         <a
-                                                             href="/admin/banner/edit/{{ $banner->id }}">
-                                                              <i class="fas fa-edit fa-xl"></i>
-                                                         </a>
+                                            <td>
+                                                <a href="/admin/banner/edit/{{ $banner->id }}">
+                                                    <i class="fas fa-edit fa-xl"></i>
+                                                </a>
 
-                                                         <form method="delete" style=" display:inline!important;"
-                                                             action="/admin/banner/delete/{{ $banner->id }}">
-                                                             @csrf
-                                                             <input name="_method" type="hidden" value="DELETE">
-                                                             <i type="submit" style="color: red;" class="fas fa-trash fa-xl show-alert-delete-box"></i>
-                                                         </form>
+                                                <form method="delete" style=" display:inline!important;"
+                                                    action="/admin/banner/delete/{{ $banner->id }}">
+                                                    @csrf
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                    <i type="submit" style="color: red;"
+                                                        class="fas fa-trash fa-xl show-alert-delete-box"></i>
+                                                </form>
 
-                                                     </td>
-                                                 </tr>
-                                             @endforeach --}}
-                                         </tbody>
-                                     </table>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 {{-- {{ $banners->links('custom') }} --}}
-             </div>
-         </div>
-     </main>
+                                            </td>
+                                        </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- {{ $banners->links('custom') }} --}}
+        </div>
+    </div>
+</main>
 
-     <script type="text/javascript">
-         $('.show-alert-delete-box').click(function(event) {
+<script type="text/javascript">
+    $('.show-alert-delete-box').click(function(event) {
              var form = $(this).closest("form");
              var name = $(this).data("name");
              event.preventDefault();
@@ -96,9 +98,9 @@
                  }
              });
          });
-     </script>
-     <script>
-         $(document).ready(function() {
+</script>
+<script>
+    $(document).ready(function() {
              $('#banner-data').DataTable({
                  processing: true,
                  serverSide: true,
@@ -119,7 +121,7 @@
                  ajax: '{!! route('banner_data') !!}',
                  columns: [{
                          data: 'id',
-                     },
+                      },
                       {
                           data: 'header',
 
@@ -130,23 +132,37 @@
                       },
                        {
                           data: 'active',
-
                       },
                       {
                           data: 'thumb',
                       },
-                      {
-                          data: 'type_banner',
-                      },
+                     {
+                    data: 'type_banner',
+                    "render": function(data, type, row, meta) {
+                    if (row["type_banner"] == "header") {
+                    return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                        <span class="badge bg-success">Tiêu đề động</span>`
+                        } else if(row["type_banner"] == "header static"){
+                        return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                            <span class="badge bg-success">Tiêu đề tĩnh</span>`
+                            } else if(row["type_banner"] == "broadcast"){
+                            return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                <span class="badge bg-warning">Quảng bá</span>`
+                                } else {
+                                    return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
+                                        <span class="badge bg-danger">Giữa tĩnh</span>`
+                                        }
+                                        }
+                                        },
                       {
                           data: 'action',
                       },
                  ],
              });
          });
-     </script>
-     <script>
-         function deleteBanner(ev) {
+</script>
+<script>
+    function deleteBanner(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
              swal({
@@ -163,11 +179,11 @@
                  }
              });
          }
-     </script>
- @endsection
+</script>
+@endsection
 
- @section('footer')
-     <script>
-         CKEDITOR.replace('content');
-     </script>
- @endsection
+@section('footer')
+<script>
+    CKEDITOR.replace('content');
+</script>
+@endsection
