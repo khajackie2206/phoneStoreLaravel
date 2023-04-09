@@ -15,8 +15,8 @@
     <!--Checkout Area Strat-->
     <div class="checkout-area pt-60 pb-30">
         <div class="container">
-            <form action="/products/checkout-product" id="form-discount" method="post">
-                <input name="_method" type="hidden" value="post">
+            <form action="/products/checkout-product" id="FormCheckout" method="POST" onSubmit="return ValidationEvent(event);">
+                @csrf
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="checkbox-form">
@@ -42,7 +42,8 @@
                                             </select>
                                         @else
                                             <input placeholder="Địa chỉ giao hàng" name="delivery_address"
-                                                type="text" id="delivery_address" value="{{ $user->address}}" onchange="saveValue(this);">
+                                                type="text" id="delivery_address" value="{{ $user->address}}">
+                                                <p id="delivery_address_alert" style="color:red;margin-top:15px;"></p>
                                         @endif
 
                                     </div>
@@ -62,7 +63,7 @@
                                             <input type="text" value="{{ $user->phone }}" name="phone_number"
                                                 placeholder="Số điện thoại" style="background-color: #f2f2f2;" id="phone_number"  disabled>
                                         @else
-                                            <input type="text" placeholder="Số điện thoại" name="phone_number" id="phone_number" onchange="saveValue(this);">
+                                            <input type="text" name="phone_number" id="phone_number" >
                                         @endif
 
                                     </div>
@@ -81,7 +82,7 @@
                                             <div class="checkout-form-list">
                                                 <label>Địa chỉ giao hàng mới </label>
                                                 <input placeholder="Địa chỉ giao hàng mới" name="new_address"
-                                                    type="text" id="new_address" onchange="saveValue(this);">
+                                                    type="text" id="new_address">
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +92,7 @@
                                 <div class="checkout-form-list">
                                     <label>Ghi chú giao hàng</label>
                                     <textarea id="checkout-mess" name="note" cols="30" rows="10"
-                                        placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..." onchange="saveValue(this);"></textarea>
+                                        placeholder="Ghi chú thông tin như giao hàng nhanh, hàng dễ vỡ..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -259,46 +260,36 @@
                                         </div>
                                     </div>
                                     <div class="order-button-payment">
-                                        <input value="Thanh toán" type="submit" name="redirect">
+                                        <button type="submit">Thanh toán </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @csrf
+
             </form>
         </div>
 
     </div>
     <!--Checkout Area End-->
-    <script type="text/javascript">
-        var shipbox = document.getElementById('ship-box');
-         document.getElementById("phone_number").value = getSavedValue("phone_number");    // set the value to this input
-         document.getElementById("checkout-mess").value = getSavedValue("checkout-mess");
-        //  document.getElementById("delivery_address").value = getSavedValue("delivery_address");
-        //  if(shipbox){
-        //    $('#ship-box-info').slideToggle(1000);
-        //   document.getElementById("new_address").value = getSavedValue("new_address");
-        //   document.getElementById("ship-box").checked = true;
-        //    }  // set the value to this input
-        /* Here you can add more inputs to set value. if it's saved */
+<script>
+    //validation event for form submit
+    function ValidationEvent(event) {
+    // Storing Field Values In Variables
+      let check = true;
+      var address = document.getElementById("delivery_address");
 
-        //Save the value function - save it to localStorage as (ID, VALUE)
-        function saveValue(e){
-            var id = e.id;  // get the sender's id to save it .
-            var val = e.value; // get the value.
-            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override .
-        }
+    if (address.value == "") {
+        document.getElementById("delivery_address_alert").innerHTML = "Địa chỉ không được để trống";
+        check = false;
+    }
 
-        //get the saved value function - return the value of "v" from localStorage.
-        function getSavedValue (v){
-            if (!localStorage.getItem(v)) {
-                return "";// You can change this to your defualt value.
-            }
-            return localStorage.getItem(v);
-        }
-</script>
+
+     return check;
+    }
+
+   </script>
 <script>
     //ready function change action of form-discount based on checked of radio button with name payment_method
 
@@ -316,6 +307,6 @@
 
 </script>
 
-{{-- <script src="https://www.paypal.com/sdk/js?client-id=AY6IQ3AGihK-BMsx0FtdJptKJh7FPUycSn7ZkRyox7K2c2nW8Gza04GDkOZZYQXfmJPVkIyA-Lk0v5pQ"></script> --}}
+
 @endsection
 

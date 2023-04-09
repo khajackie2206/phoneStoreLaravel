@@ -131,6 +131,12 @@ class ProductController extends Controller
         $groupProduct = $this->productService->getGroupProduct($product);
         $comments = $product->comments()->where('status', 1)->paginate(4);
         $allComments = $product->comments()->where('status', 1)->get();
+
+   // get all brands
+   $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+   //get all categories
+   $categories = ProductCategory::where('active', 1)->get();
+
         $user = session()->get('user');
 
         return view('product.product-detail', [
@@ -143,6 +149,8 @@ class ProductController extends Controller
             'user' => $user,
             'comments' => $comments,
             'allComments' => $allComments,
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 
@@ -182,7 +190,7 @@ class ProductController extends Controller
         $user = session()->get('user');
         $dataActivity = [
             'staff_id' => $user->id,
-            'action' => 'Xóa sản phẩm ' . $product->name .'' .'( Mã sản phẩm: #' . $product->id . ')',
+            'action' => 'Xóa sản phẩm ' . $product->name . '' . '( Mã sản phẩm: #' . $product->id . ')',
         ];
         Activity::create($dataActivity);
 
@@ -264,6 +272,8 @@ class ProductController extends Controller
         $romFilter = $romFilter ? explode('-', $romFilter) : [];
         $osFilter = request()->input('filter.os');
         $osFilter = $osFilter ? explode(',', $osFilter) : [];
+        $categoryFilter = request()->input('filter.category');
+        $categoryFilter = $categoryFilter ? explode(',', $categoryFilter) : [];
         $sortFilter = request()->input('sort');
 
         $productWithTotal = $this->productService->filterProduct(request()->input());
@@ -274,6 +284,9 @@ class ProductController extends Controller
         $brands = Brand::where('active', 1)
             ->where('delete_at', null)
             ->get();
+
+
+        $categories = ProductCategory::where('active', 1)->get();
         $features = Feature::get();
         return view('product.filter-product', [
             'title' => 'Danh sách sản phẩm',
@@ -282,11 +295,13 @@ class ProductController extends Controller
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
             'brands' => $brands,
+            'categories' => $categories,
             'features' => $features,
             'brandFilter' => $brandFilter,
             'priceFilter' => $priceFilter,
             'romFilter' => $romFilter,
             'osFilter' => $osFilter,
+            'categoryFilter' => $categoryFilter,
             'sortFilter' => $sortFilter,
         ]);
     }
@@ -492,12 +507,12 @@ class ProductController extends Controller
 
     public function loadMore(Request $request)
     {
-        $page = $request->input('page', default: 0);
+        $page = $request->input('page', default: 1);
         $output = '';
         $flex = '';
         $productWithTotal = $this->productService->filterProduct(request()->input());
         $products = $productWithTotal['data'];
-        $numberOfProduct = $productWithTotal['total'];
+        $numberOfProduct = ( $productWithTotal['total'] - 9 ) * $page;
 
         if (count($products) != 0) {
             foreach ($products as $product) {

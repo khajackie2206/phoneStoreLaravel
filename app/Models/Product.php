@@ -82,4 +82,12 @@ class Product extends Model
 
         return $query;
     }
+
+    public function scopeCategory(Builder $query, string $categoryId): Builder
+    {
+        $categoryId = explode('-', $categoryId);
+
+        return $query->whereIn('category_id', $categoryId);
+    }
+
 }

@@ -18,7 +18,6 @@
                              <div class="card-body">
                                  <input type="text" class="form-control" placeholder="Tên điện thoại"
                                      name="phone_name">
-
                              </div>
                              @if($errors->first('phone_name') != '')
                              <ul style="margin-top:-5px; list-style-type:none;">
@@ -133,10 +132,10 @@
                              </div>
                              <div class="card-body">
                                  <select class="form-select mb-1" name="year">
-                                     <option value="0" selected>Cũ hơn</option>
-                                     <option value="2020">2020</option>
+                                     <option value="2023" selected>2023</option>
+                                     <option value="2020">2022</option>
                                      <option value="2021">2021</option>
-                                     <option value="2022">2022</option>
+                                     <option value="2022">Cũ hơn</option>
                                  </select>
                              </div>
                          </div>

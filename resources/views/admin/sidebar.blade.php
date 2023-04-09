@@ -9,7 +9,6 @@
             <li class="sidebar-header">
                 Quản lý sản phẩm
             </li>
-
             <li class="sidebar-item active">
                 <a class="sidebar-link" href="/admin/home">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -25,8 +24,14 @@
 
             <li class="sidebar-item" id="sidebar-brand">
                 <a class="sidebar-link" href="/admin/brand/list">
-                    <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Thương hiệu</span>
                 </a>
+            </li>
+
+            <li class="sidebar-item" id="sidebar-category">
+                    <a class="sidebar-link" href="/admin/categories/list">
+                        <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
+                    </a>
             </li>
 
             {{-- <li class="sidebar-item">
@@ -161,8 +166,6 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Khách hàng</span>
                 </a>
             </li>
-
-
         </ul>
         @endif
 

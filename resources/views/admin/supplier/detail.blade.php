@@ -67,11 +67,11 @@
                         <div class="card-body" style="margin-top: -12px;">
                             <div>
                                 <input class="custom-control-input" value="1" type="radio" id="active" name="status"
-                                    checked="{{ $supplier->status == 1 ? 'true' : '' }}">
+                                    {{ $supplier->status === 1 ? 'checked="true"' : '' }}>
                                 <label for="active" class="custom-control-label">Hợp tác</label>
                             </div>
                             <div style="margin-top: 10px; margin-bottom: 57px;">
-                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="status" checked="{{ $supplier->status == 0 ? 'true' : '' }}">
+                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="status" {{ $supplier->status === 0 ? 'checked="true"' : '' }}>
                                 <label for="no_active" class="custom-control-label">Ngừng hợp tác</label>
                             </div>
                         </div>

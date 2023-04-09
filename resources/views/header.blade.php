@@ -20,28 +20,27 @@
                     <div class="header-top-right">
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
-                            @if (session('user'))
-                                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
-                                    data-bs-toggle="dropdown">
-                                    <img src="{{ session('user')->avatar }}"
-                                        style="height: 23px; width: 23px; border-radius: 50%;"
-                                        class="avatar img-fluid me-1" alt="Charles Hall" /> <span
-                                        class="text-dark">{{ session('user')->name }}</span>
-                                </a>
+                            @if (session('user') && !isset(session('user')->role))
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                data-bs-toggle="dropdown">
+                                <img src="{{ session('user')->avatar }}"
+                                    style="height: 23px; width: 23px; border-radius: 50%;" class="avatar img-fluid me-1"
+                                    alt="Charles Hall" /> <span class="text-dark">{{ session('user')->name }}</span>
+                            </a>
                             @else
-                                <li>
-                                    <a href="/register" style="color: #0b0b0b;"><span>Đăng ký</span></a>
-                                </li>
-                                <li>
-                                    <a href="/login" style="color: #0b0b0b;"><span>Đăng nhập</span></a>
-                                </li>
+                            <li>
+                                <a href="/register" style="color: #0b0b0b;"><span>Đăng ký</span></a>
+                            </li>
+                            <li>
+                                <a href="/login" style="color: #0b0b0b;"><span>Đăng nhập</span></a>
+                            </li>
                             @endif
 
                             <div class="dropdown-menu dropdown-menu-end" style="font-size: 13px; margin-left: 50px;">
                                 <a class="dropdown-item" href="/users/detail"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-user align-middle me-1">
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-user align-middle me-1">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>&nbsp; Thông tin cá nhân</a>
@@ -62,7 +61,9 @@
 
                                 @if (!isset(session('user')->provider_name))
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/users/change-password"><img  style="height: 23px;" src="https://img.icons8.com/ios/50/null/re-enter-pincode.png"/>&nbsp; Đổi mật khẩu</a>
+                                <a class="dropdown-item" href="/users/change-password"><img style="height: 23px;"
+                                        src="https://img.icons8.com/ios/50/null/re-enter-pincode.png" />&nbsp; Đổi mật
+                                    khẩu</a>
                                 @endif
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
@@ -87,8 +88,8 @@
                                     <ul class="ht-setting-list">
                                         <li><a href="#"><img src="../public/images/menu/flag-icon/1.jpg"
                                                     alt="">English</a></li>
-                                        <li class="active"><a href="#"><img
-                                                    src="../public/images/menu/flag-icon/2.jpg" alt="">Tiếng
+                                        <li class="active"><a href="#"><img src="../public/images/menu/flag-icon/2.jpg"
+                                                    alt="">Tiếng
                                                 Việt</a></li>
                                     </ul>
                                 </div>
@@ -112,8 +113,7 @@
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
                             <img src="{{ asset('images/allo.png') }}"
-                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;"
-                                alt="">
+                                style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
                         </a>
                     </div>
                 </div>
@@ -130,9 +130,9 @@
                     @php $countProduct = 0; @endphp
 
                     @if (\Illuminate\Support\Facades\Session::get('carts'))
-                        @foreach ($sessionProducts as $sessionProduct)
-                            @php  $countProduct +=1; @endphp
-                        @endforeach
+                    @foreach ($sessionProducts as $sessionProduct)
+                    @php $countProduct +=1; @endphp
+                    @endforeach
                     @endif
                     <!-- Header Middle Searchbox Area End Here -->
                     <!-- Begin Header Middle Right Area -->
@@ -153,39 +153,42 @@
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
-                                            @foreach ($sessionProducts as $sessionProduct)
-                                                @php
-                                                    $subTotal = ($sessionProduct->discount > 0 ? $sessionProduct->price - $sessionProduct->discount : $sessionProduct->price) * $carts[$sessionProduct->id];
-                                                    $summary += $subTotal;
-                                                @endphp
-                                                <li>
-                                                    <a href="single-product.html" class="minicart-product-image">
-                                                        <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
-                                                            alt="cart products">
-                                                    </a>
-                                                    <div class="minicart-product-details">
-                                                        <h6><a href="single-product.html">{{ $sessionProduct->name }}
-                                                                {{ $sessionProduct->color }}</a>
-                                                        </h6>
-                                                        <span><span
-                                                                style="color: red;">{{ number_format($sessionProduct->discount > 0 ? $sessionProduct->price - $sessionProduct->discount : $sessionProduct->price) }}</span><span
-                                                                style="text-decoration: underline; color:red;">đ</span><span>
-                                                                x {{ $carts[$sessionProduct->id] }} </span>
-                                                    </div>
-                                                    <button class="close" title="Remove">
-                                                        <a href="/products/delete-cart/{{ $sessionProduct->id }}">
-                                                            <i class="fa fa-close"></i> </a>
-                                                    </button>
-                                                </li>
-                                            @endforeach
+                                        @foreach ($sessionProducts as $sessionProduct)
+                                        @php
+                                        $subTotal = ($sessionProduct->discount > 0 ? $sessionProduct->price -
+                                        $sessionProduct->discount : $sessionProduct->price) *
+                                        $carts[$sessionProduct->id];
+                                        $summary += $subTotal;
+                                        @endphp
+                                        <li>
+                                            <a href="single-product.html" class="minicart-product-image">
+                                                <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
+                                                    alt="cart products">
+                                            </a>
+                                            <div class="minicart-product-details">
+                                                <h6><a href="single-product.html">{{ $sessionProduct->name }}
+                                                        {{ $sessionProduct->color }}</a>
+                                                </h6>
+                                                <span><span style="color: red;">{{
+                                                        number_format($sessionProduct->discount > 0 ?
+                                                        $sessionProduct->price - $sessionProduct->discount :
+                                                        $sessionProduct->price) }}</span><span
+                                                        style="text-decoration: underline; color:red;">đ</span><span>
+                                                        x {{ $carts[$sessionProduct->id] }} </span>
+                                            </div>
+                                            <button class="close" title="Remove">
+                                                <a href="/products/delete-cart/{{ $sessionProduct->id }}">
+                                                    <i class="fa fa-close"></i> </a>
+                                            </button>
+                                        </li>
+                                        @endforeach
 
                                         @endif
                                     </ul>
                                     <p class="minicart-total">TỔNG CỘNG: <span>{{ number_format($summary) }}Đ</span>
                                     </p>
                                     <div class="minicart-button">
-                                        <a href="/products/carts"
-                                            class="li-button li-button-fullwidth li-button-dark">
+                                        <a href="/products/carts" class="li-button li-button-fullwidth li-button-dark">
                                             <span>Xem giỏ hàng</span>
                                         </a>
                                         <a href="/products/checkout" class="li-button li-button-fullwidth">
@@ -222,43 +225,74 @@
                             <ul class="d-flex">
                                 <li><a href="/">TRANG CHỦ</a></li>
 
-                                <li class="megamenu-holder"><a href="/products/filter">ĐIỆN THOẠI</a>
+                                <li class="megamenu-holder"><a href="/products/filter">Bộ lọc</a>
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="shop-left-sidebar.html">Hãng sản xuất</a>
                                             <ul>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=3&filter%5Bprice%5D=">Samsung</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=1&filter%5Bprice%5D=">Apple</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=2&filter%5Bprice%5D=">Xiaomi</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=6&filter%5Bprice%5D=">Vivo</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=5&filter%5Bprice%5D=">Oppo</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bbrand%5D=4&filter%5Bprice%5D=">Nokia</a></li>
+
+                                                @foreach ($brands as $brand)
+                                                    <li><a href="/products/filter?sort=name&filter%5Bbrand%5D={{ $brand->id}}&filter%5Bprice%5D=">{{ $brand->name}}</a>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li><a href="single-product-gallery-left.html">Mức giá</a>
                                             <ul>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=0%3B2000000">Dưới 2 triệu</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=2000000%3B4000000">Từ 2 đến 4 triệu</a>
+                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=0%3B2000000">Dưới
+                                                        2 triệu</a></li>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=2000000%3B4000000">Từ
+                                                        2 đến 4 triệu</a>
                                                 </li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=4000000%3B7000000">Từ 4 đến 7 triệu</a>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=4000000%3B7000000">Từ
+                                                        4 đến 7 triệu</a>
                                                 </li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=7000000%3B13000000">Từ 7 đến 13
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=7000000%3B13000000">Từ
+                                                        7 đến 13
                                                         triệu</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=13000000%3B20000000">Từ 13 đến 20
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=13000000%3B20000000">Từ
+                                                        13 đến 20
                                                         triệu</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=20000000%3B100000000">Trên 20 triệu</a>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=20000000%3B100000000">Trên
+                                                        20 triệu</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li><a href="single-product.html">Loại điện thoại</a>
                                             <ul>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Android">Android</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=IOS">iOS</a></li>
-                                                <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Other">Điện thoại phổ thông</a></li>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Android">Android</a>
                                                 </li>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=IOS">iOS</a>
+                                                </li>
+                                                <li><a
+                                                        href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bos%5D=Other">Điện
+                                                        thoại phổ thông</a></li>
                                             </ul>
                                         </li>
+                                        <li><a href="single-product.html">Danh mục điện thoại</a>
+                                            <ul>
+
+                                                        @foreach ($categories as $category)
+                                                              <li><a href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bcategory%5D={{ $category->id}}">{{ $category->name}}</a>
+                                                            </li>
+                                                        @endforeach
+                                            </ul>
+                                        </li>
+
                                     </ul>
                                 </li>
+                                @foreach ($categories as $category)
+                                   <a class="category-hover" href="/products/filter?sort=name&filter%5Bprice%5D=&filter%5Bcategory%5D={{ $category->id}}" class="menu_no_arrow">{{ $category->name}}</a>
+                                @endforeach
+
+
+
                                 {{-- <li class="dropdown-holder"><a href="blog-left-sidebar.html">BÀI VIẾT</a>
                                     <ul class="hb-dropdown">
                                         <li class="sub-dropdown-holder"><a href="blog-left-sidebar.html">Mới
@@ -281,7 +315,7 @@
                                         </li>
                                     </ul>
                                 </li> --}}
-                                <li><a href="contact.html">LIÊN HỆ</a></li>
+                                {{-- <li><a href="contact.html" class="menu_no_arrow">LIÊN HỆ</a></li> --}}
                             </ul>
                         </nav>
                     </div>

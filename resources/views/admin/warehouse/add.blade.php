@@ -42,11 +42,7 @@
                                 placeholder="Nhập mô tả ngắn"></textarea>
                                 <p class="note_alert" style="color:red;margin-top:15px;"></p>
                         </div>
-                        @if ($errors->first('note') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
-                            <li class="text-danger">{{ $errors->first('note') }}</li>
-                        </ul>
-                        @endif
+
 
                     </div>
                 </div>

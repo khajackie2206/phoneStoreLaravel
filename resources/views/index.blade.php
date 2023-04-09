@@ -88,6 +88,10 @@
                 height: 0%;
             }
         }
+
+        .menu_no_arrow:after{
+           content: none !important;
+        }
     </style>
 {{--
 <link rel="stylesheet" type="text/css"

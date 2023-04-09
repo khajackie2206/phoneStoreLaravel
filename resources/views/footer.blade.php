@@ -210,7 +210,11 @@
                                               </div>
                                           </div>
 
-                                          <button class="add-to-cart" type="submit">Đặt mua ngay</button>
+                                          @if (isset(session('user')->role))
+                                            <button class="add-to-cart" type="submit" disabled>Đặt mua ngay</button>
+                                        @else
+                                            <button class="add-to-cart" type="submit">Đặt mua ngay</button>
+                                         @endif
                                       </div>
                                       <input type="hidden" id="url" name="url" value="">
                                       <input type="hidden" id="productId" name="productId" value="">

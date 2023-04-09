@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests\ValidateUserLogin;
 use RealRashid\SweetAlert\Facades\Alert;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\ProductCategory;
+use App\Models\Brand;
 use App\Models\User;
+
 class LoginController extends Controller
 {
     /**
@@ -61,21 +64,39 @@ class LoginController extends Controller
 
     public function index(Request $request)
     {
+
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
         if ($request->input('url')) {
             return view('auth.login', [
                 'title' => 'Đăng nhập',
                 'url' => $request->input('url'),
+                'brands' => $brands,
+                'categories' => $categories,
             ]);
         }
         return view('auth.login', [
             'title' => 'Đăng nhập',
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 
     public function registerPage()
     {
+
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
         return view('auth.register', [
             'title' => 'Đăng Ký',
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 

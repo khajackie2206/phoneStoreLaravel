@@ -15,6 +15,7 @@ use App\Http\Controllers\UploadUserController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\StaffController;
@@ -135,6 +136,12 @@ Route::prefix('admin')
             Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
             Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
             Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
+
+            #category
+            Route::get('/categories/list', [CategoryController::class, 'index']);
+            Route::get('/categories/edit/{category}', [CategoryController::class, 'showEdit']);
+            Route::get('/categories/supplier-data', [CategoryController::class, 'getData'])->name('category_data');
+            Route::post('/categories/edit/{category}', [CategoryController::class, 'update']);
 
             #activities
             Route::get('/activities', [StaffController::class, 'getAllActivity']);

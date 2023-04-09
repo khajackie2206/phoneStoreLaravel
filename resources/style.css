@@ -3872,7 +3872,7 @@ thead {
 .payment-accordion .card-body>p {
 	color: #515151;
 }
-.order-button-payment input {
+.order-button-payment button {
 	background: #434343 none repeat scroll 0 0;
 	border: medium none;
 	color: #fff;
@@ -3888,7 +3888,7 @@ thead {
 	border: 1px solid transparent;
 	cursor: pointer;
 }
-.order-button-payment input:hover {
+.order-button-payment button:hover {
 	background: #fed700 none repeat scroll 0 0;
 }
 /*----------------------------------------*/

@@ -217,7 +217,7 @@ class AdminController extends Controller
 
     public function getAllUsers()
     {
-        $users = DB::table('users')->where('role', 0)->paginate(6);
+        $users = DB::table('users')->paginate(6);
         return view('admin.user.list', [
             'title' => 'Danh sách người dùng',
             'users' => $users
@@ -226,7 +226,7 @@ class AdminController extends Controller
 
     public function getData()
     {
-        $users = User::where('role', 0)->select(['id', 'name', 'email', 'active', 'avatar', 'phone']);
+        $users = User::select(['id', 'name', 'email', 'active', 'avatar', 'phone']);
 
         return Datatables::of($users)->addColumn('action', function ($user) {
             return $user->active == 0 ? '<a style="margin-left: 20px;" onclick="return activeUser(event);" href="/admin/users/change-active/' . $user->id . '?active=1"><i class="fa fa-unlock fa-xl"></i></a>'
@@ -248,7 +248,7 @@ class AdminController extends Controller
     //list staff
     public function getAllStaff()
     {
-        $staffs = DB::table('users')->where('role', 1)->paginate(6);
+        $staffs = DB::table('admins')->where('role', 1)->paginate(6);
 
         return view('admin.staff.list', [
             'title' => 'Danh sách nhân viên',

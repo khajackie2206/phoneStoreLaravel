@@ -179,9 +179,12 @@ class ProductService
                 AllowedFilter::scope('rom'),
                 AllowedFilter::scope('os'),
                 AllowedFilter::scope('price'),
+                AllowedFilter::scope('category'),
             ])
+            ->where('active', 1)
+            ->where('delete_at', null)
             ->allowedSorts(['name', 'price'])
-            ->paginate(6)
+            ->paginate(9)
             ->appends(request()->query());
         //get number of products
         $count = $products->total();
@@ -213,11 +216,10 @@ class ProductService
         try {
             $productData = array(
                 'category_id' => $params['category'],
-                'vendor_id' => $params['vendor'],
                 'brand_id' => $params['brands'],
                 'name' => $params['phone_name'],
                 'price' => $params['price'],
-                'discount' => $params['discount'],
+                'discount' => $params['discount'] ?? 0,
                 'active' => $params['active'],
                 'battery' => $params['battery'],
                 'short_description' => $params['short_description'],

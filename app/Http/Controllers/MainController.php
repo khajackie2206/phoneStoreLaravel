@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\ProductCategory;
 use App\Models\Activity;
+use App\Models\Brand;
 
 class MainController extends Controller
 {
@@ -53,6 +55,10 @@ class MainController extends Controller
         $broadcastBanner = $this->bannerService->getBroadcastBanner();
         $centerBanners = $this->bannerService->getCenterBanners();
         $topRatings = $this->productService->getTopRatings();
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
 
         return view('home', [
             'title' => 'Trang chủ',
@@ -67,6 +73,8 @@ class MainController extends Controller
             'centerBanners' => $centerBanners,
             'bestSellers' => $bestSellers,
             'topRatings' => $topRatings,
+            'categories' => $categories,
+            'brands' => $brands
         ]);
     }
 
@@ -74,6 +82,12 @@ class MainController extends Controller
     {
         $user = User::where('email', session()->get('user')['email'])->first();
         $sessionProducts = $this->cardService->getProduct();
+
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
         //get total price of order of a user
         $totalPrice = Order::where('user_id', $user->id)->sum('total');
         // dd($totalPrice);
@@ -84,6 +98,8 @@ class MainController extends Controller
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
             'totalPrice' => $totalPrice,
+            'categories' => $categories,
+            'brands' => $brands
         ]);
     }
 
@@ -92,11 +108,18 @@ class MainController extends Controller
         $user = User::where('email', session()->get('user')['email'])->first();
         $sessionProducts = $this->cardService->getProduct();
 
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
         return view('user.change-password', [
             'user' => $user,
             'title' => 'Cập nhật mật khẩu',
             'sessionProducts' => $sessionProducts,
             'carts' => session()->get('carts'),
+            'categories' => $categories,
+            'brands' => $brands
         ]);
     }
 
@@ -140,19 +163,36 @@ class MainController extends Controller
         return redirect()->back();
     }
 
-    public function trackOrder()
-    {
-        $user = session()->get('user');
-        $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
+    public function trackOrder(Request $request)
 
+    {
+        $input = $request->all();
+        $user = session()->get('user');
+        $status = 0;
+
+        if(!isset($input['status'])) {
+          $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
+        } else {
+          $orders = $this->cardService->getOrders($user)->where('status_id', $input['status'])->orderBy('created_at', 'DESC')->paginate(1000);
+          $status = $input['status'];
+        }
+
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
         $sessionProducts = $this->cardService->getProduct();
+
 
         return view('product.order-tracking', [
             'title' => 'Đơn hàng của tôi',
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
             'orders' => $orders,
-            'user' => $user
+            'user' => $user,
+            'categories' => $categories,
+            'brands' => $brands,
+            'status' => $status
         ]);
     }
 

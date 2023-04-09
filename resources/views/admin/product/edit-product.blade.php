@@ -136,7 +136,7 @@
                                     <option value="2020" {{ $product->year == 2020 ? 'selected' : '' }}>2020</option>
                                     <option value="2021" {{ $product->year == 2021 ? 'selected' : '' }}>2021</option>
                                     <option value="2022" {{ $product->year == 2022 ? 'selected' : '' }}>2022</option>
-                                    <option value="2023" {{ $product->year == 2023 ? 'selected' : '' }}>2022</option>
+                                   <option value="2023" {{ $product->year == 2023 ? 'selected' : '' }}>2023</option>
                                 </select>
                             </div>
                         </div>

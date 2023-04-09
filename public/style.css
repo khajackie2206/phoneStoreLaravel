@@ -3916,7 +3916,7 @@ color: #fed700 !important;
 .payment-accordion .card-body>p {
 color: #515151;
 }
-.order-button-payment input {
+.order-button-payment button {
 background: #434343 none repeat scroll 0 0;
 border: medium none;
 color: #fff;
@@ -3932,12 +3932,29 @@ width: 100%;
 border: 1px solid transparent;
 cursor: pointer;
 }
-.order-button-payment input:hover {
+.order-button-payment button:hover {
 background: #fed700 none repeat scroll 0 0;
 }
 /*----------------------------------------*/
 /* 6.5 Li's Login Register
 /*----------------------------------------*/
+.category-hover {
+    margin-right: 20px;
+    display: flex;
+    color: #242424;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 35px;
+    font-weight: 500;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.category-hover:hover {
+    color: #fff;
+    text-shadow: none;
+}
+
 .login-title {
 font-size: 20px;
 line-height: 23px;

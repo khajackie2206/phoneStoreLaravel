@@ -7,23 +7,18 @@
     <style>
         :not(.pagination-product) {}
     </style>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.13.2/i18n/vi.json"></script>
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-
+    <script src="{{ asset('Jquery/jquery-3.6.4.min.js') }}" rel="stylesheet"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('canvas-js/canvasjs.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js')}}"></script>
 </head>
 
 <body>
@@ -35,83 +30,7 @@
             @yield('content')
             @include('admin.footer')
         </div>
-
     </div>
-
-
-
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-            // Line chart
-            new Chart(document.getElementById("chartjs-dashboard-line"), {
-                type: "line",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                        "Dec"
-                    ],
-                    datasets: [{
-                        label: "Sales ($)",
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.primary,
-                        data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
-                        ]
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        intersect: false
-                    },
-                    hover: {
-                        intersect: true
-                    },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                stepSize: 1000
-                            },
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }]
-                    }
-                }
-            });
-        });
-    </script> --}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -241,10 +160,11 @@
     <script>
         //Get current path to active location
         var path = window.location.href;
+
         if (path.includes("/admin/order/")) {
             document.getElementById("sidebar-order").classList.add("active");
         }
-        if (path.includes("/admin/product/")) {
+        if (path.includes("/admin/product")) {
             document.getElementById("sidebar-product").classList.add("active");
         }
 
@@ -284,6 +204,9 @@
         document.getElementById("sidebar-suppliers").classList.add("active");
         }
 
+        if (path.includes("/admin/categories/")) {
+            document.getElementById("sidebar-category").classList.add("active");
+        }
 
         //Remove previous active class name
         let previousSideBarActiveItem = document.getElementsByClassName('sidebar-item active')[0].classList.remove("active")
@@ -301,8 +224,6 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src=" {{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
-
-
 </body>
 
 </html>

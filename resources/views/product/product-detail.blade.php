@@ -51,7 +51,7 @@
                     <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 20px;">
 
                         @foreach ($product->images as $image)
-                        <div class="sm-image"><img src="{{ $image->url }}" alt="product image thumb"
+                        <div class="sm-image" style="margin-right: 10px;"><img src="{{ $image->url }}" alt="product image thumb"
                                 style="max-height: 160px; "></div>
                         @endforeach
                     </div>
@@ -166,7 +166,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="add-to-cart" type="submit">Đặt mua ngay</button>
+                                @if (isset(session('user')->role))
+                                <button class="add-to-cart" type="submit" disabled >Đặt mua ngay</button>
+                                @else
+                                      <button class="add-to-cart" type="submit">Đặt mua ngay</button>
+                                @endif
                             </div>
                             <input type="hidden" name="productId" value="{{ $product->id }}">
                             <input type="hidden" id="url" name="url" value="/products/details/{{ $product->id }}">

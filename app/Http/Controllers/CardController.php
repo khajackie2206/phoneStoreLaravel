@@ -11,6 +11,8 @@ use App\Services\CardService;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use App\Models\Brand;
+use App\Models\ProductCategory;
 
 class CardController extends Controller
 {
@@ -95,12 +97,19 @@ class CardController extends Controller
     {
         $products = $this->cardService->getProduct();
         $sessionProducts = $this->cardService->getProduct();
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
 
         return view('product.card-product', [
             'title' => 'Giỏ hàng',
             'products' => $products,
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 
@@ -173,18 +182,30 @@ class CardController extends Controller
         $auth = session()->get('user');
         $user = User::where('id', $auth->id)->first();
         $sessionProducts = $this->cardService->getProduct();
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
 
         return view('product.thank-you', [
             'title' => 'Đặt hàng thành công',
             'user' => $user,
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 
     public function checkout()
     {
         $auth = session()->get('user') ?? null;
+
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
+
 
         if (!$auth) {
             Alert::error('Vui lòng đăng nhập');
@@ -205,7 +226,9 @@ class CardController extends Controller
             'user' => $user,
             'carts' => session()->get('carts'),
             'sessionProducts' => $sessionProducts,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'brands' => $brands,
+            'categories' => $categories,
         ]);
     }
 

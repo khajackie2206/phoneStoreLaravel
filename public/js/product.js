@@ -289,6 +289,7 @@ function loadMore() {
     }
     const url = window.location.href;
     let newUrl = url.replace("products/filter", "products/load-more");
+    console.log(page);
     // if (
     //     newUrl === "http://127.0.0.1:8000/products/load-more" || newUrl === "http://allo-store.vn/products/load-more"
     // ) {
@@ -311,7 +312,7 @@ function loadMore() {
                 $("#filterArea").append(result.data);
                 $("#page").val(page + 1);
                 //6 is product quantity/request
-            } if( (result.numberOfProduct - page * 6 )< 6) {
+            } if( (result.numberOfProduct - (page * 9) ) < 9) {
                 $("#button-loadMore").css("display", "none");
             }
         },
@@ -335,13 +336,13 @@ $(document).ready(function () {
     // });
 });
 
-$(document).ready(function () {
-    $("#submit-discount").click(function () {
-        var formData = $("#form-discount").serialize();
-        let url = "/products/discount?"+formData;
-        window.location = url;
-    });
-});
+// $(document).ready(function () {
+//     $("#submit-discount").click(function () {
+//         var formData = $("#form-discount").serialize();
+//         let url = "/products/discount?"+formData;
+//         window.location = url;
+//     });
+// });
 
 
 $("#actual-btn").change(function () {

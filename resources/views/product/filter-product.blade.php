@@ -58,6 +58,16 @@
                             <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                                 <div class="product-area shop-product-area">
                                     <div class="row" id="filterArea">
+
+                                        @if (count($products) == 0)
+                                            <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
+                                                <div class="alert alert-info text-center" role="alert">
+                                                    Không có sản phẩm nào
+                                                </div>
+                                            </div>
+                                        @endif
+
+
                                         @foreach ($products as $product)
 
                                              <?php
@@ -149,6 +159,13 @@
                             <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                                 <div class="row">
                                     <div class="col" id="flexProduct">
+                                        @if (count($products) == 0)
+                                        <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
+                                            <div class="alert alert-info text-center" role="alert">
+                                                Không có sản phẩm nào
+                                            </div>
+                                        </div>
+                                        @endif
                                         @foreach ($products as $product)
                                         <?php
                                                                                         $countRating = count($product->comments->where('status', 1));
@@ -381,6 +398,24 @@
                                     <input type="hidden" name="filter[os]">
                                 </div>
                             </div>
+
+                            <div class="filter-sub-area pt-sm-10 pb-sm-15 pb-xs-15">
+                                <h5 class="filter-sub-titel">Danh mục</h5>
+                                <div class="categori-checkbox">
+                                    <ul>
+                                       @foreach ($categories as $category)
+                                    <li class="d-flex align-items-center">
+                                        <input type="checkbox" class="feature_checkbox category categoryFilter" id="category-{{ $category->id }}"
+                                            value="{{ $category->id }}" {{ in_array($category->id, $categoryFilter) ? 'checked' : '' }}>
+                                        <a><label class="mb-0 pb-0" for="category-{{ $category->id }}">{{ $category->name }}</label></a>
+                                    </li>
+                                    @endforeach
+                                    </ul>
+                                    <input type="hidden" name="filter[category]">
+                                </div>
+                            </div>
+
+
                             <button class="btn-primary mb-sm-30 mb-xs-30"
                                 style="border: none; border-radius: 2px; padding: 3px 15px 3px 15px;cursor: pointer;"
                                 id="btnSearch">Tìm kiếm</button>
@@ -581,6 +616,17 @@
                     $('input[name="filter[os]"]').val(phoneTypesString);
                 } else {
                     $('input[name="filter[os]"]').remove();
+                }
+
+                //get value of all input with class name is categoryFilter and add it to array with -
+                var phoneTypes = $('.categoryFilter:checked').map(function() {
+                return $(this).val();
+                }).get();
+                var phoneCategoryString = phoneTypes.join(',');
+                if (phoneCategoryString != '') {
+                $('input[name="filter[category]"]').val(phoneCategoryString);
+                } else {
+                $('input[name="filter[category]"]').remove();
                 }
                 //submit form
                 $('#myForm').submit();

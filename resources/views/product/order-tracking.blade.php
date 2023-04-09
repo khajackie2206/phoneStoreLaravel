@@ -1,14 +1,21 @@
 @extends('index')
 @section('content')
     <div class="container" style="margin-bottom: 30px;">
-
+    <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px">
+        <a id="all-order" href="/users/order-tracking" class="btn btn-outline-secondary {{ $status == 0 || !isset($status) ? 'active' : ''}}" >Tất cả</a>
+        <a id="wait-for-confirm" href="/users/order-tracking?status=1" class="btn btn-outline-primary {{ $status == 1 ? 'active' : ''}}" >Chờ xác nhận</a>
+        <a id="confirmed" href="/users/order-tracking?status=2" class="btn btn-outline-info {{ $status == 2 ? 'active' : ''}}" >Đã xác nhận</a>
+        <a  href="/users/order-tracking?status=3" class="btn btn-outline-warning {{ $status == 3 ? 'active' : ''}}" >Đang giao hàng</a>
+        <a href="/users/order-tracking?status=4" class="btn btn-outline-success {{ $status == 4 ? 'active' : ''}}" >Giao hàng thành công</a>
+        <a href="/users/order-tracking?status=5" class="btn btn-outline-danger {{ $status == 5 ? 'active' : ''}}" >Đã hủy</a>
+    </div>
         <div class="card">
-            @if ($orders->isEmpty())
+            @if ($orders->count() == 0)
                 <div class="text-center" style="margin-top: 50px;">
                     <i class="fa fa-shopping-cart fa-5x" style="color: #666;" aria-hidden="true"></i>
                 </div>
                 <div class="text-center" style="margin-top: 20px;color: #666;">
-                    <h4>Bạn chưa mua sản phẩm nào</h4>
+                    <h4>Chưa có đơn hàng</h4>
                 </div>
             @endif
             @foreach ($orders as $order)
@@ -171,5 +178,19 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        //Get current path to active location
+            var path = window.location.href;
+            if (path.includes("/admin/order/")) {
+                document.getElementById("sidebar-order").classList.add("active");
+            }
+            if (path.includes("/admin/product")) {
+                document.getElementById("sidebar-product").classList.add("active");
+            }
+
+
+
     </script>
 @endsection
