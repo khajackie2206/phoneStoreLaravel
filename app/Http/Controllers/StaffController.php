@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Yajra\DataTables\Facades\DataTables;
 
-use App\Models\Admin;
-
-
 class StaffController extends Controller
 {
     //prepare data label for chartjs
@@ -262,15 +259,13 @@ class StaffController extends Controller
     {
         // $activities = Activity::with('admin')->select('*');
         // activities join admin and select all columns in table activities and admin use eloquent
-        $activities = Activity::with('admin')->select('*');
+        $activities = Activity::with(['admin'])->select('*');
 
-        return Datatables::eloquent($activities)->addColumn('avatar', function (Activity $activity) {
+        return Datatables::eloquent($activities)->addColumn('avatar', function ($activity) {
             return '<img src="' . $activity->admin->avatar . '" width="40" style="border-radius: 50%;" >';
-        })->addColumn('email', function (Activity $activity) {
-            return $activity->admin->email;
         })->editColumn('created_at', function ($activity) {
             return  '<span style="font-weight: bold;">' . $activity->created_at->format('d.m.Y H:i:s') . '</span>';
-        })->rawColumns(['created_at','email','avatar', 'action'])->make();
+        })->rawColumns(['created_at','avatar'])->make();
     }
 
     //get all activity

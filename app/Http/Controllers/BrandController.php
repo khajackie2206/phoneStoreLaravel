@@ -55,12 +55,12 @@ class BrandController extends Controller
 
          return Datatables::of($brands)->addColumn('action', function ($brand) {
              return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/brand/edit/'.$brand->id.'"><i class="fas fa-edit fa-xl"></i></a>
-                    <a href="/admin/brand/delete/'.$brand->id.'" onclick="return deleteBrand(event);"<i type="submit" style="color: red;"
+                    <a href="/admin/brand/delete/'.$brand->id.'" onclick="return deleteBrand(event);" <i type="submit" style="color: red;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' ;
          })->editColumn('name', function ($brand) {
              return ' <span style="font-weight: bold;">'.$brand->name.'</span>';
          })->editColumn('image', function ($brand) {
-             return  '<img src="'.$brand->image.'" width="50" >';
+             return  '<img src="'.$brand->image.'" height="30" >';
          })->editColumn('active', function ($brand) {
              return  $brand->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
          })->editColumn('country', function ($brand) {

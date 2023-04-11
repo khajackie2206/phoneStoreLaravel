@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function index()
     {
         $features = Feature::get();
-        $brands = Brand::get();
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
         $categories = ProductCategory::get();
         return view('admin.product.add-product', [
             'features' => $features,
@@ -271,9 +271,9 @@ class ProductController extends Controller
         $romFilter = request()->input('filter.rom');
         $romFilter = $romFilter ? explode('-', $romFilter) : [];
         $osFilter = request()->input('filter.os');
-        $osFilter = $osFilter ? explode(',', $osFilter) : [];
+        $osFilter = $osFilter ? explode('-', $osFilter) : [];
         $categoryFilter = request()->input('filter.category');
-        $categoryFilter = $categoryFilter ? explode(',', $categoryFilter) : [];
+        $categoryFilter = $categoryFilter ? explode('-', $categoryFilter) : [];
         $sortFilter = request()->input('sort');
 
         $productWithTotal = $this->productService->filterProduct(request()->input());

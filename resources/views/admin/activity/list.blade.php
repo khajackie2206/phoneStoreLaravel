@@ -138,17 +138,15 @@
                  ajax: '{!! route('activity_data') !!}',
                  columns: [{
                          data: 'id',
-
                      },
                         {
                             data: 'avatar',
 
                         },
-
-                     {
+                      {
                          data: 'admin.email',
 
-                     },
+                      },
                      {
                          data: 'action',
 

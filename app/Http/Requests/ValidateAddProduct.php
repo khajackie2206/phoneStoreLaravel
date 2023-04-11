@@ -35,8 +35,6 @@ class ValidateAddProduct extends FormRequest
             'size' => 'required',
             'color' => 'required',
             'features' => 'required',
-            'files' => 'required',
-            'file' => 'required',
             'discount' => 'nullable|integer'
         ];
     }

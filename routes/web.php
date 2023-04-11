@@ -145,7 +145,7 @@ Route::prefix('admin')
 
             #activities
             Route::get('/activities', [StaffController::class, 'getAllActivity']);
-            Route::get('/activity-data', [StaffController::class, 'getActivityData'])->name('activity_data');
+            Route::GET('/activity-data', [StaffController::class, 'getActivityData'])->name('activity_data');
         });
     });
 

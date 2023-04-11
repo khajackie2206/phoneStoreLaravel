@@ -56,7 +56,7 @@ class Product extends Model
 
     public function scopeOs(Builder $query, string $osId): Builder
     {
-        $osId = explode(',', $osId);
+        $osId = explode('-', $osId);
 
         return $query->whereIn('os', $osId);
     }

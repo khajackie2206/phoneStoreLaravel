@@ -62,6 +62,13 @@ class CardController extends Controller
             'quantity' => 'required|numeric|integer|gt:0',
         ]);
         $product = Product::where('id', $params['productId'])->first();
+        $user = session()->get('user');
+        if (!$user) {
+            $url = $params['url'];
+            Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
+            return redirect('/login?url=' . $url . '');
+        }
+
 
         if ($validator->fails()) {
             Alert::error('Lỗi', 'Số lượng không hợp lệ');
@@ -81,13 +88,7 @@ class CardController extends Controller
             return redirect()->back();
         }
 
-        $result = $this->cardService->create($params);
-
-        if (!$result) {
-            $url = $params['url'];
-            Alert::error('Đăng nhập', 'Đăng nhập để thêm vào giỏ hàng');
-            return redirect('/login?url=' . $url . '');
-        }
+        $this->cardService->create($params);
 
         Alert::success('Thành công', 'Thêm sản phẩm vào giỏ hàng thành công');
         return redirect()->route('carts');

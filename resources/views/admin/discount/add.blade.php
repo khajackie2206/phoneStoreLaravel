@@ -16,11 +16,13 @@
                             <input type="text" class="form-control" placeholder="Tên khuyến mãi" name="name">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('name') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-8px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('name') }}</li>
                         </ul>
                         @endif
+                    </div>
                         <div class="card-header" >
                             <h5 class="card-title mb-0">Mã khuyến mãi</h5>
                         </div>
@@ -28,24 +30,27 @@
                             <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi" name="code">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('code') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-8px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('code') }}</li>
                         </ul>
                         @endif
+                       </div>
                         <div class="card-header" >
                             <h5 class="card-title mb-0">Số lượng của khuyến mãi</h5>
                         </div>
                         <div class="card-body" style="margin-top: -22px; margin-bottom: 15px;">
                             <input type="text" class="form-control" placeholder="Nhập số lượng mã khuyến mãi"
                                 name="quantity">
-
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('quantity') != '')
                         <ul style="margin-top:-25px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('quantity') }}</li>
                         </ul>
                         @endif
+                    </div>
                     </div>
                 </div>
 
@@ -61,7 +66,7 @@
                                  <option value="money">giảm tiền mặt</option>
                             </select>
                         </div>
-                        <div class="card-header">
+                        <div class="card-header" style="margin-top: 18px;">
                             <h5 class="card-title mb-0">Giá trị của khuyến mãi</h5>
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
@@ -69,12 +74,13 @@
                                 placeholder="Nhập giá trị của khuyến mãi">
                         </div>
 
-
+                       <div style="height:20px;">
                         @if ($errors->first('amount') != '')
                         <ul style="margin-top:-5px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('amount') }}</li>
                         </ul>
                         @endif
+                    </div>
 
                         <div class="card-header">
                             <h5 class="card-title mb-0">Kích hoạt</h5>
@@ -84,7 +90,7 @@
                                 <input class="custom-control-input" value="1" type="radio" id="active" name="active" checked="true">
                                 <label for="active" class="custom-control-label">Có</label>
                             </div>
-                            <div>
+                            <div style="margin-bottom: 20px;">
                                 <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
                                 <label for="no_active" class="custom-control-label">Không</label>
                             </div>

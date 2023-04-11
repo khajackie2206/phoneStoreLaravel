@@ -15,7 +15,7 @@
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" value="{{ $category->name}}" class="form-control"
                                 placeholder="Tên danh mục..." name="name">
-                            <p class="name_alert" style="color:red;margin-top:15px;"></p>
+                            <p class="name_alert" style="color:red;margin-top: 5px; height: 20px;"></p>
                         </div>
                         <!-- select -->
                         <div class="card-header">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
                             <textarea class="form-control" rows="7" id="description" name="description">{{ $category->description }}</textarea>
-                            <p class="description_alert" style="color:red;margin-top:15px;"></p>
+                            <p class="description_alert" style="color:red;margin-top: 5px; height: 20px;"></p>
                         </div>
                     </div>
                 </div>
@@ -64,14 +64,18 @@
     var name = document.getElementsByName("name")[0];
     var description = document.getElementById("description").value;
 
-    if (name.value == "" || name.value.length < 20) { //innerHTML for getElementsByTagName for note
-      document.getElementsByClassName("name_alert")[0].innerHTML="Tên không được để trống và phải lớn hơn 20 ký tự" ;
+    if (name.value == "") { //innerHTML for getElementsByTagName for note
+      document.getElementsByClassName("name_alert")[0].innerHTML="Tên không được để trống" ;
       check=false;
+    } else {
+      document.getElementsByClassName("name_alert")[0].innerHTML="" ;
     }
 
-    if (description == "" || description.length < 20) { //innerHTML for getElementsByTagName for note
-      document.getElementsByClassName("description_alert")[0].innerHTML="Mô tả không được để trống và phải lớn hơn 20 ký tự" ;
+    if (description == "") { //innerHTML for getElementsByTagName for note
+      document.getElementsByClassName("description_alert")[0].innerHTML="Mô tả không được để trống" ;
       check=false;
+    } else {
+      document.getElementsByClassName("description_alert")[0].innerHTML="" ;
     }
 
     return check;

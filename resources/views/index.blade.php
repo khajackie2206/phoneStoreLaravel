@@ -7,91 +7,6 @@
     @include('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        .loader-wrapper {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: #242f3f;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loader {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            position: relative;
-            border: 4px solid #Fff;
-            animation: loader 2s infinite ease;
-
-        }
-
-        .loader-inner {
-            vertical-align: top;
-            display: inline-block;
-            width: 100%;
-            background-color: #fff;
-            animation: loader-inner 2s infinite ease-in;
-        }
-
-        @keyframes loader {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(180deg);
-            }
-
-            50% {
-                transform: rotate(180deg);
-            }
-
-            75% {
-                transform: rotate(360deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes loader-inner {
-            0% {
-                height: 0%;
-            }
-
-            25% {
-                height: 0%;
-            }
-
-            50% {
-                height: 100%;
-            }
-
-            75% {
-                height: 100%;
-            }
-
-            100% {
-                height: 0%;
-            }
-        }
-
-        .menu_no_arrow:after{
-           content: none !important;
-        }
     </style>
 {{--
 <link rel="stylesheet" type="text/css"
@@ -100,8 +15,6 @@
 </head>
 
 <body>
-
-
     @include('sweetalert::alert')
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
@@ -166,12 +79,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"
         integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>
-        $(window).on("load", function() {
-            $(".loader-wrapper").fadeOut(200);
-        });
-    </script>
 
     <script>
         var botmanWidget = {

@@ -10,6 +10,8 @@ class Activity extends Model
 {
     use HasFactory;
 
+    protected $table = 'activities';
+
     protected $fillable = [
         'staff_id',
         'action',

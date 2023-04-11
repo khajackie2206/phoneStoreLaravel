@@ -13,14 +13,14 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Người lập phiếu</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -22px;">
+                        <div class="card-body" style="margin-top: -20px;">
                             <input type="text" class="form-control" placeholder="{{ $user->name}}" value="{{ $user->name}}" disabled>
                         </div>
 
-                        <div class="card-header">
+                        <div class="card-header" style="margin-top: 20px;">
                             <h5 class="card-title mb-0">Nhà cung cấp</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -22px;">
+                        <div class="card-body" style="margin-top: -20px;">
                           <select class="form-select mb-1" name="supplier">
                             @foreach ($suppliers as $value)
                                   <option value="{{$value->id}}" selected>{{ $value->name}}</option>
@@ -37,10 +37,10 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Ghi chú</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -22px;">
+                        <div class="card-body" style="margin-top: -22px; ">
                             <textarea class="form-control" name="note" rows="6"
                                 placeholder="Nhập mô tả ngắn"></textarea>
-                                <p class="note_alert" style="color:red;margin-top:15px;"></p>
+                                <p class="note_alert" style="color:red;margin-top:15px;height: 20px; margin-bottom: -10px;"></p>
                         </div>
 
 
@@ -70,7 +70,7 @@
                             </div>
                             <div class="card-body" style="margin-top: -22px;">
                                <input class="quantity_input" type="text" class="form-control" placeholder="" name="quantity">
-                               <p class="quantity_alert" style="color:red;margin-top:15px;"></p>
+                               <p class="quantity_alert" style="color:red;margin-top:15px;height: 20px;"></p>
                             </div>
 
 
@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-body" style="margin-top: -22px;">
                                <input class="price_input" type="text" class="form-control" placeholder="" name="price">
-                               <p class="price_alert" style="color:red;margin-top:15px;"></p>
+                               <p class="price_alert" style="color:red;margin-top:15px;height: 20px;"></p>
                             </div>
 
                         </div>
@@ -131,6 +131,9 @@
                 document.getElementsByClassName("price_alert")[i].innerHTML = "Giá nhập không được để trống";
                 check = false;
                 break;
+            } else {
+                //innerHTML for getElementsByTagName for quantity
+                document.getElementsByClassName("price_alert")[i].innerHTML = "";
             }
             //if price is not a number then check is false
             if (isNaN(prices[i].value)) {
@@ -138,6 +141,9 @@
                 document.getElementsByClassName("price_alert")[i].innerHTML = "Giá nhập không hợp lệ";
                 check = false;
                 break;
+            } else
+            {
+                document.getElementsByClassName("price_alert")[i].innerHTML = "";
             }
         }
         var quantities = document.getElementsByClassName("quantity_input");
@@ -149,13 +155,17 @@
                 document.getElementsByClassName("quantity_alert")[i].innerHTML = "Số lượng không được để trống";
                 check = false;
                 break;
+            } else {
+                //innerHTML for getElementsByTagName for quantity
+                document.getElementsByClassName("quantity_alert")[i].innerHTML = "";
             }
             //if quantity is not a number then check is false
             if (isNaN(quantities[i].value)) {
                 //innerHTML for getElementsByTagName for quantity
                 document.getElementsByClassName("quantity_alert")[i].innerHTML = "Số lượng không hợp lệ";
-                check = false;
                 break;
+            } else {
+                document.getElementsByClassName("quantity_alert")[i].innerHTML = "";
             }
         }
 
@@ -166,6 +176,9 @@
             //innerHTML for getElementsByTagName for note
             document.getElementsByClassName("note_alert")[0].innerHTML = "Ghi chú không được để trống và phải lớn hơn 10 ký tự";
             check = false;
+        } else
+        {
+            document.getElementsByClassName("note_alert")[0].innerHTML = "";
         }
 
         return check;
