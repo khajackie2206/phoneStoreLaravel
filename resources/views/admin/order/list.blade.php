@@ -24,17 +24,18 @@
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="5%">ID</th>
-                                                <th scope="col" width="17%" style="text-align: center;">Tên khách hàng</th>
-                                                <th scope="col" width="15%" style="text-align: center;">Tổng đơn</th>
+                                                <th scope="col" width="14%" style="text-align: left;">Tên khách hàng</th>
+                                                <th scope="col" width="12%" style="text-align: left;">Tổng đơn</th>
 
-                                                <th scope="col" width="18%"  style="text-align: center;">Trạng thái</th>
-                                                <th scope="col" width="15%"  style="text-align: center;">Thanh toán</th>
-                                                <th scope="col" width="20%"  style="text-align: center;">Ngày đặt hàng</th>
-                                                <th scope="col" width="15%"><span>Thao tác</span>
+                                                <th scope="col" width="15%"  style="text-align: left;">Trạng thái</th>
+                                                <th scope="col" width="13%"  style="text-align: left;">Thanh toán</th>
+                                                <th scope="col" width="14%"  style="text-align: left;">Duyệt đơn</th>
+                                                <th scope="col" width="14%"  style="text-align: left;">Ngày đặt hàng</th>
+                                                <th scope="col" width="12%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody style="text-align: center;"></tbody>
+                                        <tbody style="text-align: left;"></tbody>
                                         {{-- <tbody>
                                             @foreach ($orders as $order)
                                                 <tr style="text-align: center;">
@@ -125,7 +126,7 @@
              $('#order-table').DataTable({
                  processing: true,
                  serverSide: true,
-                 order: [[ 5, 'desc' ]],
+                 order: [[ 6, 'desc' ]],
                  "language": {
                      "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
                       "zeroRecords": "Không tìm thấy kết quả",
@@ -174,8 +175,7 @@
                             }
                         }
                      },
-                     {
-                         data: 'payment_id',
+                    { data: 'payment_id',
                         "render": function(data, type, row, meta) {
                             if (row["payment_id"] === 1) {
                                 return `<span class="badge bg-success">Trả khi nhận hàng</span>`
@@ -185,7 +185,20 @@
                                 return `<span class="badge bg-danger">Thanh toán VNPay</span>`
                             }
                         }
-                     },
+                    },
+
+                    {
+                        data: 'admin',
+                        // "render": function(data, type, row, meta) {
+                        //   if (data.name == "Admin") {
+                        //      return `<span style="font-weight:bold;"></span>`
+                        //     } else if(!data){
+                        //       return `<span style="font-weight:bold;"> *Chưa duyệt*</span>`
+                        //    } else {
+                        //      return `<span style="font-weight:bold;"></span>`
+                        //   }
+                        // }
+                    },
                      {
                          data: 'created_at',
 
@@ -203,14 +216,11 @@
          function deleteOrder(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
-             swal({
+             new swal({
                  title: "Bạn có chắc muốn xóa đơn hàng này không?",
                  icon: "warning",
                  type: "warning",
                  buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã kích hoạt!'
              }).then((willDelete) => {
                 if (willDelete) {
                     window.location.href = urlToRedirect;

@@ -341,14 +341,11 @@
          function deleteComment(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
-             swal({
+             new swal({
                  title: "Bạn có chắc muốn xóa bình luận này không?",
                  icon: "warning",
                  type: "warning",
                  buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã kích hoạt!'
              }).then((willDelete) => {
                 if (willDelete) {
                     window.location.href = urlToRedirect;

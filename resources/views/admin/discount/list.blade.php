@@ -137,14 +137,11 @@
          function deleteDiscount(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
-             swal({
+             new swal({
                  title: "Bạn có chắc muốn xóa mã giảm giá này không?",
                  icon: "warning",
                  type: "warning",
                  buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã xóa!'
              }).then((willDelete) => {
                 if (willDelete) {
                     window.location.href= urlToRedirect;

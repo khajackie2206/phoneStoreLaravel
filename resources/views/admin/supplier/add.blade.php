@@ -15,34 +15,40 @@
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="Tên nhà cung cấp..." name="name">
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('name') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('name') }}</li>
                         </ul>
                         @endif
-                        <div class="card-header">
+                        </div>
+                        <div class="card-header" style="margin-top: -15px;">
                             <h5 class="card-title mb-0">Email</h5>
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="Nhập email..." name="email">
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('email') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('email') }}</li>
                         </ul>
                         @endif
-                        <div class="card-header">
+                        </div>
+                        <div class="card-header" style="margin-top: -15px;">
                             <h5 class="card-title mb-0">Số điện thoại</h5>
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="số điện thoại..." name="phone">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('phone') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('phone') }}</li>
                         </ul>
                         @endif
+                       </div>
                     </div>
                 </div>
 
@@ -55,11 +61,13 @@
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="Địa chỉ nhà cung cấp..." name="address">
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('address') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('address') }}</li>
                         </ul>
                         @endif
+                        </div>
                         <div class="card-header" style="margin-top: 12px;">
                             <h5 class="card-title mb-0">Trạng thái</h5>
                         </div>
@@ -68,7 +76,7 @@
                             <input class="custom-control-input" value="1" type="radio" id="active" name="status" checked="true">
                             <label for="active" class="custom-control-label">Hợp tác</label>
                         </div>
-                        <div style="margin-top: 10px; margin-bottom: 57px;">
+                        <div style="margin-top: 10px; margin-bottom: 68px;">
                             <input class="custom-control-input" value="0" type="radio" id="no_active" name="status">
                             <label for="no_active" class="custom-control-label">Ngừng hợp tác</label>
                         </div>

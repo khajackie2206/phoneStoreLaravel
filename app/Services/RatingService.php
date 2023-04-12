@@ -41,4 +41,18 @@ class RatingService
         }
         return true;
     }
+
+    //check user has product in order table
+    public function checkUserComment($user_id, $product_id)
+    {
+        $check = DB::table('orders')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->where('orders.user_id', $user_id)
+            ->where('order_details.product_id', $product_id)
+            ->first();
+        if ($check) {
+            return true;
+        }
+        return false;
+    }
 }

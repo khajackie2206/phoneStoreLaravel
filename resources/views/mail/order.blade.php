@@ -189,9 +189,9 @@
                                                         @else
                                                          -{{ number_format($discount) }}
                                                        @endif
-                                                          @else
+                                                   @else
                                                           0
-                                                       @endif
+                                                    @endif
                                                     <span style="text-decoration: underline;">đ</span>
                                             </tr>
                                             <tr>

@@ -22,7 +22,9 @@ class Order extends Model
         'note',
         'total',
         'delivery_address',
-        'voucher_id'
+        'voucher_id',
+        'staff_id',
+        'deleted_at'
     ];
 
     public function status(): HasOne
@@ -48,6 +50,11 @@ class Order extends Model
     public function voucher(): HasOne
     {
         return $this->hasOne(Voucher::class, 'id', 'voucher_id');
+    }
+
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class,'id','staff_id');
     }
 
 }

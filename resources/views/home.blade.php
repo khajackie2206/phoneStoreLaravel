@@ -129,7 +129,7 @@
                                                 </span>
 
                                                 <span
-                                                    style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                    style="color: #333; font-weight:bold; font-size: 80%;margin-left: 5px;text-decoration: line-through;">
                                                     {{ number_format($productNewly->price) }} <span
                                                         style="text-decoration: underline;">đ</span></span>
                                                 <span></span>
@@ -174,6 +174,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                         <div class="product-active owl-carousel">
+                           <?php $top = 0 ?>
                             @foreach ($bestSellers as $bestSeller)
                             <?php
                                 $countRatingSeller = count($bestSeller->comments->where('status', 1));
@@ -186,6 +187,8 @@
                                 $avgRatingSeller = $sumRatingSeller / $countRatingSeller;
                                 }
 
+                                $top += 1;
+
                                 ?>
                            <div class="col-lg-12">
                                     <!-- single-product-wrap start -->
@@ -197,7 +200,7 @@
                                                     style="width: 120px;height:120px;">
                                                 @endif
                                             </a>
-                                            <span class="sticker" style="background-color: yellow; color: black; font-weight:bold;">Top</span>
+                                            <span class="sticker" style="background-color: yellow; color: black; font-weight:bold;">Top {{$top}}</span>
                                         </div>
 
                                         <div class="product_desc">
@@ -227,7 +230,7 @@
                                                     </span>
 
                                                     <span
-                                                        style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                        style="color: #333; font-weight:bold; font-size: 80%;margin-left: 5px;text-decoration: line-through;">
                                                         {{ number_format($bestSeller->price) }} <span
                                                             style="text-decoration: underline;">đ</span></span>
                                                     <span></span>
@@ -457,7 +460,7 @@
                                                     <span style="text-decoration: underline;">đ</span>
                                                 </span>
                                                 <span
-                                                    style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                    style="color: #333; font-weight:bold; font-size: 80%;margin-left: 5px;text-decoration: line-through;">
                                                     {{ number_format($productDiscount->price) }} <span
                                                         style="text-decoration: underline;">đ</span></span>
                                                 <span class="discount-percentage">-{{
@@ -596,7 +599,7 @@
                                                     <span style="text-decoration: underline;">đ</span>
                                                 </span>
                                                 <span
-                                                    style="color: #333; font-weight:bold; font-size: 85%;margin-left: 5px;text-decoration: line-through;">
+                                                    style="color: #333; font-weight:bold; font-size: 80%;margin-left: 5px;text-decoration: line-through;">
                                                     {{ number_format($goodProduct->price) }} <span
                                                         style="text-decoration: underline;">đ</span></span>
                                                 <span class="discount-percentage">-{{

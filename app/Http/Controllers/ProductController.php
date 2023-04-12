@@ -186,7 +186,6 @@ class ProductController extends Controller
     {
         Product::where('id', $product->id)->update(['delete_at' => Carbon::now()]);
         //insert activity
-
         $user = session()->get('user');
         $dataActivity = [
             'staff_id' => $user->id,

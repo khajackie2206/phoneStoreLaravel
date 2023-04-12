@@ -27,6 +27,13 @@ class RatingController extends Controller
             Alert::error('Vui lòng đăng nhập trước khi đánh giá sản phẩm!');
             return redirect('/login?url=' . $url . '');
         }
+
+        //if user has product in order table then can comment
+        $check = $this->ratingService->checkUserComment($user->id, $input['product_id']);
+        if (!$check) {
+            Alert::error('Không thể đưa ra đánh giá do bạn chưa mua sản phẩm này!');
+            return redirect()->back();
+        }
         $input['user_id'] = $user->id;
         $result = $this->ratingService->add($input);
 

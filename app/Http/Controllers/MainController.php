@@ -25,6 +25,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\ProductCategory;
 use App\Models\Activity;
 use App\Models\Brand;
+use Illuminate\Validation\Rules\Exists;
 
 class MainController extends Controller
 {
@@ -170,11 +171,11 @@ class MainController extends Controller
         $user = session()->get('user');
         $status = 0;
 
-        if(!isset($input['status'])) {
-          $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
+        if (!isset($input['status'])) {
+            $orders = $this->cardService->getOrders($user)->orderBy('created_at', 'DESC')->paginate(3);
         } else {
-          $orders = $this->cardService->getOrders($user)->where('status_id', $input['status'])->orderBy('created_at', 'DESC')->paginate(1000);
-          $status = $input['status'];
+            $orders = $this->cardService->getOrders($user)->where('status_id', $input['status'])->orderBy('created_at', 'DESC')->paginate(1000);
+            $status = $input['status'];
         }
 
         // get all brands
@@ -213,7 +214,7 @@ class MainController extends Controller
 
     public function getData()
     {
-        $orders = Order::with(['user', 'status', 'payment'])->select('*');
+        $orders = Order::with(['user', 'status', 'payment', 'admin'])->where('deleted_at', null)->select('*');
 
         return Datatables::eloquent($orders)->addColumn('action', function ($order) {
             //get current user
@@ -223,11 +224,13 @@ class MainController extends Controller
                     <a href="/admin/order/delete/' . $order->id . '" onclick="return deleteOrder(event);"<i type="submit" style="color: red;margin-right: 20px;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
                     <a style="margin-left:5px; margin-right: 25px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
+        })->addColumn('admin', function ($order) {
+            return !is_null($order->admin) ? '<span >' . $order->admin->name . '</span>' : '<span style="font-style: italic;">*Chưa duyệt*</span>';
         })->editColumn('created_at', function ($order) {
-            return  '<span style="font-weight: bold;">' . $order->created_at->format('d.m.Y H:i:s') . '</span>';
+            return  '<span style="font-weight: bold;">' . $order->created_at->format('d.m.Y') . '</span>';
         })->editColumn('total', function ($order) {
             return  '<span style="color:red;font-weight: bold;"> ' . number_format($order->total) . ' <span style="text-decoration: underline;">đ</span></span>';
-        })->rawColumns(['action', 'total', 'created_at'])->make();
+        })->rawColumns(['action', 'total', 'created_at', 'admin'])->make();
     }
 
     public function show(Order $order)
@@ -333,11 +336,19 @@ class MainController extends Controller
         $input = $request->all();
         $order->update(array('status_id' => $input['status']));
         if ($input['status'] == 5) {
+            $orderDetails = $order->orderDetails;
+            foreach ($orderDetails as $orderDetail) {
+                $product = Product::where('id', $orderDetail->product_id)->first();
+                $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
+            }
+
             Alert::success('Đã hủy đơn hàng!');
         }
+
         if ($input['status'] == 4) {
             Alert::success('Đã xác nhận!');
         }
+
 
         return redirect()->back();
     }
@@ -367,8 +378,37 @@ class MainController extends Controller
 
     public function delete(Order $order)
     {
-        Order::where('id', $order->id)->delete();
+        if ($order->status_id == 1) {
+            $order->update(array('status_id' => 5));
+            $orderDetails = $order->orderDetails;
+            foreach ($orderDetails as $orderDetail) {
+                $product = Product::where('id', $orderDetail->product_id)->first();
+                $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
+            }
+            $order->update(array('deleted_at' => Carbon::now()));
 
+            Alert::success('Đã xóa đơn hàng');
+            return redirect()->back();
+        }
+
+        if ($order->status_id == 2) {
+            Alert::error('Không thể xóa đơn hàng đã được xác nhận');
+            return redirect()->back();
+        }
+
+        if ($order->status_id == 4) {
+            Alert::error('Không thể xóa đơn hàng đã giao thành công');
+            return redirect()->back();
+        }
+
+        if ($order->status_id == 3) {
+            Alert::error('Không thể xóa đơn hàng đang được giao');
+            return redirect()->back();
+        }
+
+        $order->update(array('deleted_at' => Carbon::now()));
+
+        Alert::success('Đã xóa đơn hàng');
         return redirect()->back();
     }
 }

@@ -21,7 +21,7 @@ use App\Models\Activity;
  */
 class ProductService
 {
-    const LIMIT = 6;
+    const LIMIT = 8;
 
     public function create($params)
     {

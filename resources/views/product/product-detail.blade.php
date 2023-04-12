@@ -453,7 +453,7 @@
                                     @if($comment->user->orders != "[]")
                                     <span style="color: #2f855a;font-size: 14px;"><img
                                             src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/523/posts/32694/final_image/tutorial-preview-large.png"
-                                            width="25px">Đã mua tại cửa hàng</span>
+                                            width="25px">Đã mua sản phẩm</span>
                                     @endif
                                     {{-- <span> {{ $comment->user->orders}}</span> --}}
                                 </h5>

@@ -207,14 +207,11 @@
          function blockUser(ev) {
              var urlToRedirect = ev.currentTarget.getAttribute('href');
              event.preventDefault();
-             swal({
+             new swal({
                  title: "Bạn có chắc muốn khóa tài khoản này không?",
                  icon: "warning",
                  type: "warning",
                  buttons: ["Cancel", "Yes!"],
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Đã khóa!'
              }).then((willDelete) => {
                 if (willDelete) {
                     window.location.href = urlToRedirect;

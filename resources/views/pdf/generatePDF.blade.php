@@ -285,14 +285,14 @@
                 </td>
                 <td></td>
                 <td class="large">  @if ($discount != null)
-                                    @if ($discount->type_discount == '%')
+                                        @if ($discount->type_discount == 'percent')
                                         {{ number_format($sub * ($discount->amount / 100)) }}
-                                    @else
+                                        @else
                                         {{ number_format($discount->amount) }}
-                                    @endif
-                                @else
-                                    0
-                                @endif
+                                        @endif
+                                     @else
+                                         0
+                                      @endif
                                 <span style="text-decoration: underline;">đ</span></td>
             </tr>
             <tr>

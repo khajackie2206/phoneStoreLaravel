@@ -16,39 +16,42 @@
                             <input type="text" value="{{ $voucher->name }}" class="form-control" placeholder="Tên khuyến mãi" name="name">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('name') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('name') }}</li>
                         </ul>
                         @endif
-                        <div class="card-header">
+                       </div>
+                        <div class="card-header" style="margin-top: -10px;">
                             <h5 class="card-title mb-0">Mã khuyến mãi</h5>
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi" value="{{ $voucher->code }}" name="code">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('code') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('code') }}</li>
                         </ul>
                         @endif
-                        <div class="card-header">
+                        </div>
+                        <div class="card-header" style="margin-top: -10px;">
                             <h5 class="card-title mb-0">Số lượng của khuyến mãi</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -22px; margin-bottom: 15px;">
+                        <div class="card-body" style="margin-top: -22px;">
                             <input type="text" class="form-control" placeholder="Nhập số lượng mã khuyến mãi"
                                 name="quantity" value="{{ $voucher->quantity }}">
 
                         </div>
+                        <div style="height:20px;">
                         @if ($errors->first('quantity') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('quantity') }}</li>
                         </ul>
                         @endif
-
-
-
+                    </div>
                     </div>
                 </div>
 
@@ -72,12 +75,13 @@
                                 placeholder="Nhập giá trị của khuyến mãi" value="{{ $voucher->amount}}">
                         </div>
 
-
+                        <div style="height:20px;">
                         @if ($errors->first('amount') != '')
-                        <ul style="margin-top:5px;list-style-type:none; ">
+                        <ul style="margin-top:-12px;list-style-type:none; ">
                             <li class="text-danger">{{ $errors->first('amount') }}</li>
                         </ul>
                         @endif
+                       </div>
 
                         <div class="card-header">
                             <h5 class="card-title mb-0">Kích hoạt</h5>
@@ -85,11 +89,12 @@
                         <div class="card-body" style="margin-top: -22px;">
                             <div>
                                 <input class="custom-control-input" value="1" type="radio" id="active" name="active"
-                                    checked="true">
+                                    checked="true" {{ $voucher->active == 1 ? 'checked="true"' : '' }}>
                                 <label for="active" class="custom-control-label">Có</label>
                             </div>
-                            <div>
-                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
+                            <div style="margin-bottom: 5px;">
+                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active"
+                                {{ $voucher->active == 0 ? 'checked="true"' : '' }}>
                                 <label for="no_active" class="custom-control-label">Không</label>
                             </div>
                         </div>
@@ -99,7 +104,7 @@
 
             </div>
             <div class="card-footer" style="text-align: center;">
-                <button type="submit" class="btn btn-primary">Thêm mã</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
             @csrf
         </form>

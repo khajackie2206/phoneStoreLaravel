@@ -426,7 +426,7 @@
                 }],
                 yAxes: [{
                 ticks: {
-                stepSize: 2
+                stepSize: 1
                 },
                 display: true,
                 borderDash: [3, 3],

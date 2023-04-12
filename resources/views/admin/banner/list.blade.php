@@ -5,9 +5,9 @@
 
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Danh sách banner</h1>
-            <a class="badge bg-info text-white ms-2" href="/admin/banner/add">
+            {{-- <a class="badge bg-info text-white ms-2" href="/admin/banner/add">
                 Thêm +
-            </a>
+            </a> --}}
         </div>
         <div class="row">
             <div class="col-md-12 col-xl-12">

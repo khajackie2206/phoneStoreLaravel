@@ -104,6 +104,7 @@ class SupplierController extends Controller
         $supplier->address = $request->address;
         $supplier->phone = $request->phone;
         $supplier->email = $request->email;
+        $supplier->status = $request->status;
         $supplier->save();
         Alert::success('Cập nhật thông tin nhà cung cấp thành công');
         return redirect()->back();
