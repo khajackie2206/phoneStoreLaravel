@@ -317,32 +317,16 @@ function loadMore() {
             }
         },
     });
-
-
 }
 
 $(document).ready(function () {
-    // $(".product-features, .phone-types, .product-memories, .brands").click(function () {
-    //     var formData = $("#myForm").serialize();
-    //     $.ajax({
-    //         url: "/products/load-product?" + formData,
-    //         type: "get",
-    //         dataType: "json",
-    //         success: function (data) {
-    //             $("#filterArea").html(data["data"]);
-    //             $("#flexProduct").html(data["flex"]);
-    //         },
-    //     });
-    // });
-});
+    $("#submit-discount").click(function () {
 
-// $(document).ready(function () {
-//     $("#submit-discount").click(function () {
-//         var formData = $("#form-discount").serialize();
-//         let url = "/products/discount?"+formData;
-//         window.location = url;
-//     });
-// });
+        var formData = $("#form-discount").serialize();
+        let url = "/products/discount?"+formData;
+        window.location = url;
+    });
+});
 
 
 $("#actual-btn").change(function () {

@@ -155,18 +155,18 @@
 
                      },
                      {
-                         data: 'status.name',
+                         data: 'status_id',
                          "render": function(data, type, row, meta) {
-                            if (data === "Chờ xác nhận") {
+                            if (data == 1) {
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                             <span class="badge bg-secondary">Chờ xác nhận</span>`
-                            } else if(data === "Đã xác nhận"){
+                            } else if(data == 2){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                             <span class="badge bg-success">Đã xác nhận</span>`
-                            } else if(data === "Đang giao hàng"){
+                            } else if(data == 3){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                            <span class="badge bg-warning">Đang giao hàng</span>`
-                            } else if(data === "Giao hàng thành công"){
+                            } else if(data == 4){
                                 return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
                                            <span class="badge bg-info text-dark">Giao hàng thành công</span>`
                             } else {

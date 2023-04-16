@@ -63,12 +63,12 @@ class AdminController extends Controller
         ];
     }
 
-    public function mapDataWith14DayAgo($data)
+    public function mapDataWith7DayAgo($data)
     {
         $dataMap = [];
-        $date = now()->subDays(14);
-        for ($i = 0; $i < 14; $i++) {
-            $dataMap[$i]['date'] = $date->format('d-m');
+        $date = now()->subDays(7);
+        for ($i = 0; $i < 7; $i++) {
+            $dataMap[$i]['date'] = $date->format('d-m-Y');
             $dataMap[$i]['total'] = 0;
             foreach ($data as $item) {
                 if ($item->date == $date->format('Y-m-d')) {
@@ -81,28 +81,54 @@ class AdminController extends Controller
         return $dataMap;
     }
 
+    //map data with 7 month ago
+    public function mapDataWith7MonthAgo($data)
+    {
+        // dd($data);
+        $dataMap = [];
+        $date = now()->subMonths(7);
+        for ($i = 0; $i < 7; $i++) {
+            $dataMap[$i]['date'] = $date->format('m-Y');
+            $dataMap[$i]['total'] = 0;
+            foreach ($data as $item) {
+                if ($item->month == $date->format('m')) {
+                    $dataMap[$i]['total'] = $item->total;
+                }
+            }
+            $date->addMonth();
+        }
+        //convert array to object and return
+        return $dataMap;
+    }
+
+
     public function index()
     {
 
-        $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
-        $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
+        $orders = Order::whereMonth('orders.created_at', '=', date('m'))->whereYear('orders.created_at', '=', date('Y'))->get();
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
             ->where('orders.status_id', 4)
             ->groupBy('payments.name')
             ->get();
+        // caculate all order status of each in total
+        $orderStatus = DB::table('orders')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select('statuses.name as status', DB::raw('count(*) as total'))
+            ->groupBy('statuses.name')
+            ->get();
 
         //caculate total price in table order_details with table orders with status in table statues is 4 in total 14 days ago to 7 days ago
-        $totalAvanue2WeeksAgo = DB::table('order_details')
+        $totalAvanueLastMonth = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.created_at', '>=', now()->subDays(14))
-            ->where('orders.created_at', '<', now()->subDays(7))
+             ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
+             ->whereYear('orders.created_at', '=', now()->subMonth()->year)
             ->get();
-        $totalAvanue2WeeksAgo = $totalAvanue2WeeksAgo[0]->total;
+        $totalAvanueLastMonth = $totalAvanueLastMonth[0]->total;
 
         //caculate total price in table order_details with table orders with status in table statues is 4 in total 7 days
         $totalAvanue = DB::table('order_details')
@@ -110,60 +136,64 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->where('orders.created_at', '>=', now()->subDays(7))
+            ->whereMonth('orders.created_at', '=', date('m'))
+            ->whereYear('orders.created_at', '=', date('Y'))
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;
 
-        $increaseTotalAvanue = $this->caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo);
+        $increaseTotalAvanue = $this->caculateIncrease($totalAvanue, $totalAvanueLastMonth);
 
-        //caculate total order in table orders with status is 4 in total 14 days ago to 7 days ago
-        $totalOrder2WeeksAgo = DB::table('orders')
+
+        $totalOrderLastMonth = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.created_at', '>=', now()->subDays(14))
-            ->where('orders.created_at', '<', now()->subDays(7))
+            ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
+            ->whereYear('orders.created_at', '=', now()->subMonth()->year)
             ->get();
 
-        $totalOrder2WeeksAgo = $totalOrder2WeeksAgo[0]->total;
-        //caculate total order in table orders with status is 4 between now and 7 days ago
+        $totalOrderLastMonth = $totalOrderLastMonth[0]->total;
+
         $totalOrder = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.created_at', '>=', now()->subDays(7))
+            ->whereMonth('orders.created_at', '=', date('m'))
+            ->whereYear('orders.created_at', '=', date('Y'))
             ->get();
 
+
         $totalOrder = $totalOrder[0]->total;
-        $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrder2WeeksAgo);
+        $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrderLastMonth);
 
         // group total_price in table order_details with table orders within 12 days
         $totalPrices = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
             ->where('orders.status_id', 4)
-            ->where('orders.created_at', '>=', now()->subDays(14))
+            ->where('orders.created_at', '>=', now()->subDays(7))
             ->groupBy('date')
             ->get();
 
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->where('created_at', '>=', now()->subDays(14))
+            ->where('created_at', '>=', now()->subDays(7))
             ->groupBy('date')
             ->get();
 
         // caculate increase total user create account in 14 days ago to 7 days ago
-        $totalUser2WeeksAgo = DB::table('users')
+        $totalUserLastMonth = DB::table('users')
             ->select(DB::raw('count(*) as total'))
-            ->where('created_at', '>=', now()->subDays(14))
-            ->where('created_at', '<', now()->subDays(7))
+            ->whereMonth('users.created_at', '=', now()->subMonth()->month)
+            ->whereYear('users.created_at', '=', now()->subMonth()->year)
             ->get();
 
         // caculate increase total user create account 7 days ago
         $totalUser = DB::table('users')
             ->select(DB::raw('count(*) as total'))
-            ->where('created_at', '>=', now()->subDays(7))
+            ->whereMonth('users.created_at', '=', date('m'))
+            ->whereYear('users.created_at', '=', date('Y'))
             ->get();
-        $increaseTotalUser = $this->caculateIncrease($totalUser[0]->total, $totalUser2WeeksAgo[0]->total);
+        $increaseTotalUser = $this->caculateIncrease($totalUser[0]->total, $totalUserLastMonth[0]->total);
 
         //caculate top 7 products with status is 4 in table order_details with table orders
         $topProducts = DB::table('order_details')
@@ -175,12 +205,23 @@ class AdminController extends Controller
             ->orderBy('total', 'desc')
             ->limit(7)
             ->get();
+        // group total_price in table order_details with table orders within 7 months
+        $totalPricesIn7Months = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('MONTH(orders.created_at) as month'))
+            ->where('orders.status_id', 4)
+            ->where('orders.created_at', '>=', now()->subMonths(7))
+            ->groupBy('month')
+            ->get();
 
         $top7Product = $this->prepareDataForChartWithName($topProducts);
         $pieChartData = $this->prepareDataForChart($paymentMethods);
-        $rowChartData = $this->mapDataWith14DayAgo($totalPrices);
+        $pieChartOrderStatus = $this->prepareDataForChart($orderStatus);
+        $rowChartData = $this->mapDataWith7DayAgo($totalPrices);
+        $rowChartDataFor7Months = $this->mapDataWith7MonthAgo($totalPricesIn7Months);
+        $formatRowChartDataFor7Months = $this->prepareDataForRowChart($rowChartDataFor7Months);
         $formatRowChartData = $this->prepareDataForRowChart($rowChartData);
-        $totalOrderData = $this->mapDataWith14DayAgo($totalOrders);
+        $totalOrderData = $this->mapDataWith7DayAgo($totalOrders);
         $formatTotalOrderData = $this->prepareDataForRowChart($totalOrderData);
 
         $products = Product::get();
@@ -189,7 +230,6 @@ class AdminController extends Controller
         return view('admin.dashboard.dashboard', [
             'title' => 'Admin Dashboard',
             'users' => $users,
-            'orderNews' => $orderNews,
             'orders' => $orders,
             'products' => $products,
             'pieChartData' => $pieChartData,
@@ -200,17 +240,19 @@ class AdminController extends Controller
             'increaseTotalUser' => $increaseTotalUser,
             'summary' => $totalAvanue,
             'top7Product' => $top7Product,
+            'rowChartDataFor7Months' => $formatRowChartDataFor7Months,
+            'pieChartOrderStatus' => $pieChartOrderStatus
         ]);
     }
 
     //function caculate increase in total price in 7 days ago
-    public function caculateIncrease($totalNow, $total2WeeksAgo)
+    public function caculateIncrease($totalNow, $totalLastMonth)
     {
         $increase = 0;
-        if ($total2WeeksAgo == 0) {
+        if ($totalLastMonth == 0) {
             $increase = 0;
         } else {
-            $increase = ($totalNow - $total2WeeksAgo) / $total2WeeksAgo * 100;
+            $increase = ($totalNow - $totalLastMonth) / $totalLastMonth * 100;
         }
         return $increase;
     }
@@ -381,7 +423,7 @@ class AdminController extends Controller
     //change password
     public function changePassword(Request $request, Admin $admin)
     {
-      $this->validate($request, [
+        $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
             'new-pass'      => 'required|min:6',
             're-new-pass'   => 'same:new-pass'

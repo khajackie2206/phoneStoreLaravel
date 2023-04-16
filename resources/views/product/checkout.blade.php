@@ -15,7 +15,7 @@
     <!--Checkout Area Strat-->
     <div class="checkout-area pt-60 pb-30">
         <div class="container">
-            <form action="/products/checkout-product" id="FormCheckout" method="POST" onSubmit="return ValidationEvent(event);">
+            <form action="/products/checkout-product" id="form-discount" method="POST" onsubmit="return ValidationEvent(event);">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-12">
@@ -28,7 +28,7 @@
                                         <input value="{{ $user->name }}" type="text" >
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 10px;">
                                     <div class="checkout-form-list">
                                         <label>Địa chỉ giao hàng <span class="required">*</span></label>
                                         @if (isset($addresses) && count($addresses) > 0)
@@ -43,7 +43,7 @@
                                         @else
                                             <input placeholder="Địa chỉ giao hàng" name="delivery_address"
                                                 type="text" id="delivery_address" value="{{ $user->address}}">
-                                                <p id="delivery_address_alert" style="color:red;margin-top:15px;"></p>
+                                                <p id="delivery_address_alert" style="color:red;margin-top:15px; height: 10px;"></p>
                                         @endif
 
                                     </div>
@@ -63,8 +63,10 @@
                                             <input type="text" value="{{ $user->phone }}" name="phone_number"
                                                 placeholder="Số điện thoại" style="background-color: #f2f2f2;" id="phone_number"  disabled>
                                         @else
-                                            <input type="text" name="phone_number" id="phone_number" >
+                                            <input type="text" placeholder="Số điện thoại..." name="phone_number" id="phone_number" >
+                                            <p id="phone_number_alert" style="color:red;margin-top:5px;height: 20px;"></p>
                                         @endif
+
 
                                     </div>
                                 </div>
@@ -279,14 +281,36 @@
     // Storing Field Values In Variables
       let check = true;
       var address = document.getElementById("delivery_address");
+      var phone = document.getElementById("phone_number");
 
     if (address.value == "") {
         document.getElementById("delivery_address_alert").innerHTML = "Địa chỉ không được để trống";
         check = false;
+    } else {
+        document.getElementById("delivery_address_alert").innerHTML = "";
     }
 
+    if (phone.value == "") {
+        document.getElementById("phone_number_alert").innerHTML = "Số điện thoại không được để trống";
+        check = false;
+    } else {
+        document.getElementById("phone_number_alert").innerHTML = "";
+    }
+
+    if (!validateNumber(phone.value)) {
+        document.getElementById("phone_number_alert").innerHTML = "Số điện thoại không hợp lệ";
+        check = false;
+    } else {
+        document.getElementById("phone_number_alert").innerHTML = "";
+    }
 
      return check;
+    }
+
+    function validateNumber(e) {
+    const pattern = /^\d{10,11}$/;
+
+    return pattern.test(e)
     }
 
    </script>
@@ -294,10 +318,10 @@
     //ready function change action of form-discount based on checked of radio button with name payment_method
 
     $(document).ready(function() {
-        $('input[type=radio][name=payment_method]').change(function() {
-            if (this.value == '2') {
+        $('input[type=radio][name=payment_method]').click(function() {
+            if (this.value == 2) {
                 $('#form-discount').attr('action', '/products/checkout-product/vnpay');
-            } else if (this.value == '3') {
+            } else if (this.value == 3) {
                 $('#form-discount').attr('action', '/products/process-transaction');
             } else{
                 $('#form-discount').attr('action', '/products/checkout-product');

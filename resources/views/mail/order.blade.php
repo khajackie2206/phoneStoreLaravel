@@ -281,11 +281,11 @@
                                                         <p><span class="ms-1">
                                                             @if ($paymentMethod == 1)
                                                             <span class="badge bg-success" style="font-size: 16px;">Trả khi nhận hàng</span>
-                                                            @elseif ($order->paymentMethod == 3)
+                                                            @elseif ($paymentMethod == 3)
                                                             <span class="badge bg-warning" style="font-size: 16px;"><img
                                                                     src="https://logos-world.net/wp-content/uploads/2020/07/PayPal-Logo.png" style="margin-right: 10px;"
                                                                     width="50px">Thanh toán Paypal</span>
-                                                            @elseif ($order->paymentMethod == 2)
+                                                            @elseif ($paymentMethod == 2)
                                                             <span class="badge bg-warning" style="font-size: 16px; padding: 10px;"><img
                                                                     src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR.png" style="margin-right: 10px;"
                                                                     width="50px">Thanh toán VNPay</span>

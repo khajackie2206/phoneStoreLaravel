@@ -214,7 +214,7 @@ class MainController extends Controller
 
     public function getData()
     {
-        $orders = Order::with(['user', 'status', 'payment', 'admin'])->where('deleted_at', null)->select('*');
+        $orders = Order::with(['user','payment', 'admin'])->where('deleted_at', null)->select('*');
 
         return Datatables::eloquent($orders)->addColumn('action', function ($order) {
             //get current user
@@ -225,7 +225,7 @@ class MainController extends Controller
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
                     <a style="margin-left:5px; margin-right: 25px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
         })->addColumn('admin', function ($order) {
-            return !is_null($order->admin) ? '<span >' . $order->admin->name . '</span>' : '<span style="font-style: italic;">*Chưa duyệt*</span>';
+            return !is_null($order->admin) ? '<span>' . $order->admin->name . '</span>' : '<span style="font-style: italic;">*Chưa duyệt*</span>';
         })->editColumn('created_at', function ($order) {
             return  '<span style="font-weight: bold;">' . $order->created_at->format('d.m.Y') . '</span>';
         })->editColumn('total', function ($order) {
@@ -322,6 +322,8 @@ class MainController extends Controller
                 'staff_id' => $user->id,
                 'action' => 'Duyệt đơn hàng (Mã đơn hàng: #' . $order->id . ')',
             ];
+            $order->staff_id = $user->id;
+            $order->save();
 
             Activity::create($dataActivity);
         }

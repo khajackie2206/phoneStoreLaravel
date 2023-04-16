@@ -332,7 +332,7 @@ class CardController extends Controller
         $returnData = array(
             'code' => '00', 'message' => 'success', 'data' => $vnp_Url
         );
-        if (isset($input['redirect'])) {
+        if (isset($input['payment_method'])) {
             // $input = $request->all();
             // $result = $this->cardService->payment($input);
             // if (!$result) {

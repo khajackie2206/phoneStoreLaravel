@@ -48,6 +48,7 @@ class RatingService
         $check = DB::table('orders')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->where('orders.user_id', $user_id)
+            ->where('orders.status_id', 4)
             ->where('order_details.product_id', $product_id)
             ->first();
         if ($check) {

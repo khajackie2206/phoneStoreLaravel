@@ -100,7 +100,7 @@
                         <div class="col-12">
                             <div class="coupon-all">
                                 <div class="coupon">
-                                    <input class="input-text" name="discount" placeholder="Discount Code" type="text">
+                                    <input class="input-text" name="discount" placeholder="Mã giảm..." type="text">
                                     <span id="submit-discount"
                                         style="background: #333 none repeat scroll 0 0;border: medium none;border-radius: 0;color: #fff;
                                                                                                          height: 36px;cursor: pointer;margin-left: 6px;padding: 10px 10px;-webkit-transition: all 0.3s ease 0s;transition: all 0.3s ease 0s;width: inherit;">Áp

@@ -105,15 +105,21 @@ class LoginController extends Controller
         $login = [
             'email' => $request->email,
             'password' => $request->password,
-            'role' => 0,
         ];
 
         if (Auth::attempt($login)) {
             $user = Auth::User();
-            if ($user->active == 0) {
-                Alert::error('Lỗi', 'Tài khoản đã bị vô hiệu hóa!');
+
+            if (!$user->is_email_verified) {
+                Alert::error('Cần kích hoạt tài khoản trước khi đăng nhập!');
                 return redirect()->back();
             }
+
+            if ($user->active == 0) {
+                Alert::error('Tài khoản đã bị vô hiệu hóa!');
+                return redirect()->back();
+            }
+
             Session::put('user', $user);
             $user = Session::get('user');
             if ($request->url) {

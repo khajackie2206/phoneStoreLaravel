@@ -29,6 +29,10 @@
                             <div class="col-3"><b>Email: <span style="color: red;">*</span></b></div>
                             <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->user->email }}</div>
                         </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Địa chỉ giao hàng: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->delivery_address }}</div>
+                        </div>
                     </div>
 
                     <div class="col-md-6">
@@ -44,16 +48,19 @@
                             <div class="col-3"><b>Ngày đặt: <span style="color: red;">*</span></b></div>
                             <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->created_at->format('d/m/Y H:i:s') }}</div>
                         </div>
+                        <div class="row row d-flex align-items-center mb-3">
+                            <div class="col-3"><b>Duyệt đơn: <span style="color: red;">*</span></b></div>
+                            <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">
+                               @if(isset($order->admin->name))
+                                    {{ $order->admin->name }}
+                                @else
+                                   <span style="font-style: italic;">*Chưa duyệt*</span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="pt-3 d-flex flex-row align-items-center">
-                      <b style="margin-right: 24px">Địa chỉ giao hàng: <span style="color: red;">*</span></b>
-                    <span class="p-2" style="background-color: rgb(237, 249, 255)">{{ $order->delivery_address }}</span>
-            </div>
-
-
         </div>
         <!-- /.row -->
 
@@ -122,7 +129,7 @@
                         action="/admin/order/update/{{ $order->id }}">
                         @csrf
                         <input name="_method" type="hidden" value="POST">
-                        <select class="custom-select" name="status"
+                        <select class="custom-select" name="status" style="width: 230px"
                         {{
                            ($order->status->id == 4) ? 'disabled' : ''
                         }}>
@@ -141,8 +148,10 @@
                             @elseif ($order->status->id == 3)
                                 <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng
                                 </option>
+                                <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao hàng thành công
+                                </option>
                             @elseif ($order->status->id == 4)
-                                <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao thành công
+                                <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao hàng thành công
                                 </option>
                             @elseif ($order->status->id == 5)
                                 <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng

@@ -8,7 +8,7 @@
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <div id="image_show">
-                        <img class="mt-5" style="border-radius: 50%" src="{{ $admin->avatar }}" width="250px">
+                        <img class="mt-5 img-xs rounded-circle" src="{{ $admin->avatar }}" width="250px">
                     </div>
                     <span class="font-weight-bold mt-3">{{ $admin->name }}</span>
                     <span class="text-black-50">{{ $admin->email }}</span>

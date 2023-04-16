@@ -2,16 +2,31 @@
     <div class="sidebar-content js-simplebar">
 
         @if(session('user')->role == 1)
-        <a class="sidebar-brand" href="/admin/home">
-            <span class="align-middle">Dashboard Admin</span>
-        </a>
+           {{-- <div class="user-panel d-flex">
+            <div class="image">
+                <img src="{{ session('user')->avatar }}" width=50 class="img-xs rounded-circle" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block" style="color: white;">Alexander Pierce</a>
+            </div>
+        </div> --}}
+        <div class="row" style="margin-top: 15px;margin-left: 5px; margin-bottom: 10px;padding-bottom: 10px; border-bottom: 0.5px solid #D3D3D3">
+            <div class="col-md-3" >
+                <img src="{{ session('user')->avatar }}" width=45 class="img-xs rounded-circle" alt="User Image">
+            </div>
+            <div class="col-md-9">
+                <a href="#" class="d-block" style="color: white;">{{ session('user')->name }}</a>
+                <a href="#" class="d-block" style="color: rgb(212, 233, 82);">QUẢN TRỊ VIÊN</a>
+            </div>
+        </div>
+
         <ul class="sidebar-nav" style="margin-top: -15px;">
             <li class="sidebar-header">
-                Quản lý sản phẩm
+                Tác vụ quản lý
             </li>
             <li class="sidebar-item active">
                 <a class="sidebar-link" href="/admin/home">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Bảng điều khiển</span>
                 </a>
             </li>
 
@@ -51,9 +66,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-header" style="margin-top: -10px;">
+            {{-- <li class="sidebar-header" style="margin-top: -10px;">
                 Quản lý đơn hàng
-            </li>
+            </li> --}}
 
             <li class="sidebar-item" id="sidebar-order">
                 <a class="sidebar-link" href="/admin/order/lists">
@@ -108,9 +123,16 @@
 
         </ul>
         @else
-        <a class="sidebar-brand" href="/admin/dashboard-staff">
-            <span class="align-middle">Dashboard nhân viên</span>
-        </a>
+        <div class="row"
+            style="margin-top: 15px;margin-left: 5px; margin-bottom: 10px;padding-bottom: 10px; border-bottom: 0.5px solid #D3D3D3">
+            <div class="col-md-3">
+                <img src="{{ session('user')->avatar }}" width=45 class="img-xs rounded-circle" alt="User Image">
+            </div>
+            <div class="col-md-9">
+                <a href="#" class="d-block" style="color: white;">{{ session('user')->name }}</a>
+                <a href="#" class="d-block" style="color: rgb(212, 233, 82);">NHÂN VIÊN</a>
+            </div>
+        </div>
         <ul class="sidebar-nav">
             <li class="sidebar-header">
                 Quản lý sản phẩm

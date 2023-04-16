@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Voucher;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Arr;
@@ -81,9 +82,9 @@ class CardService
     {
         try {
             DB::beginTransaction();
-            $user = session()->get('user');
+            $user = User::where('id', session()->get('user')->id)->first();
             $carts = session()->get('carts');
-            $discount = session()->get('discount') ?? null ;
+            $discount = session()->get('discount') ?? null;
 
             if ($discount != null) {
                 $code = Voucher::where('code', $discount['code'])->first();
@@ -95,6 +96,17 @@ class CardService
 
                     $code->update($dataQuantity);
                 }
+            }
+
+            if($user->address == null) {
+                //user address is input['delivery_address']
+                $user->address = $input['delivery_address'];
+                $user->save();
+            }
+
+            if($user->phone == null) {
+                $user->phone = $input['phone_number'];
+                $user->save();
             }
 
             if (isset($input['new_address'])) {

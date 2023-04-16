@@ -224,3 +224,4 @@ Route::prefix('users')->group(function () {
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
+Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify');
