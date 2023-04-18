@@ -142,7 +142,61 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-8 col-xxl-8 d-flex">
+            <div class="col-3 col-lg-3 col-xxl-3 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+
+                            <h5 class="card-title mb-0">Thống kê doanh thu</h5>
+                        </div>
+                        <div class="card-body">
+                            <form autocomplete="off">
+                                        @csrf
+                                        {{-- <div>
+                                            <p>Từ ngày: <input type=text class="flatpickr" data-enable-time=true value="Sun, 24 Jul 2016 05:16:47 GMT"> </p>
+
+                                        </div>
+                                        <div>
+                                            <p>Đến ngày:<input type=text class="flatpickr" data-enable-time=true value="Sun, 24 Jul 2016 05:16:47 GMT"> </p>
+                                        </div> --}}
+                                        <div>
+                                           <p>Từ ngày: <input type="text" class="form-control" id="startDate" placeholder="Ngày bắt đầu..."></p>
+                                           <p id="start_date_alert" style="color:red;margin-top:5px; "></p>
+                                            <p>Đến ngày:<input type="text" class="form-control" id="endDate" placeholder="Ngày kết thúc"></p>
+                                            <p id="end_date_alert" style="color:red;margin-top:5px; "></p>
+
+                                        </div>
+                                        <div style="text-align: center;">
+                                        <input type="button" style="margin-top: 20px;margin-bottom: 20px;" class="btn btn-primary" name="btn-filter" id="btn-filter" value="Thống kê">
+                                        </div>
+                                        <div style="padding-top: 10px">
+                                            <p>Lọc theo:
+                                                <select class="time-filter form-control" style="border:1px solid;">
+                                                    <option>--none--</option>
+                                                    <option value="7ngay">--7 ngày qua--</option>
+                                                    <option value="thangtruoc">--Tháng trước--</option>
+                                                    <option value="thangnay">--Tháng này--</option>
+                                                    <option value="3thang">--Trong vòng 3 tháng--</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                    </form>
+                        </div>
+
+
+                    </div>
+            </div>
+            <div class="col-9 col-lg-9 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+
+                    <div class="card-body">
+                        <!-- Date -->
+                        <div class="chart chart-sm">
+                            <canvas id="chartjs-line-analyst" width="800" height="350" class="chart-date"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-12 col-lg-8 col-xxl-8 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header">
 
@@ -168,7 +222,7 @@
 
                 </div>
 
-            </div>
+            </div> --}}
             <div class="col-12 col-lg-8 col-xxl-8 d-flex">
                 <div class="card flex-fill" >
                     <div class="card-header">
@@ -345,7 +399,7 @@
                         data: {
                             labels: labelRowChart,
                             datasets: [{
-                                label: "Doanh thu theo tháng",
+                                label: "Doanh thu tháng",
                                 backgroundColor:'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgb(255, 99, 132)',
                                 hoverBackgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -357,16 +411,25 @@
                             }]
                         },
                         options: {
+                           tooltips: {
+                           intersect: false,
+                           callbacks: {
+                               label: function(tooltipItem, data) {
+                              return data.datasets[tooltipItem.datasetIndex].label + ': ' +
+                               tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VNĐ";
+                           }
+                          }
+                        },
                          plugins: {
                            datalabels: {
-                            display: true,
-                            color: 'white',
-                            font: {
-                                weight: 'bold'
-                            },
-                            formatter: function (value, context) {
-                                return context.chart.data.labels[context.dataIndex] + ' ' + value;
-                            }
+                            // display: true,
+                            // color: 'white',
+                            // font: {
+                            //     weight: 'bold'
+                            // },
+                            // formatter: function (value, context) {
+                            //     return context.chart.data.labels[context.dataIndex] + ' ' + value;
+                            // }
                         }
                     },
                     scales: {
@@ -399,14 +462,13 @@
             labelRowChart = JSON.parse(labelRowChart);
                var dataRowChart = '{!! json_encode($totalOrderData['data']) !!}';
             dataRowChart = JSON.parse(dataRowChart);
-            // var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
             // Line chart
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
                     labels: labelRowChart,
                     datasets: [{
-                        label: "Số đơn: ",
+                        label: "Số đơn",
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
                         data: dataRowChart
@@ -415,7 +477,7 @@
                 options: {
                     maintainAspectRatio: false,
                     legend: {
-                        display: false
+                        display: true
                     },
                     tooltips: {
                         intersect: false
@@ -438,6 +500,10 @@
             });
         });
 </script>
+
+
+
+
 
 <script>
     //pie chart payment method
@@ -558,3 +624,92 @@
         });
     });
 </script>
+<script>
+var labelDate = JSON.parse('{!! json_encode($rowChartData['labels']) !!}');
+var data1 = JSON.parse('{!! json_encode($rowChartData['data']) !!}');
+var data2 = JSON.parse('{!! json_encode($profitData['data']) !!}');
+var chart = null;
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Line chart
+    chart = new Chart(document.getElementById("chartjs-line-analyst"), {
+        type: "line",
+        data: {
+            labels: labelDate,
+            datasets: [{
+                    label: "Doanh thu",
+                    fill: false,
+                    backgroundColor: "transparent",
+                    borderColor: "rgb(255, 99, 132)",
+                    data: data1
+                },
+                {
+                    label: "Lợi nhuận",
+                    fill: false,
+                    backgroundColor: "transparent",
+                    borderColor: "rgb(54, 162, 235)",
+                    borderDash: [4, 4],
+                    data: data2
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            legend: {
+                display: true
+            },
+            tooltips: {
+                intersect: false,
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VNĐ";
+                    }
+                }
+            },
+            hover: {
+                intersect: true
+            },
+            plugins: {
+                filler: {
+                    propagate: false
+                },
+
+            },
+            scales: {
+                xAxes: [{
+                    reverse: true,
+                    gridLines: {
+                        color: "rgba(0,0,0,0.05)"
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            if (parseInt(value) >= 1000) {
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            } else {
+                                return value;
+                            }
+                        }
+                    },
+
+                }],
+              x: {
+            type: 'time',
+                 time: {
+                    unit: 'week',
+                    unitStepSize: 3,
+                    displayFormats: {
+                    'day': 'Y-m-d'
+                    }
+                  }
+               }
+            },
+
+        }
+    });
+});
+</script>
+
+

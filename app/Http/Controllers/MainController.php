@@ -25,7 +25,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\ProductCategory;
 use App\Models\Activity;
 use App\Models\Brand;
-use Illuminate\Validation\Rules\Exists;
+use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
 {
@@ -328,9 +328,40 @@ class MainController extends Controller
             Activity::create($dataActivity);
         }
 
+        if($input['status'] == 4){
+          //send mail to customer
+            $this->sendDiscountVoucher($order);
+        }
+
         Alert::success('Cập nhật trạng thái đơn hàng thành công!');
 
         return redirect()->back();
+    }
+
+    //handle send discount voucher to customer if order is greater than 50000000
+    public function sendDiscountVoucher(Order $order)
+    {
+        if ($order->total < 50000000) {
+            return;
+        }
+        $user = User::where('id', $order->user_id)->first();
+        //get voucher with percent = 10, if not exist, get voucher with lower percent or less than 2000000
+        $voucher = Voucher::where('amount', 10)->where('type_discount', 'percent')->first();
+        if (is_null($voucher)) {
+            $voucher = Voucher::where('amount', '<', 2000000)->where('type_discount', 'money')->orderBy('percent', 'desc')->first();
+        }
+        //data
+        $data = [
+            'voucher' => $voucher,
+            'user' => $user,
+            'order' => $order
+        ];
+
+        Mail::send('mail.discount-voucher',$data , function ($message) use ($user) {
+            $message->to($user->email)->subject('Khuyến mãi mua hàng tại Allo Store');
+        });
+
+        return ;
     }
 
     public function customerUpdateStatus(Request $request, Order $order)
@@ -342,6 +373,12 @@ class MainController extends Controller
             foreach ($orderDetails as $orderDetail) {
                 $product = Product::where('id', $orderDetail->product_id)->first();
                 $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
+            }
+
+            //return discount voucher
+            if ($order->voucher_id != null) {
+                $voucher = Voucher::where('id', $order->voucher_id)->first();
+                $voucher->update(array('quantity' => $voucher->quantity + 1));
             }
 
             Alert::success('Đã hủy đơn hàng!');
@@ -362,6 +399,11 @@ class MainController extends Controller
         foreach ($orderDetails as $orderDetail) {
             $product = Product::where('id', $orderDetail->product_id)->first();
             $product->update(array('quantity' => $product->quantity + $orderDetail->quantity));
+        }
+        //return discount voucher
+        if ($order->voucher_id != null) {
+            $voucher = Voucher::where('id', $order->voucher_id)->first();
+            $voucher->update(array('quantity' => $voucher->quantity + 1));
         }
 
         //insert activity

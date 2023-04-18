@@ -5,7 +5,7 @@
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Thêm mã khuyến mãi mới</h1>
         </div>
-        <form action="/admin/discount/add" method="POST">
+        <form action="/admin/discount/add" method="POST" onsubmit="return ValidationEvent()">
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="card" >
@@ -86,14 +86,16 @@
                             <h5 class="card-title mb-0">Kích hoạt</h5>
                         </div>
                          <div class="card-body" style="margin-top: -22px;">
-                            <div>
+                            {{-- <div>
                                 <input class="custom-control-input" value="1" type="radio" id="active" name="active" checked="true">
                                 <label for="active" class="custom-control-label">Có</label>
                             </div>
                             <div style="margin-bottom: 20px;">
                                 <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
                                 <label for="no_active" class="custom-control-label">Không</label>
-                            </div>
+                            </div> --}}
+                            <input style="margin-bottom: 10px;" name="date_range" type="text" class="form-control" id="discountPicker" placeholder="Vui lòng chọn ngày bắt đầu và kết thúc" data-input>
+                           <p class="picker_alert" style="color:red;margin-top:5px;margin-bottom: 0px; height: 20px;"></p>
                         </div>
                     </div>
 
@@ -121,4 +123,23 @@
 </script>
 
 @endsection
+<script>
+
+//validation
+function ValidationEvent() {
+    let check = true;
+    //get discountPicker
+    const discountPicker = document.getElementById('discountPicker');
+     //must have discount picker
+    if (discountPicker.value == '') {
+        check = false;
+        document.querySelector('.picker_alert').innerHTML = 'Vui lòng chọn ngày bắt đầu và kết thúc';
+    } else {
+        document.querySelector('.picker_alert').innerHTML = '';
+    }
+
+    return check;
+}
+
+</script>
 

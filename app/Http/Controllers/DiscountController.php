@@ -7,12 +7,13 @@ use App\Models\Voucher;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Carbon;
 
 class DiscountController extends Controller
 {
     public function index()
     {
-        $vouchers = Voucher::where('deleted_at','=', null)->get();
+        $vouchers = Voucher::where('deleted_at', '=', null)->get();
 
         return view('admin.discount.list', [
             'title' => 'Danh sách brand',
@@ -49,10 +50,10 @@ class DiscountController extends Controller
                 'amount' => ['required', function ($attribute, $value, $fail) use ($request) {
                     if ($request->type_discount === "percent" && ($value < 0 || $value > 100)) {
                         $fail("Giảm giá phần trăm, giá trị phải từ 0 đến 100.");
-                    } elseif ($request->type_discount === "money" && $value <= 0) {
-                        $fail("Giá trị phải là số và giá trị phải lớn hơn 0.");
+                    } elseif ($request->type_discount === "money" && ($value <= 0 || $value > 5000000)) {
+                        $fail("Giá trị phải từ 0 đến 5.000.000");
                     }
-                },'numeric'],
+                }, 'numeric'],
             ],
             [
                 'code.required' => 'Vui lòng nhập mã khuyến mãi',
@@ -64,13 +65,19 @@ class DiscountController extends Controller
                 'amount.numeric' => 'Số tiền không hợp lệ',
             ]
         );
+        $dateRange = $request->date_range;
+        $dateRange = explode(' to ', $dateRange);
+        $start_date = $dateRange[0];
+        $end_date = $dateRange[1];
 
         $voucher = new Voucher();
         $voucher->code = $request->code;
         $voucher->quantity = $request->quantity;
         $voucher->type_discount = $request->type_discount;
         $voucher->amount = $request->amount;
-        $voucher->active = $request->active;
+        $voucher->active = 1;
+        $voucher->start_date = $start_date;
+        $voucher->end_date = $end_date;
         $voucher->save();
 
         Alert::success('Thêm mã khuyến mãi thành công');
@@ -88,10 +95,10 @@ class DiscountController extends Controller
                 'amount' => ['required', function ($attribute, $value, $fail) use ($request) {
                     if ($request->type_discount === "percent" && ($value < 0 || $value > 100)) {
                         $fail("Giảm giá phần trăm, giá trị phải từ 0 đến 100.");
-                    } elseif ($request->type_discount === "money" && $value <= 0) {
-                        $fail("Giá trị phải là số và giá trị phải lớn hơn 0.");
+                    } elseif ($request->type_discount === "money" && ($value <= 0 || $value > 5000000)) {
+                        $fail("Giá trị phải từ 0 đến 5.000.000");
                     }
-                },'numeric'],
+                }, 'numeric'],
             ],
             [
                 'code.required' => 'Vui lòng nhập mã khuyến mãi',
@@ -103,13 +110,19 @@ class DiscountController extends Controller
             ]
         );
 
+        $dateRange = $request->date_range;
+        $dateRange = explode(' to ', $dateRange);
+        $start_date = $dateRange[0];
+        $end_date = $dateRange[1];
         $voucher = Voucher::find($id);
         $voucher->name = $request->name;
         $voucher->code = $request->code;
         $voucher->quantity = $request->quantity;
         $voucher->type_discount = $request->type_discount;
         $voucher->amount = $request->amount;
-        $voucher->active = $request->active;
+        $voucher->active = 1;
+        $voucher->start_date = $start_date;
+        $voucher->end_date = $end_date;
         $voucher->save();
 
         Alert::success('Cập nhật mã khuyến mãi thành công');
@@ -119,7 +132,7 @@ class DiscountController extends Controller
     //function to delete discount
     public function delete($id)
     {
-       //add datetime to deleted_at column
+        //add datetime to deleted_at column
         DB::table('vouchers')->where('id', $id)->update(['deleted_at' => now()]);
 
         Alert::success('Xóa mã khuyến mãi thành công');
@@ -129,7 +142,7 @@ class DiscountController extends Controller
 
     public function getData()
     {
-        $discounts = Voucher::select(['id', 'code', 'quantity', 'type_discount', 'amount', 'active'])->where('deleted_at', null);
+        $discounts = Voucher::select(['id', 'code', 'quantity', 'type_discount', 'amount', 'active', 'start_date', 'end_date'])->where('deleted_at', null);
 
         return Datatables::of($discounts)->addColumn('action', function ($discount) {
             return '
@@ -141,8 +154,11 @@ class DiscountController extends Controller
                                                         </a>';
         })->editColumn('type_discount', function ($discount) {
             return $discount->type_discount == 'money' ? '<span class="badge bg-success">Giảm theo tiền</span>' : '<span class="badge bg-warning">giảm theo phần trăm</span>';
-        })->editColumn('active', function ($product) {
-            return  $product->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+        })->editColumn('active', function ($discount) {
+            //get current datetime
+            $now = Carbon::now()->format('Y-m-d H:i');
+
+            return $discount->start_date > $now ? '<span class="badge bg-warning">Sắp diễn ra</span>' : ($discount->end_date < $now ? '<span class="badge bg-danger">Hết hạn</span>' : '<span class="badge bg-success">Đang diễn ra</span>');
         })->editColumn('amount', function ($discount) {
             return $discount->type_discount == 'money' ? '<span style="color: red;">' . number_format($discount->amount) . '<span style="text-decoration: underline;">đ</span>' : '<span style="color: red;">' .  number_format($discount->amount, 2, '.', '') . '%</span>';
         })->rawColumns(['action', 'type_discount', 'amount', 'active'])->make();

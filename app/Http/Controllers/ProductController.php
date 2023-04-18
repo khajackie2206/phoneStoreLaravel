@@ -207,6 +207,16 @@ class ProductController extends Controller
             ->first();
 
         if ($discount) {
+            $now = Carbon::now()->format('Y-m-d H:i');
+            if ($discount->start_date > $now) {
+                Alert::error('Mã giảm này chưa đến đợt áp dụng');
+                return redirect()->back();
+            }
+            if ($discount->end_date < $now) {
+                Alert::error('Mã giảm này đã hết hạn sử dụng');
+                return redirect()->back();
+            }
+
             $dataSession = [
                 'code' => $discount->code,
                 'amount' => $discount->amount,

@@ -5,7 +5,7 @@
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Cập nhật mã khuyến mãi</h1>
         </div>
-        <form action="/admin/discount/edit/{{ $voucher->id}}" method="POST">
+        <form action="/admin/discount/edit/{{ $voucher->id}}" method="POST" onsubmit="return ValidationEvent()">
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="card">
@@ -86,17 +86,10 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Kích hoạt</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -22px;">
-                            <div>
-                                <input class="custom-control-input" value="1" type="radio" id="active" name="active"
-                                    checked="true" {{ $voucher->active == 1 ? 'checked="true"' : '' }}>
-                                <label for="active" class="custom-control-label">Có</label>
-                            </div>
-                            <div style="margin-bottom: 5px;">
-                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active"
-                                {{ $voucher->active == 0 ? 'checked="true"' : '' }}>
-                                <label for="no_active" class="custom-control-label">Không</label>
-                            </div>
+                        <div class="card-body" style="margin-top: -25px;">
+                           <input style="margin-bottom: 10px;" name="date_range" value="{{ $voucher->start_date}} to {{$voucher->end_date}}" type="text" class="form-control" id="discountPicker"
+                            placeholder="Vui lòng chọn ngày bắt đầu và kết thúc" data-input>
+                        <p class="picker_alert" style="color:red;margin-top:5px;margin-bottom: -10px; height: 20px;"></p>
                         </div>
                     </div>
 
@@ -112,15 +105,21 @@
 </main>
 @endsection
 
-@section('footer')
 <script>
-    CKEDITOR.replace('content');
-         alert(2);
-</script>
-<script type="text/javascript">
-    $(function() {
-            $('#datetimepicker1').datetimepicker();
-        });
-</script>
+    //validation
+function ValidationEvent() {
+    let check = true;
+    //get discountPicker
+    const discountPicker = document.getElementById('discountPicker');
+     //must have discount picker
+    if (discountPicker.value == '') {
+        check = false;
+        document.querySelector('.picker_alert').innerHTML = 'Vui lòng chọn ngày bắt đầu và kết thúc';
+    } else {
+        document.querySelector('.picker_alert').innerHTML = '';
+    }
 
-@endsection
+    return check;
+}
+
+</script>

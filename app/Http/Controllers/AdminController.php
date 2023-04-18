@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Admin;
+use App\Models\OrderDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,10 +12,10 @@ use App\Models\Product;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Models\WarehouseDetail;
+use App\Models\WarehouseReceipt;
 use Illuminate\Support\Facades\Session;
 use App\Rules\MatchOldPassword;
-
 
 class AdminController extends Controller
 {
@@ -81,6 +82,44 @@ class AdminController extends Controller
         return $dataMap;
     }
 
+    //map data with range date
+    public function mapDataWithRangeDate($data, $startDate, $endDate)
+    {
+        $dataMap = [];
+        $startDate = strtotime($startDate);
+        $endDate = strtotime($endDate);
+        //how much date between start date and end date
+        $totalDate = ($endDate - $startDate) / (60 * 60 * 24);
+
+        for ($i = 0; $i <= $totalDate; $i++) {
+            $dataMap[$i]['date'] = date('d-m-Y', $startDate);
+            $dataMap[$i]['total'] = 0;
+            foreach ($data as $item) {
+                if ($item->date == date('Y-m-d', $startDate)) {
+                    $dataMap[$i]['total'] = $item->total;
+                }
+            }
+            $startDate = strtotime('+1 day', $startDate);
+        }
+
+        return $dataMap;
+    }
+
+    //return array of datetime in range date
+    public function getRangeDate($startDate, $endDate)
+    {
+        $startDate = strtotime($startDate);
+        $endDate = strtotime($endDate);
+        //how much date between start date and end date
+        $totalDate = ($endDate - $startDate) / (60 * 60 * 24);
+        $data = [];
+        for ($i = 0; $i <= $totalDate; $i++) {
+            $data[$i] = date('Y-m-d', $startDate);
+            $startDate = strtotime('+1 day', $startDate);
+        }
+        return $data;
+    }
+
     //map data with 7 month ago
     public function mapDataWith7MonthAgo($data)
     {
@@ -125,8 +164,8 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-             ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
-             ->whereYear('orders.created_at', '=', now()->subMonth()->year)
+            ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
+            ->whereYear('orders.created_at', '=', now()->subMonth()->year)
             ->get();
         $totalAvanueLastMonth = $totalAvanueLastMonth[0]->total;
 
@@ -164,19 +203,19 @@ class AdminController extends Controller
         $totalOrder = $totalOrder[0]->total;
         $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrderLastMonth);
 
-        // group total_price in table order_details with table orders within 12 days
-        $totalPrices = DB::table('order_details')
-            ->join('orders', 'order_details.order_id', '=', 'orders.id')
-            ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
-            ->where('orders.status_id', 4)
-            ->where('orders.created_at', '>=', now()->subDays(7))
-            ->groupBy('date')
-            ->get();
+        // // group total_price in table order_details with table orders within 12 days
+        // $totalPrices = DB::table('order_details')
+        //     ->join('orders', 'order_details.order_id', '=', 'orders.id')
+        //     ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
+        //     ->where('orders.status_id', 4)
+        //     ->where('orders.created_at', '>=', now()->subDays(7))
+        //     ->groupBy('date')
+        //     ->get();
 
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->where('created_at', '>=', now()->subDays(7))
+            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
             ->groupBy('date')
             ->get();
 
@@ -214,6 +253,57 @@ class AdminController extends Controller
             ->groupBy('month')
             ->get();
 
+
+        $revenues = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
+            ->where('status_id', 4)
+            ->whereBetween('created_at', ['2023-04-02', '2023-04-17'])
+            ->groupBy('date')
+            ->get();
+        //map revenue with range date
+        $revenues = $this->mapDataWithRangeDate($revenues, '2023-04-02', '2023-04-17');
+        $revenues = $this->prepareDataForRowChart($revenues);
+
+        $dateRange = $this->getRangeDate(now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d'));
+
+        //caculate total doanh thu in 7 days ago and group by date
+        $totalPrices = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
+            ->where('status_id', 4)
+            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
+            ->groupBy('date')
+            ->get();
+
+
+        //foreach date in dateRange,caculate profit and map with date
+        foreach ($dateRange as $date) {
+            $totalDoanhThu = Order::where('status_id', 4)
+                ->whereDate('created_at', $date)
+                ->sum('total');
+            $products = DB::table('order_details')
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->join('products', 'order_details.product_id', '=', 'products.id')
+                ->select('products.id', 'products.price', 'products.name', 'order_details.quantity', 'order_details.total_price')
+                ->where('orders.status_id', 4)
+                ->whereDate('orders.created_at', $date)
+                ->get();
+            $totalVon = 0;
+            foreach ($products as $product) {
+                $warehouseDetail = WarehouseDetail::where('product_id', $product->id)->first();
+                if (!$warehouseDetail) {
+                    $totalVon += $product->price * $product->quantity;
+                } else {
+                    $totalVon += $product->quantity * $warehouseDetail->price;
+                }
+            }
+            $profit = $totalDoanhThu - $totalVon;
+            if ($profit < 0) $profit = 0;
+            $profitData[] = [
+                'date' => $date,
+                'total' => $profit,
+            ];
+        }
+        $profitData = $this->prepareDataForRowChart($profitData);
+
+
         $top7Product = $this->prepareDataForChartWithName($topProducts);
         $pieChartData = $this->prepareDataForChart($paymentMethods);
         $pieChartOrderStatus = $this->prepareDataForChart($orderStatus);
@@ -241,7 +331,8 @@ class AdminController extends Controller
             'summary' => $totalAvanue,
             'top7Product' => $top7Product,
             'rowChartDataFor7Months' => $formatRowChartDataFor7Months,
-            'pieChartOrderStatus' => $pieChartOrderStatus
+            'pieChartOrderStatus' => $pieChartOrderStatus,
+            'profitData' => $profitData,
         ]);
     }
 
@@ -419,6 +510,137 @@ class AdminController extends Controller
             'admin' => $admin
         ]);
     }
+
+    //filter revenue by date from - to
+    public function filterRevenue(Request $request)
+    {
+        $input = $request->all();
+        $from = $input['startDate'];
+        $to = $input['endDate'];
+
+        //caculate total price in table orders with status_id is 4 in date from - to group by date
+
+        $revenues = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
+            ->where('status_id', 4)
+            ->whereBetween('created_at', [$from, $to])
+            ->groupBy('date')
+            ->get();
+
+        $revenues = $this->mapDataWithRangeDate($revenues, $from, $to);
+        $revenues = $this->prepareDataForRowChart($revenues);
+
+        $dateRange = $this->getRangeDate($from, $to);
+        //foreach date in dateRange,caculate profit and map with date
+        foreach ($dateRange as $date) {
+            $totalDoanhThu = Order::where('status_id', 4)
+                ->whereDate('created_at', $date)
+                ->sum('total');
+            $products = DB::table('order_details')
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->join('products', 'order_details.product_id', '=', 'products.id')
+                ->select('products.id', 'products.price', 'products.name', 'order_details.quantity', 'order_details.total_price')
+                ->where('orders.status_id', 4)
+                ->whereDate('orders.created_at', $date)
+                ->get();
+            $totalVon = 0;
+            foreach ($products as $product) {
+                $warehouseDetail = WarehouseDetail::where('product_id', $product->id)->first();
+                if (!$warehouseDetail) {
+                    $totalVon += $product->price * $product->quantity;
+                } else {
+                    $totalVon += $product->quantity * $warehouseDetail->price;
+                }
+            }
+            $profit = $totalDoanhThu - $totalVon;
+            if ($profit < 0) {
+                $profit = 0;
+            }
+            $profitData[] = [
+                'date' => $date,
+                'total' => $profit,
+            ];
+        }
+        $profits = $this->prepareDataForRowChart($profitData);
+
+        //return profits and revenues to ajax
+        return response()->json([
+            'profits' => $profits,
+            'revenues' => $revenues
+        ]);
+    }
+
+    //filter revenue by date from - to
+    public function filterTime(Request $request)
+    {
+        $input = $request->all();
+        $from = now()->subDays(7)->format('Y-m-d');
+        $to = now()->format('Y-m-d');
+        if ($input['time'] == '7ngay') {
+            $from = now()->subDays(7)->format('Y-m-d');
+            $to = now()->format('Y-m-d');
+        } elseif ($input['time'] == 'thangtruoc') {
+            $from = now()->subMonth()->startOfMonth()->format('Y-m-d');
+            $to = now()->subMonth()->endOfMonth()->format('Y-m-d');
+        } elseif ($input['time'] == 'thangnay') {
+            $from = now()->startOfMonth()->format('Y-m-d');
+            $to = now()->format('Y-m-d');
+        } else {
+            $from = now()->subMonth(2)->startOfMonth()->format('Y-m-d');
+            $to = now()->format('Y-m-d');
+        }
+
+        //caculate total price in table orders with status_id is 4 in date from - to group by date
+
+        $revenues = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
+            ->where('status_id', 4)
+            ->whereBetween('created_at', [$from, $to])
+            ->groupBy('date')
+            ->get();
+
+        $revenues = $this->mapDataWithRangeDate($revenues, $from, $to);
+        $revenues = $this->prepareDataForRowChart($revenues);
+
+        $dateRange = $this->getRangeDate($from, $to);
+        //foreach date in dateRange,caculate profit and map with date
+        foreach ($dateRange as $date) {
+            $totalDoanhThu = Order::where('status_id', 4)
+                ->whereDate('created_at', $date)
+                ->sum('total');
+            $products = DB::table('order_details')
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->join('products', 'order_details.product_id', '=', 'products.id')
+                ->select('products.id', 'products.price', 'products.name', 'order_details.quantity', 'order_details.total_price')
+                ->where('orders.status_id', 4)
+                ->whereDate('orders.created_at', $date)
+                ->get();
+            $totalVon = 0;
+            foreach ($products as $product) {
+                $warehouseDetail = WarehouseDetail::where('product_id', $product->id)->first();
+                if (!$warehouseDetail) {
+                    $totalVon += $product->price * $product->quantity;
+                } else {
+                    $totalVon += $product->quantity * $warehouseDetail->price;
+                }
+            }
+            $profit = $totalDoanhThu - $totalVon;
+            if ($profit < 0) {
+                $profit = 0;
+            }
+            $profitData[] = [
+                'date' => $date,
+                'total' => $profit,
+            ];
+        }
+        $profits = $this->prepareDataForRowChart($profitData);
+
+        //return profits and revenues to ajax
+        return response()->json([
+            'profits' => $profits,
+            'revenues' => $revenues
+        ]);
+    }
+
+
 
     //change password
     public function changePassword(Request $request, Admin $admin)

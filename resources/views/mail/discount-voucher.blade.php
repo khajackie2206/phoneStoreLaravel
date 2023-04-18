@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="en-US">
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Phục hồi mật khẩu</title>
+    <title>Mã giảm giá</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
         a:hover {
@@ -27,8 +26,7 @@
                     <tr>
                         <td style="text-align:center;">
                             {{-- <a href="https://rakeshmandal.com" title="logo" target="_blank">
-                                <img width="60" src="images/allo.png" title="logo"
-                                    alt="logo">
+                                <img width="60" src="images/allo.png" title="logo" alt="logo">
                             </a> --}}
                         </td>
                     </tr>
@@ -46,13 +44,21 @@
                                     <td style="padding:0 35px;">
                                         <h1
                                             style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                           Phục hồi mật khẩu</h1>
+                                            Khuyến mãi mua hàng</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                           Để phục hồi mật khẩu, vui lòng nhấn vào đường link bên dưới và cập nhật mật khẩu mới.
+                                            Nhập mã khuyến mãi để được giảm giá <span>
+                                               @if ( $voucher->type_discount == 'money')
+                                                <span> {{ number_format($voucher->amount) }} <span
+                                                        style="text-decoration: underline; color: red;">đ</span></span>
+                                                @else
+                                                <span style="color: red;">  {{ $voucher->amount }}% </span>
+                                                @endif
+                                            </span> cho đơn hàng tiếp theo của bạn.
                                         </p>
-                                        <a href="{{ route('reset.password.get', $token) }}" style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Phục hồi mật khẩu</a>
+                                        <a href="#"
+                                            style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Mã khuyến mãi: {{ $voucher->code }}</a>
                                     </td>
                                 </tr>
                                 <tr>

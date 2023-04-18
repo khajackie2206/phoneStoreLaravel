@@ -13,12 +13,12 @@
 <title>{{ $title }}</title>
 
 {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function () {
         $('.ckeditor').ckeditor();
          $('#table_id').DataTable();
     });
-</script>
+</script> --}}
  {{-- <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> --}}
 
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}

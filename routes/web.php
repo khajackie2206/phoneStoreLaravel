@@ -146,6 +146,10 @@ Route::prefix('admin')
             #activities
             Route::get('/activities', [StaffController::class, 'getAllActivity']);
             Route::GET('/activity-data', [StaffController::class, 'getActivityData'])->name('activity_data');
+
+            #filter revenue
+            Route::post('/filter-revenue', [AdminController::class, 'filterRevenue']);
+            Route::post('/filter-time', [AdminController::class, 'filterTime']);
         });
     });
 

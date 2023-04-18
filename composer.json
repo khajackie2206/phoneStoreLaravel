@@ -25,6 +25,7 @@
         "mservice/payment": "dev-master",
         "omnipay/paypal": "^3.0",
         "realrashid/sweet-alert": "^6.0",
+        "seblhaire/daterangepickerhelper": "^2.4",
         "spatie/laravel-query-builder": "^5.1",
         "srmklive/paypal": "~3.0",
         "timwassenburg/laravel-service-generator": "^1.0",
