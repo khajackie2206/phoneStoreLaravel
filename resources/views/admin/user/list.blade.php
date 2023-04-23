@@ -15,7 +15,7 @@
                                      <table class="table table-responsive table-borderless table-striped" id="user-table" style="padding-top: 20px;">
                                          <thead style="text-align: center;">
                                              <tr class="bg-warning text-dark">
-                                                 <th scope="col" width="7%">#</th>
+                                                 <th scope="col" width="7%">ID</th>
                                                  <th scope="col" width="20%" style="text-align: left;">Tên khách hàng</th>
                                                  <th scope="col" width="20%" style="text-align: left;">Email</th>
                                                  <th scope="col" width="12%">Trạng thái</th>

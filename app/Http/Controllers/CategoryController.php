@@ -25,7 +25,7 @@ class CategoryController extends Controller
          $categories = ProductCategory::select(['id','name','description','active']);
 
          return Datatables::of($categories)->addColumn('action', function ($category) {
-             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/categories/edit/'.$category->id.'"><i class="fas fa-edit fa-xl"></i></a>' ;
+             return '<a style="margin-left:30px; margin-right: 7px;" href="/admin/categories/edit/'.$category->id.'"><i class="fas fa-edit fa-xl"></i></a>' ;
          })->editColumn('active', function ($brand) {
              return  $brand->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
          })->rawColumns(['active', 'action'])->make();

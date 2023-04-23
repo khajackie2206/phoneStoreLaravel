@@ -114,7 +114,7 @@ class WareHouseController extends Controller
         })->addColumn('staff', function (WarehouseReceipt $receipt) {
             return $receipt->admin->name;
         })->editColumn('confirmed_date', function ($receipt) {
-            return  '<span style="font-weight: bold;">' . $receipt->confirmed_date . '</span>';
+            return  $receipt->confirmed_date == null ? '<span style="font-style: italic;">*Chưa duyệt*</span>' :'<span style="font-weight: bold;">' . $receipt->confirmed_date . '</span>';
         })->editColumn('created_at', function ($receipt) {
             return  '<span style="font-weight: bold;">' . $receipt->created_at->format('d.m.Y H:i:s') . '</span>';
         })->editColumn('total', function ($receipt) {

@@ -16,12 +16,12 @@
                                     style="padding-top:20px;">
                                     <thead>
                                         <tr class="bg-warning text-dark">
-                                            <th scope="col" width="10%">ID</th>
+                                            <th scope="col" width="7%">ID</th>
                                             <th scope="col" width="10%" style="text-align: left;">Avatar
                                             </th>
                                             <th scope="col" width="20%" style="text-align: left;">Nhân viên</th>
 
-                                            <th scope="col" width="35%" style="text-align: left;">Hành động</th>
+                                            <th scope="col" width="38%" style="text-align: left;">Hành động</th>
                                             <th scope="col" width="25%" style="text-align: left;">Thời gian</th>
                                         </tr>
                                     </thead>

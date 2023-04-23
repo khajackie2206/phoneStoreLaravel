@@ -86,7 +86,7 @@
                                             width="150" class="img-sm border" style="padding: 15px;"></div>
                                     <figcaption class="info align-self-center">
                                         <p class="title" style="font-weight: bold;">{{ $orderDetail->product->name }}<br>
-                                            {{ $orderDetail->product->rom }} - {{ $orderDetail->product->ram }}GB RAM</p>
+                                        {{ $orderDetail->product->ram }} - {{ $orderDetail->product->rom }} </p>
                                         <span class="text-muted">{{ number_format($orderDetail->product->price) }}<span
                                                 style="text-decoration: underline;">đ</span> x {{ $orderDetail->quantity }}
                                         </span>

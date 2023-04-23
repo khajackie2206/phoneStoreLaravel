@@ -20,7 +20,7 @@
                                     style="padding-top: 20px;">
                                     <thead style="text-align: center;">
                                         <tr class="bg-warning text-dark">
-                                            <th scope="col" width="7%">#</th>
+                                            <th scope="col" width="7%">ID</th>
                                             <th scope="col" width="20%" style="text-align: left;">Tên nhân viên</th>
                                             <th scope="col" width="20%" style="text-align: left;">Email</th>
                                             <th scope="col" width="18%">Trạng thái</th>

@@ -161,7 +161,7 @@
                                         <div>
                                            <p>Từ ngày: <input type="text" class="form-control" id="startDate" placeholder="Ngày bắt đầu..."></p>
                                            <p id="start_date_alert" style="color:red;margin-top:5px; "></p>
-                                            <p>Đến ngày:<input type="text" class="form-control" id="endDate" placeholder="Ngày kết thúc"></p>
+                                            <p style="margin-top: 15px;">Đến ngày:<input type="text" class="form-control" id="endDate" placeholder="Ngày kết thúc"></p>
                                             <p id="end_date_alert" style="color:red;margin-top:5px; "></p>
 
                                         </div>
@@ -191,7 +191,7 @@
                     <div class="card-body">
                         <!-- Date -->
                         <div class="chart chart-sm">
-                            <canvas id="chartjs-line-analyst" width="800" height="350" class="chart-date"></canvas>
+                            <canvas id="chartjs-line-analyst" width="800" height="400" class="chart-date"></canvas>
                         </div>
                     </div>
                 </div>
@@ -453,9 +453,6 @@
                 });
 </script>
 
-
-
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
              var labelRowChart = '{!! json_encode($totalOrderData['labels']) !!}';
@@ -493,7 +490,6 @@
                                 stepSize: 1,
                                 beginAtZero: true,
                             },
-
                         }]
                     }
                 }

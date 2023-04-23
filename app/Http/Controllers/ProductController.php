@@ -68,7 +68,7 @@ class ProductController extends Controller
                     <a href="/admin/product/delete/' . $product->id . '" onclick="return deleteProduct(event);"<i type="submit" style="color: red;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
         })->addColumn('size_memory', function ($product) {
-            return ' <span style="font-weight: bold;">' . $product->ram . ' GB - ' . $product->rom . '</span>';
+            return ' <span style="font-weight: bold;">' . $product->ram . ' - ' . $product->rom . '</span>';
         })->addColumn('image', function ($product) {
             return  ' <img src="' . $product->images->where('type', 'cover')->first()['url'] . '" width="100">';
         })->editColumn('active', function ($product) {
@@ -129,7 +129,7 @@ class ProductController extends Controller
         $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
-        $comments = $product->comments()->where('status', 1)->paginate(4);
+        $comments = $product->comments()->where('status', 1)->orderBy('created_at','DESC')->paginate(4);
         $allComments = $product->comments()->where('status', 1)->get();
 
    // get all brands

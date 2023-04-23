@@ -19,11 +19,11 @@
 
                                     <thead>
                                         <tr class="bg-warning text-dark" style="text-align: center;">
-                                            <th scope="col" width="10%">#</th>
+                                            <th scope="col" width="10%">ID</th>
                                             <th scope="col" width="25%">Tên danh mục</th>
-                                            <th scope="col" width="40%">Mô tả danh mục</th>
+                                            <th scope="col" width="35%">Mô tả danh mục</th>
                                             <th scope="col" width="15%">Trạng thái</th>
-                                            <th scope="col" width="10%"><span style="margin-left: 10px;">Thao
+                                            <th scope="col" width="15%"><span style="margin-left: 10px;">Thao
                                                     tác</span>
                                             </th>
                                         </tr>

@@ -30,7 +30,6 @@ class ValidateBanner extends FormRequest
             'thumb' => 'required',
             'type_banner' => 'required',
             'url' => 'required',
-            'order' => 'required|integer',
         ];
     }
 
@@ -52,8 +51,6 @@ class ValidateBanner extends FormRequest
             'thumb.required' => 'Vui lòng chọn hình ảnh',
             'type_banner.required' => 'Vui lòng chọn loại banner',
             'url.required' => 'Vui lòng nhập đường dẫn của sản phẩm',
-            'order.required' => 'Vui lòng nhập thứ tự hiển thị',
-            'order.integer' => 'Thứ tự hiển thị không hợp lệ',
         ];
     }
 }

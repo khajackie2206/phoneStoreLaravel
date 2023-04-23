@@ -23,7 +23,7 @@
 
                                         <thead>
                                             <tr class="bg-warning text-dark">
-                                                <th scope="col" width="5%">ID</th>
+                                                <th scope="col" width="7%">ID</th>
                                                 <th scope="col" width="14%" style="text-align: left;">Tên khách hàng</th>
                                                 <th scope="col" width="12%" style="text-align: left;">Tổng đơn</th>
 

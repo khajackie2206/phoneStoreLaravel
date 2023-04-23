@@ -78,7 +78,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"
         integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+{{--
     <script>
         var botmanWidget = {
                                 title:'Admin',
@@ -88,9 +88,9 @@
                                 bubbleBackground:'#c02026',
                                 headerTextColor: '#fff',
                                 };
-    </script>
+    </script> --}}
 
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
     {{-- <script>
         window.addEventListener('load', function() {
         // Do we have a #scroll in the URL hash?

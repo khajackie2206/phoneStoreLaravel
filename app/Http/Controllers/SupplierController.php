@@ -107,6 +107,6 @@ class SupplierController extends Controller
         $supplier->status = $request->status;
         $supplier->save();
         Alert::success('Cập nhật thông tin nhà cung cấp thành công');
-        return redirect()->back();
+        return redirect()->route('list_suppliers');
     }
 }

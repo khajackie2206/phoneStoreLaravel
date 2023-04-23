@@ -9,6 +9,9 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Attachments\Video;
 
 
 class BotManController extends Controller
@@ -19,10 +22,15 @@ class BotManController extends Controller
 
         $botman->hears('{message}',function($botman,$message){
 
+$attachment = new Image('https://i.imgur.com/9YQ9Z0M.jpg');
+
+            $send = OutgoingMessage::create('This is my text')
+                ->withAttachment($attachment);
+
             if ($message == 'hi') {
+
                 $this->askName($botman);
             }else{
-                $botman->reply("http://www.google.com");
             }
 
         });

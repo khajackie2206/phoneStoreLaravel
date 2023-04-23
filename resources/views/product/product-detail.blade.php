@@ -64,17 +64,19 @@
                     <div class="product-info">
                         <h2>{{ $product->name }} <span style="margin-left: 70px;">
                                 @foreach ($groupProduct as $item)
-                                @if ($item->rom == $product->rom)
-                                <a href="/products/details/{{ $item->id }}"
+                                  @if ($item->rom != 'N/A' && $item->ram != 'N/A')
+                                    @if ($item->rom == $product->rom)
+                                     <a href="/products/details/{{ $item->id }}"
                                     style="border: solid #0363cd 1px;font-size: 15px; padding: 10px; border-radius: 2px; ">{{
                                     $item->ram }}
-                                    GB - {{ $item->rom }}</a>
-                                @else
-                                <a href="/products/details/{{ $item->id }}"
+                                     - {{ $item->rom }}</a>
+                                    @else
+                                   <a href="/products/details/{{ $item->id }}"
                                     style="border: 1px solid #e0e0e0;font-size: 15px; padding: 10px; color: #333; border-radius: 2px; ">{{
-                                    $item->ram }}
-                                    GB - {{ $item->rom }}</a>
-                                @endif
+                                      $item->ram }}
+                                     - {{ $item->rom }}</a>
+                                    @endif
+                                   @endif
                                 @endforeach
 
                             </span></h2>
@@ -282,7 +284,7 @@
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">RAM: </td>
-                                <td>{{ $product->ram }} GB</td>
+                                <td>{{ $product->ram }}</td>
                             <tr>
                                 <td style="font-weight: bold;">Bộ nhớ trong: </td>
                                 <td>{{ $product->rom }}</td>

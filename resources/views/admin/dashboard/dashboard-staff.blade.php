@@ -66,7 +66,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Bình luận</h5>
+                                            <h5 class="card-title">Bình luận tháng</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Đơn hàng tuần</h5>
+                                            <h5 class="card-title">Đơn hàng tháng</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -287,27 +287,23 @@
             labelRowChart = JSON.parse(labelRowChart);
                var dataRowChart = '{!! json_encode($totalOrderData['data']) !!}';
             dataRowChart = JSON.parse(dataRowChart);
-            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+
             // Line chart
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
                     labels: labelRowChart,
                     datasets: [{
-                        label: "Số đơn: ",
+                        label: "Số đơn ",
                         fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.primary,
+                         borderColor: 'rgb(75, 192, 192)',
                         data: dataRowChart
                     }]
                 },
                 options: {
                     maintainAspectRatio: false,
                     legend: {
-                        display: false
+                        display: true
                     },
                     tooltips: {
                         intersect: false
@@ -315,27 +311,15 @@
                     hover: {
                         intersect: true
                     },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
+
                     scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }],
+
                         yAxes: [{
-                            ticks: {
-                                stepSize: 5
-                            },
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
+                        ticks: {
+                        stepSize: 1,
+                        beginAtZero: true,
+                        },
+
                         }]
                     }
                 }
@@ -355,8 +339,11 @@
                 labels: labelPieChart,
                 datasets: [{
                     label: "Population (millions)",
-                    backgroundColor: ["#F5B041", "#E04A3E", "#3cba9f", "#e8c3b9", "#c45850"],
-                    data: dataPieChart
+                    backgroundColor: ['rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'],
+                    data: dataPieChart,
+                    hoverOffset: 4
                 }]
             },
             options: {
@@ -381,8 +368,24 @@
                 labels: labelRowChart,
                 datasets: [{
                     label: "Số sản phẩm bán được",
-                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#DAE061", "#88E03E"],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'],
                     data: dataRowChart,
+                    borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -393,6 +396,14 @@
                     display: true,
                     text: 'Top 7 sản phẩm bán chạy nhất (theo số lượng)'
                 },
+                scales: {
+                yAxes: [{
+                ticks: {
+                stepSize: 5,
+                beginAtZero: true,
+                },
+                }]
+                }
 
             }
         });

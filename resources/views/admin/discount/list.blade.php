@@ -19,7 +19,7 @@
 
                                          <thead>
                                              <tr class="bg-warning text-dark" style="text-align: center;margin-top: 15px;">
-                                                 <th scope="col" width="5%">#</th>
+                                                 <th scope="col" width="7%">ID</th>
                                                  <th scope="col" width="12%">Mã giảm giá</th>
                                                  <th scope="col" width="10%">Số lượng</th>
                                                  <th scope="col" width="23%">Loại giảm giá</th>

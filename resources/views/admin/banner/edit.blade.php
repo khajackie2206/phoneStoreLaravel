@@ -62,7 +62,7 @@
                         </div>
                         <div class="card-body" style="margin-top: -25px;">
                             <input type="file" name="file" class="form-control" id="upload">
-                            <div id="image_show" style="margin-top: 15px;">
+                            <div id="image_show" style="margin-top: 15px;max-height: 60px;">
                                 <a href="{{ $banner->thumb }}"><img src="{{ $banner->thumb }}" width="100px"></a>
                             </div>
                             <input type="hidden" name="thumb" value="{{ $banner->thumb }}" id="thumb">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="card-body" style="margin-top: -22px;">
                             <input type="text" name="order" value="{{ $banner->sort_by}}" class="form-control"
-                                placeholder="Thứ tự hiển thị banner">
+                                placeholder="Thứ tự hiển thị banner" disabled>
                         </div>
                         <div style="height:20px;">
                         @if ($errors->first('order') != '')

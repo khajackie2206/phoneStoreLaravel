@@ -100,6 +100,13 @@ Route::prefix('admin')
         Route::get('/warehouses/export-csv', [WareHouseController::class, 'exportWarehouseReceiptCSV']);
         Route::get('/warehouses/generate-receipt-pdf', [WareHouseController::class, 'generateListWarehousePDF']);
 
+        #suppliers
+        Route::get('/suppliers', [SupplierController::class, 'index'])->name('list_suppliers');
+        Route::get('/suppliers/add', [SupplierController::class, 'addPage']);
+        Route::post('/suppliers/add', [SupplierController::class, 'store']);
+        Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
+        Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
+        Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
 
         Route::middleware(['role'])->group(function () {
             #Brands
@@ -128,14 +135,6 @@ Route::prefix('admin')
             Route::get('/staffs/delete/{admin}', [AdminController::class, 'deleteStaff']);
             Route::post('/staffs/add', [AdminController::class, 'createStaff']);
             Route::get('/staffs/add', [AdminController::class, 'createStaffPage']);
-
-            #suppliers
-            Route::get('/suppliers', [SupplierController::class, 'index']);
-            Route::get('/suppliers/add', [SupplierController::class, 'addPage']);
-            Route::post('/suppliers/add', [SupplierController::class, 'store']);
-            Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
-            Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
-            Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
 
             #category
             Route::get('/categories/list', [CategoryController::class, 'index']);

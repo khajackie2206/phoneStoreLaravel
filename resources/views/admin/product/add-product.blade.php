@@ -98,57 +98,53 @@
                             <div id="image_shows" style="margin-top: 10px;height: 50px;"> </div>
                             <input type="hidden" name="thumbs" id="thumbs">
                         </div>
-                    </div>
 
-
-                    <div class="card">
-
-                    </div>
-
-                    <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Kích hoạt</h5>
-                        </div>
-                        <div class="card-body" style="margin-top: -22px;">
-                            <div>
-                                <input class="custom-control-input" value="1" type="radio" id="active" name="active"
-                                    checked="true">
-                                <label for="active" class="custom-control-label">Có</label>
+                                <h5 class="card-title mb-0">Kích hoạt</h5>
                             </div>
-                            <div>
-                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
-                                <label for="no_active" class="custom-control-label">Không</label>
+                            <div class="card-body" style="margin-top: -22px;">
+                                <div>
+                                    <input class="custom-control-input" value="1" type="radio" id="active" name="active" checked="true">
+                                    <label for="active" class="custom-control-label">Có</label>
+                                </div>
+                                <div>
+                                    <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
+                                    <label for="no_active" class="custom-control-label">Không</label>
+                                </div>
                             </div>
-                        </div>
+                            <div class="card-header" style="margin-top: 10px;">
+                                <h5 class="card-title mb-0">Khuyến mãi</h5>
+                            </div>
+                            <div class="card-body" style="margin-top: -22px;">
+                                <input type="text" name="discount" class="form-control" placeholder="Số tiền giảm giá - VNĐ">
+                                <p class="discount_alert" style="color:red;margin-top:5px; margin-bottom:-20px; height: 20px;"></p>
+                            </div>
+                            @if($errors->first('discount') != '')
+                            <ul style="margin-top:-5px;list-style-type:none; ">
+                                <li class="text-danger">{{$errors->first('discount')}}</li>
+                            </ul>
+                            @endif
+                            <div class="card-header" style="margin-bottom: -20px;">
+                                <h5 class="card-title mb-0">Năm sản xuất</h5>
+                            </div>
+                            <div class="card-body" style="margin-bottom: 10px;">
+                                <select class="form-select mb-1" name="year">
+                                    <option value="2023" selected>2023</option>
+                                    <option value="2020">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="0">Cũ hơn</option>
+                                </select>
+                            </div>
                     </div>
 
+
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Khuyến mãi</h5>
-                        </div>
-                        <div class="card-body" style="margin-top: -22px;">
-                            <input type="text" name="discount" class="form-control"
-                                placeholder="Số tiền giảm giá - VNĐ">
-                            <p class="discount_alert"
-                                style="color:red;margin-top:5px; margin-bottom:-20px; height: 20px;"></p>
-                        </div>
-                        @if($errors->first('discount') != '')
-                        <ul style="margin-top:-5px;list-style-type:none; ">
-                            <li class="text-danger">{{$errors->first('discount')}}</li>
-                        </ul>
-                        @endif
-                        <div class="card-header" style="margin-bottom: -15px;">
-                            <h5 class="card-title mb-0">Năm sản xuất</h5>
-                        </div>
-                        <div class="card-body">
-                            <select class="form-select mb-1" name="year">
-                                <option value="2023" selected>2023</option>
-                                <option value="2020">2022</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">Cũ hơn</option>
-                            </select>
-                        </div>
+
                     </div>
+
+
+
                 </div>
 
                 <div class="col-12 col-lg-6">
@@ -196,6 +192,9 @@
                                 <option value="Quand HD+">Quad HD+</option>
                                 <option value="Full HD+">Full HD+</option>
                                 <option value="HD+">HD+</option>
+                                <option value="HD">HD</option>
+                                <option value="QVGA">QVGA</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
                         <div class="card-header" style="margin-top:15px;margin-bottom: -20px;">
@@ -204,8 +203,11 @@
                         <div class="card-body">
                             <select class="form-select mb-1" name="screen">
                                 <option value="Dynamic AMOLED 2X" selected>Dynamic AMOLED 2X</option>
+                                <option value="Super AMOLED">Super AMOLED</option>
                                 <option value="IPS LCD">IPS LCD</option>
                                 <option value="OLED">OLED</option>
+                                <option value="TFT">TFT</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
                         <div class="card-header" style="margin-bottom: -20px;">
@@ -232,10 +234,12 @@
                                 <option value="60 Hz" selected>60 Hz</option>
                                 <option value="120 Hz">120 Hz</option>
                                 <option value="144 Hz">144 Hz</option>
+                                <option value="165 Hz">165 Hz</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
                         <div class="card-header" style="margin-top:10px;margin-bottom: -25px;">
-                            <h5 class="card-title mb-0">Tính năng</h5>
+                            <h5 class="card-title mb-0">Tính năng đặc biệt</h5>
                         </div>
                         <div class="card-body">
                             @foreach ($features as $feature)
@@ -255,7 +259,7 @@
                             <li class="text-danger">{{$errors->first('features')}}</li>
                         </ul>
                         @endif
-                        <div class="card-header" style="margin-top:15px;margin-bottom: -20px;">
+                        <div class="card-header" style="margin-top:10px;margin-bottom: -20px;">
                             <h5 class="card-title mb-0">Bộ xử lý</h5>
                         </div>
                         <div class="card-body">
@@ -284,29 +288,37 @@
                             <li class="text-danger">{{$errors->first('color')}}</li>
                         </ul>
                         @endif
-                        <div class="card-header" style="margin-bottom: -20px; margin-top:15px;">
+                        <div class="card-header" style="margin-bottom: -20px; ">
                             <h5 class="card-title mb-0">Bộ Nhớ</h5>
                         </div>
                         <div class="card-body" style="margin-bottom: -20px;">
                             <label class="form-label">Ram</label>
                             <select class="form-select mb-1" name="ram">
-                                <option value="2" selected>2 GB</option>
-                                <option value="4">4 GB</option>
-                                <option value="6">6 GB</option>
-                                <option value="8">8 GB</option>
-                                <option value="12">12 GB</option>
-                                <option value="16">16 GB</option>
+                                <option value="N/A">N/A</option>
+                                <option value="2 GB">2 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="6 GB">6 GB</option>
+                                <option value="8 GB" selected>8 GB</option>
+                                <option value="12 GB">12 GB</option>
+                                <option value="16 GB">16 GB</option>
+                                <option value="32 GB">32 GB</option>
                             </select>
                         </div>
                         <div class="card-body">
                             <label class="form-label">Rom</label>
                             <select class="form-select mb-1" name="rom">
-                                <option value="32 GB" selected>32 GB</option>
+                                <option value="N/A">N/A</option>
+                                <option value="1 GB">1 GB</option>
+                                <option value="2 GB">2 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="8 GB">8 GB</option>
+                                <option value="16 GB">16 GB</option>
+                                <option value="32 GB">32 GB</option>
                                 <option value="64 GB">64 GB</option>
-                                <option value="128 GB">128 GB</option>
+                                <option value="128 GB" selected>128 GB</option>
                                 <option value="256 GB">256 GB</option>
                                 <option value="512 GB">512 GB</option>
-                                <option value="1 TB">1 TB</option>
+
                             </select>
                         </div>
                         <div class="card-header" style="margin-bottom: -20px;">

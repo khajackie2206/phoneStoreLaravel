@@ -41,6 +41,25 @@ class StaffController extends Controller
         ];
     }
 
+
+    public function mapDataWith7DayAgo($data)
+    {
+        $dataMap = [];
+        $date = now()->subDays(7);
+        for ($i = 0; $i < 7; $i++) {
+            $dataMap[$i]['date'] = $date->format('d-m-Y');
+            $dataMap[$i]['total'] = 0;
+            foreach ($data as $item) {
+                if ($item->date == $date->format('Y-m-d')) {
+                    $dataMap[$i]['total'] = $item->total;
+                }
+            }
+            $date->addDay();
+        }
+        //convert array to object and return
+        return $dataMap;
+    }
+
     public function prepareDataForRowChart($data)
     {
         $labels = [];
@@ -78,8 +97,13 @@ class StaffController extends Controller
 
         $orderNews = Order::where('created_at', '<>', null)->orderBy('created_at', 'DESC')->limit(8)->get();
         $orders = Order::where('created_at', '>=', now()->subWeek())->where('created_at', '<', now())->get();
-        //caculate total comment in table comments
-        $totalComment = DB::table('comments')->count();
+        //caculate total comment in this month
+        $totalComment = DB::table('comments')
+            ->select(DB::raw('count(*) as total'))
+            ->where('created_at', '>=', now()->startOfMonth())
+            ->where('created_at', '<', now()->endOfMonth())
+            ->get();
+
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
@@ -149,12 +173,14 @@ class StaffController extends Controller
             ->groupBy('date')
             ->get();
 
+
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->where('created_at', '>=', now()->subDays(14))
+            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
             ->groupBy('date')
             ->get();
+
 
         // caculate increase total user create account in 14 days ago to 7 days ago
         $totalUser2WeeksAgo = DB::table('users')
@@ -187,7 +213,7 @@ class StaffController extends Controller
         $pieChartData = $this->prepareDataForChart($paymentMethods);
         $rowChartData = $this->mapDataWith14DayAgo($totalPrices);
         $formatRowChartData = $this->prepareDataForRowChart($rowChartData);
-        $totalOrderData = $this->mapDataWith14DayAgo($totalOrders);
+        $totalOrderData = $this->mapDataWith7DayAgo($totalOrders);
         $formatTotalOrderData = $this->prepareDataForRowChart($totalOrderData);
 
         $products = Product::get();
@@ -265,7 +291,7 @@ class StaffController extends Controller
             return '<img src="' . $activity->admin->avatar . '" width="40" style="border-radius: 50%;" >';
         })->editColumn('created_at', function ($activity) {
             return  '<span style="font-weight: bold;">' . $activity->created_at->format('d.m.Y H:i:s') . '</span>';
-        })->rawColumns(['created_at','avatar'])->make();
+        })->rawColumns(['created_at', 'avatar'])->make();
     }
 
     //get all activity

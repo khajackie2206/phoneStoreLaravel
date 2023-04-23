@@ -49,7 +49,6 @@ class BannerService
                 'price' => $params['price'],
                 'type_banner' => $params['type_banner'],
                 'url' => $params['url'],
-                'sort_by' => $params['order'],
                 'active' => $params['active'],
             ];
 

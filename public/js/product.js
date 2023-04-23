@@ -158,9 +158,13 @@ $(document).on("click", ".quick-view-btn", function(){
 
             //   }
 
-            $("#modelProductMemory").html(
-                results.ram + " GB" + " - " + results.memory
-            );
+            if (results.ram == 'N/A' || results.rom == 'N/A') {
+                $("#modelProductMemory").hide();
+            } else {
+                $("#modelProductMemory").html(
+                    results.ram + " - " + results.memory
+                );
+            }
             $("#numberRating").html("("+ results.numberRating + ")");
             $("#modalProductName").html(results.name);
             if(results.discount == 0) {

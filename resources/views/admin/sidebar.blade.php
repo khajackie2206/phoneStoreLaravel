@@ -135,7 +135,7 @@
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Quản lý sản phẩm
+                Tác vụ quản lý
             </li>
 
             <li class="sidebar-item active">
@@ -155,10 +155,6 @@
                 <a class="sidebar-link" href="/admin/banner/list">
                     <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
                 </a>
-            </li>
-
-            <li class="sidebar-header">
-                Quản lý đơn hàng
             </li>
 
             <li class="sidebar-item" id="sidebar-order">
@@ -186,6 +182,11 @@
             <li class="sidebar-item" id="sidebar-users">
                 <a class="sidebar-link" href="/admin/users">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Khách hàng</span>
+                </a>
+            </li>
+            <li class="sidebar-item" id="sidebar-suppliers">
+                <a class="sidebar-link" href="/admin/suppliers">
+                    <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Nhà cung cấp</span>
                 </a>
             </li>
         </ul>

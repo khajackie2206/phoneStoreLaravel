@@ -43,10 +43,7 @@ class RegisterController extends Controller
             'token' => $token
         ]);
 
-
-        // Session::put('user', $user);
-
-        Alert::success('Thành công', 'Đăng ký tài khoản thành công');
+        Alert::success('Đăng ký tài khoản thành công, vui lòng kiểm tra email để kích hoạt tài khoản');
         return redirect('/');
     }
 

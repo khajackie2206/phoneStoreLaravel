@@ -164,8 +164,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
-            ->whereYear('orders.created_at', '=', now()->subMonth()->year)
+            ->whereBetween('orders.created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()])
             ->get();
         $totalAvanueLastMonth = $totalAvanueLastMonth[0]->total;
 
@@ -175,8 +174,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->whereMonth('orders.created_at', '=', date('m'))
-            ->whereYear('orders.created_at', '=', date('Y'))
+            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()])
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;
 
@@ -186,8 +184,7 @@ class AdminController extends Controller
         $totalOrderLastMonth = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->whereMonth('orders.created_at', '=', now()->subMonth()->month)
-            ->whereYear('orders.created_at', '=', now()->subMonth()->year)
+            ->whereBetween('orders.created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()])
             ->get();
 
         $totalOrderLastMonth = $totalOrderLastMonth[0]->total;
@@ -195,22 +192,11 @@ class AdminController extends Controller
         $totalOrder = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->whereMonth('orders.created_at', '=', date('m'))
-            ->whereYear('orders.created_at', '=', date('Y'))
+            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()])
             ->get();
-
 
         $totalOrder = $totalOrder[0]->total;
         $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrderLastMonth);
-
-        // // group total_price in table order_details with table orders within 12 days
-        // $totalPrices = DB::table('order_details')
-        //     ->join('orders', 'order_details.order_id', '=', 'orders.id')
-        //     ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('DATE(orders.created_at) as date'))
-        //     ->where('orders.status_id', 4)
-        //     ->where('orders.created_at', '>=', now()->subDays(7))
-        //     ->groupBy('date')
-        //     ->get();
 
         // group total order within 12 days
         $totalOrders = DB::table('orders')
@@ -552,9 +538,9 @@ class AdminController extends Controller
                 }
             }
             $profit = $totalDoanhThu - $totalVon;
-            if ($profit < 0) {
-                $profit = 0;
-            }
+            // if ($profit < 0) {
+            //     $profit = 0;
+            // }
             $profitData[] = [
                 'date' => $date,
                 'total' => $profit,

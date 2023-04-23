@@ -21,7 +21,7 @@
 
                                          <thead>
                                              <tr class="bg-warning text-dark" style="text-align: center;">
-                                                 <th scope="col" width="5%">#</th>
+                                                 <th scope="col" width="7%">ID</th>
                                                  <th scope="col" width="20%">Tên thương hiệu</th>
                                                  <th scope="col" width="15%">Hình ảnh</th>
                                                  <th scope="col" width="20%">Trạng thái</th>

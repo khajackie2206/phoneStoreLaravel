@@ -164,16 +164,16 @@
                             </div>
                             <div class="card-body">
                                 <select class="form-select mb-1" name="screen">
-                                    <option value="Dynamic AMOLED 2X"
-                                        {{ $product->display_tech == 'Dynamic AMOLED 2X' ? 'selected' : '' }}>Dynamic
-                                        AMOLED 2X</option>
-                                    <option value="AMOLED" {{ $product->display_tech == 'AMOLED' ? 'selected' : '' }}>
-                                        AMOLED</option>
+                                    <option value="Dynamic AMOLED"
+                                        {{ $product->display_tech == 'Dynamic AMOLED' ? 'selected' : '' }}>Dynamic AMOLED</option>
+                                    <option value="Super AMOLED" {{ $product->display_tech == 'AMOLED' ? 'selected' : '' }}>Super AMOLED</option>
                                     <option value="IPS LCD" {{ $product->display_tech == 'IPS LCD' ? 'selected' : '' }}>
                                         IPS LCD</option>
                                     <option value="OLED" {{ $product->display_tech == 'OLED' ? 'selected' : '' }}>OLED
                                     </option>
                                     <option value="TFT" {{ $product->display_tech == 'TFT' ? 'selected' : '' }}>TFT
+                                    </option>
+                                    <option value="N/A" {{ $product->display_tech == 'N/A' ? 'selected' : '' }}>N/A
                                     </option>
                                 </select>
                             </div>
@@ -191,6 +191,8 @@
                             </div>
                             <div class="card-body">
                                 <select class="form-select mb-1" name="rate">
+                                    <option value="N/A" {{ $product->screen_rate == 'N/A' ? 'selected' : '' }}>N/A
+                                    </option>
                                     <option value="60 Hz" {{ $product->screen_rate == '60 Hz' ? 'selected' : '' }}>60 Hz
                                     </option>
                                     <option value="120 Hz" {{ $product->screen_rate == '120 Hz' ? 'selected' : '' }}>120
@@ -243,17 +245,25 @@
                             <div class="card-body" style="margin-bottom: -20px;">
                                 <label class="form-label">Ram</label>
                                 <select class="form-select mb-1" name="ram">
-                                    <option value="2" {{ $product->ram == '2' ? 'selected' : '' }}>2 GB</option>
-                                    <option value="4" {{ $product->ram == '4' ? 'selected' : '' }}>4 GB</option>
-                                    <option value="6" {{ $product->ram == '6' ? 'selected' : '' }}>6 GB</option>
-                                    <option value="8" {{ $product->ram == '8' ? 'selected' : '' }}>8 GB</option>
-                                    <option value="12" {{ $product->ram == '12' ? 'selected' : '' }}>12 GB</option>
-                                    <option value="16" {{ $product->ram == '16' ? 'selected' : '' }}>16 GB</option>
+                                    <option value="N/A" {{ $product->ram == 'N/A' ? 'selected' : '' }}>N/A</option>
+                                    <option value="2 GB" {{ $product->ram == '2 GB' ? 'selected' : '' }}>2 GB</option>
+                                    <option value="4 GB" {{ $product->ram == '4 GB' ? 'selected' : '' }}>4 GB</option>
+                                    <option value="6 GB" {{ $product->ram == '6 GB' ? 'selected' : '' }}>6 GB</option>
+                                    <option value="8 GB" {{ $product->ram == '8 GB' ? 'selected' : '' }}>8 GB</option>
+                                    <option value="12 GB" {{ $product->ram == '12 GB' ? 'selected' : '' }}>12 GB</option>
+                                    <option value="16 GB" {{ $product->ram == '16 GB' ? 'selected' : '' }}>16 GB</option>
+                                    <option value="32 GB" {{ $product->ram == '32 GB' ? 'selected' : '' }}>32 GB</option>
                                 </select>
                             </div>
                             <div class="card-body">
                                 <label class="form-label">Rom</label>
                                 <select class="form-select mb-1" name="rom">
+                                    <option value="N/A" {{ $product->rom == 'N/A' ? 'selected' : '' }}>N/A</option>
+                                    <option value="1 GB" {{ $product->rom == '1 GB' ? 'selected' : '' }}>1 GB</option>
+                                    <option value="2 GB" {{ $product->rom == '2 GB' ? 'selected' : '' }}>2 GB</option>
+                                    <option value="4 GB" {{ $product->rom == '4 GB' ? 'selected' : '' }}>4 GB</option>
+                                    <option value="8 GB" {{ $product->rom == '8 GB' ? 'selected' : '' }}>8 GB</option>
+                                    <option value="16 GB" {{ $product->rom == '16 GB' ? 'selected' : '' }}>16 GB</option>
                                     <option value="32 GB" {{ $product->rom == '32 GB' ? 'selected' : '' }}>32 GB</option>
                                     <option value="64 GB" {{ $product->rom == '64 GB' ? 'selected' : '' }}>64 GB</option>
                                     <option value="128 GB" {{ $product->rom == '128 GB' ? 'selected' : '' }}>128 GB
@@ -315,8 +325,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">Cập nhật Sản Phẩm</button>
+                <div class="card-footer" style="text-align: center; margin-top: 25px;">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </div>
                 @csrf
             </form>

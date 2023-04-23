@@ -36,10 +36,6 @@
         <!-- Responsive CSS -->
         <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
-        <script src="{{ asset('Jquery/jquery-3.6.4.min.js') }}" rel="stylesheet"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -49,10 +45,7 @@
         {{-- <link rel="stylesheet" type="text/css"
             href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
 
-        <!-- Modernizr js -->
-        <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
 
-       <script src="{{ asset('js/app.js') }}"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -60,3 +53,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hoomanbahreini/bootstrap-half-and-quarter-grid/fractional-grid.css"  />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hoomanbahreini/bootstrap-half-and-quarter-grid/fractional-grid.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<script src="{{ asset('Jquery/jquery-3.6.4.min.js') }}" rel="stylesheet"></script>
+
+<!-- Modernizr js -->
+<script src="{{ asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
+<script type="text/javascript">
+    window.$crisp=[];window.CRISP_WEBSITE_ID="3d279f5e-bf4c-4e84-9196-43f1b89bc394";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+</script>

@@ -20,7 +20,7 @@
 
                                         <thead>
                                             <tr class="bg-warning text-dark">
-                                                <th scope="col" width="5%">#</th>
+                                                <th scope="col" width="7%">ID</th>
                                                 <th scope="col" width="20%">Tên điện thoại</th>
                                                 <th scope="col" width="15%">Dung lượng</th>
 
