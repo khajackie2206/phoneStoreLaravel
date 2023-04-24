@@ -318,6 +318,7 @@
                                 <option value="128 GB" selected>128 GB</option>
                                 <option value="256 GB">256 GB</option>
                                 <option value="512 GB">512 GB</option>
+                                <option value="1 TB">1 TB</option>
 
                             </select>
                         </div>

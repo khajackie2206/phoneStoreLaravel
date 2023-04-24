@@ -37,6 +37,8 @@ Route::prefix('admin')
     ->middleware(['admin'])
     ->group(function () {
         Route::get('/home', [AdminController::class, 'index']);
+
+        Route::middleware(['block.staff'])->group(function () {
         Route::get('/dashboard-staff', [StaffController::class, 'index']);
 
         #Orders
@@ -108,6 +110,8 @@ Route::prefix('admin')
         Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
         Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
 
+         });
+
         Route::middleware(['role'])->group(function () {
             #Brands
             Route::get('/brand/add', [BrandController::class, 'index']);
@@ -167,63 +171,66 @@ Route::get('google', [LoginController::class, 'redirectToProvider']);
 Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 #product of user portal
-Route::prefix('products')->group(function () {
-    Route::get('/detail/{id}', [ProductController::class, 'getProductDetail']);
-    Route::get('/details/{id}', [ProductController::class, 'detail']);
-    Route::get('/live-search', [ProductController::class, 'search']);
-    Route::post('/cart', [CardController::class, 'addCart']);
-    Route::get('/carts', [CardController::class, 'showCard'])->name('carts');
-    Route::get('/delete-cart/{id}', [CardController::class, 'delete']);
+Route::middleware(['block'])->group(function () {
+    Route::prefix('products')->group(function () {
+        Route::get('/detail/{id}', [ProductController::class, 'getProductDetail']);
+        Route::get('/details/{id}', [ProductController::class, 'detail']);
+        Route::get('/live-search', [ProductController::class, 'search']);
+        Route::post('/cart', [CardController::class, 'addCart']);
+        Route::get('/carts', [CardController::class, 'showCard'])->name('carts');
+        Route::get('/delete-cart/{id}', [CardController::class, 'delete']);
 
-    //payment
-    Route::get('/update/{id}', [CardController::class, 'update']);
-    Route::get('/adjust/{id}', [CardController::class, 'adjust']);
-    Route::get('/checkout', [CardController::class, 'checkout'])->name('checkout');
+        //payment
+        Route::get('/update/{id}', [CardController::class, 'update']);
+        Route::get('/adjust/{id}', [CardController::class, 'adjust']);
+        Route::get('/checkout', [CardController::class, 'checkout'])->name('checkout');
 
-    //filter product
-    Route::get('/filter', [ProductController::class, 'filterPage'])->name('product.filter');
-    Route::get('filter-product', [ProductController::class, 'filter']);
-    Route::get('/load-more', [ProductController::class, 'loadMore']);
-    Route::get('/load-product', [ProductController::class, 'loadProduct']);
+        //filter product
+        Route::get('/filter', [ProductController::class, 'filterPage'])->name('product.filter');
+        Route::get('filter-product', [ProductController::class, 'filter']);
+        Route::get('/load-more', [ProductController::class, 'loadMore']);
+        Route::get('/load-product', [ProductController::class, 'loadProduct']);
 
-    //Apply discount
-    Route::get('/discount', [ProductController::class, 'applyDiscount']);
+        //Apply discount
+        Route::get('/discount', [ProductController::class, 'applyDiscount']);
 
-    //Payment
-    Route::post('/checkout-product', [CardController::class, 'payment']);
-    Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
-    Route::get('/payment-success', [CardController::class, 'PaymentSuccess'])->name('paymentsuccess');
-    Route::get('/payment-cancel', [CardController::class, 'PaymentCancel'])->name('paymentCancel');
-    Route::get('/handle-vnpay', [CardController::class, 'payment']);
+        //Payment
+        Route::post('/checkout-product', [CardController::class, 'payment']);
+        Route::post('/checkout-product/vnpay', [CardController::class, 'paymentWithVNpay']);
+        Route::get('/payment-success', [CardController::class, 'PaymentSuccess'])->name('paymentsuccess');
+        Route::get('/payment-cancel', [CardController::class, 'PaymentCancel'])->name('paymentCancel');
+        Route::get('/handle-vnpay', [CardController::class, 'payment']);
 
-    // Checkout Sevive
-    Route::post('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
-    Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
-    Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
-    Route::get('/thank-you', [CardController::class, 'thankYou'])->name('thank-you');;
+        // Checkout Sevive
+        Route::post('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+        Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+        Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+        Route::get('/thank-you', [CardController::class, 'thankYou'])->name('thank-you');;
 
-    //Order
-    Route::get('/order/update-status/{order}', [MainController::class, 'customerUpdateStatus']);
+        //Order
+        Route::get('/order/update-status/{order}', [MainController::class, 'customerUpdateStatus']);
 
-    //Comment
-    Route::post('/comment', [RatingController::class, 'add']);
+        //Comment
+        Route::post('/comment', [RatingController::class, 'add']);
+    });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/detail', [MainController::class, 'userDetail']);
+        Route::put('/update/{user}', [MainController::class, 'update']);
+        Route::get('/order-tracking', [MainController::class, 'trackOrder']);
+
+        //Change password
+        Route::get('/change-password', [MainController::class, 'changePasswordPage']);
+        Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
+
+        // forget password
+        Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+        Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+        Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+        Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+    });
 });
 
-Route::prefix('users')->group(function () {
-    Route::get('/detail', [MainController::class, 'userDetail']);
-    Route::put('/update/{user}', [MainController::class, 'update']);
-    Route::get('/order-tracking', [MainController::class, 'trackOrder']);
-
-    //Change password
-    Route::get('/change-password', [MainController::class, 'changePasswordPage']);
-    Route::post('/change-password/{user}', [MainController::class, 'changePassword']);
-
-    // forget password
-    Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-    Route::post('forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-    Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-    Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-});
 
 Route::post('/upload/services', [UploadUserController::class, 'store']);
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);

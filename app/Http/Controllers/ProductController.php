@@ -129,13 +129,14 @@ class ProductController extends Controller
         $productsSameBrand = $this->productService->getSameBrands($product);
         $sessionProducts = $this->cardService->getProduct();
         $groupProduct = $this->productService->getGroupProduct($product);
-        $comments = $product->comments()->where('status', 1)->orderBy('created_at','DESC')->paginate(4);
+        $comments = $product->comments()->where('status', 1)->orderBy('created_at', 'DESC')->paginate(4);
         $allComments = $product->comments()->where('status', 1)->get();
+        $groupColorProducts = $this->productService->getGroupColorProduct($product);
 
-   // get all brands
-   $brands = Brand::where('active', 1)->where('delete_at', null)->get();
-   //get all categories
-   $categories = ProductCategory::where('active', 1)->get();
+        // get all brands
+        $brands = Brand::where('active', 1)->where('delete_at', null)->get();
+        //get all categories
+        $categories = ProductCategory::where('active', 1)->get();
 
         $user = session()->get('user');
 
@@ -151,6 +152,7 @@ class ProductController extends Controller
             'allComments' => $allComments,
             'brands' => $brands,
             'categories' => $categories,
+            'groupColorProducts' => $groupColorProducts,
         ]);
     }
 
@@ -235,12 +237,26 @@ class ProductController extends Controller
 
     public function Search(Request $request)
     {
-        $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">Sản phẩm gợi ý</div>';
         $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
             ->limit(3)
             ->get();
+
+        $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">'.count($products).' Sản phẩm gợi ý: </div>';
+
         if (count($products) > 0) {
             foreach ($products as $product) {
+                $discountPrice = '';
+                if ($product->discount > 0) {
+                    $discount = number_format(($product->discount / $product->price) * 100);
+                    $discountPrice = '
+                     <span
+                                                    style="color: #333; font-weight:bold; font-size: 90%;margin-left: 5px;text-decoration: line-through;">
+                                                    ' . number_format($product->price) . ' <span
+                                                        style="text-decoration: underline;">đ</span></span>
+                                                <span></span>
+                                                <span class="discount-percentage">-' . $discount . '%</span>';
+                }
+
                 $output .=
                     '<a href="/products/details/' .
                     $product->id .
@@ -249,15 +265,16 @@ class ProductController extends Controller
                <tr>
                   <td rowspan="2" style="width: 90px; height: 60px;"><img src="' .
                     $product->images->where('type', 'cover')->first()['url'] .
-                    '" style="width: 80px; height: 70px;"></td>
+                    '" style="width: 80px; height:75px;"></td>
                   <td style="font-weight:bold;width: 220px; height: 1px;">' .
                     $product->name .
                     '</td>
                </tr>
                <tr>
                   <td style="color:red;width: 200px; height: 1px;">' .
-                    number_format($product->price) .
-                    ' đ</td>
+                    number_format($product->price - $product->discount) .
+                    ' đ '.$discountPrice.'</td>
+
                </tr>
             </table>
             </a>';
@@ -335,6 +352,12 @@ class ProductController extends Controller
             $avgRating = 0;
             $sumRating = 0;
             $rating = '';
+
+            $productRom = '';
+            if ($product->category_id != 4) {
+                $productRom = ' - ' . $product->rom;
+            }
+
 
             if ($countRating > 0) {
                 foreach ($product->comments->where('status', 1) as $comment) {
@@ -417,7 +440,7 @@ class ProductController extends Controller
                                                         <h4><a class="product_name" href="/products/details/' .
                 $product->id .
                 '">' .
-                $product->name .
+                $product->name . "" . $productRom .
                 '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
@@ -476,7 +499,7 @@ class ProductController extends Controller
                                                             </div>
                                                         </div>
                                                         <h4><a class="product_name" href="single-product.html">' .
-                $product->name .
+                $product->name . "" . $productRom .
                 '</a></h4>
                                                         <div class="price-box">
                                                              <span class="new-price"> <p style="color: red; font-weight:bold;">
@@ -517,11 +540,13 @@ class ProductController extends Controller
     public function loadMore(Request $request)
     {
         $page = $request->input('page', default: 1);
+        $request->input('page', default: 1);
         $output = '';
         $flex = '';
         $productWithTotal = $this->productService->filterProduct(request()->input());
         $products = $productWithTotal['data'];
-        $numberOfProduct = ( $productWithTotal['total'] - 9 ) * $page;
+        $numberOfProduct = ($productWithTotal['total'] - 9) * $page;
+
 
         if (count($products) != 0) {
             foreach ($products as $product) {
@@ -530,6 +555,22 @@ class ProductController extends Controller
                 $avgRating = 0;
                 $sumRating = 0;
                 $rating = '';
+                $productRom = '';
+                $discountPrice = '';
+
+                if ($product->discount > 0) {
+                    $discount = number_format(($product->discount / $product->price) * 100);
+                    $discountPrice = '
+                     <span
+                                                    style="color: #333; font-weight:bold; font-size: 90%;margin-left: 5px;text-decoration: line-through;">
+                                                    ' . number_format($product->price) . ' <span
+                                                        style="text-decoration: underline;">đ</span></span>
+                                                <span></span>
+                                                <span class="discount-percentage">-' . $discount . '%</span>';
+                }
+                if ($product->category_id != 4) {
+                    $productRom = ' - ' . $product->rom;
+                }
 
                 if ($countRating > 0) {
                     foreach ($product->comments->where('status', 1) as $comment) {
@@ -606,15 +647,14 @@ class ProductController extends Controller
                                                             </div>
                                                             <h4><a class="product_name"
                                                                     href="single-product.html">' .
-                    $product->name .
+                    $product->name . '' . $productRom .
                     '</a>
                                                             </h4>
                                                             <div class="price-box">
                                                                 <span class="new-price">
                                                                     <p style="color: red; font-weight:bold;">
                                                                         ' .
-                    number_format($product->price) .
-                    ' đ</p>
+                    number_format($product->price - $product->discount) . ' đ ' . $discountPrice . '</p>
                                                                 </span>
                                                             </div>
                                                             <p>' .
@@ -675,13 +715,12 @@ class ProductController extends Controller
                                                         <h4><a class="product_name" href="/products/details/' .
                     $product->id .
                     '">' .
-                    $product->name .
+                    $product->name . '' . $productRom .
                     '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">
                                                             ' .
-                    number_format($product->price) .
-                    ' đ</p></span>
+                    number_format($product->price - $product->discount) . ' đ ' . $discountPrice . '</p></span>
                                                         </div>
                                                     </div>
                                                   <div class="add-actions">
@@ -772,7 +811,7 @@ class ProductController extends Controller
                                                         <h4><a class="product_name" href="/products/details/' .
                 $product->id .
                 '">' .
-                $product->name .
+                $product->name . " - " . $product->rom .
                 '</a></h4>
                                                         <div class="price-box">
                                                             <span class="new-price"> <p style="color: red; font-weight:bold;">

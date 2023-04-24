@@ -296,7 +296,11 @@ class ProductService
     }
 
     public function getGroupProduct(Product $product) {
-        return Product::where('name', 'like', $product->name)->get();
+        return Product::where('name', 'like', $product->name)->get()->unique('rom');
+    }
+
+    public function getGroupColorProduct(Product $product) {
+        return Product::where('name', 'like', $product->name)->where('rom', 'like', $product->rom)->get();
     }
 
     public function getAllComments(Product $product)

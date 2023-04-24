@@ -30,12 +30,12 @@
                                         <thead>
                                             <tr class="bg-warning text-dark">
                                                 <th scope="col" width="7%">ID</th>
-                                                <th scope="col" width="17%" style="text-align: left;">Nhân viên nhập</th>
+                                                <th scope="col" width="15%" style="text-align: left;">Nhân viên nhập</th>
                                                 <th scope="col" width="15%" style="text-align: left;">Tổng tiền</th>
                                                 <th scope="col" width="18%" style="text-align: left;">Ngày nhập</th>
                                                 <th scope="col" width="20%" style="text-align: left;">Ngày xác nhận</th>
                                                 <th scope="col" width="15%" style="text-align: left;">Trạng thái</th>
-                                                <th scope="col" width="15%"><span>Thao tác</span>
+                                                <th scope="col" width="17%"><span>Thao tác</span>
                                                 </th>
                                             </tr>
                                         </thead>

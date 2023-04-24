@@ -58,7 +58,7 @@
                             <div class="card-body" style="margin-top: -22px;">
                                 <select class="form-select mb-1" name="product">
                                     @foreach ($products as $value)
-                                          <option value="{{$value->id}}" selected>{{ $value->name}} {{ $value->ram }} GB - {{ $value->rom}}</option>
+                                          <option value="{{$value->id}}" selected>{{ $value->name}} {{ $value->ram }} - {{ $value->rom}} - {{ $value->color}}</option>
                                     @endforeach
                                 </select>
                             </div>

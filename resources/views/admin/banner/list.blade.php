@@ -141,16 +141,16 @@
                     "render": function(data, type, row, meta) {
                     if (row["type_banner"] == "header") {
                     return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                        <span class="badge bg-success">Tiêu đề động</span>`
+                        <span class="badge bg-success">Carousel</span>`
                         } else if(row["type_banner"] == "header static"){
                         return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                            <span class="badge bg-success">Tiêu đề tĩnh</span>`
+                            <span class="badge bg-success">Tiêu đề</span>`
                             } else if(row["type_banner"] == "broadcast"){
                             return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                <span class="badge bg-warning">Quảng bá</span>`
+                                <span class="badge bg-warning">Cuối trang</span>`
                                 } else {
                                     return `<i class="fa fa-check-circle-o green"></i><span class="ms-1">
-                                        <span class="badge bg-danger">Giữa tĩnh</span>`
+                                        <span class="badge bg-danger">Giữa trang</span>`
                                         }
                                         }
                                         },

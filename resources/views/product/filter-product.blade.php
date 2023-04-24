@@ -114,7 +114,11 @@
                                                     </div>
                                                     <h4><a class="product_name"
                                                             href="/products/details/{{ $product->id }}">{{
-                                                            $product->name }}</a>
+                                                            $product->name }}
+
+                                                            @if($product->category_id != 4)
+                                                            - {{ $product->rom }}
+                                                            @endif</a>
                                                     </h4>
                                                     <div class="price-box">
                                                         <span class="new-price">
@@ -217,7 +221,10 @@
                                                         </div>
                                                     </div>
                                                     <h4><a class="product_name" href="single-product.html">{{
-                                                            $product->name }}</a>
+                                                            $product->name }}
+                                                            @if($product->category_id != 4)
+                                                            - {{ $product->rom }}
+                                                            @endif</a>
                                                     </h4>
                                                     <div class="price-box">
                                                         <span class="new-price">
@@ -266,7 +273,7 @@
                         </div>
                         <div class="paginate" style="text-align: center; margin-top: 45px;" id="button-loadMore">
                             <input type="hidden" value="1" id="page">
-                            @if($productQuantity>6)
+                            @if($productQuantity > 9)
                             <a onclick="loadMore()" class="btn btn-light">Xem thêm</a>
                             @endif
                         </div>
@@ -381,8 +388,9 @@
                                     <li><input type="checkbox" class="product-memories" id="rom4" value="512 GB" {{
                                             in_array('512 GB', $romFilter) ? 'checked' : '' }}><label class="ml-2"
                                             for="rom4">512 GB</label></li>
-                                    <li><input type="checkbox" class="product-memories" id="rom5" value="1 TB" {{ in_array('1 TB', $romFilter)
-                                            ? 'checked' : '' }}><label class="ml-2" for="rom5">1 TB</label></li>
+                                    <li><input type="checkbox" class="product-memories" id="rom5" value="1 TB" {{
+                                            in_array('1 TB', $romFilter) ? 'checked' : '' }}><label class="ml-2"
+                                            for="rom5">1 TB</label></li>
                                 </ul>
                                 <input type="hidden" name="filter[rom]">
                             </div>

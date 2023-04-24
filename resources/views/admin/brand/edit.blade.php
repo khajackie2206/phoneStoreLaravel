@@ -31,7 +31,7 @@
                                     <div class="card-body" style="margin-top: -22px;">
                                         <input type="file" name="file" class="form-control" id="upload">
                                         <div id="image_show" style="margin-top: 15px; margin-bottom: 20px;">
-                                            <a href="{{ $brand->image }}"><img src="{{ $brand->image }}" width="100px"></a>
+                                            <a href="{{ $brand->image }}"><img src="{{ $brand->image }}"  style="margin-top: 10px;height: 50px;"></a>
                                         </div>
                                         <input type="hidden" value="{{$brand->image}}" name="image" id="thumb">
 

@@ -149,9 +149,17 @@
                                 <div class="produt-variants-size">
                                     <label style="margin-bottom: 20px; font-weight: 600;font-size:15px;">Màu
                                         sắc</label>
-                                    <a href="#"
-                                        style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
-                                        {{ $product->color }}</a>
+                                    @foreach($groupColorProducts as $productColor)
+                                     @if($productColor->color == $product->color)
+                                      <a href="/products/details/{{ $productColor->id }}"
+                                         style="border: solid #0363cd 1px;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
+                                         {{ $productColor->color }}</a>
+                                     @else
+                                       <a href="/products/details/{{ $productColor->id }}"
+                                        style="border: 1px solid #e0e0e0;color:#0363cd ;font-size: 15px; padding: 10px; border-radius: 2px;font-weight:500;font-size:15px; ">
+                                        {{ $productColor->color }}</a>
+                                     @endif
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="single-add-to-cart" style="margin-top: 25px;">
@@ -180,8 +188,8 @@
                         </form>
 
                         <div class="product-additional-info pt-20">
-                            <a class="wishlist-btn" style="color: grey;" href="wishlist.html"><i
-                                    class="fa fa-heart-o"></i>Yêu thích</a>
+                            {{-- <a class="wishlist-btn" style="color: grey;" href="wishlist.html"><i
+                                    class="fa fa-heart-o"></i>Yêu thích</a> --}}
                             <div class="product-social-sharing pt-25">
                                 <ul>
                                     <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a>
