@@ -260,7 +260,7 @@ class ProductController extends Controller
                 $memory = '';
 
                 if ($product->category !=4 ){
-                   $memory =' '. $product->ram.' - '.$product->rom .' - '.$product->color;
+                   $memory =' '.$product->rom .' - '.$product->color;
                 }
 
                 $output .=
@@ -361,7 +361,7 @@ class ProductController extends Controller
 
             $productRom = '';
             if ($product->category_id != 4) {
-                $productRom = ' ' .$product->ram.' - ' . $product->rom . ' - ' . $product->color;
+                $productRom = ' ' . $product->rom . ' - ' . $product->color;
             }
 
 
@@ -575,7 +575,7 @@ class ProductController extends Controller
                                                 <span class="discount-percentage">-' . $discount . '%</span>';
                 }
                 if ($product->category_id != 4) {
-                    $productRom = ' '.$product->ram.' - ' . $product->rom . ' - ' . $product->color;
+                    $productRom = ' '. $product->rom . ' - ' . $product->color;
                 }
 
                 if ($countRating > 0) {

@@ -131,14 +131,12 @@
                         <div class="card-body" style="margin-top: -15px;">
                             <div>
                                 <input class="custom-control-input" value="1" type="radio" id="active" name="active"
-                                    {{$banner->active = 1 ?
-                                'checked' : '' }}>
+                                    {{$banner->active == 1 ? 'checked="true"' : '' }}>
                                 <label for="active" class="custom-control-label">Có</label>
                             </div>
                             <div style="margin-bottom: 35px;">
                                 <input class="custom-control-input" value="0" type="radio" id="no_active" name="active"
-                                    {{$banner->active = 0 ?
-                                'checked' : '' }}>
+                                    {{$banner->active == 0 ? 'checked="true"' : '' }}>
                                 <label for="no_active" class="custom-control-label">Không</label>
                             </div>
                         </div>

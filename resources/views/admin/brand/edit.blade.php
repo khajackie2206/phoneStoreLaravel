@@ -80,13 +80,14 @@
                             </div>
                             <div class="card-body" style="margin-top: -5px;">
                                 <div>
-                                    <input class="custom-control-input" value="1" type="radio" id="active" name="active" {{$brand->active = 1 ?
-                                    'checked' : '' }}>
+
+                                    <input class="custom-control-input" value="1" type="radio" id="active" name="active" {{$brand->active == 1 ?
+                                    'checked="true"' : '' }}>
                                     <label for="active" class="custom-control-label">Có</label>
                                 </div>
                                 <div>
-                                    <input class="custom-control-input" value="0" type="radio" id="no_active" name="active" {{$brand->active = 0 ?
-                                    'checked' : '' }}>
+                                    <input class="custom-control-input" value="0" type="radio" id="no_active" name="active" {{$brand->active == 0 ?
+                                    'checked="true"' : '' }}>
                                     <label for="no_active" class="custom-control-label">Không</label>
                                 </div>
                             </div>

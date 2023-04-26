@@ -80,6 +80,12 @@ Route::prefix('admin')
             Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
             Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
 
+            #category
+            Route::get('/categories/list', [CategoryController::class, 'index'])->name('list_category');
+            Route::get('/categories/edit/{category}', [CategoryController::class, 'showEdit']);
+            Route::get('/categories/supplier-data', [CategoryController::class, 'getData'])->name('category_data');
+            Route::post('/categories/edit/{category}', [CategoryController::class, 'update']);
+
             #users
             Route::get('/users', [AdminController::class, 'getAllUsers']);
             Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
@@ -138,12 +144,6 @@ Route::prefix('admin')
             Route::get('/staffs/delete/{admin}', [AdminController::class, 'deleteStaff']);
             Route::post('/staffs/add', [AdminController::class, 'createStaff']);
             Route::get('/staffs/add', [AdminController::class, 'createStaffPage']);
-
-            #category
-            Route::get('/categories/list', [CategoryController::class, 'index'])->name('list_category');
-            Route::get('/categories/edit/{category}', [CategoryController::class, 'showEdit']);
-            Route::get('/categories/supplier-data', [CategoryController::class, 'getData'])->name('category_data');
-            Route::post('/categories/edit/{category}', [CategoryController::class, 'update']);
 
             #activities
             Route::get('/activities', [StaffController::class, 'getAllActivity']);

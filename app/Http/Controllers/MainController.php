@@ -223,7 +223,7 @@ class MainController extends Controller
             return $admin->role == 1 ? '<a style="margin-left:5px; margin-right: 7px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>
                     <a href="/admin/order/delete/' . $order->id . '" onclick="return deleteOrder(event);"<i type="submit" style="color: red;margin-right: 20px;"
                     class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
-                    <a style="margin-left:5px; margin-right: 25px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
+                    <a style="margin-left:20px; margin-right: 5px;" href="/admin/order/detail/' . $order->id . '"><i class="fas fa-edit fa-xl"></i></a>';
         })->addColumn('admin', function ($order) {
             return !is_null($order->admin) ? '<span>' . $order->admin->name . '</span>' : '<span style="font-style: italic;">*Chưa duyệt*</span>';
         })->editColumn('created_at', function ($order) {
@@ -268,7 +268,7 @@ class MainController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('itsolutionstuff.pdf')->header('Content-Type', 'application/pdf');;
+        return $pdf->download('hoadon.pdf');
     }
 
     public function generateOrderPDF()
@@ -289,7 +289,7 @@ class MainController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('listOrder.pdf')->header('Content-Type', 'application/pdf');;
+        return $pdf->download('listOrder.pdf');
     }
 
     public function exportCSV()

@@ -15,7 +15,7 @@
     <!--Checkout Area Strat-->
     <div class="checkout-area pt-60 pb-30">
         <div class="container">
-            <form action="/products/checkout-product" id="form-discount" method="POST" onsubmit="return ValidationEvent(event);">
+            <form action="/products/checkout-product" id="form-discount" method="POST" onsubmit="return ValidationEvent()">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-12">
@@ -61,7 +61,8 @@
                                         <label>Số điện thoại giao hàng <span class="required">*</span></label>
                                         @if (isset($user->phone))
                                             <input type="text" value="{{ $user->phone }}" name="phone_number"
-                                                placeholder="Số điện thoại" style="background-color: #f2f2f2;" id="phone_number"  disabled>
+                                                placeholder="Số điện thoại" id="phone_number">
+                                            <p id="phone_number_alert" style="color:red;margin-top:5px;height: 20px;"></p>
                                         @else
                                             <input type="text" placeholder="Số điện thoại..." name="phone_number" id="phone_number" >
                                             <p id="phone_number_alert" style="color:red;margin-top:5px;height: 20px;"></p>
@@ -123,7 +124,11 @@
                                                     $summary += $subTotal;
                                                 @endphp
                                                 <tr class="cart_item">
-                                                    <td class="cart-product-name"> {{ $product->name }} {{ $product->ram}} - {{ $product->rom}} {{ $product->color}}<strong
+                                                    <td class="cart-product-name"> {{ $product->name }}
+                                                        @if($product->category_id !=4 )
+                                                        {{ $product->rom}}
+                                                        @endif
+                                                        {{ $product->color}}<strong
                                                             class="product-quantity"> × {{ $carts[$product->id] }}</strong>
                                                     </td>
                                                     <td class="cart-product-total">
@@ -297,12 +302,14 @@
         document.getElementById("phone_number_alert").innerHTML = "";
     }
 
+
     if (!validateNumber(phone.value)) {
         document.getElementById("phone_number_alert").innerHTML = "Số điện thoại không hợp lệ";
         check = false;
     } else {
         document.getElementById("phone_number_alert").innerHTML = "";
     }
+
 
      return check;
     }

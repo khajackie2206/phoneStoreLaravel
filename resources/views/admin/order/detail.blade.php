@@ -74,7 +74,7 @@
                             <th width="25%" style="text-align: left;">Sản phẩm</th>
                             <th width="25%">Hình ảnh</th>
                             <th width="15%">Số lượng</th>
-                            <th width="25%">Tổng tiền</th>
+                            <th width="25%">Đơn giá</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +83,10 @@
                             <tr style="text-align: center;">
                                 <td style="text-align: left;"> {{ $i }}</td>
                                 <td style="text-align: left;">{{ $orderDetail->product->name }}
-                                    {{ $orderDetail->product->rom }} - {{ $orderDetail->product->color }}</td>
+                                    @if($orderDetail->product->category_id !=4 )
+                                   {{ $orderDetail->product->rom }}
+                                   @endif
+                                   - {{ $orderDetail->product->color }} </td>
                                 <td><img src="{{ $orderDetail->product->images->where('type', 'cover')->first()['url'] }}"
                                         width="100"></td>
                                 <td>{{ $orderDetail->quantity }}</td>

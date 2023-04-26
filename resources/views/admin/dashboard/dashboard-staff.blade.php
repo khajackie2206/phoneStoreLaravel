@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
 
-                                        <h1 class="mt-1 mb-3">{{ count($comments)}}</h1>
+                                        <h1 class="mt-1 mb-3">{{ $comments }}</h1>
 
                                         <div class="mb-0" style="padding-bottom: 22px;">
                                             <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> </span>

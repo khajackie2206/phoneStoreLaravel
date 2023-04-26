@@ -46,7 +46,7 @@ class StaffController extends Controller
     {
         $dataMap = [];
         $date = now()->subDays(7);
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i <= 7; $i++) {
             $dataMap[$i]['date'] = $date->format('d-m-Y');
             $dataMap[$i]['total'] = 0;
             foreach ($data as $item) {
@@ -100,8 +100,7 @@ class StaffController extends Controller
         //caculate total comment in this month
         $totalComment = DB::table('comments')
             ->select(DB::raw('count(*) as total'))
-            ->where('created_at', '>=', now()->startOfMonth())
-            ->where('created_at', '<', now()->endOfMonth())
+            ->whereBetween('comments.created_at', [now()->startOfMonth(), now()->addDays(1)])
             ->get();
 
         $paymentMethods = DB::table('orders')
@@ -139,28 +138,28 @@ class StaffController extends Controller
         $increaseTotalAvanue = $this->caculateIncrease($totalAvanue, $totalAvanue2WeeksAgo);
 
         //caculate total order in table orders with status is 4 in total 14 days ago to 7 days ago
-        $totalOrder2WeeksAgo = DB::table('orders')
+
+$totalOrderLastMonth = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
-            ->where('orders.created_at', '>=', now()->subDays(14))
-            ->where('orders.created_at', '<', now()->subDays(7))
+            ->whereBetween('orders.created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()])
+            ->where('deleted_at', null)
             ->get();
 
-        $totalOrder2WeeksAgo = $totalOrder2WeeksAgo[0]->total;
+
+        $totalOrderLastMonth = $totalOrderLastMonth[0]->total;
+
         //caculate total order in table orders with status is 4 in total 7 days ago
+
         $totalOrder = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->where('orders.status_id', 4)
-            ->where('orders.status_id', '<>', 5)
-            ->orWhere('orders.payment_id', '<>', 1)
-            ->where('orders.created_at', '>=', now()->subDays(7))
+            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()->addDays(1)])
+            ->where('deleted_at', null)
             ->get();
+
         $totalOrder = $totalOrder[0]->total;
-        $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrder2WeeksAgo);
+        $increaseTotalOrder = $this->caculateIncrease($totalOrder, $totalOrderLastMonth);
 
         // group total_price in table order_details with table orders within 12 days
         $totalPrices = DB::table('order_details')
@@ -177,7 +176,8 @@ class StaffController extends Controller
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
+               ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->addDays(1)->format('Y-m-d')])
+            ->where('deleted_at', null)
             ->groupBy('date')
             ->get();
 
@@ -218,7 +218,6 @@ class StaffController extends Controller
 
         $products = Product::get();
         $users = count(User::get());
-
         return view('admin.dashboard.dashboard-staff', [
             'title' => 'Admin Dashboard',
             'users' => $users,
@@ -233,7 +232,7 @@ class StaffController extends Controller
             'increaseTotalUser' => $increaseTotalUser,
             'summary' => $totalAvanue,
             'top7Product' => $top7Product,
-            'comments' => $totalComment,
+            'comments' => $totalComment[0]->total,
         ]);
     }
 

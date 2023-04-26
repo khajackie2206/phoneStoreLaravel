@@ -54,8 +54,11 @@
                                                 src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
                                                 style="width: 100px;" alt="Li's Product Image"></a></td>
 
-                                    <td class="li-product-name"><a href="#">{{ $product->name }} - {{ $product->rom
-                                            }}</a>
+                                    <td class="li-product-name"><a href="#">{{ $product->name }}
+                                        @if($product->category_id !=4 )
+                                        {{ $product->rom }}
+                                        @endif
+                                    </a>
                                     </td>
                                     <td class="li-product-name" style="width: 140px;" name="color"><a href="#">
                                             {{ $product->color }}</a>

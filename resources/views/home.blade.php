@@ -505,12 +505,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                @if(isset($broadcastBanner))
                 <!-- Begin Li's Static Home Image Area -->
                 <div class="li-static-home-image"></div>
                 <!-- Li's Static Home Image Area End Here -->
                 <!-- Begin Li's Static Home Content Area -->
                 <div class="li-static-home-content">
-                    @if(isset($broadcastBanner))
+
                     <p>{{ $broadcastBanner->header }}</p>
                     <h2>Sản phẩm</h2>
                     <h2>{{ $broadcastBanner->product_name }}</h2>
@@ -521,8 +522,9 @@
                     <div class="default-btn">
                         <a href="{{ $broadcastBanner->url }}" class="links">MUA NGAY</a>
                     </div>
-                    @endif
+
                 </div>
+                @endif
                 <!-- Li's Static Home Content Area End Here -->
             </div>
         </div>

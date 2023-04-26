@@ -178,7 +178,7 @@ class WareHouseController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('phieunhap.pdf')->header('Content-Type', 'application/pdf');
+        return $pdf->download('phieunhap.pdf');
     }
 
     public function exportWarehouseReceiptCSV()
@@ -213,7 +213,7 @@ class WareHouseController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         $pdf->render();
 
-        return $pdf->stream('listOrder.pdf')->header('Content-Type', 'application/pdf');;
+        return $pdf->download('hoa-don-nhap-kho.pdf');
     }
 
     //delete warehouse receipt

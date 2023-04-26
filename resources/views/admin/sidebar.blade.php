@@ -151,6 +151,12 @@
                 </a>
             </li>
 
+            <li class="sidebar-item" id="sidebar-category">
+                    <a class="sidebar-link" href="/admin/categories/list">
+                        <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
+                    </a>
+                </li>
+
             <li class="sidebar-item" id="sidebar-banner">
                 <a class="sidebar-link" href="/admin/banner/list">
                     <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>

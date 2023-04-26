@@ -167,7 +167,7 @@
                                                 <tr>
                                                     <td width="75%" align="left"
                                                         style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                                        {{ $product->name }} {{ $product->ram}} - {{ $product->rom}} {{ $product->color}} x {{ $carts[$product->id] }}
+                                                        {{ $product->name }} {{ $product->rom}} - {{ $product->color}} x {{ $carts[$product->id] }}
                                                     </td>
                                                     <td width="25%" align="left"
                                                         style="font-family: sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">

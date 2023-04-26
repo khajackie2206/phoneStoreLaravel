@@ -167,7 +167,10 @@
                                             </a>
                                             <div class="minicart-product-details">
                                                 <h6><a href="single-product.html">{{ $sessionProduct->name }}
-                                                         {{ $sessionProduct->ram}} - {{ $sessionProduct->rom}} {{ $sessionProduct->color }}</a>
+                                                    @if($sessionProduct->category_id != 4)
+                                                         {{ $sessionProduct->rom}}
+                                                    @endif
+                                                        - {{ $sessionProduct->color }}</a>
                                                 </h6>
                                                 <span><span style="color: red;">{{
                                                         number_format($sessionProduct->discount > 0 ?

@@ -46,7 +46,7 @@ class CategoryController extends Controller
            $dataUpdate = [
             'name' => $request->name,
             'description' => $request->description,
-            'active' => $request->active,
+            'active' => 1,
         ];
 
         $category->update($dataUpdate);

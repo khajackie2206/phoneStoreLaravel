@@ -68,7 +68,7 @@ class AdminController extends Controller
     {
         $dataMap = [];
         $date = now()->subDays(7);
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i <= 7; $i++) {
             $dataMap[$i]['date'] = $date->format('d-m-Y');
             $dataMap[$i]['total'] = 0;
             foreach ($data as $item) {
@@ -126,7 +126,7 @@ class AdminController extends Controller
         // dd($data);
         $dataMap = [];
         $date = now()->subMonths(7);
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i <= 7; $i++) {
             $dataMap[$i]['date'] = $date->format('m-Y');
             $dataMap[$i]['total'] = 0;
             foreach ($data as $item) {
@@ -144,7 +144,7 @@ class AdminController extends Controller
     public function index()
     {
 
-        $orders = Order::whereMonth('orders.created_at', '=', date('m'))->whereYear('orders.created_at', '=', date('Y'))->get();
+        $orders = Order::whereMonth('orders.created_at', '=', date('m'))->whereYear('orders.created_at', '=', date('Y'))->where('deleted_at', null)->get();
         $paymentMethods = DB::table('orders')
             ->join('payments', 'orders.payment_id', '=', 'payments.id')
             ->select('payments.name as status', DB::raw('count(*) as total'))
@@ -174,7 +174,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('sum(order_details.total_price) as total'))
             ->where('orders.status_id', 4)
-            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()])
+            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()->addDays(1)])
             ->get();
         $totalAvanue =  $totalAvanue[0]->total;
 
@@ -185,6 +185,7 @@ class AdminController extends Controller
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
             ->whereBetween('orders.created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()])
+            ->where('deleted_at', null)
             ->get();
 
         $totalOrderLastMonth = $totalOrderLastMonth[0]->total;
@@ -192,7 +193,8 @@ class AdminController extends Controller
         $totalOrder = DB::table('orders')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->select(DB::raw('count(*) as total'))
-            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()])
+            ->whereBetween('orders.created_at', [now()->startOfMonth(), now()->addDays(1)])
+            ->where('deleted_at', null)
             ->get();
 
         $totalOrder = $totalOrder[0]->total;
@@ -201,7 +203,8 @@ class AdminController extends Controller
         // group total order within 12 days
         $totalOrders = DB::table('orders')
             ->select(DB::raw('count(*) as total'), DB::raw('DATE(created_at) as date'))
-            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
+            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->addDays(1)->format('Y-m-d')])
+            ->where('deleted_at', null)
             ->groupBy('date')
             ->get();
 
@@ -235,10 +238,9 @@ class AdminController extends Controller
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(DB::raw('sum(order_details.total_price) as total'), DB::raw('MONTH(orders.created_at) as month'))
             ->where('orders.status_id', 4)
-            ->where('orders.created_at', '>=', now()->subMonths(7))
+            ->whereBetween('orders.created_at', [now()->subMonths(7), now()->addMonths(1)])
             ->groupBy('month')
             ->get();
-
 
         $revenues = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
             ->where('status_id', 4)
@@ -254,10 +256,9 @@ class AdminController extends Controller
         //caculate total doanh thu in 7 days ago and group by date
         $totalPrices = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as total'))
             ->where('status_id', 4)
-            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->format('Y-m-d')])
+            ->whereBetween('created_at', [now()->subDays(7)->format('Y-m-d'), now()->addDays(1)->format('Y-m-d')])
             ->groupBy('date')
             ->get();
-
 
         //foreach date in dateRange,caculate profit and map with date
         foreach ($dateRange as $date) {
@@ -288,7 +289,6 @@ class AdminController extends Controller
             ];
         }
         $profitData = $this->prepareDataForRowChart($profitData);
-
 
         $top7Product = $this->prepareDataForChartWithName($topProducts);
         $pieChartData = $this->prepareDataForChart($paymentMethods);
