@@ -177,7 +177,7 @@ class ProductController extends Controller
         $result = $this->productService->updateProduct($request->all(), $product);
         if ($result) {
             Alert::success('Thành công', 'Cập nhật sản phẩm thành công');
-            return redirect()->back();
+            return redirect()->route('product_list');
         }
 
         Alert::error('Lỗi', 'Cập nhật sản phẩm lỗi');
@@ -238,10 +238,10 @@ class ProductController extends Controller
     public function Search(Request $request)
     {
         $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
-            ->limit(3)
+            ->limit(4)
             ->get();
 
-        $output = '<div class="viewed" style="width: 400px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">'.count($products).' Sản phẩm gợi ý: </div>';
+        $output = '<div class="viewed" style="width: 500px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">'.count($products).' Sản phẩm gợi ý: </div>';
 
         if (count($products) > 0) {
             foreach ($products as $product) {
@@ -257,17 +257,23 @@ class ProductController extends Controller
                                                 <span class="discount-percentage">-' . $discount . '%</span>';
                 }
 
+                $memory = '';
+
+                if ($product->category !=4 ){
+                   $memory =' '. $product->ram.' - '.$product->rom .' - '.$product->color;
+                }
+
                 $output .=
                     '<a href="/products/details/' .
                     $product->id .
-                    '" class="list-group-item list-group-item-action border-1" style="width: 400px;">
+                    '" class="list-group-item list-group-item-action border-1" style="width: 500px;">
             <table style="border-bottom:none;">
                <tr>
                   <td rowspan="2" style="width: 90px; height: 60px;"><img src="' .
                     $product->images->where('type', 'cover')->first()['url'] .
                     '" style="width: 80px; height:75px;"></td>
-                  <td style="font-weight:bold;width: 220px; height: 1px;">' .
-                    $product->name .
+                  <td style="font-weight:bold;width: 320px; height: 1px;">' .
+                    $product->name .' '.$memory.
                     '</td>
                </tr>
                <tr>
@@ -280,7 +286,7 @@ class ProductController extends Controller
             </a>';
             }
         } else {
-            $output = '<a  class="list-group-item list-group-item-action border-1" style="width: 300px;text-align:center;">Không tìm thấy kết quả</a>';
+            $output = '<a  class="list-group-item list-group-item-action border-1" style="width: 500px;text-align:center;">Không tìm thấy kết quả</a>';
         }
 
         return response()->json($output);
@@ -355,7 +361,7 @@ class ProductController extends Controller
 
             $productRom = '';
             if ($product->category_id != 4) {
-                $productRom = ' - ' . $product->rom;
+                $productRom = ' ' .$product->ram.' - ' . $product->rom . ' - ' . $product->color;
             }
 
 
@@ -569,7 +575,7 @@ class ProductController extends Controller
                                                 <span class="discount-percentage">-' . $discount . '%</span>';
                 }
                 if ($product->category_id != 4) {
-                    $productRom = ' - ' . $product->rom;
+                    $productRom = ' '.$product->ram.' - ' . $product->rom . ' - ' . $product->color;
                 }
 
                 if ($countRating > 0) {

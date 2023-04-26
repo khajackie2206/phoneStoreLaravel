@@ -3,10 +3,7 @@
 <main class="content">
     <div class="container-fluid p-0">
         <div class="mb-3">
-            <h1 class="h3 d-inline align-middle">Cập nhật banner</h1>
-            <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                +
-            </a>
+            <h1 class="h3 d-inline align-middle">Cập nhật thông tin banner</h1>
         </div>
         <form action="/admin/banner/edit/{{ $banner->id }}" method="POST">
             <div class="row">
@@ -62,7 +59,7 @@
                         </div>
                         <div class="card-body" style="margin-top: -25px;">
                             <input type="file" name="file" class="form-control" id="upload">
-                            <div id="image_show" style="margin-top: 15px;max-height: 60px;">
+                            <div id="image_show" style="margin-top: 15px;height: 60px;">
                                 <a href="{{ $banner->thumb }}"><img src="{{ $banner->thumb }}" width="100px"></a>
                             </div>
                             <input type="hidden" name="thumb" value="{{ $banner->thumb }}" id="thumb">
@@ -138,7 +135,7 @@
                                 'checked' : '' }}>
                                 <label for="active" class="custom-control-label">Có</label>
                             </div>
-                            <div style="margin-bottom: 30px;">
+                            <div style="margin-bottom: 35px;">
                                 <input class="custom-control-input" value="0" type="radio" id="no_active" name="active"
                                     {{$banner->active = 0 ?
                                 'checked' : '' }}>

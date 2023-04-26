@@ -149,7 +149,7 @@
                                     </span>
                                 </div>
                                 <span></span>
-                                @php $summary = 0; @endphp
+                                @php $summary = 0; $discount =0; @endphp
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
                                         @if (\Illuminate\Support\Facades\Session::get('carts'))
@@ -167,7 +167,7 @@
                                             </a>
                                             <div class="minicart-product-details">
                                                 <h6><a href="single-product.html">{{ $sessionProduct->name }}
-                                                        {{ $sessionProduct->color }}</a>
+                                                         {{ $sessionProduct->ram}} - {{ $sessionProduct->rom}} {{ $sessionProduct->color }}</a>
                                                 </h6>
                                                 <span><span style="color: red;">{{
                                                         number_format($sessionProduct->discount > 0 ?
@@ -185,7 +185,23 @@
 
                                         @endif
                                     </ul>
-                                    <p class="minicart-total">TỔNG CỘNG: <span>{{ number_format($summary) }}Đ</span>
+                                    <p class="minicart-total-2">Giảm giá: <span>@if (Session::get('discount') && Session::get('discount')['type'] == 'money')
+                                    <span> - {{ number_format(Session::get('discount')['amount']) }} <span
+                                            >đ</span></span>
+                                           @php
+                                               $discount = Session::get('discount')['amount'];
+                                           @endphp
+                                    @elseif(Session::get('discount') && Session::get('discount')['type'] == 'percent')
+                                    - {{ number_format($summary * (Session::get('discount')['amount'] / 100)) }} Đ
+                                    ({{ Session::get('discount')['amount'] }} %)
+                                    @php
+                                        $discount = $summary * (Session::get('discount')['amount'] / 100);
+                                    @endphp
+                                    @else
+                                    0 <span >đ</span>
+                                    @endif</span>
+                                    </p>
+                                    <p class="minicart-total">TỔNG CỘNG: <span>{{ number_format($summary - $discount) }}Đ</span>
                                     </p>
                                     <div class="minicart-button">
                                         <a href="/products/carts" class="li-button li-button-fullwidth li-button-dark">

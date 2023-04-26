@@ -145,10 +145,14 @@
                                 </option>
                                 <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng
                                 </option>
+                                <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng
+                                </option>
                             @elseif ($order->status->id == 3)
                                 <option value="3" {{ $order->status->id == 3 ? 'selected' : '' }}>Đang giao hàng
                                 </option>
                                 <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao hàng thành công
+                                </option>
+                                <option value="5" {{ $order->status->id == 5 ? 'selected' : '' }}>Hủy đơn hàng
                                 </option>
                             @elseif ($order->status->id == 4)
                                 <option value="4" {{ $order->status->id == 4 ? 'selected' : '' }}>Giao hàng thành công

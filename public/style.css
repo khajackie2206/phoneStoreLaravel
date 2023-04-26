@@ -1718,11 +1718,11 @@ z-index: 1;
 .minicart .minicart-product-list li button.close:hover {
 color: #fed700;
 }
+
 .minicart .minicart-total {
 border: none;
 color: #555555;
 font-size: 14px;
-line-height: 40px;
 margin: 0 0 15px;
 padding: 0 10px;
 text-transform: uppercase;
@@ -1731,10 +1731,30 @@ font-weight: bold;
 font-family: "Poppins", sans-serif;
 margin-top: 10px;
 }
+
+.minicart .minicart-total-2 {
+border: none;
+color: #555555;
+font-size: 14px;
+line-height: 40px;
+padding: 0 10px;
+text-transform: uppercase;
+width: 100%;
+font-weight: bold;
+font-family: "Poppins", sans-serif;
+margin-top: 10px;
+}
+
 .minicart .minicart-total span {
 font-size: 18px;
 float: right;
 }
+
+.minicart .minicart-total-2 span {
+font-size: 13px;
+float: right;
+}
+
 .li-button {
 display: inline-block;
 font-family: "Poppins", sans-serif;

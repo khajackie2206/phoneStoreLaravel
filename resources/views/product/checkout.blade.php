@@ -123,7 +123,7 @@
                                                     $summary += $subTotal;
                                                 @endphp
                                                 <tr class="cart_item">
-                                                    <td class="cart-product-name"> {{ $product->name }}<strong
+                                                    <td class="cart-product-name"> {{ $product->name }} {{ $product->ram}} - {{ $product->rom}} {{ $product->color}}<strong
                                                             class="product-quantity"> × {{ $carts[$product->id] }}</strong>
                                                     </td>
                                                     <td class="cart-product-total">

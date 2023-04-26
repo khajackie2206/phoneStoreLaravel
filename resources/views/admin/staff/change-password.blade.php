@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-6">
                         <input type="password" name="current_password" class="form-control"
-                            value="123456">
+                        >
                         @if($errors->first('current_password') != '')
 
                             <p class="text-danger mt-2">{{$errors->first('current_password')}}</p>
@@ -29,7 +29,7 @@
                     <div class="col-md-3"><label class="labels">Mật khẩu mới</label>
                     </div>
                     <div class="col-md-6">
-                        <input type="password" name="new-pass" class="form-control"  value="123456">
+                        <input type="password" name="new-pass" class="form-control" >
                         @if($errors->first('new-pass') != '')
                        <p class="text-danger mt-2">{{$errors->first('new-pass')}}</p>
                         @endif
@@ -40,7 +40,7 @@
                     <div class="col-md-3"><label class="labels">Xác nhận mật khẩu</label>
                     </div>
                     <div class="col-md-6">
-                        <input type="password" name="re-new-pass" class="form-control" value="123456">
+                        <input type="password" name="re-new-pass" class="form-control">
                         @if($errors->first('re-new-pass') != '')
                        <p class="text-danger mt-2">{{$errors->first('re-new-pass')}}</p>
                         @endif

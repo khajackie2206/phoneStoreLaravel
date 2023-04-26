@@ -86,7 +86,10 @@
                                             width="150" class="img-sm border" style="padding: 15px;"></div>
                                     <figcaption class="info align-self-center">
                                         <p class="title" style="font-weight: bold;">{{ $orderDetail->product->name }}<br>
-                                        {{ $orderDetail->product->ram }} - {{ $orderDetail->product->rom }} </p>
+                                        @if($orderDetail->product->ram != 'N/A' && $orderDetail->product->rom != 'N/A')
+                                        {{ $orderDetail->product->ram }} - {{ $orderDetail->product->rom }} {{$orderDetail->product->color}}</p>
+                                        @endif
+
                                         <span class="text-muted">{{ number_format($orderDetail->product->price) }}<span
                                                 style="text-decoration: underline;">đ</span> x {{ $orderDetail->quantity }}
                                         </span>

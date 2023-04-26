@@ -115,9 +115,8 @@
                                                     <h4><a class="product_name"
                                                             href="/products/details/{{ $product->id }}">{{
                                                             $product->name }}
-
                                                             @if($product->category_id != 4)
-                                                            - {{ $product->rom }}
+                                                              {{ $product->ram }} - {{ $product->rom }} - {{ $product->color }}
                                                             @endif</a>
                                                     </h4>
                                                     <div class="price-box">

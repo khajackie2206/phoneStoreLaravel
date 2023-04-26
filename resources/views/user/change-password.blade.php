@@ -11,35 +11,35 @@
                         </div>
                         <label class="labels">Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác</label>
                         <hr>
-                        <div class="row mt-2">
+                        <div class="row mt-4">
                             <div class="col-md-3"><label class="labels">Mật khẩu hiện tại</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" name="current_password" class="form-control" value="123456"
+                                <input type="password" name="current_password" class="form-control"
                                     placeholder="">
                                      <ul style="margin-top:5px; ">
                                           <li class="text-danger">{{$errors->first('current_password')}}</li>
                                       </ul>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-4">
 
                             <div class="col-md-3"><label class="labels">Mật khẩu mới</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" name="new-pass" class="form-control" value="123456"
+                                <input type="password" name="new-pass" class="form-control"
                                     placeholder="">
                                      <ul style="margin-top:5px; ">
                                           <li class="text-danger">{{$errors->first('new-pass')}}</li>
                                       </ul>
                             </div>
                         </div>
-                         <div class="row mt-2">
+                         <div class="row mt-4" style="margin-top: 20px;">
 
                             <div class="col-md-3"><label class="labels">Xác nhận mật khẩu</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" name="re-new-pass" class="form-control" value="123456"
+                                <input type="password" name="re-new-pass" class="form-control"
                                     placeholder="">
                                      <ul style="margin-top:5px; ">
                                           <li class="text-danger">{{$errors->first('re-new-pass')}}</li>

@@ -207,12 +207,10 @@ class CardController extends Controller
         //get all categories
         $categories = ProductCategory::where('active', 1)->get();
 
-
         if (!$auth) {
             Alert::error('Vui lòng đăng nhập');
-            return view('auth.login', [
-                'title' => 'Đăng nhập',
-            ]);
+
+            return redirect()->route('user-login');
         }
 
         $user = User::where('id', $auth->id)->first();

@@ -44,7 +44,7 @@ class OrderMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.order', [
+        return $this->subject('Đơn hàng mới')->view('mail.order', [
             'user' => $this->user,
             'products' => $this->products,
             'discount' => $this->discount,

@@ -4,9 +4,6 @@
          <div class="container-fluid p-0">
              <div class="mb-3">
                  <h1 class="h3 d-inline align-middle">Thêm thương hiệu mới</h1>
-                 <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                     +
-                 </a>
              </div>
              <form action="/admin/brand/add" method="POST" onsubmit="return ValidationEvent()">
                  <div class="row">

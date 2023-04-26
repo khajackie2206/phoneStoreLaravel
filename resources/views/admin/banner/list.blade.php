@@ -22,7 +22,7 @@
 
                                     <thead>
                                         <tr class="bg-warning text-dark">
-                                            <th scope="col" width="7%">#</th>
+                                            <th scope="col" width="7%">ID</th>
                                             <th scope="col" width="15%">Tên banner</th>
                                             <th scope="col" width="19%">Sản phẩm quảng bá</th>
                                             <th scope="col" width="13%">Trạng thái</th>

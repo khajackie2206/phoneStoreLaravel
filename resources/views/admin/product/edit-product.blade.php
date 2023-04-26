@@ -88,7 +88,7 @@
                                 <label class="form-label">Gallery</label>
                                 <input type="file" name="files[]" class="form-control" id="uploads" multiple>
                                 <p class="files_alert" style="color:red;margin-top:5px; margin-bottom:-10px; height: 20px;">
-                                <div id="image_shows" style="margin-top: 15px;">
+                                <div id="image_shows" style="margin-top: 15px;height: 120px;">
                                     @foreach ($product->images->where('type', 'gallery') as $image )
                                     <img src="{{$image->url}}" width="100px" alt="" style="margin-right: 5px;">
                                     @endforeach
@@ -98,7 +98,7 @@
                                 <input type="hidden" name="thumbs" id="thumbs" value="{{ $arrayPath }}">
                             </div>
 
-                            <div class="card-header">
+                            <div class="card-header" style="margin-top: 10px;">
                                 <h5 class="card-title mb-0">Kích hoạt</h5>
                             </div>
                             <div class="card-body">

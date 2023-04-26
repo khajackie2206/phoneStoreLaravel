@@ -34,6 +34,9 @@ class PaypalController extends Controller
             'summary' => $input['summary'],
             'delivery_address' => $input['delivery_address'],
         ];
+        $sum = $input['summary'] / 23500;
+        $total_paypal = round($sum, 2);
+
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -48,7 +51,7 @@ class PaypalController extends Controller
                 0 => [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => "10"
+                        "value" => $total_paypal,
                     ]
                 ]
             ]

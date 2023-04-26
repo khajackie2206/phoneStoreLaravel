@@ -39,78 +39,77 @@ Route::prefix('admin')
         Route::get('/home', [AdminController::class, 'index']);
 
         Route::middleware(['block.staff'])->group(function () {
-        Route::get('/dashboard-staff', [StaffController::class, 'index']);
+            Route::get('/dashboard-staff', [StaffController::class, 'index']);
 
-        #Orders
-        Route::get('/order/lists', [MainController::class, 'orders']);
-        Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
-        Route::get('/order/detail/{order}', [MainController::class, 'show']);
-        Route::get('/order/generate-pdf/{order}', [MainController::class, 'generatePDF']);
-        Route::get('/order/generate-order-pdf', [MainController::class, 'generateOrderPDF']);
-        Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
-        Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
-        Route::post('/order/update/{order}', [MainController::class, 'updateOrderStatus']);
-        Route::get('/order/delete/{order}', [MainController::class, 'delete']);
+            #Orders
+            Route::get('/order/lists', [MainController::class, 'orders']);
+            Route::get('/order/lists/order-lists', [MainController::class, 'getData'])->name('order_data');
+            Route::get('/order/detail/{order}', [MainController::class, 'show']);
+            Route::get('/order/generate-pdf/{order}', [MainController::class, 'generatePDF']);
+            Route::get('/order/generate-order-pdf', [MainController::class, 'generateOrderPDF']);
+            Route::get('/order/export-excel', [MainController::class, 'exportExcel']);
+            Route::get('/order/export-csv', [MainController::class, 'exportCSV']);
+            Route::post('/order/update/{order}', [MainController::class, 'updateOrderStatus']);
+            Route::get('/order/delete/{order}', [MainController::class, 'delete']);
 
-        #Comments
-        Route::get('/comments/lists', [RatingController::class, 'comments']);
-        Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
-        Route::get('/comments/delete/{comment}', [RatingController::class, 'delete']);
-        Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
+            #Comments
+            Route::get('/comments/lists', [RatingController::class, 'comments']);
+            Route::get('/comments/censorship/{comment}', [RatingController::class, 'updateStatus']);
+            Route::get('/comments/delete/{comment}', [RatingController::class, 'delete']);
+            Route::get('/comments/getdata', [RatingController::class, 'getData'])->name('rating_data');
 
-        #Product
-        Route::get('/product/add', [ProductController::class, 'index']);
-        Route::post('/product/add', [ProductController::class, 'storeProduct']);
-        Route::get('/product/list', [ProductController::class, 'getAllProducts']);
-        Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
-        Route::post('/product/edit/{product}', [ProductController::class, 'update']);
-        Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
-        Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
+            #Product
+            Route::get('/product/add', [ProductController::class, 'index']);
+            Route::post('/product/add', [ProductController::class, 'storeProduct']);
+            Route::get('/product/list', [ProductController::class, 'getAllProducts'])->name('product_list');
+            Route::get('/product/edit/{product}', [ProductController::class, 'showEdit']);
+            Route::post('/product/edit/{product}', [ProductController::class, 'update']);
+            Route::get('/product/delete/{product}', [ProductController::class, 'delete']);
+            Route::get('/product/list/product-data', [ProductController::class, 'getData'])->name('product_data');
 
-        #Upload
-        Route::post('/upload/services', [UploadController::class, 'store']);
-        Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
+            #Upload
+            Route::post('/upload/services', [UploadController::class, 'store']);
+            Route::post('/multi-upload/services', [UploadController::class, 'multiStore']);
 
-        #Banner
-        Route::get('/banner/add', [BannerController::class, 'index']);
-        Route::post('/banner/add', [BannerController::class, 'storeBanner']);
-        Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
-        Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
-        Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
-        Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
-        Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
+            #Banner
+            Route::get('/banner/add', [BannerController::class, 'index']);
+            Route::post('/banner/add', [BannerController::class, 'storeBanner']);
+            Route::get('/banner/list', [BannerController::class, 'getAllBanners'])->name('banners');
+            Route::get('/banner/edit/{banner}', [BannerController::class, 'showEdit']);
+            Route::post('/banner/edit/{banner}', [BannerController::class, 'update']);
+            Route::get('/banner/delete/{banner}', [BannerController::class, 'delete']);
+            Route::get('/banner/data', [BannerController::class, 'getData'])->name('banner_data');
 
-        #users
-        Route::get('/users', [AdminController::class, 'getAllUsers']);
-        Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
-        Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
-        Route::get('/change-info/{admin}', [AdminController::class, 'getDetail']);
-        Route::put('/change-info/{admin}', [AdminController::class, 'changeInfo']);
-        Route::get('/change-password/{admin}', [AdminController::class, 'changePasswordPage']);
-        Route::post('/change-password/{admin}', [AdminController::class, 'changePassword']);
+            #users
+            Route::get('/users', [AdminController::class, 'getAllUsers']);
+            Route::get('/users/change-active/{user}', [AdminController::class, 'changeActive']);
+            Route::get('/users/user-data', [AdminController::class, 'getData'])->name('user_data');
+            Route::get('/change-info/{admin}', [AdminController::class, 'getDetail']);
+            Route::put('/change-info/{admin}', [AdminController::class, 'changeInfo']);
+            Route::get('/change-password/{admin}', [AdminController::class, 'changePasswordPage']);
+            Route::post('/change-password/{admin}', [AdminController::class, 'changePassword']);
 
-        #Warehouse
-        Route::get('/warehouses', [WareHouseController::class, 'index'])->name('warehouses');
-        Route::get('/warehouses/add', [WareHouseController::class, 'addPage']);
-        Route::post('/warehouses/add', [WareHouseController::class, 'store']);
-        Route::get('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'showEdit']);
-        Route::get('/warehouses/change-status/{warehouse_receipt}', [WareHouseController::class, 'update']);
-        Route::get('/warehouses/delete/{warehouse_receipt}', [WareHouseController::class, 'delete']);
-        Route::get('/warehouses/getdata', [WareHouseController::class, 'getData'])->name('warehouse_data');
-        Route::get('/warehouses/export-pdf/{warehouse_receipt}', [WareHouseController::class, 'generateWarehousePDF']);
-        Route::get('/warehouses/export-excel', [WareHouseController::class, 'exportWarehouseReceiptExcel']);
-        Route::get('/warehouses/export-csv', [WareHouseController::class, 'exportWarehouseReceiptCSV']);
-        Route::get('/warehouses/generate-receipt-pdf', [WareHouseController::class, 'generateListWarehousePDF']);
+            #Warehouse
+            Route::get('/warehouses', [WareHouseController::class, 'index'])->name('warehouses');
+            Route::get('/warehouses/add', [WareHouseController::class, 'addPage']);
+            Route::post('/warehouses/add', [WareHouseController::class, 'store']);
+            Route::get('/warehouses/edit/{warehouse_receipt}', [WareHouseController::class, 'showEdit']);
+            Route::get('/warehouses/change-status/{warehouse_receipt}', [WareHouseController::class, 'update']);
+            Route::get('/warehouses/delete/{warehouse_receipt}', [WareHouseController::class, 'delete']);
+            Route::get('/warehouses/getdata', [WareHouseController::class, 'getData'])->name('warehouse_data');
+            Route::get('/warehouses/export-pdf/{warehouse_receipt}', [WareHouseController::class, 'generateWarehousePDF']);
+            Route::get('/warehouses/export-excel', [WareHouseController::class, 'exportWarehouseReceiptExcel']);
+            Route::get('/warehouses/export-csv', [WareHouseController::class, 'exportWarehouseReceiptCSV']);
+            Route::get('/warehouses/generate-receipt-pdf', [WareHouseController::class, 'generateListWarehousePDF']);
 
-        #suppliers
-        Route::get('/suppliers', [SupplierController::class, 'index'])->name('list_suppliers');
-        Route::get('/suppliers/add', [SupplierController::class, 'addPage']);
-        Route::post('/suppliers/add', [SupplierController::class, 'store']);
-        Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
-        Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
-        Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
-
-         });
+            #suppliers
+            Route::get('/suppliers', [SupplierController::class, 'index'])->name('list_suppliers');
+            Route::get('/suppliers/add', [SupplierController::class, 'addPage']);
+            Route::post('/suppliers/add', [SupplierController::class, 'store']);
+            Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
+            Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
+            Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
+        });
 
         Route::middleware(['role'])->group(function () {
             #Brands
@@ -141,7 +140,7 @@ Route::prefix('admin')
             Route::get('/staffs/add', [AdminController::class, 'createStaffPage']);
 
             #category
-            Route::get('/categories/list', [CategoryController::class, 'index']);
+            Route::get('/categories/list', [CategoryController::class, 'index'])->name('list_category');
             Route::get('/categories/edit/{category}', [CategoryController::class, 'showEdit']);
             Route::get('/categories/supplier-data', [CategoryController::class, 'getData'])->name('category_data');
             Route::post('/categories/edit/{category}', [CategoryController::class, 'update']);
@@ -213,7 +212,9 @@ Route::middleware(['block'])->group(function () {
         //Comment
         Route::post('/comment', [RatingController::class, 'add']);
     });
+});
 
+Route::middleware(['block'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/detail', [MainController::class, 'userDetail']);
         Route::put('/update/{user}', [MainController::class, 'update']);

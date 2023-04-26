@@ -4,9 +4,7 @@
     <div class="container-fluid p-0">
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Thêm điện thoại</h1>
-            <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                +
-            </a>
+
         </div>
         <form action="/admin/product/add" method="POST" onsubmit="return ValidationEvent()">
             <div class="row">
@@ -81,7 +79,7 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Hình ảnh</h5>
                         </div>
-                        <div class="card-body" style="margin-top: -12px;">
+                        <div class="card-body" style="margin-top: -22px;">
                             <label class="form-label">Cover</label>
                             <input type="file" name="file" class="form-control" id="upload">
                             <p class="file_alert" style="color:red;margin-top:5px; margin-bottom:-10px; height: 20px;">
@@ -95,47 +93,50 @@
                             <input type="file" name="files[]" class="form-control" id="uploads" multiple>
                             <p class="files_alert" style="color:red;margin-top:5px; margin-bottom:-10px; height: 20px;">
                             </p>
-                            <div id="image_shows" style="margin-top: 10px;height: 50px;"> </div>
+                            <div id="image_shows" style="margin-top: 10px;height: 120px;"> </div>
                             <input type="hidden" name="thumbs" id="thumbs">
                         </div>
 
                         <div class="card-header">
-                                <h5 class="card-title mb-0">Kích hoạt</h5>
+                            <h5 class="card-title mb-0">Kích hoạt</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <div>
+                                <input class="custom-control-input" value="1" type="radio" id="active" name="active"
+                                    checked="true">
+                                <label for="active" class="custom-control-label">Có</label>
                             </div>
-                            <div class="card-body" style="margin-top: -22px;">
-                                <div>
-                                    <input class="custom-control-input" value="1" type="radio" id="active" name="active" checked="true">
-                                    <label for="active" class="custom-control-label">Có</label>
-                                </div>
-                                <div>
-                                    <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
-                                    <label for="no_active" class="custom-control-label">Không</label>
-                                </div>
+                            <div>
+                                <input class="custom-control-input" value="0" type="radio" id="no_active" name="active">
+                                <label for="no_active" class="custom-control-label">Không</label>
                             </div>
-                            <div class="card-header" style="margin-top: 10px;">
-                                <h5 class="card-title mb-0">Khuyến mãi</h5>
-                            </div>
-                            <div class="card-body" style="margin-top: -22px;">
-                                <input type="text" name="discount" class="form-control" placeholder="Số tiền giảm giá - VNĐ">
-                                <p class="discount_alert" style="color:red;margin-top:5px; margin-bottom:-20px; height: 20px;"></p>
-                            </div>
-                            @if($errors->first('discount') != '')
-                            <ul style="margin-top:-5px;list-style-type:none; ">
-                                <li class="text-danger">{{$errors->first('discount')}}</li>
-                            </ul>
-                            @endif
-                            <div class="card-header" style="margin-bottom: -20px;">
-                                <h5 class="card-title mb-0">Năm sản xuất</h5>
-                            </div>
-                            <div class="card-body" style="margin-bottom: 10px;">
-                                <select class="form-select mb-1" name="year">
-                                    <option value="2023" selected>2023</option>
-                                    <option value="2020">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="0">Cũ hơn</option>
-                                </select>
-                            </div>
+                        </div>
+                        <div class="card-header" style="margin-top: 10px;">
+                            <h5 class="card-title mb-0">Khuyến mãi</h5>
+                        </div>
+                        <div class="card-body" style="margin-top: -22px;">
+                            <input type="text" name="discount" class="form-control"
+                                placeholder="Số tiền giảm giá - VNĐ">
+                            <p class="discount_alert"
+                                style="color:red;margin-top:5px; margin-bottom:-20px; height: 20px;"></p>
+                        </div>
+                        @if($errors->first('discount') != '')
+                        <ul style="margin-top:-5px;list-style-type:none; ">
+                            <li class="text-danger">{{$errors->first('discount')}}</li>
+                        </ul>
+                        @endif
+                        <div class="card-header" style="margin-bottom: -20px;">
+                            <h5 class="card-title mb-0">Năm sản xuất</h5>
+                        </div>
+                        <div class="card-body" style="margin-bottom: 10px;">
+                            <select class="form-select mb-1" name="year">
+                                <option value="2023" selected>2023</option>
+                                <option value="2020">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="0">Cũ hơn</option>
+                            </select>
+                        </div>
                     </div>
 
 
@@ -288,10 +289,10 @@
                             <li class="text-danger">{{$errors->first('color')}}</li>
                         </ul>
                         @endif
-                        <div class="card-header" style="margin-bottom: -20px; ">
+                        <div class="card-header" style="margin-bottom: -10px; ">
                             <h5 class="card-title mb-0">Bộ Nhớ</h5>
                         </div>
-                        <div class="card-body" style="margin-bottom: -20px;">
+                        <div class="card-body" style="margin-bottom: -5px;">
                             <label class="form-label">Ram</label>
                             <select class="form-select mb-1" name="ram">
                                 <option value="N/A">N/A</option>
@@ -322,7 +323,7 @@
 
                             </select>
                         </div>
-                        <div class="card-header" style="margin-bottom: -20px;">
+                        <div class="card-header" style="margin-bottom: -20px;margin-top: 20px;">
                             <h5 class="card-title mb-0">Dung lượng pin</h5>
                         </div>
                         <div class="card-body">
@@ -336,7 +337,7 @@
                             <li class="text-danger">{{$errors->first('battery')}}</li>
                         </ul>
                         @endif
-                        <div class="card-header" style="margin-bottom: -20px;">
+                        <div class="card-header" style="margin-bottom: -20px;margin-top:10px;">
                             <h5 class="card-title mb-0">Camera</h5>
                         </div>
                         <div class="card-body" style="margin-bottom: -10px;">
@@ -351,7 +352,7 @@
                             <li class="text-danger">{{$errors->first('front')}}</li>
                         </ul>
                         @endif
-                        <div class="card-body">
+                        <div class="card-body" style="margin-top: 2px;">
                             <label class="form-label">Camera sau</label>
                             <input type="text" class="form-control" name="rear"
                                 placeholder="Độ phân giải camera sau - MP">

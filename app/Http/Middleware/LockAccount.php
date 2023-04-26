@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\User;
 
 class LockAccount
 {
@@ -20,18 +20,17 @@ class LockAccount
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::User();
-        if (isset($user)) {
+        $user = Session::get('user');
 
-            if ($user->active == 1) {
+        if (isset($user) && !isset($user->role)) {
+            $userRealTime = User::find($user->id);
+            if ($userRealTime->active == 1) {
                 return $next($request);
             } else {
-
-                Auth::logout();
+                Session::forget('user');
                 Session::flush();
 
                 Alert::error('Tài khoản của bạn đã bị vô hiệu hóa');
-
                 return redirect()->back();
             }
         } else {

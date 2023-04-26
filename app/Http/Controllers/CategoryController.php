@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $category->update($dataUpdate);
 
         Alert::success('Cập nhật thông tin danh mục cấp thành công');
-        return redirect()->back();
+        return redirect()->route('list_category');
     }
 
 

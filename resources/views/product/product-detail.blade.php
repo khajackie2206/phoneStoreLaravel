@@ -162,6 +162,7 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @if($product->active == 1 && $product->delete_at == null)
                             <div class="single-add-to-cart" style="margin-top: 25px;">
 
                                 <div class="quantity">
@@ -182,6 +183,7 @@
                                       <button class="add-to-cart" type="submit">Đặt mua ngay</button>
                                 @endif
                             </div>
+                            @endif
                             <input type="hidden" name="productId" value="{{ $product->id }}">
                             <input type="hidden" id="url" name="url" value="/products/details/{{ $product->id }}">
                             @csrf
