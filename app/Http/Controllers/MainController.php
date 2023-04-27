@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\ValidateChangePassword;
+use App\Jobs\StatusOrder;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
@@ -169,6 +170,10 @@ class MainController extends Controller
     {
         $input = $request->all();
         $user = session()->get('user');
+        if (!isset($user)) {
+            Alert::error('Vui lòng đăng nhập để xem đơn hàng');
+            return redirect()->route('user-login');
+        }
         $status = 0;
 
         if (!isset($input['status'])) {
@@ -214,7 +219,7 @@ class MainController extends Controller
 
     public function getData()
     {
-        $orders = Order::with(['user','payment', 'admin'])->where('deleted_at', null)->select('*');
+        $orders = Order::with(['user', 'payment', 'admin'])->where('deleted_at', null)->select('*');
 
         return Datatables::eloquent($orders)->addColumn('action', function ($order) {
             //get current user
@@ -309,14 +314,18 @@ class MainController extends Controller
     public function updateOrderStatus(Request $request, Order $order)
     {
         $input = $request->all();
+        $user = User::where('id', $order->user_id)->first();
 
         if ($input['status'] == 5) {
+            //send mail to customer
+            StatusOrder::dispatch($user, $order, 5)->delay(now()->addSecond(1));
             $this->cancelOrder($order);
         }
 
-        $order->update(array('status_id' => $input['status']));
-
         if ($input['status'] == 2) {
+            //send mail to customer
+            StatusOrder::dispatch($user, $order, 2)->delay(now()->addSecond(1));
+
             $user = session()->get('user');
             $dataActivity = [
                 'staff_id' => $user->id,
@@ -328,40 +337,38 @@ class MainController extends Controller
             Activity::create($dataActivity);
         }
 
-        if($input['status'] == 4){
-          //send mail to customer
+        if ($input['status'] == 3) {
+            //send mail to customer
+            StatusOrder::dispatch($user, $order, 3)->delay(now()->addSecond(1));
+        }
+
+        if ($input['status'] == 4) {
+            //send mail to customer
             $this->sendDiscountVoucher($order);
         }
+
+        $order->update(array('status_id' => $input['status']));
 
         Alert::success('Cập nhật trạng thái đơn hàng thành công!');
 
         return redirect()->back();
     }
 
+
     //handle send discount voucher to customer if order is greater than 50000000
     public function sendDiscountVoucher(Order $order)
     {
-        if ($order->total < 50000000) {
-            return;
-        }
+
         $user = User::where('id', $order->user_id)->first();
         //get voucher with percent = 10, if not exist, get voucher with lower percent or less than 2000000
-        $voucher = Voucher::where('amount', 10)->where('type_discount', 'percent')->first();
+        $voucher = Voucher::where('amount','<=',10)->where('type_discount', 'percent')->where('quantity', '>' ,0)->orderBy('amount', 'desc')->first();
         if (is_null($voucher)) {
-            $voucher = Voucher::where('amount', '<', 2000000)->where('type_discount', 'money')->orderBy('percent', 'desc')->first();
+            $voucher = Voucher::where('amount', '<=', 1000000)->where('type_discount', 'money')->where('quantity', '>' ,0)->orderBy('amount', 'desc')->first();
         }
-        //data
-        $data = [
-            'voucher' => $voucher,
-            'user' => $user,
-            'order' => $order
-        ];
 
-        Mail::send('mail.discount-voucher',$data , function ($message) use ($user) {
-            $message->to($user->email)->subject('Khuyến mãi mua hàng tại Allo Store');
-        });
+        StatusOrder::dispatch($user, $order, 4, $voucher)->delay(now()->addSecond(1));
 
-        return ;
+        return;
     }
 
     public function customerUpdateStatus(Request $request, Order $order)
@@ -385,9 +392,9 @@ class MainController extends Controller
         }
 
         if ($input['status'] == 4) {
-            Alert::success('Đã xác nhận!');
+            $this->sendDiscountVoucher($order);
+            Alert::success('Đã xác nhận nhận hàng thành công!');
         }
-
 
         return redirect()->back();
     }
@@ -422,7 +429,9 @@ class MainController extends Controller
 
     public function delete(Order $order)
     {
+        $user = User::where('id', $order->user_id)->first();
         if ($order->status_id == 1) {
+            StatusOrder::dispatch($user, $order, 5)->delay(now()->addSecond(1));
             $order->update(array('status_id' => 5));
             $orderDetails = $order->orderDetails;
             foreach ($orderDetails as $orderDetail) {

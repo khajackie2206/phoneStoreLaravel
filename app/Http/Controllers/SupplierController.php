@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Models\Activity;
 
 class SupplierController extends Controller
 {
@@ -30,15 +30,15 @@ class SupplierController extends Controller
             })->editColumn('status', function ($supplier) {
                 return  $supplier->status == 1 ? '<span class="badge bg-success">Đang hợp tác</span>' : '<span class="badge bg-danger">Ngừng hợp tác</span>';
             })->editColumn('name', function ($supplier) {
-                return  '<span style="font-weight: bold;"> '.$supplier->name.'</span>';
-            })->rawColumns(['action','status', 'name'])
+                return  '<span style="font-weight: bold;"> ' . $supplier->name . '</span>';
+            })->rawColumns(['action', 'status', 'name'])
             ->make(true);
     }
 
     // create function to create new supplier
     public function addPage()
     {
-        return view('admin.supplier.add' ,[ 'title' => 'Thêm nhà cung cấp']);
+        return view('admin.supplier.add', ['title' => 'Thêm nhà cung cấp']);
     }
 
     // update supplier info
@@ -86,6 +86,8 @@ class SupplierController extends Controller
     public function update(Request $request, Supplier $supplier)
     {
         // validate data with message
+        $user = session()->get('user');
+
         $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -106,6 +108,15 @@ class SupplierController extends Controller
         $supplier->email = $request->email;
         $supplier->status = $request->status;
         $supplier->save();
+
+
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Sửa thông tin nhà cung cấp (ID nhà cung cấp: #' . $supplier->id . ')',
+        ];
+
+        Activity::create($dataActivity);
+
         Alert::success('Cập nhật thông tin nhà cung cấp thành công');
         return redirect()->route('list_suppliers');
     }

@@ -91,7 +91,7 @@ class DiscountController extends Controller
             [
                 'code' => 'required|unique:vouchers,code,' . $id,
                 'name' => 'required',
-                'quantity' => 'required',
+                'quantity' => 'required|numeric|gt:0',
                 'amount' => ['required', function ($attribute, $value, $fail) use ($request) {
                     if ($request->type_discount === "percent" && ($value < 0 || $value > 100)) {
                         $fail("Giảm giá phần trăm, giá trị phải từ 0 đến 100.");
@@ -105,6 +105,8 @@ class DiscountController extends Controller
                 'code.unique' => 'Mã khuyến mãi đã tồn tại',
                 'name.required' => 'Vui lòng nhập tên khuyến mãi',
                 'quantity.required' => 'Vui lòng nhập số lượng',
+                'quantity.numeric' => 'Số lượng không hợp lệ',
+                'quantity.gt' => 'Số lượng phải lớn hơn 0',
                 'amount.required' => 'Vui lòng nhập số tiền',
                 'amount.numeric' => 'Số tiền không hợp lệ',
             ]

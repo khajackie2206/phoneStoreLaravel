@@ -7,7 +7,7 @@ use App\Models\ProductCategory;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-
+use App\Models\Activity;
 class CategoryController extends Controller
 {
 
@@ -20,18 +20,18 @@ class CategoryController extends Controller
         ]);
     }
 
-      public function getData()
-     {
-         $categories = ProductCategory::select(['id','name','description','active']);
+    public function getData()
+    {
+        $categories = ProductCategory::select(['id', 'name', 'description', 'active']);
 
-         return Datatables::of($categories)->addColumn('action', function ($category) {
-             return '<a style="margin-left:30px; margin-right: 7px;" href="/admin/categories/edit/'.$category->id.'"><i class="fas fa-edit fa-xl"></i></a>' ;
-         })->editColumn('active', function ($brand) {
-             return  $brand->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
-         })->rawColumns(['active', 'action'])->make();
-     }
+        return Datatables::of($categories)->addColumn('action', function ($category) {
+            return '<a style="margin-left:30px; margin-right: 7px;" href="/admin/categories/edit/' . $category->id . '"><i class="fas fa-edit fa-xl"></i></a>';
+        })->editColumn('active', function ($brand) {
+            return  $brand->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+        })->rawColumns(['active', 'action'])->make();
+    }
 
-     //show edit category
+    //show edit category
     public function showEdit(ProductCategory $category)
     {
         return view('admin.category.edit', [
@@ -43,17 +43,24 @@ class CategoryController extends Controller
     public function update(Request $request, ProductCategory $category)
     {
 
-           $dataUpdate = [
+        $dataUpdate = [
             'name' => $request->name,
             'description' => $request->description,
             'active' => 1,
         ];
 
+        $user = session()->get('user');
+        $dataActivity = [
+            'staff_id' => $user->id,
+            'action' => 'Sửa thông tin danh mục (Mã danh mục: #' . $category->id . ')',
+        ];
+
+        Activity::create($dataActivity);
+
+
         $category->update($dataUpdate);
 
-        Alert::success('Cập nhật thông tin danh mục cấp thành công');
+        Alert::success('Cập nhật thông tin danh mục thành công');
         return redirect()->route('list_category');
     }
-
-
 }

@@ -5,9 +5,11 @@
 
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Danh sách nhà cung cấp</h1>
+            @if (\Illuminate\Support\Facades\Session::get('user')->role == 1)
             <a class="badge bg-info text-white ms-2" href="/admin/suppliers/add">
                 Thêm +
             </a>
+            @endif
         </div>
 
         <div class="row">

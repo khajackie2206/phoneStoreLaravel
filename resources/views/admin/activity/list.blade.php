@@ -19,7 +19,7 @@
                                             <th scope="col" width="7%">ID</th>
                                             <th scope="col" width="10%" style="text-align: left;">Avatar
                                             </th>
-                                            <th scope="col" width="20%" style="text-align: left;">Nhân viên</th>
+                                            <th scope="col" width="20%" style="text-align: left;">Tài khoản</th>
 
                                             <th scope="col" width="38%" style="text-align: left;">Hành động</th>
                                             <th scope="col" width="25%" style="text-align: left;">Thời gian</th>

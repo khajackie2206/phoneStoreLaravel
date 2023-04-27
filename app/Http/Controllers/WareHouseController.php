@@ -97,7 +97,7 @@ class WareHouseController extends Controller
         }
 
         Alert::success('Thành công', 'Thêm phiếu nhập thành công');
-        return redirect()->back();
+        return redirect()->route('warehouses');
     }
 
     //create WareHouseDatatable

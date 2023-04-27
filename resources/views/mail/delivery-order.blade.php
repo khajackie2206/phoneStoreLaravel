@@ -3,7 +3,7 @@
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Mã giảm giá</title>
+    <title>Đơn hàng đang được vận chuyển</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
         a:hover {
@@ -44,21 +44,14 @@
                                     <td style="padding:0 35px;">
                                         <h1
                                             style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                            Khuyến mãi mua hàng</h1>
+                                            Đơn hàng đang được giao đến bạn</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            Cảm ơn quý khách đã lựa chọn mua hàng ở cửa hàng chúng tôi, kính mời quý khách nhập mã để được giảm giá <span>
-                                               @if ( $voucher->type_discount == 'money')
-                                             <span
-                                                        style="text-decoration: underline; color: red;">{{ number_format($voucher->amount) }}đ</span>
-                                                @else
-                                                <span style="color: red;">  {{ $voucher->amount }}% </span>
-                                                @endif
-                                            </span> cho đơn hàng tiếp theo.
+                                            Đơn hàng <span style="font-weight: bold;">#{{$order->id }}</span> của khách hàng <span style="font-weight: bold;">{{ $user->name }}</span> đang trên đường vận chuyển, quý khách vui lòng giữ điện thoại ở gần để không bỏ lỡ cuộc gọi từ shipper
                                         </p>
-                                        <a href="#"
-                                            style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Mã khuyến mãi: {{ $voucher->code }}</a>
+                                        <a href="http://allo-store.vn/users/order-tracking"
+                                            style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Xem chi tiết</a>
                                     </td>
                                 </tr>
                                 <tr>

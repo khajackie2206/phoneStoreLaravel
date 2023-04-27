@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ProductService;
-use App\Models\Color;
 use App\Models\Feature;
-use App\Models\Memory;
-use App\Models\Vendor;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -16,11 +13,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\ValidateAddProduct;
 use App\Models\Voucher;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Illuminate\Pagination\CursorPaginator;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\Activity;
 use App\Models\Supplier;
 
@@ -64,9 +60,12 @@ class ProductController extends Controller
         $products = Product::select(['id', 'name', 'quantity', 'brand_id', 'active', 'ram', 'rom']);
 
         return Datatables::of($products)->addColumn('action', function ($product) {
-            return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/product/edit/' . $product->id . '"><i class="fas fa-edit fa-xl"></i></a>
+
+            $user = Session::get('user');
+
+            return $user->role == 1 ? '<a style="margin-left:20px; margin-right: 7px;" href="/admin/product/edit/' . $product->id . '"><i class="fas fa-edit fa-xl"></i></a>
                     <a href="/admin/product/delete/' . $product->id . '" onclick="return deleteProduct(event);"<i type="submit" style="color: red;"
-                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
+                    class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '<a style="margin-left:30px; margin-right: 2px;" href="/admin/product/edit/' . $product->id . '"><i class="fas fa-edit fa-xl"></i></a>';
         })->addColumn('size_memory', function ($product) {
             return ' <span style="font-weight: bold;">' . $product->ram . ' - ' . $product->rom . '</span>';
         })->addColumn('image', function ($product) {
@@ -174,8 +173,18 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        $user = session()->get('user');
+
         $result = $this->productService->updateProduct($request->all(), $product);
         if ($result) {
+
+            $dataActivity = [
+                'staff_id' => $user->id,
+                'action' => 'Sửa thông tin sản phẩm (Mã sản phẩm: #' . $product->id . ')',
+            ];
+
+            Activity::create($dataActivity);
+
             Alert::success('Thành công', 'Cập nhật sản phẩm thành công');
             return redirect()->route('product_list');
         }
@@ -241,7 +250,7 @@ class ProductController extends Controller
             ->limit(4)
             ->get();
 
-        $output = '<div class="viewed" style="width: 500px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">'.count($products).' Sản phẩm gợi ý: </div>';
+        $output = '<div class="viewed" style="width: 500px;height: 35px;background: #f5f5f5; font-size: 13px; color: #666; font-weight: 400; padding: 7px; border: light grey 1px;">' . count($products) . ' Sản phẩm gợi ý: </div>';
 
         if (count($products) > 0) {
             foreach ($products as $product) {
@@ -259,8 +268,8 @@ class ProductController extends Controller
 
                 $memory = '';
 
-                if ($product->category !=4 ){
-                   $memory =' '.$product->rom .' - '.$product->color;
+                if ($product->category != 4) {
+                    $memory = ' ' . $product->rom . ' - ' . $product->color;
                 }
 
                 $output .=
@@ -273,13 +282,13 @@ class ProductController extends Controller
                     $product->images->where('type', 'cover')->first()['url'] .
                     '" style="width: 80px; height:75px;"></td>
                   <td style="font-weight:bold;width: 320px; height: 1px;">' .
-                    $product->name .' '.$memory.
+                    $product->name . ' ' . $memory .
                     '</td>
                </tr>
                <tr>
                   <td style="color:red;width: 200px; height: 1px;">' .
                     number_format($product->price - $product->discount) .
-                    ' đ '.$discountPrice.'</td>
+                    ' đ ' . $discountPrice . '</td>
 
                </tr>
             </table>
@@ -575,7 +584,7 @@ class ProductController extends Controller
                                                 <span class="discount-percentage">-' . $discount . '%</span>';
                 }
                 if ($product->category_id != 4) {
-                    $productRom = ' '. $product->rom . ' - ' . $product->color;
+                    $productRom = ' ' . $product->rom . ' - ' . $product->color;
                 }
 
                 if ($countRating > 0) {

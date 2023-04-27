@@ -9,6 +9,7 @@ use App\Services\BannerService;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Models\Activity;
 use Yajra\Datatables\Datatables;
 
 class BannerController extends Controller
@@ -49,24 +50,24 @@ class BannerController extends Controller
         ]);
     }
 
-       public function getData()
-     {
-         $banners = Banner::select(['id','header','product_name','active', 'thumb','type_banner']);
+    public function getData()
+    {
+        $banners = Banner::select(['id', 'header', 'product_name', 'active', 'thumb', 'type_banner']);
 
-         return Datatables::of($banners)->addColumn('action', function ($banner) {
-             return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/banner/edit/'.$banner->id.'"><i class="fas fa-edit fa-xl"></i></a>' ;
-         })->editColumn('header', function ($banner) {
-             return '<span style="font-weight: bold;">'.$banner->header.'</span>';
-         })->editColumn('product_name', function ($banner) {
-             return '<span style="font-weight: bold;">'.$banner->product_name.'</span>';
-         })->editColumn('thumb', function ($banner) {
-             return  ' <img src="'.$banner->thumb.'" width="100">';
-         })->editColumn('active', function ($banner) {
-             return  $banner->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
-         })->rawColumns(['action', 'header', 'product_name', 'thumb','active'])->make();
-     }
+        return Datatables::of($banners)->addColumn('action', function ($banner) {
+            return '<a style="margin-left:20px; margin-right: 7px;" href="/admin/banner/edit/' . $banner->id . '"><i class="fas fa-edit fa-xl"></i></a>';
+        })->editColumn('header', function ($banner) {
+            return '<span style="font-weight: bold;">' . $banner->header . '</span>';
+        })->editColumn('product_name', function ($banner) {
+            return '<span style="font-weight: bold;">' . $banner->product_name . '</span>';
+        })->editColumn('thumb', function ($banner) {
+            return  ' <img src="' . $banner->thumb . '" width="100">';
+        })->editColumn('active', function ($banner) {
+            return  $banner->active == 1 ? '<span class="badge bg-success">Kích hoạt</span>' : '<span class="badge bg-danger">Hủy kích hoạt</span>';
+        })->rawColumns(['action', 'header', 'product_name', 'thumb', 'active'])->make();
+    }
 
-      public function showEdit(Banner $banner)
+    public function showEdit(Banner $banner)
     {
         return view('admin.banner.edit', [
             'title' => 'Chỉnh sửa banner',
@@ -76,9 +77,17 @@ class BannerController extends Controller
 
     public function update(ValidateBanner $request, Banner $banner)
     {
+        $user = session()->get('user');
         $input = $request->all();
         $result = $this->bannerService->update($input, $banner);
         if ($result) {
+            $dataActivity = [
+                'staff_id' => $user->id,
+                'action' => 'Sửa thông tin banner (Mã banner: #' . $banner->id . ')',
+            ];
+
+            Activity::create($dataActivity);
+
             Alert::success('Thành công', 'Cập nhật banner thành công');
             return redirect()->route('banners');
         }

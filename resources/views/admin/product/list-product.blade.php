@@ -6,9 +6,11 @@
 
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle">Danh sách điện thoại</h1>
+                @if (\Illuminate\Support\Facades\Session::get('user')->role == 1)
                 <a class="badge bg-info text-white ms-2" href="/admin/product/add">
                     Thêm +
                 </a>
+                @endif
             </div>
             <div class="row">
                 <div class="col-md-12 col-xl-12">

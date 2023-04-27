@@ -16,6 +16,7 @@ use App\Models\WarehouseDetail;
 use App\Models\WarehouseReceipt;
 use Illuminate\Support\Facades\Session;
 use App\Rules\MatchOldPassword;
+use App\Models\Activity;
 
 class AdminController extends Controller
 {
@@ -401,7 +402,16 @@ class AdminController extends Controller
 
     public function changeActive(Request $request, User $user)
     {
+        $staff = session()->get('user');
         $input = $request->all();
+        if ($input['active'] == 0) {
+            $dataActivity = [
+                'staff_id' => $staff->id,
+                'action' => 'Khóa tài khoản của khách hàng (ID khách hàng: #' . $user->id. ')',
+            ];
+
+            Activity::create($dataActivity);
+        }
         $user->update(array('active' => $input['active']));
 
         return redirect()->back();
