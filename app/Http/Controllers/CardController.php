@@ -273,7 +273,7 @@ class CardController extends Controller
         $input = $request->all();
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $address = isset($input['new_address']) ? "&new_address=" . $input['new_address'] . "" : '';
-        $vnp_Returnurl = "/products/handle-vnpay?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "";
+        $vnp_Returnurl = "http://allo-store.vn/products/handle-vnpay?summary=" . $input['summary'] . "&payment_method=" . $input['payment_method'] . "&note=" . $input['note'] . "&delivery_address=" . $input['delivery_address'] . "" . $address . "";
         $vnp_TmnCode = "H1YT811F"; //Mã website tại VNPAY
         $vnp_HashSecret = "WDQPUSPDNNJBDSNVELPJGNSXDUFXUHYF"; //Chuỗi bí mật
 
@@ -296,7 +296,7 @@ class CardController extends Controller
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => env('APP_URL') . $vnp_Returnurl,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef
         );
 
