@@ -540,21 +540,21 @@
             <div class="col-lg-12" style="padding-top: 20px;">
                 <div class="li-section-title">
                     <h2>
-                        <span>Sản phẩm nổi bật</span>
+                        <span>Pin trâu</span>
                     </h2>
                 </div>
                 <div class="row">
                     <div class="product-active owl-carousel">
-                        @foreach ($goodProducts as $goodProduct)
+                        @foreach ($batteryProducts as $batteryProduct)
                         <?php
-                                $countRatingGood = count($goodProduct->comments->where('status', 1));
-                                $avgRatingGood = 0;
-                                $sumRatingGood = 0;
-                                if ($countRatingGood > 0) {
-                                    foreach ($goodProduct->comments->where('status', 1) as $comment) {
-                                        $sumRatingGood += $comment->rating;
+                                $countRatingBattery = count($batteryProduct->comments->where('status', 1));
+                                $avgRatingBattery = 0;
+                                $sumRatingBattery = 0;
+                                if ($countRatingBattery > 0) {
+                                    foreach ($batteryProduct->comments->where('status', 1) as $comment) {
+                                        $sumRatingBattery += $comment->rating;
                                     }
-                                    $avgRatingGood = $sumRatingGood / $countRatingGood;
+                                    $avgRatingBattery = $sumRatingBattery / $countRatingBattery;
                                 }
 
                                 ?>
@@ -562,9 +562,9 @@
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
                                 <div class="product-image">
-                                    <a href="/products/details/{{ $goodProduct->id }}">
-                                        @if(isset($goodProduct->images->where('type', 'cover')->first()['url']))
-                                        <img src="{{ $goodProduct->images->where('type', 'cover')->first()['url'] }}"
+                                    <a href="/products/details/{{ $batteryProduct->id }}">
+                                        @if(isset($batteryProduct->images->where('type', 'cover')->first()['url']))
+                                        <img src="{{ $batteryProduct->images->where('type', 'cover')->first()['url'] }}"
                                             alt="Li's Product Image" style="width: 120px;height:120px;">
                                         @endif
                                     </a>
@@ -574,42 +574,42 @@
                                     <div class="product_desc_info">
                                         <div class="product-review">
                                             <h5 class="manufacturer">
-                                                <a href="shop-left-sidebar.html">{{ $goodProduct->brand->name }}</a>
+                                                <a href="shop-left-sidebar.html">{{ $batteryProduct->brand->name }}</a>
                                             </h5>
                                             <div class="rating-box">
                                                 <ul class="rating">
-                                                    <li class="{{ $avgRatingGood >= 1 ? '' : 'no-star' }}"><i
+                                                    <li class="{{ $avgRatingBattery >= 1 ? '' : 'no-star' }}"><i
                                                             class="fa fa-star-o"></i></li>
-                                                    <li class="{{ $avgRatingGood >= 2 ? '' : 'no-star' }}"><i
+                                                    <li class="{{ $avgRatingBattery >= 2 ? '' : 'no-star' }}"><i
                                                             class="fa fa-star-o"></i></li>
-                                                    <li class="{{ $avgRatingGood >= 3 ? '' : 'no-star' }}"><i
+                                                    <li class="{{ $avgRatingBattery >= 3 ? '' : 'no-star' }}"><i
                                                             class="fa fa-star-o"></i></li>
-                                                    <li class="{{ $avgRatingGood >= 4 ? '' : 'no-star' }}"><i
+                                                    <li class="{{ $avgRatingBattery >= 4 ? '' : 'no-star' }}"><i
                                                             class="fa fa-star-o"></i></li>
-                                                    <li class="{{ $avgRatingGood >= 5 ? '' : 'no-star' }}"><i
+                                                    <li class="{{ $avgRatingBattery >= 5 ? '' : 'no-star' }}"><i
                                                             class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h4><a class="product_name" href="single-product.html">{{ $goodProduct->name
+                                        <h4><a class="product_name" href="single-product.html">{{ $batteryProduct->name
                                                 }}</a></h4>
                                         <div class="price-box">
                                             <span class="new-price">
-                                                @if ($goodProduct->discount > 0)
+                                                @if ($batteryProduct->discount > 0)
                                                 <span style="color: red; font-weight:bold;">
-                                                    {{ number_format($goodProduct->price - $goodProduct->discount) }}
+                                                    {{ number_format($batteryProduct->price - $batteryProduct->discount) }}
                                                     <span style="text-decoration: underline;">đ</span>
                                                 </span>
                                                 <span
                                                     style="color: #333; font-weight:bold; font-size: 80%;margin-left: 5px;text-decoration: line-through;">
-                                                    {{ number_format($goodProduct->price) }} <span
+                                                    {{ number_format($batteryProduct->price) }} <span
                                                         style="text-decoration: underline;">đ</span></span>
                                                 <span class="discount-percentage">-{{
-                                                    number_format(($goodProduct->discount/$goodProduct->price)*100)
+                                                    number_format(($batteryProduct->discount/$batteryProduct->price)*100)
                                                     }}%</span>
                                                 @else
                                                 <p style="color: red; font-weight:bold;">
-                                                    {{ number_format($goodProduct->price) }} <span
+                                                    {{ number_format($batteryProduct->price) }} <span
                                                         style="text-decoration: underline;">đ</span></p>
                                                 @endif
                                             </span>
@@ -618,10 +618,10 @@
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
                                             <li class="add-cart active"><a
-                                                    href="/products/details/{{ $goodProduct->id }}">ĐẶT MUA
+                                                    href="/products/details/{{ $batteryProduct->id }}">ĐẶT MUA
                                                     NGAY</a></li>
                                             <li>
-                                                <p productId="{{ $goodProduct->id }}" title="quick view"
+                                                <p productId="{{ $batteryProduct->id }}" title="quick view"
                                                     class="quick-view-btn" data-toggle="modal"
                                                     data-target="#exampleModalCenter"><i class="fa fa-eye"></i>
                                                 </p>

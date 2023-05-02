@@ -132,6 +132,18 @@ class ProductService
         return $products;
     }
 
+    //get top products have highest battery
+    public function getTopBattery()
+    {
+        $products = Product::where('active', 1)
+            ->where('delete_at', null)
+            ->orderBy('battery', 'DESC')
+            ->limit(8)
+            ->get()->unique('name');
+
+        return $products;
+    }
+
     public function getBestSellers()
     {
         $bestSellers = DB::table('order_details')

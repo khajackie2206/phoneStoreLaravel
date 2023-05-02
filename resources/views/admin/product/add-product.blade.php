@@ -397,8 +397,8 @@
         var files = document.getElementById("uploads").files;
 
 
-        if (name.value == "" || name.value.length < 10) { //innerHTML for getElementsByTagName for note
-          document.getElementsByClassName("phone_name_alert")[0].innerHTML="Tên không được để trống và phải lớn hơn 10 ký tự" ;
+        if (name.value == "" || name.value.length < 5) { //innerHTML for getElementsByTagName for note
+          document.getElementsByClassName("phone_name_alert")[0].innerHTML="Tên không được để trống và phải lớn hơn 5 ký tự" ;
           check=false;
         } else {
             document.getElementsByClassName("phone_name_alert")[0].innerHTML="" ;

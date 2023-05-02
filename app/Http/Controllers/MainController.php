@@ -51,6 +51,7 @@ class MainController extends Controller
         $productsDiscount = $this->productService->getProductsDiscount();
         $bestSellers = $this->productService->getBestSellers();
         $goodProducts = $this->productService->getAllProducts();
+        $batteryProducts = $this->productService->getTopBattery();
         $sessionProducts = $this->cardService->getProduct();
         $bannerHeaders = $this->bannerService->getHeaderBanners();
         $staticHeaders = $this->bannerService->getStaticBanners();
@@ -68,6 +69,7 @@ class MainController extends Controller
             'productsDiscount' => $productsDiscount,
             'goodProducts' => $goodProducts,
             'sessionProducts' => $sessionProducts,
+            'batteryProducts' => $batteryProducts,
             'carts' => session()->get('carts'),
             'bannerHeaders' => $bannerHeaders,
             'staticHeaders' => $staticHeaders,

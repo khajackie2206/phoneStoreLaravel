@@ -30,7 +30,7 @@
                             <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->user->email }}</div>
                         </div>
                         <div class="row row d-flex align-items-center mb-3">
-                            <div class="col-3"><b>Địa chỉ giao hàng: <span style="color: red;">*</span></b></div>
+                            <div class="col-3"><b>Địa chỉ: <span style="color: red;">*</span></b></div>
                             <div class="col-9  p-2 rounded" style="background-color: rgb(237, 249, 255)">{{ $order->delivery_address }}</div>
                         </div>
                     </div>
