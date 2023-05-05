@@ -115,6 +115,11 @@ Route::prefix('admin')
             Route::get('/suppliers/edit/{supplier}', [SupplierController::class, 'showEdit']);
             Route::get('/suppliers/supplier-data', [SupplierController::class, 'getData'])->name('supplier_data');
             Route::post('/suppliers/edit/{supplier}', [SupplierController::class, 'update']);
+
+            #admin manage feedback
+
+            Route::get('/feedback/lists', [RatingController::class, 'listOrderFeedbacks']);
+            Route::get('/feedback-data', [RatingController::class, 'getFeedbackData'])->name('feedback_data');
         });
 
         Route::middleware(['role'])->group(function () {
@@ -211,6 +216,9 @@ Route::middleware(['block'])->group(function () {
 
         //Comment
         Route::post('/comment', [RatingController::class, 'add']);
+
+        //feedback
+        Route::post('/feedback', [RatingController::class, 'addOrderFeedback']);
     });
 });
 

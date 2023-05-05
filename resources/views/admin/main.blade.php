@@ -60,6 +60,9 @@
         if (path.includes("/admin/comments/")) {
             document.getElementById("sidebar-comments").classList.add("active");
         }
+        if (path.includes("/admin/feedback/")) {
+        document.getElementById("sidebar-feedbacks").classList.add("active");
+        }
 
         if (path.includes("/admin/discount/")) {
             document.getElementById("sidebar-discount").classList.add("active");

@@ -2,7 +2,7 @@
     <div class="sidebar-content js-simplebar">
 
         @if(session('user')->role == 1)
-           {{-- <div class="user-panel d-flex">
+        {{-- <div class="user-panel d-flex">
             <div class="image">
                 <img src="{{ session('user')->avatar }}" width=50 class="img-xs rounded-circle" alt="User Image">
             </div>
@@ -10,8 +10,9 @@
                 <a href="#" class="d-block" style="color: white;">Alexander Pierce</a>
             </div>
         </div> --}}
-        <div class="row" style="margin-top: 15px;margin-left: 5px; margin-bottom: 10px;padding-bottom: 10px; border-bottom: 0.5px solid #D3D3D3">
-            <div class="col-md-3" >
+        <div class="row"
+            style="margin-top: 15px;margin-left: 5px; margin-bottom: 10px;padding-bottom: 10px; border-bottom: 0.5px solid #D3D3D3">
+            <div class="col-md-3">
                 <img src="{{ session('user')->avatar }}" width=45 class="img-xs rounded-circle" alt="User Image">
             </div>
             <div class="col-md-9">
@@ -26,7 +27,8 @@
             </li>
             <li class="sidebar-item active">
                 <a class="sidebar-link" href="/admin/home">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Bảng điều khiển</span>
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Bảng điều
+                        khiển</span>
                 </a>
             </li>
 
@@ -44,9 +46,9 @@
             </li>
 
             <li class="sidebar-item" id="sidebar-category">
-                    <a class="sidebar-link" href="/admin/categories/list">
-                        <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
-                    </a>
+                <a class="sidebar-link" href="/admin/categories/list">
+                    <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
+                </a>
             </li>
 
             {{-- <li class="sidebar-item">
@@ -62,7 +64,8 @@
 
             <li class="sidebar-item" id="sidebar-banner">
                 <a class="sidebar-link" href="/admin/banner/list">
-                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng
+                        cáo</span>
                 </a>
             </li>
 
@@ -88,7 +91,7 @@
                     <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Quản lý nhập kho</span>
                 </a>
             </li>
-{{--
+            {{--
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Doanh số
@@ -100,7 +103,8 @@
             </li>
             <li class="sidebar-item" id="sidebar-activity">
                 <a class="sidebar-link" href="/admin/activities">
-                    <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Quản lý truy cập</span>
+                    <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Quản lý truy
+                        cập</span>
                 </a>
             </li>
 
@@ -118,6 +122,11 @@
             <li class="sidebar-item" id="sidebar-suppliers">
                 <a class="sidebar-link" href="/admin/suppliers">
                     <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Nhà cung cấp</span>
+                </a>
+            </li>
+            <li class="sidebar-item" id="sidebar-feedbacks">
+                <a class="sidebar-link" href="/admin/feedback/lists">
+                    <i class="align-middle" data-feather="thumbs-up"></i> <span class="align-middle">Phản hồi</span>
                 </a>
             </li>
 
@@ -152,14 +161,15 @@
             </li>
 
             <li class="sidebar-item" id="sidebar-category">
-                    <a class="sidebar-link" href="/admin/categories/list">
-                        <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
-                    </a>
-                </li>
+                <a class="sidebar-link" href="/admin/categories/list">
+                    <i class="align-middle" data-feather="menu"></i> <span class="align-middle">Danh mục</span>
+                </a>
+            </li>
 
             <li class="sidebar-item" id="sidebar-banner">
                 <a class="sidebar-link" href="/admin/banner/list">
-                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng cáo</span>
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Banner quảng
+                        cáo</span>
                 </a>
             </li>
 
@@ -193,6 +203,12 @@
             <li class="sidebar-item" id="sidebar-suppliers">
                 <a class="sidebar-link" href="/admin/suppliers">
                     <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Nhà cung cấp</span>
+                </a>
+            </li>
+            <li class="sidebar-item" id="sidebar-feedbacks">
+                <a class="sidebar-link" href="/admin/feedback/lists">
+                    <i class="align-middle" data-feather="thumbs-up"></i> <span class="align-middle">Phản hồi về đơn
+                        hàng</span>
                 </a>
             </li>
         </ul>

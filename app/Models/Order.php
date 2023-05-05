@@ -24,7 +24,9 @@ class Order extends Model
         'delivery_address',
         'voucher_id',
         'staff_id',
-        'deleted_at'
+        'deleted_at',
+        'rating',
+        'feedback'
     ];
 
     public function status(): HasOne
@@ -56,5 +58,4 @@ class Order extends Model
     {
         return $this->hasOne(Admin::class,'id','staff_id');
     }
-
 }

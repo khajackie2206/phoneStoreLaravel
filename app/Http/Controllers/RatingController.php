@@ -6,8 +6,9 @@ use App\Services\RatingService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Comment;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Models\Activity;
+use App\Models\Order;
 
 class RatingController extends Controller
 {
@@ -55,6 +56,16 @@ class RatingController extends Controller
         ]);
     }
 
+    public function listOrderFeedbacks()
+    {
+        $feedbacks = Order::paginate(8);
+
+        return view('admin.feedback.list', [
+            'title' => 'Danh sách phản hồi',
+            'feedbacks' => $feedbacks,
+        ]);
+    }
+
     public function delete(Comment $comment)
     {
         $comment->delete();
@@ -85,26 +96,51 @@ class RatingController extends Controller
         return redirect()->back();
     }
 
-     public function getData()
-     {
-         $comments = Comment::select(['id','comment','product_id','rating', 'user_id','status', 'created_at']);
+    //add Order Feedback
+    public function addOrderFeedback(Request $request)
+    {
 
-         return Datatables::of($comments)->addColumn('action', function ($comment) {
-             return $comment->status == 0 ? '<a href="/admin/comments/censorship/'.$comment->id.'?status=1" onclick="return approve(event);"><i  class="fa fa-check-square fa-xl show-alert-approve-comment"
+        $input = $request->all();
+        $order = Order::find($input['order_id']);
+        //update order with feedback and rating
+        $order->update(array('feedback' => $input['feedback'], 'rating' => $input['rating']));
+
+        Alert::success('Thêm đánh giá đơn hàng thành công');
+        return redirect()->back();
+    }
+
+
+    public function getData()
+    {
+        $comments = Comment::select(['id', 'comment', 'product_id', 'rating', 'user_id', 'status', 'created_at']);
+
+        return Datatables::of($comments)->addColumn('action', function ($comment) {
+            return $comment->status == 0 ? '<a href="/admin/comments/censorship/' . $comment->id . '?status=1" onclick="return approve(event);"><i  class="fa fa-check-square fa-xl show-alert-approve-comment"
                                                                     style="color: rgb(53, 112, 240);" aria-hidden="true"></i></a>
-                                                                     <a href="/admin/comments/delete/'.$comment->id.'" onclick="return deleteComment(event);"
+                                                                     <a href="/admin/comments/delete/' . $comment->id . '" onclick="return deleteComment(event);"
                                                                     <i type="submit" style="color: red;"
                                                                 class="fas fa-trash fa-xl show-alert-delete-box"></i></a>' : '
-                                                         &nbsp; &nbsp;  <a href="/admin/comments/delete/'.$comment->id.'" onclick="return deleteComment(event);">
+                                                         &nbsp; &nbsp;  <a href="/admin/comments/delete/' . $comment->id . '" onclick="return deleteComment(event);">
                                                         <i type="submit" style="color: red;"
                                                                 class="fas fa-trash fa-xl show-alert-delete-box"></i></a>';
-         })->editColumn('product_id', function ($comment) {
-             return  '<span style="font-weight: bold;">'.$comment->product->name.'
-                                                        '.$comment->product->rom.'</span>';
-         })->editColumn('user_id', function ($comment) {
-             return $comment->user->name;
-         })->editColumn('status', function ($comment) {
-             return $comment->status == 0 ? '<span class="badge bg-danger">Chờ duyệt</span>' : '<span class="badge bg-success">Đã duyệt</span>';
-         })->rawColumns(['action', 'product_id', 'user_id', 'status'])->make();
-     }
+        })->editColumn('product_id', function ($comment) {
+            return  '<span style="font-weight: bold;">' . $comment->product->name . '
+                                                        ' . $comment->product->rom . '</span>';
+        })->editColumn('user_id', function ($comment) {
+            return $comment->user->name;
+        })->editColumn('status', function ($comment) {
+            return $comment->status == 0 ? '<span class="badge bg-danger">Chờ duyệt</span>' : '<span class="badge bg-success">Đã duyệt</span>';
+        })->rawColumns(['action', 'product_id', 'user_id', 'status'])->make();
+    }
+
+    public function getFeedbackData()
+    {
+        $orders = Order::where('rating','<>',null)->select(['id','user_id','rating', 'feedback', 'updated_at']);
+
+        return Datatables::of($orders)->editColumn('user_id', function ($order) {
+            return  '<span style="font-weight: bold;">' . $order->user->name . '</span>';
+        })->editColumn('updated_at', function ($order) {
+            return  '<span style="font-weight: bold;">' . $order->updated_at->format('d.m.Y H:i:s') . '</span>';
+        })->rawColumns(['user_id', 'updated_at'])->make();
+    }
 }
