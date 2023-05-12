@@ -116,7 +116,7 @@
             $('#feedback-table').DataTable({
                 processing: true,
                 serverSide: true,
-                order: [[ 0, "desc" ]],
+                order: [[ 4, "desc" ]],
                 "language": {
                      "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
                       "zeroRecords": "Không tìm thấy kết quả",

@@ -111,7 +111,7 @@
 
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="{{ asset('images/allo.png') }}"
                                 style="height: 85px;width: 250px; margin-top: -20px;margin-left: 10px;" alt="">
                         </a>
@@ -161,12 +161,12 @@
                                         $summary += $subTotal;
                                         @endphp
                                         <li>
-                                            <a href="single-product.html" class="minicart-product-image">
+                                            <a href="/products/details/{{$sessionProduct->id}}" class="minicart-product-image">
                                                 <img src="{{ $sessionProduct->images->where('type', 'cover')->first()['url'] }}"
                                                     alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">{{ $sessionProduct->name }}
+                                                <h6><a href="/products/details/{{$sessionProduct->id}}">{{ $sessionProduct->name }}
                                                     @if($sessionProduct->category_id != 4)
                                                          {{ $sessionProduct->rom}}
                                                     @endif

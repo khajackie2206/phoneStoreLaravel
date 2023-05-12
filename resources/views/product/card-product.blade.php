@@ -50,11 +50,11 @@
                                     <td class="li-product-remove" style="width: 100px;"><a
                                             href="/products/delete-cart/{{ $product->id }}"><i
                                                 class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
+                                    <td class="li-product-thumbnail"><a href="/products/details/{{$product->id}}"><img
                                                 src="{{ $product->images->where('type', 'cover')->first()['url'] }}"
                                                 style="width: 100px;" alt="Li's Product Image"></a></td>
 
-                                    <td class="li-product-name"><a href="#">{{ $product->name }}
+                                    <td class="li-product-name"><a href="/products/details/{{$product->id}}">{{ $product->name }}
                                         @if($product->category_id !=4 )
                                         {{ $product->rom }}
                                         @endif
